@@ -1,0 +1,460 @@
+# Part 3: Adding Custom Tools
+
+**Duration:** 30 minutes  
+**Objective:** Create custom Python tools that your agents can use to perform actions
+
+## What You'll Learn
+
+- How to create Python tools for watsonx Orchestrate
+- Tool structure and best practices
+- Connecting tools to agents
+- Using Bob to generate and debug tools
+
+## Why Custom Tools?
+
+Tools extend your agent's capabilities beyond conversation. They allow agents to:
+- 🔍 Query databases and APIs
+- 📊 Process and analyze data
+- 📝 Create and modify files
+- 🔧 Perform calculations and transformations
+- 🌐 Integrate with external systems
+
+## Tool Structure
+
+A watsonx Orchestrate Python tool has this structure:
+
+```python
+from ibm_watsonx_orchestrate.agent_builder.tools import PythonTool
+
+class MyTool(PythonTool):
+    """Tool description that helps the agent understand when to use it"""
+    
+    def __init__(self):
+        super().__init__(
+            name="my_tool",
+            description="What this tool does",
+            parameters={
+                "param1": {
+                    "type": "string",
+                    "description": "What this parameter is for",
+                    "required": True
+                }
+            }
+        )
+    
+    def run(self, param1: str) -> dict:
+        """Execute the tool logic"""
+        # Your code here
+        return {
+            "result": "success",
+            "data": "your result"
+        }
+```
+
+## Step 1: Create an Order Status Tool
+
+Let's create a tool that checks order status (simulated for this workshop).
+
+### Ask Bob:
+```
+Bob, create a Python tool for watsonx Orchestrate that checks order status. It should take an order_id parameter and return mock order information including status, items, and delivery date.
+```
+
+Or create it manually:
+
+```python
+# order_status_tool.py
+from ibm_watsonx_orchestrate.agent_builder.tools import PythonTool
+from datetime import datetime, timedelta
+import random
+
+class OrderStatusTool(PythonTool):
+    """Check the status of a customer order"""
+    
+    def __init__(self):
+        super().__init__(
+            name="check_order_status",
+            description="Retrieves the current status and details of a customer order by order ID",
+            parameters={
+                "order_id": {
+                    "type": "string",
+                    "description": "The unique order identifier (e.g., ORD-12345)",
+                    "required": True
+                }
+            }
+        )
+    
+    def run(self, order_id: str) -> dict:
+        """
+        Check order status (simulated for workshop)
+        
+        Args:
+            order_id: The order identifier
+            
+        Returns:
+            Dictionary with order details
+        """
+        # Validate order ID format
+        if not order_id.startswith("ORD-"):
+            return {
+                "success": False,
+                "error": "Invalid order ID format. Must start with 'ORD-'"
+            }
+        
+        # Simulate order lookup
+        statuses = ["Processing", "Shipped", "Out for Delivery", "Delivered"]
+        status = random.choice(statuses)
+        
+        # Generate mock order data
+        order_date = datetime.now() - timedelta(days=random.randint(1, 10))
+        delivery_date = order_date + timedelta(days=random.randint(3, 7))
+        
+        items = [
+            {"name": "Laptop", "quantity": 1, "price": 999.99},
+            {"name": "Mouse", "quantity": 1, "price": 29.99},
+            {"name": "Keyboard", "quantity": 1, "price": 79.99}
+        ]
+        
+        total = sum(item["price"] * item["quantity"] for item in items)
+        
+        return {
+            "success": True,
+            "order_id": order_id,
+            "status": status,
+            "order_date": order_date.strftime("%Y-%m-%d"),
+            "estimated_delivery": delivery_date.strftime("%Y-%m-%d"),
+            "items": items,
+            "total": f"${total:.2f}",
+            "tracking_number": f"TRK{random.randint(100000, 999999)}"
+        }
+
+# Export the tool
+tool = OrderStatusTool()
+```
+
+## Step 2: Create a Refund Processing Tool
+
+Now let's create a tool that processes refund requests.
+
+### Ask Bob:
+```
+Bob, create a Python tool that processes refund requests. It should take order_id, reason, and amount parameters, validate them, and return a refund confirmation.
+```
+
+```python
+# refund_tool.py
+from ibm_watsonx_orchestrate.agent_builder.tools import PythonTool
+from datetime import datetime
+import random
+
+class RefundTool(PythonTool):
+    """Process customer refund requests"""
+    
+    def __init__(self):
+        super().__init__(
+            name="process_refund",
+            description="Processes a refund request for a customer order",
+            parameters={
+                "order_id": {
+                    "type": "string",
+                    "description": "The order ID to refund",
+                    "required": True
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "Reason for the refund request",
+                    "required": True
+                },
+                "amount": {
+                    "type": "number",
+                    "description": "Refund amount in dollars",
+                    "required": True
+                }
+            }
+        )
+    
+    def run(self, order_id: str, reason: str, amount: float) -> dict:
+        """
+        Process a refund request
+        
+        Args:
+            order_id: The order to refund
+            reason: Reason for refund
+            amount: Amount to refund
+            
+        Returns:
+            Refund confirmation details
+        """
+        # Validation
+        if not order_id.startswith("ORD-"):
+            return {
+                "success": False,
+                "error": "Invalid order ID format"
+            }
+        
+        if amount <= 0:
+            return {
+                "success": False,
+                "error": "Refund amount must be greater than 0"
+            }
+        
+        if amount > 10000:
+            return {
+                "success": False,
+                "error": "Refund amount exceeds maximum. Please contact manager.",
+                "requires_approval": True
+            }
+        
+        if not reason or len(reason) < 10:
+            return {
+                "success": False,
+                "error": "Please provide a detailed reason (at least 10 characters)"
+            }
+        
+        # Process refund (simulated)
+        refund_id = f"REF-{random.randint(10000, 99999)}"
+        processing_time = "3-5 business days"
+        
+        return {
+            "success": True,
+            "refund_id": refund_id,
+            "order_id": order_id,
+            "amount": f"${amount:.2f}",
+            "reason": reason,
+            "status": "Approved",
+            "processing_time": processing_time,
+            "refund_method": "Original payment method",
+            "confirmation_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+
+# Export the tool
+tool = RefundTool()
+```
+
+## Step 3: Import Your Tools
+
+Import the tools into watsonx Orchestrate:
+
+```bash
+orchestrate tools import -k python order_status_tool.py
+orchestrate tools import -k python refund_tool.py
+```
+
+Verify they were imported:
+```bash
+orchestrate tools list
+```
+
+You should see your tools listed!
+
+## Step 4: Create a Customer Support Agent with Tools
+
+Now create an agent that uses these tools:
+
+```yaml
+# customer-support-agent.yaml
+kind: native
+name: customer-support-agent
+description: A customer support agent that can check orders and process refunds
+
+instructions: |
+  You are a helpful customer support agent for an e-commerce company.
+  
+  Your capabilities:
+  - Check order status using the check_order_status tool
+  - Process refund requests using the process_refund tool
+  - Answer general customer service questions
+  
+  When a customer asks about their order:
+  1. Ask for their order ID if they haven't provided it
+  2. Use the check_order_status tool to get order details
+  3. Present the information clearly and helpfully
+  
+  When processing refunds:
+  1. Confirm the order ID
+  2. Ask for the reason if not provided
+  3. Confirm the refund amount
+  4. Use the process_refund tool to process the request
+  5. Provide the refund confirmation details
+  
+  Always be professional, empathetic, and helpful. If you encounter errors,
+  explain them clearly and offer alternatives.
+
+llm: groq/openai/gpt-oss-120b
+
+# Specify which tools this agent can use
+tools:
+  - check_order_status
+  - process_refund
+
+config:
+  hidden: false
+  enable_cot: false
+```
+
+Import the agent:
+```bash
+orchestrate agents import customer-support-agent.yaml
+```
+
+## Step 5: Test Your Agent with Tools
+
+Test the agent:
+
+```bash
+orchestrate chat --agent customer-support-agent
+```
+
+Try these test scenarios:
+
+**Scenario 1: Check Order Status**
+```
+User: Can you check the status of order ORD-12345?
+```
+
+The agent should call the `check_order_status` tool and present the results.
+
+**Scenario 2: Process Refund**
+```
+User: I need to request a refund for order ORD-12345
+Agent: [asks for reason]
+User: The product arrived damaged
+Agent: [asks for amount]
+User: $99.99
+```
+
+The agent should call the `process_refund` tool and provide confirmation.
+
+**Scenario 3: Error Handling**
+```
+User: Check order status for ABC123
+```
+
+The agent should handle the invalid order ID gracefully.
+
+## Step 6: Debug Tool Issues
+
+If your tools aren't working, ask Bob for help:
+
+```
+Bob, my agent isn't calling the check_order_status tool. Here's the agent YAML and tool code: [paste code]
+```
+
+Common issues:
+- Tool name mismatch between agent YAML and tool definition
+- Missing or incorrect parameter descriptions
+- Tool not imported successfully
+- Agent instructions don't mention when to use the tool
+
+## Best Practices for Tools
+
+### ✅ DO:
+- Provide clear, descriptive tool names
+- Write detailed parameter descriptions
+- Include input validation
+- Return structured, consistent responses
+- Handle errors gracefully
+- Add helpful error messages
+
+### ❌ DON'T:
+- Use vague tool descriptions
+- Skip parameter validation
+- Return inconsistent response formats
+- Ignore error cases
+- Make tools do too many things (keep them focused)
+
+## Advanced: Tools with External APIs
+
+Tools can call real APIs. Here's an example structure:
+
+```python
+import requests
+from ibm_watsonx_orchestrate.agent_builder.tools import PythonTool
+
+class WeatherTool(PythonTool):
+    """Get weather information"""
+    
+    def __init__(self):
+        super().__init__(
+            name="get_weather",
+            description="Get current weather for a city",
+            parameters={
+                "city": {
+                    "type": "string",
+                    "description": "City name",
+                    "required": True
+                }
+            },
+            # Specify credentials needed
+            expect_credentials={
+                "api_key": "Weather API key"
+            }
+        )
+    
+    def run(self, city: str, credentials: dict = None) -> dict:
+        """Get weather data"""
+        api_key = credentials.get("api_key") if credentials else None
+        
+        if not api_key:
+            return {"error": "API key not configured"}
+        
+        # Call external API
+        response = requests.get(
+            f"https://api.weather.com/v1/current",
+            params={"city": city, "key": api_key}
+        )
+        
+        return response.json()
+```
+
+## Exercises
+
+Try these exercises:
+
+### Exercise 1: Calculator Tool
+Create a tool that performs mathematical calculations.
+
+**Ask Bob:**
+```
+Bob, create a calculator tool that can add, subtract, multiply, and divide two numbers
+```
+
+### Exercise 2: Email Validator Tool
+Create a tool that validates email addresses.
+
+**Ask Bob:**
+```
+Bob, create a tool that validates email addresses and returns whether they're valid
+```
+
+### Exercise 3: Data Formatter Tool
+Create a tool that formats data in different ways (JSON, CSV, table).
+
+**Ask Bob:**
+```
+Bob, create a tool that takes data and formats it as JSON, CSV, or a markdown table
+```
+
+## Key Takeaways
+
+✅ Tools extend agent capabilities with custom logic  
+✅ Tools have clear names, descriptions, and parameters  
+✅ Agents must list tools they can use in their YAML  
+✅ Tools should validate inputs and handle errors  
+✅ Bob can help generate, debug, and improve tools  
+
+## Next Steps
+
+Now that your agent has tools, let's add knowledge bases and collaborators!
+
+Continue to [Part 4: Knowledge Bases & Collaborators](../part4-advanced/README.md) →
+
+## Additional Resources
+
+- [Python Tools Guide](https://developer.watson-orchestrate.ibm.com/tools/create_tool)
+- [Tool Best Practices](https://developer.watson-orchestrate.ibm.com/tools/best_practices)
+- [Connecting Tools to APIs](https://developer.watson-orchestrate.ibm.com/tools/api_integration)
+
+---
+
+**💡 Pro Tip:** Use Bob to generate tool templates and then customize them for your specific needs!
