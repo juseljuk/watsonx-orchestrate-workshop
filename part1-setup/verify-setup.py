@@ -101,10 +101,14 @@ def verify_setup():
         print(f"\n❌ Error: {e}")
         print("\n🔧 Troubleshooting tips:")
         print("   1. Check your API key is correct")
-        print("   2. Verify you ran 'orchestrate init'")
-        print("   3. Try running 'orchestrate init' again")
-        print("   4. Check the configuration file:")
-        print("      cat ~/.orchestrate/config.yaml")
+        print("   2. Configure your environment:")
+        print("      orchestrate environment add")
+        print("      orchestrate environment activate <name>")
+        print("   3. Or use environment variables:")
+        print("      export WO_URL='your-url'")
+        print("      export WO_API_KEY='your-key'")
+        print("   4. List configured environments:")
+        print("      orchestrate environment list")
         return False
 
 if __name__ == "__main__":

@@ -5,8 +5,8 @@ Welcome! This workshop will guide you through building a practical AI agent usin
 
 ## Workshop Overview
 
-**Duration:** 90-120 minutes  
-**Level:** Beginner to Intermediate  
+**Duration:** 165-195 minutes
+**Level:** Beginner to Intermediate
 **Prerequisites:** 
 - Basic Python knowledge
 - watsonx Orchestrate access (or Developer Edition)
@@ -47,6 +47,29 @@ You'll create a **Customer Support Agent** that can:
 - Connect agents as collaborators
 - Test the complete customer support flow
 
+### [Part 4B: Agent Guidelines & Guardrails](./part4b-guidelines-guardrails/README.md) (20 min)
+- Write comprehensive agent guidelines
+- Implement content safety guardrails
+- Create input/output filtering plugins
+- Test safety measures and compliance
+- Learn responsible AI best practices
+
+### [Part 4C: MCP Servers - Connecting to Backend Services](./part4c-mcp-servers/README.md) (25 min)
+- Understand what MCP servers are and their benefits
+- Create an MCP server in Python with multiple tools
+- Define tool schemas and implement tool logic
+- Import MCP servers into watsonx Orchestrate
+- Use MCP server tools in your agents
+- Learn MCP best practices and patterns
+
+### [Part 4D: Multi-Agent Orchestration & Workflows](./part4d-multi-agent-orchestration/README.md) (30 min)
+- Understand when and why to use multi-agent systems
+- Design focused specialist agents for specific domains
+- Create orchestrator agents with intelligent routing
+- Manage context and handoffs between agents
+- Implement complex multi-agent workflows
+- Learn best practices for agent hierarchies
+
 ### [Part 5: Testing & Deployment](./part5-deployment/README.md) (20 min)
 - Test your agent thoroughly
 - Deploy to different environments
@@ -83,8 +106,26 @@ workshop/
 │   ├── README.md
 │   ├── customer-support-agent.yaml
 │   ├── escalation-agent.yaml
-│   ├── faq-knowledge-base.yaml
-│   └── exercises.md
+│   └── faq-knowledge-base.yaml
+├── part4b-guidelines-guardrails/
+│   ├── README.md
+│   ├── customer-support-with-guidelines.yaml
+│   └── content_safety_plugin.py
+├── part4c-mcp-servers/
+│   ├── README.md
+│   ├── product_catalog_server.py
+│   ├── product-catalog-toolkit.yaml
+│   ├── product-assistant-agent.yaml
+│   └── requirements.txt
+├── part4d-multi-agent-orchestration/
+│   ├── README.md
+│   ├── travel-concierge-agent.yaml
+│   ├── flight-specialist-agent.yaml
+│   ├── hotel-specialist-agent.yaml
+│   ├── activity-planner-agent.yaml
+│   ├── budget-advisor-agent.yaml
+│   ├── flight_tools.py
+│   └── hotel_tools.py
 ├── part5-deployment/
 │   ├── README.md
 │   ├── test-scenarios.md
@@ -110,6 +151,10 @@ By the end of this workshop, you will:
 - ✅ Build custom Python tools for specific business logic
 - ✅ Integrate knowledge bases for FAQ handling
 - ✅ Use agent collaborators for complex workflows
+- ✅ Implement safety guidelines and guardrails
+- ✅ Create and use MCP servers for backend integration
+- ✅ Design and orchestrate multi-agent systems
+- ✅ Build responsible AI agents
 - ✅ Leverage Bob as an AI pair programmer
 - ✅ Test and deploy agents to production
 

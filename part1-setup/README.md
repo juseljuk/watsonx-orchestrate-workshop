@@ -42,26 +42,48 @@ You have two options:
 ### Option A: Using Cloud watsonx Orchestrate
 
 1. Get your API key from the watsonx Orchestrate console
-2. Initialize your configuration:
+2. Add your environment configuration:
 
 ```bash
-orchestrate init
+orchestrate environment add
 ```
 
 Follow the prompts to enter:
+- **Environment Name**: A name for this environment (e.g., "my-wxo")
+- **URL**: Your watsonx Orchestrate URL
 - **API Key**: Your watsonx Orchestrate API key
-- **Region**: Your service region (e.g., us-south, eu-de)
-- **Environment**: Choose `draft` for development
+
+3. Activate the environment:
+
+```bash
+orchestrate environment activate <environment-name>
+```
 
 ### Option B: Using Developer Edition (Local)
 
 If you're running watsonx Orchestrate Developer Edition locally:
 
 ```bash
-orchestrate init --local
+# Add local environment
+orchestrate environment add
+
+# When prompted:
+# - Name: local-dev
+# - URL: http://localhost:4321
+# - API Key: (leave empty or use your local key)
+
+# Activate it
+orchestrate environment activate local-dev
 ```
 
-This will configure the SDK to use `http://localhost:4321` as the endpoint.
+### Option C: Using Environment Variables
+
+You can also configure using environment variables:
+
+```bash
+export WO_URL="https://your-orchestrate-url.com"
+export WO_API_KEY="your-api-key"
+```
 
 ## Step 4: Verify Bob is Working
 
@@ -126,8 +148,12 @@ def verify_setup():
         print("\nTroubleshooting tips:")
         print("1. Check your API key is correct")
         print("2. Verify your network connection")
-        print("3. Ensure you ran 'orchestrate init'")
-        print("4. Try running 'orchestrate init' again")
+        print("3. Ensure you configured your environment:")
+        print("   orchestrate environment add")
+        print("   orchestrate environment activate <name>")
+        print("4. Or set environment variables:")
+        print("   export WO_URL='your-url'")
+        print("   export WO_API_KEY='your-key'")
         return False
 
 if __name__ == "__main__":
@@ -189,9 +215,16 @@ pip install --user ibm-watsonx-orchestrate
 ```
 
 ### Issue: "Authentication failed"
-**Solution:** Re-run the init command with correct credentials:
+**Solution:** Check your environment configuration:
 ```bash
-orchestrate init
+# List environments
+orchestrate environment list
+
+# Add/update environment
+orchestrate environment add
+
+# Activate environment
+orchestrate environment activate <name>
 ```
 
 ### Issue: Bob isn't responding
@@ -213,8 +246,14 @@ orchestrate server start
 
 ### Useful Commands
 ```bash
-# Initialize configuration
-orchestrate init
+# Add environment
+orchestrate environment add
+
+# List environments
+orchestrate environment list
+
+# Activate environment
+orchestrate environment activate <name>
 
 # List agents
 orchestrate agents list

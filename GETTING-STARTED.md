@@ -52,6 +52,28 @@ workshop/
 │   ├── escalation-agent.yaml          # Collaborator agent
 │   └── faq-knowledge-base.yaml        # Knowledge base example
 │
+├── part4b-guidelines-guardrails/      # 20 min - Agent Guidelines & Guardrails
+│   ├── README.md                      # Safety and compliance guide
+│   ├── customer-support-with-guidelines.yaml  # Agent with guidelines
+│   └── content_safety_plugin.py       # Guardrail plugin example
+│
+├── part4c-mcp-servers/                # 25 min - MCP Servers & Backend Integration
+│   ├── README.md                      # MCP server guide
+│   ├── product_catalog_server.py      # Example MCP server
+│   ├── product-catalog-toolkit.yaml   # Toolkit specification
+│   ├── product-assistant-agent.yaml   # Agent using MCP tools
+│   └── requirements.txt               # MCP dependencies
+│
+├── part4d-multi-agent-orchestration/  # 30 min - Multi-Agent Systems
+│   ├── README.md                      # Multi-agent orchestration guide
+│   ├── travel-concierge-agent.yaml    # Orchestrator agent
+│   ├── flight-specialist-agent.yaml   # Flight specialist
+│   ├── hotel-specialist-agent.yaml    # Hotel specialist
+│   ├── activity-planner-agent.yaml    # Activity specialist
+│   ├── budget-advisor-agent.yaml      # Budget specialist
+│   ├── flight_tools.py                # Flight tools
+│   └── hotel_tools.py                 # Hotel tools
+│
 ├── part5-deployment/                  # 20 min - Testing & Deployment
 │   └── README.md                      # Deployment guide
 │
@@ -63,18 +85,21 @@ workshop/
 
 By the end of this workshop, you'll have created a complete **Customer Support Agent** that can:
 
-✅ Answer FAQs using a knowledge base  
-✅ Check order status using a custom tool  
-✅ Process refund requests with validation  
-✅ Escalate complex issues to a specialist agent  
-✅ Handle multi-turn conversations  
-✅ Provide helpful, accurate responses  
+✅ Answer FAQs using a knowledge base
+✅ Check order status using a custom tool
+✅ Process refund requests with validation
+✅ Escalate complex issues to a specialist agent
+✅ Follow safety guidelines and guardrails
+✅ Connect to backend services via MCP servers
+✅ Orchestrate multiple specialized agents
+✅ Handle multi-turn conversations
+✅ Provide helpful, accurate, and safe responses
 
 ## Time Commitment
 
-- **Minimum**: 90 minutes (following the main path)
-- **Recommended**: 120 minutes (including exercises)
-- **Extended**: 180+ minutes (completing all exercises and experiments)
+- **Minimum**: 110 minutes (following the main path)
+- **Recommended**: 140 minutes (including exercises)
+- **Extended**: 200+ minutes (completing all exercises and experiments)
 
 ## Prerequisites
 
@@ -89,23 +114,26 @@ Before starting, ensure you have:
 
 ## Learning Path
 
-### Beginner Path (90 min)
+### Beginner Path (165 min)
 Follow the main README in each part, skip exercises:
 1. Part 1: Setup (15 min)
 2. Part 2: First Agent (20 min)
 3. Part 3: Custom Tools (30 min)
 4. Part 4: Advanced Features (25 min)
-5. Part 5: Deployment (20 min)
+5. Part 4B: Guidelines & Guardrails (20 min)
+6. Part 4C: MCP Servers (25 min)
+7. Part 4D: Multi-Agent Orchestration (30 min)
+8. Part 5: Deployment (20 min)
 
-### Intermediate Path (120 min)
+### Intermediate Path (195 min)
 Complete main content plus selected exercises:
-1. All main content (90 min)
+1. All main content (165 min)
 2. Part 2: Exercises 1-2 (10 min)
 3. Part 3: Exercises 1-3 (20 min)
 
-### Advanced Path (180+ min)
+### Advanced Path (255+ min)
 Complete everything including all exercises and experiments:
-1. All main content (90 min)
+1. All main content (165 min)
 2. All exercises (60+ min)
 3. Bonus challenges (30+ min)
 
@@ -135,11 +163,15 @@ See [`bob-prompts/helpful-prompts.md`](./bob-prompts/helpful-prompts.md) for mor
 
 ### Setup Issues
 
-**Issue**: "orchestrate: command not found"  
+**Issue**: "orchestrate: command not found"
 **Solution**: Install the SDK: `pip install ibm-watsonx-orchestrate`
 
-**Issue**: "Authentication failed"  
-**Solution**: Run `orchestrate init` with correct credentials
+**Issue**: "Authentication failed"
+**Solution**: Configure your environment:
+```bash
+orchestrate environment add
+orchestrate environment activate <name>
+```
 
 **Issue**: Bob isn't responding  
 **Solution**: Check Bob extension is enabled, restart VS Code if needed
