@@ -1,4 +1,4 @@
-# Building Your First AI Agent with watsonx Orchestrate
+# Building AI Agents with watsonx Orchestrate - the enterprise platform for agentic AI
 ## A Hands-On Workshop with Bob as Your AI Assistant
 
 Welcome! This workshop will guide you through building a practical AI agent using IBM watsonx Orchestrate. You'll use Bob, an AI coding assistant, to help you along the way.
