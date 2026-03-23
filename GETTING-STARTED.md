@@ -52,19 +52,19 @@ workshop/
 │   ├── escalation-agent.yaml          # Collaborator agent
 │   └── faq-knowledge-base.yaml        # Knowledge base example
 │
-├── part4b-guidelines-guardrails/      # 20 min - Agent Guidelines & Guardrails
+├── part5-guidelines-guardrails/       # 20 min - Agent Guidelines & Guardrails
 │   ├── README.md                      # Safety and compliance guide
 │   ├── customer-support-with-guidelines.yaml  # Agent with guidelines
 │   └── content_safety_plugin.py       # Guardrail plugin example
 │
-├── part4c-mcp-servers/                # 25 min - MCP Servers & Backend Integration
+├── part6-mcp-servers/                 # 25 min - MCP Servers & Backend Integration
 │   ├── README.md                      # MCP server guide
 │   ├── product_catalog_server.py      # Example MCP server
 │   ├── product-catalog-toolkit.yaml   # Toolkit specification
 │   ├── product-assistant-agent.yaml   # Agent using MCP tools
 │   └── requirements.txt               # MCP dependencies
 │
-├── part4d-multi-agent-orchestration/  # 30 min - Multi-Agent Systems
+├── part7-multi-agent-orchestration/   # 30 min - Multi-Agent Systems
 │   ├── README.md                      # Multi-agent orchestration guide
 │   ├── travel-concierge-agent.yaml    # Orchestrator agent
 │   ├── flight-specialist-agent.yaml   # Flight specialist
@@ -74,7 +74,7 @@ workshop/
 │   ├── flight_tools.py                # Flight tools
 │   └── hotel_tools.py                 # Hotel tools
 │
-├── part5-deployment/                  # 20 min - Testing & Deployment
+├── part8-deployment/                  # 20 min - Testing & Deployment
 │   └── README.md                      # Deployment guide
 │
 └── bob-prompts/                       # Bob Helper Guide
@@ -120,10 +120,10 @@ Follow the main README in each part, skip exercises:
 2. Part 2: First Agent (20 min)
 3. Part 3: Custom Tools (30 min)
 4. Part 4: Advanced Features (25 min)
-5. Part 4B: Guidelines & Guardrails (20 min)
-6. Part 4C: MCP Servers (25 min)
-7. Part 4D: Multi-Agent Orchestration (30 min)
-8. Part 5: Deployment (20 min)
+5. Part 5: Guidelines & Guardrails (20 min)
+6. Part 6: MCP Servers (25 min)
+7. Part 7: Multi-Agent Orchestration (30 min)
+8. Part 8: Deployment (20 min)
 
 ### Intermediate Path (195 min)
 Complete main content plus selected exercises:

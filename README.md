@@ -1,7 +1,7 @@
-# Building AI Agents with watsonx Orchestrate - the enterprise platform for agentic AI
-## A Hands-On Workshop with Bob as Your AI Assistant
+# Bobchestrate Workshop - Building AI Agents with watsonx Orchestrate and IBM Bob
+## A Hands-On Workshop for Agentic AI Development
 
-Welcome! This workshop will guide you through building a practical AI agent using IBM watsonx Orchestrate. You'll use Bob, an AI coding assistant, to help you along the way.
+Welcome! This workshop will guide you through building AI agents using IBM watsonx Orchestrate. You'll use Bob, an AI coding assistant, to help you along the way. 
 
 ## Workshop Overview
 
@@ -11,7 +11,7 @@ Welcome! This workshop will guide you through building a practical AI agent usin
 - Basic Python knowledge
 - watsonx Orchestrate access (or Developer Edition)
 - VS Code with Bob extension installed
-- Python 3.9+ installed
+- Python 3.11+ installed
 
 ## What You'll Build
 
@@ -41,20 +41,20 @@ You'll create a **Customer Support Agent** that can:
 - Import tools into your agent
 - Use Bob to help write and debug tool code
 
-### [Part 4: Knowledge Bases & Collaborators](./part4-advanced/README.md) (25 min)
+### [Part 4: Knowledge Bases & Collaborators](./part4-knowledge/README.md) (25 min)
 - Add a knowledge base for FAQs
 - Create a specialized escalation agent
 - Connect agents as collaborators
 - Test the complete customer support flow
 
-### [Part 4B: Agent Guidelines & Guardrails](./part4b-guidelines-guardrails/README.md) (20 min)
+### [Part 5: Agent Guidelines & Guardrails](./part5-guidelines-guardrails/README.md) (20 min)
 - Write comprehensive agent guidelines
 - Implement content safety guardrails
 - Create input/output filtering plugins
 - Test safety measures and compliance
 - Learn responsible AI best practices
 
-### [Part 4C: MCP Servers - Connecting to Backend Services](./part4c-mcp-servers/README.md) (25 min)
+### [Part 6: MCP Servers - Connecting to Backend Services](./part6-mcp-servers/README.md) (25 min)
 - Understand what MCP servers are and their benefits
 - Create an MCP server in Python with multiple tools
 - Define tool schemas and implement tool logic
@@ -62,7 +62,7 @@ You'll create a **Customer Support Agent** that can:
 - Use MCP server tools in your agents
 - Learn MCP best practices and patterns
 
-### [Part 4D: Multi-Agent Orchestration & Workflows](./part4d-multi-agent-orchestration/README.md) (30 min)
+### [Part 7: Multi-Agent Orchestration & Workflows](./part7-multi-agent-orchestration/README.md) (30 min)
 - Understand when and why to use multi-agent systems
 - Design focused specialist agents for specific domains
 - Create orchestrator agents with intelligent routing
@@ -70,7 +70,7 @@ You'll create a **Customer Support Agent** that can:
 - Implement complex multi-agent workflows
 - Learn best practices for agent hierarchies
 
-### [Part 5: Testing & Deployment](./part5-deployment/README.md) (20 min)
+### [Part 8: Testing & Deployment](./part8-deployment/README.md) (20 min)
 - Test your agent thoroughly
 - Deploy to different environments
 - Generate webchat embed code
@@ -107,17 +107,17 @@ workshop/
 │   ├── customer-support-agent.yaml
 │   ├── escalation-agent.yaml
 │   └── faq-knowledge-base.yaml
-├── part4b-guidelines-guardrails/
+├── part5-guidelines-guardrails/
 │   ├── README.md
 │   ├── customer-support-with-guidelines.yaml
 │   └── content_safety_plugin.py
-├── part4c-mcp-servers/
+├── part6-mcp-servers/
 │   ├── README.md
 │   ├── product_catalog_server.py
 │   ├── product-catalog-toolkit.yaml
 │   ├── product-assistant-agent.yaml
 │   └── requirements.txt
-├── part4d-multi-agent-orchestration/
+├── part7-multi-agent-orchestration/
 │   ├── README.md
 │   ├── travel-concierge-agent.yaml
 │   ├── flight-specialist-agent.yaml
@@ -126,7 +126,7 @@ workshop/
 │   ├── budget-advisor-agent.yaml
 │   ├── flight_tools.py
 │   └── hotel_tools.py
-├── part5-deployment/
+├── part8-deployment/
 │   ├── README.md
 │   ├── test-scenarios.md
 │   └── deployment-checklist.md
