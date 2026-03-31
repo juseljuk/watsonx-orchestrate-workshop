@@ -111,7 +111,28 @@ The MCP servers provide:
 - Tools for listing agents, tools, and other resources
 - Enhanced Bob capabilities for watsonx Orchestrate development
 
-## Step 7: Install watsonx Orchestrate SDK
+## Step 7: Create Python Virtual Environment
+
+Create a virtual environment for the workshop to keep dependencies isolated using IBM Bob IDE's built-in commands:
+
+1. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
+2. Type "Python: Create Environment" and select it
+3. Choose "Venv" as the environment type
+4. Select your Python interpreter (Python 3.11-3.13)
+5. Wait for the virtual environment to be created
+
+You can now see the .venv folder in your workspace explorer view.
+
+<img src="images/image-6.png" alt="IBM Bob IDE File menu showing Open Folder option" width="65%">
+
+IBM Bob IDE will automatically:
+- Create a `.venv` folder in your workspace
+- Activate the virtual environment in new terminals
+- Show `(.venv)` in your terminal prompt
+
+**Note:** The virtual environment will be automatically activated when you open new terminals in IBM Bob IDE.
+
+## Step 8: Install watsonx Orchestrate SDK
 
 Install the IBM watsonx Orchestrate SDK:
 
@@ -124,7 +145,7 @@ Verify the installation:
 orchestrate --version
 ```
 
-## Step 8: Configure Your Credentials
+## Step 9: Configure Your Credentials
 
 You have two options:
 
@@ -174,7 +195,7 @@ export WO_URL="https://your-orchestrate-url.com"
 export WO_API_KEY="your-api-key"
 ```
 
-## Step 9: Verify Bob is Working
+## Step 10: Verify Bob is Working
 
 Let's test that Bob can help you with watsonx Orchestrate tasks.
 
@@ -191,7 +212,7 @@ Bob should respond with information about agents. If not, check that:
 - You're in the correct workspace folder
 - Bob has access to the watsonx-orchestrate-adk-docs MCP server
 
-## Step 10: Test Your Connection
+## Step 11: Test Your Connection
 
 Create a simple verification script to test your setup:
 
@@ -254,7 +275,7 @@ Run the script:
 python verify-setup.py
 ```
 
-## Step 11: Understand the Workshop Structure
+## Step 12: Understand the Workshop Structure
 
 Your workshop folder should look like this:
 
