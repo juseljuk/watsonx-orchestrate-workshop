@@ -54,7 +54,7 @@ Open the workshop folder in IBM Bob IDE:
 
 The empty workspace will open.
 
-## Step 5: Install watsonx Orchestrate VSCode Extension
+## Step 5: Install watsonx Orchestrate ADK VS Code Extension
 
 Install the watsonx Orchestrate extension for IBM Bob IDE:
 
@@ -116,23 +116,24 @@ The MCP servers provide:
 Import a pre-configured custom mode specialized for building watsonx Orchestrate agents:
 
 1. Download the mode configuration file from GitHub:
-   - **Direct download link**: [wxo-agent-architect-export.yaml](https://raw.githubusercontent.com/juseljuk/bobchestrate-workshop/main/part1-setup/files/wxo-agent-architect-export.yaml)
-   - Or visit: https://github.com/juseljuk/bobchestrate-workshop/blob/main/part1-setup/files/wxo-agent-architect-export.yaml
-   - Click the **Download** button (or right-click the "Raw" button and select "Save Link As...")
+   - Visit: https://github.com/juseljuk/bobchestrate-workshop/blob/main/part1-setup/files/wxo-agent-architect-export.yaml
+   - Click the **Download raw file** button
+
+      <img src="images/image-10.png" alt="Download the raw file" width="40%">
+
    - Save the file to your Downloads folder or a location you can easily access
 
 2. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
 
-3. Type "Bob: Import Custom Mode" and select it
+3. Type "Modes" and select it
 
-4. Navigate to where you saved the file and select:
-   ```
-   wxo-agent-architect-export.yaml
-   ```
+4. Click on **Import** icon in the modes panel
 
-5. Click **Open** to import the mode
+   <img src="images/image-11.png" alt="Import custom mode" width="40%">
+   
+5. Select the `wxo-agent-architect-export.yaml` file you downloaded and click **Open**
 
-6. You should see a confirmation message that the mode was imported successfully
+6. You should see a confirmation message that the mode was imported successfully and see the mode appear in the modes panel
 
 The imported "WXO Agent Architect" mode includes:
 - **Role Definition**: Specialized for building watsonx Orchestrate agents
@@ -142,7 +143,7 @@ The imported "WXO Agent Architect" mode includes:
 
 **Verify the mode:**
 
-1. Open Bob's chat panel
+1. Open Bob's chat panel if not already open
 2. Click on the mode selector (usually shows the current mode like "Code" or "Ask")
 3. You should see "WXO Agent Architect" in the list of available modes
 4. Select "WXO Agent Architect" mode
@@ -176,15 +177,15 @@ IBM Bob IDE will automatically:
 
 Since you have the watsonx Orchestrate ADK extension installed, you will see the ADK informaton in the bottom Status Bar. Since we just created a fresh Python virtual environment to our workspace, you should see just a red cross stating that you need to install the ADK.
 
-<img src="images/image-7.png" alt="IBM Bob IDE Status Bar showing ADK not installed" width="30%">
+<img src="images/image-7.png" alt="IBM Bob IDE Status Bar showing ADK not installed" width="40%">
 
 Click on the red cross to install the ADK. This will open a couple of commands to the search/command bar. Select the one to install the ADK.
 
-<img src="images/image-8.png" alt="IBM Bob IDE Command Palette showing Install ADK command" width="50%">
+<img src="images/image-8.png" alt="IBM Bob IDE Command Palette showing Install ADK command" width="60%">
 
 Wait for the installation to complete. You should see a notification and a green checkmark in the Status Bar with the latest version number of the ADK.
 
-<img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="30%">
+<img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="40%">
 
 ## Step 10: Configure Your Credentials
 
