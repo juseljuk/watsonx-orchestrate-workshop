@@ -6,10 +6,9 @@
 ## Prerequisites Check
 
 Before starting, ensure you have:
-- [ ] Python 3.9 or higher installed
-- [ ] VS Code installed
-- [ ] Bob extension installed and activated in VS Code
-- [ ] watsonx Orchestrate access (cloud or Developer Edition)
+- [ ] Python 3.11-3.13 installed
+- [ ] IBM Bob IDE installed
+- [ ] watsonx Orchestrate access (SaaS or Developer Edition)
 
 ## Step 1: Verify Python Installation
 
@@ -20,9 +19,14 @@ python --version
 python3 --version
 ```
 
-You should see Python 3.9 or higher. If not, download from [python.org](https://www.python.org/downloads/).
+## Step 2: Verify uv Installation
 
-## Step 2: Install watsonx Orchestrate SDK
+Open a terminal and run:
+```bash
+uv --version
+```
+
+## Step 3: Install watsonx Orchestrate SDK
 
 Install the IBM watsonx Orchestrate SDK:
 
@@ -35,7 +39,7 @@ Verify the installation:
 orchestrate --version
 ```
 
-## Step 3: Configure Your Credentials
+## Step 4: Configure Your Credentials
 
 You have two options:
 
@@ -85,7 +89,7 @@ export WO_URL="https://your-orchestrate-url.com"
 export WO_API_KEY="your-api-key"
 ```
 
-## Step 4: Verify Bob is Working
+## Step 5: Verify Bob is Working
 
 Let's test that Bob can help you with watsonx Orchestrate tasks.
 
@@ -102,7 +106,7 @@ Bob should respond with information about agents. If not, check that:
 - You're in the correct workspace folder
 - Bob has access to the watsonx-orchestrate-adk-docs MCP server
 
-## Step 5: Test Your Connection
+## Step 6: Test Your Connection
 
 Create a simple verification script to test your setup:
 
@@ -165,7 +169,7 @@ Run the script:
 python verify-setup.py
 ```
 
-## Step 6: Understand the Workshop Structure
+## Step 7: Understand the Workshop Structure
 
 Your workshop folder should look like this:
 

@@ -26,7 +26,7 @@ You'll create a **Customer Support Agent** that can:
 
 ### [Part 1: Setup & Environment](./part1-setup/README.md) (15 min)
 - Configure watsonx Orchestrate credentials
-- Verify Bob is working as your AI assistant
+- Verify Bob is working as your AI development partner
 - Understand the project structure
 - Set up your development environment
 
