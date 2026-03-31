@@ -111,41 +111,43 @@ The MCP servers provide:
 - Tools for listing agents, tools, and other resources
 - Enhanced Bob capabilities for watsonx Orchestrate development
 
-## Step 7: Configure Agent Architect Mode
+## Step 7: Import WXO Agent Architect Mode
 
-Configure a custom "Agent Architect" mode that uses both watsonx Orchestrate MCP servers:
+Import a pre-configured custom mode specialized for building watsonx Orchestrate agents:
 
-1. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
-2. Type "Bob: Edit Mode" and select it
-3. Choose "Create New Mode" from the options
-4. Enter the mode name: **Agent Architect**
-5. Enter the mode slug: **agent-architect**
-6. In the mode configuration that opens, add the following settings:
+1. Download the mode configuration file from GitHub:
+   - **Direct download link**: [wxo-agent-architect-export.yaml](https://raw.githubusercontent.com/YOUR-USERNAME/bobchestrate-workshop/main/part1-setup/files/wxo-agent-architect-export.yaml)
+   - Or visit: https://github.com/YOUR-USERNAME/bobchestrate-workshop/blob/main/part1-setup/files/wxo-agent-architect-export.yaml
+   - Click the **Download** button (or right-click the "Raw" button and select "Save Link As...")
+   - Save the file to your Downloads folder or a location you can easily access
 
-```json
-{
-  "name": "Agent Architect",
-  "slug": "agent-architect",
-  "description": "Specialized mode for building watsonx Orchestrate agents with access to ADK tools and documentation",
-  "mcpServers": [
-    "watsonx-orchestrate-adk",
-    "watsonx-orchestrate-adk-docs"
-  ],
-  "systemPrompt": "You are Bob, a highly skilled software engineer with extensive knowledge in many programming languages, frameworks, design patterns, and best practices. You are especially skilled at building new agents for watsonx Orchestrate.\n\nBefore solving any tasks related to the watsonx orchestrate platform use the watsonx-orchestrate-adk-docs mcp server's SearchIbmWatsonxOrchestrateAdk tool to better understand how to author agents, tools, toolkits, models, knowledge_bases and connections for wxo.\n\nWhen authoring an agent, use the watsonx-orchestrate-adk mcp server list_tools command to find tools which may be relevant to the problem and list_agents tool to find relevant collaborator agents.\n\nIf you need to extract information from the watsonx Orchestrate platform use the watsonx-orchestrate-adk mcp server.\n\nNever include ibm-watsonx-orchestrate in your requirements.txt"
-}
-```
+2. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
 
-7. Save the file (the mode configuration is automatically saved in your workspace)
-8. The "Agent Architect" mode should now appear in Bob's mode selector
+3. Type "Bob: Import Custom Mode" and select it
+
+4. Navigate to where you saved the file and select:
+   ```
+   wxo-agent-architect-export.yaml
+   ```
+
+5. Click **Open** to import the mode
+
+6. You should see a confirmation message that the mode was imported successfully
+
+The imported "WXO Agent Architect" mode includes:
+- **Role Definition**: Specialized for building watsonx Orchestrate agents
+- **Custom Instructions**: Guidance on using MCP servers for agent development
+- **MCP Server Integration**: Automatically uses both `watsonx-orchestrate-adk` and `watsonx-orchestrate-adk-docs` servers
+- **Tool Groups**: Access to read, edit, browser, command, and MCP tools
 
 **Verify the mode:**
 
 1. Open Bob's chat panel
 2. Click on the mode selector (usually shows the current mode like "Code" or "Ask")
-3. You should see "Agent Architect" in the list of available modes
-4. Select "Agent Architect" mode
+3. You should see "WXO Agent Architect" in the list of available modes
+4. Select "WXO Agent Architect" mode
 5. Ask Bob: "What can you help me with in this mode?"
-6. Bob should respond with information about building watsonx Orchestrate agents
+6. Bob should respond with information about building watsonx Orchestrate agents and mention the available MCP servers
 
 ## Step 8: Create Python Virtual Environment
 
