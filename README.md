@@ -1,17 +1,18 @@
 # Bobchestrate Workshop - Building AI Agents with watsonx Orchestrate and IBM Bob
 ## A Hands-On Workshop for Agentic AI Development
 
-Welcome! This workshop will guide you through building AI agents using IBM watsonx Orchestrate. You'll use Bob, an AI coding assistant, to help you along the way. 
+Welcome! This workshop will guide you through building AI agents using IBM watsonx Orchestrate. You'll use IBM Bob, an AI coding assistant, to help you along the way.
 
 ## Workshop Overview
 
 **Duration:** 165-195 minutes
 **Level:** Beginner to Intermediate
 **Prerequisites:** 
-- Basic Python knowledge
-- watsonx Orchestrate access (or Developer Edition)
-- VS Code with Bob extension installed
-- Python 3.11+ installed
+- Computer with internet access, Windows, macOS, or Linux operating system, at least 8GB RAM and 500 MB of free disk space
+- Basic Python knowledge and Python 3.11-3.13 installed (https://www.python.org/downloads/)
+- uv installed (https://pypi.org/project/uv/)
+- watsonx Orchestrate SaaS access (provided by your instructor)
+- IBM Bob IDE installed (trial or one provided by your instructor)
 
 ## What You'll Build
 
