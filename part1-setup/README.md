@@ -43,14 +43,14 @@ Open the workshop folder in IBM Bob IDE:
 1. Launch IBM Bob IDE
 2. Click **File** → **Open Folder**
 
-   <img src="image.png" alt="IBM Bob IDE File menu showing Open Folder option" width="30%">
+   <img src="images/image.png" alt="IBM Bob IDE File menu showing Open Folder option" width="30%">
 
 
 3. Navigate to and select the `bobchestrate-ws` folder
 4. Click **Open**
 5. Click **Yes, I trust the author** to trust the workspace
 
-   <img src="image-1.png" alt="IBM Bob IDE File menu showing Open Folder option" width="40%">
+   <img src="images/image-1.png" alt="IBM Bob IDE File menu showing Open Folder option" width="40%">
 
 The empty workspace will open.
 
@@ -60,7 +60,7 @@ Install the watsonx Orchestrate extension for VS Code:
 
 1. Open the Extensions view in VS Code (Click the Extensions icon in the Activity Bar or press `Cmd+Shift+X` on Mac / `Ctrl+Shift+X` on Windows/Linux)
 
-   <img src="image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="10%">
+   <img src="images/image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="10%">
 
 2. Search for "watsonx Orchestrate"
 3. Click **Install** on the "IBM watsonx Orchestrate" extension
@@ -68,7 +68,7 @@ Install the watsonx Orchestrate extension for VS Code:
 5. Reload VS Code if prompted
 6. You should now see the extension icon appear in the Activity Bar:
 
-   <img src="image-3.png" alt="IBM Bob IDE File menu showing Open Folder option" width="10%">
+   <img src="images/image-3.png" alt="IBM Bob IDE File menu showing Open Folder option" width="10%">
 
 The extension provides:
 - Syntax highlighting for agent YAML files
