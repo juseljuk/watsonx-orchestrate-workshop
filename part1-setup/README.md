@@ -63,7 +63,10 @@ Install the watsonx Orchestrate extension for IBM Bob IDE:
    <img src="images/image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="10%">
 
 2. Search for "watsonx Orchestrate"
-3. Click **Install** on the "IBM watsonx Orchestrate" extension
+
+    <img src="images/image-4.png" alt="IBM Bob IDE File menu showing Open Folder option" width="40%">
+
+3. Click **Install** on the "IBM watsonx Orchestrate ADK" extension
 4. Wait for the installation to complete
 5. Reload VS Code if prompted
 6. You should now see the extension icon appear in the Activity Bar:
