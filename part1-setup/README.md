@@ -111,7 +111,43 @@ The MCP servers provide:
 - Tools for listing agents, tools, and other resources
 - Enhanced Bob capabilities for watsonx Orchestrate development
 
-## Step 7: Create Python Virtual Environment
+## Step 7: Configure Agent Architect Mode
+
+Configure a custom "Agent Architect" mode that uses both watsonx Orchestrate MCP servers:
+
+1. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
+2. Type "Bob: Edit Mode" and select it
+3. Choose "Create New Mode" from the options
+4. Enter the mode name: **Agent Architect**
+5. Enter the mode slug: **agent-architect**
+6. In the mode configuration that opens, add the following settings:
+
+```json
+{
+  "name": "Agent Architect",
+  "slug": "agent-architect",
+  "description": "Specialized mode for building watsonx Orchestrate agents with access to ADK tools and documentation",
+  "mcpServers": [
+    "watsonx-orchestrate-adk",
+    "watsonx-orchestrate-adk-docs"
+  ],
+  "systemPrompt": "You are Bob, a highly skilled software engineer with extensive knowledge in many programming languages, frameworks, design patterns, and best practices. You are especially skilled at building new agents for watsonx Orchestrate.\n\nBefore solving any tasks related to the watsonx orchestrate platform use the watsonx-orchestrate-adk-docs mcp server's SearchIbmWatsonxOrchestrateAdk tool to better understand how to author agents, tools, toolkits, models, knowledge_bases and connections for wxo.\n\nWhen authoring an agent, use the watsonx-orchestrate-adk mcp server list_tools command to find tools which may be relevant to the problem and list_agents tool to find relevant collaborator agents.\n\nIf you need to extract information from the watsonx Orchestrate platform use the watsonx-orchestrate-adk mcp server.\n\nNever include ibm-watsonx-orchestrate in your requirements.txt"
+}
+```
+
+7. Save the file (the mode configuration is automatically saved in your workspace)
+8. The "Agent Architect" mode should now appear in Bob's mode selector
+
+**Verify the mode:**
+
+1. Open Bob's chat panel
+2. Click on the mode selector (usually shows the current mode like "Code" or "Ask")
+3. You should see "Agent Architect" in the list of available modes
+4. Select "Agent Architect" mode
+5. Ask Bob: "What can you help me with in this mode?"
+6. Bob should respond with information about building watsonx Orchestrate agents
+
+## Step 8: Create Python Virtual Environment
 
 Create a virtual environment for the workshop to keep dependencies isolated using IBM Bob IDE's built-in commands:
 
@@ -130,17 +166,25 @@ IBM Bob IDE will automatically:
 - Activate the virtual environment in new terminals
 - Show `(.venv)` in your terminal prompt
 
-**Note:** The virtual environment will be automatically activated when you open new terminals in IBM Bob IDE.
+> **_Note:_** The virtual environment will be automatically activated when you open new terminals in IBM Bob IDE.
 
-**Note2:** If you're wondering about the .bob folder, it was created automatically when you installed the MCP Servers for Orchestrate. This folder contains all the IBM Bob IDE configuration files for the MCP Servers for Orchestrate. It's safe to leave it there.
+> **_Note2:_** If you're wondering about the .bob folder, it was created automatically when you installed the MCP Servers for Orchestrate. This folder contains all the IBM Bob IDE configuration files for the MCP Servers for Orchestrate. It's safe to leave it there.
 
-## Step 8: Install watsonx Orchestrate SDK
+## Step 9: Install watsonx Orchestrate SDK
 
-Since you have the watsonx Orchestrate ADK extension installed, you will see the ADK informaton in the bottom Status Bar. If you already have the ADK installed, you can see the current version, but otherwise you should see just a red cross stating that you need to install the ADK.
+Since you have the watsonx Orchestrate ADK extension installed, you will see the ADK informaton in the bottom Status Bar. Since we just created a fresh Python virtual environment to our workspace, you should see just a red cross stating that you need to install the ADK.
 
 <img src="images/image-7.png" alt="IBM Bob IDE Status Bar showing ADK not installed" width="30%">
 
-## Step 9: Configure Your Credentials
+Click on the red cross to install the ADK. This will open a couple of commands to the search/command bar. Select the one to install the ADK.
+
+<img src="images/image-8.png" alt="IBM Bob IDE Command Palette showing Install ADK command" width="50%">
+
+Wait for the installation to complete. You should see a notification and a green checkmark in the Status Bar with the latest version number of the ADK.
+
+<img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="30%">
+
+## Step 10: Configure Your Credentials
 
 You have two options:
 
@@ -190,7 +234,7 @@ export WO_URL="https://your-orchestrate-url.com"
 export WO_API_KEY="your-api-key"
 ```
 
-## Step 10: Verify Bob is Working
+## Step 11: Verify Bob is Working
 
 Let's test that Bob can help you with watsonx Orchestrate tasks.
 
@@ -207,7 +251,7 @@ Bob should respond with information about agents. If not, check that:
 - You're in the correct workspace folder
 - Bob has access to the watsonx-orchestrate-adk-docs MCP server
 
-## Step 11: Test Your Connection
+## Step 12: Test Your Connection
 
 Create a simple verification script to test your setup:
 
@@ -270,7 +314,7 @@ Run the script:
 python verify-setup.py
 ```
 
-## Step 12: Understand the Workshop Structure
+## Step 13: Understand the Workshop Structure
 
 Your workshop folder should look like this:
 
