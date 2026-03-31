@@ -116,8 +116,8 @@ The MCP servers provide:
 Import a pre-configured custom mode specialized for building watsonx Orchestrate agents:
 
 1. Download the mode configuration file from GitHub:
-   - **Direct download link**: [wxo-agent-architect-export.yaml](https://raw.githubusercontent.com/YOUR-USERNAME/bobchestrate-workshop/main/part1-setup/files/wxo-agent-architect-export.yaml)
-   - Or visit: https://github.com/YOUR-USERNAME/bobchestrate-workshop/blob/main/part1-setup/files/wxo-agent-architect-export.yaml
+   - **Direct download link**: [wxo-agent-architect-export.yaml](https://raw.githubusercontent.com/juseljuk/bobchestrate-workshop/main/part1-setup/files/wxo-agent-architect-export.yaml)
+   - Or visit: https://github.com/juseljuk/bobchestrate-workshop/blob/main/part1-setup/files/wxo-agent-architect-export.yaml
    - Click the **Download** button (or right-click the "Raw" button and select "Save Link As...")
    - Save the file to your Downloads folder or a location you can easily access
 
