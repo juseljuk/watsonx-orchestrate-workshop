@@ -56,9 +56,9 @@ The empty workspace will open.
 
 ## Step 5: Install watsonx Orchestrate VSCode Extension
 
-Install the watsonx Orchestrate extension for VS Code:
+Install the watsonx Orchestrate extension for IBM Bob IDE:
 
-1. Open the Extensions view in VS Code (Click the Extensions icon in the Activity Bar or press `Cmd+Shift+X` on Mac / `Ctrl+Shift+X` on Windows/Linux)
+1. Open the Extensions view in IBM Bob IDE (Click the Extensions icon in the Activity Bar or press `Cmd+Shift+X` on Mac / `Ctrl+Shift+X` on Windows/Linux)
 
    <img src="images/image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="10%">
 
