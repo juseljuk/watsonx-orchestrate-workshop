@@ -79,7 +79,39 @@ The extension provides:
 - Quick access to watsonx Orchestrate commands
 - Integration with the Orchestrate CLI
 
-## Step 6: Install watsonx Orchestrate SDK
+## Step 6: Install watsonx Orchestrate MCP Servers
+
+Install the watsonx Orchestrate MCP servers through the ADK extension:
+
+1. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
+2. Type "watsonx Orchestrate: Install MCP Servers" and select it
+3. Wait for the installation to complete
+4. You should see a confirmation message that the MCP servers have been installed successfully
+
+**Verify the installation:**
+
+To confirm the MCP servers are installed and working:
+
+1. Open Bob's chat panel in IBM Bob IDE
+2. Ask Bob: "What MCP servers are available?"
+3. You should see the following watsonx Orchestrate MCP servers listed:
+   - `watsonx-orchestrate-adk` - Provides tools for interacting with watsonx Orchestrate (list agents, tools, etc.)
+   - `watsonx-orchestrate-adk-docs` - Provides access to watsonx Orchestrate documentation
+
+Alternatively, you can check the MCP servers configuration:
+1. Open the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`)
+2. Type "MCP Servers" and select it
+3. Verify that the watsonx Orchestrate MCP servers are listed in the configuration and both of them marked with a green bullet point
+
+   <img src="images/image-5.png" alt="IBM Bob IDE File menu showing Open Folder option" width="75%">
+
+The MCP servers provide:
+- Access to watsonx Orchestrate documentation
+- Integration with the watsonx Orchestrate ADK
+- Tools for listing agents, tools, and other resources
+- Enhanced Bob capabilities for watsonx Orchestrate development
+
+## Step 7: Install watsonx Orchestrate SDK
 
 Install the IBM watsonx Orchestrate SDK:
 
@@ -92,7 +124,7 @@ Verify the installation:
 orchestrate --version
 ```
 
-## Step 7: Configure Your Credentials
+## Step 8: Configure Your Credentials
 
 You have two options:
 
@@ -142,7 +174,7 @@ export WO_URL="https://your-orchestrate-url.com"
 export WO_API_KEY="your-api-key"
 ```
 
-## Step 8: Verify Bob is Working
+## Step 9: Verify Bob is Working
 
 Let's test that Bob can help you with watsonx Orchestrate tasks.
 
@@ -159,7 +191,7 @@ Bob should respond with information about agents. If not, check that:
 - You're in the correct workspace folder
 - Bob has access to the watsonx-orchestrate-adk-docs MCP server
 
-## Step 9: Test Your Connection
+## Step 10: Test Your Connection
 
 Create a simple verification script to test your setup:
 
@@ -222,7 +254,7 @@ Run the script:
 python verify-setup.py
 ```
 
-## Step 10: Understand the Workshop Structure
+## Step 11: Understand the Workshop Structure
 
 Your workshop folder should look like this:
 
