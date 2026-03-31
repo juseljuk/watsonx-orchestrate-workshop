@@ -40,18 +40,43 @@ This folder will contain all your workshop files, agents, and tools.
 ## Step 4: Open Folder in IBM Bob IDE
 
 Open the workshop folder in IBM Bob IDE:
-
-```bash
-code bobchestrate-ws
-```
-
-Or manually:
 1. Launch IBM Bob IDE
 2. Click **File** → **Open Folder**
+
+   <img src="image.png" alt="IBM Bob IDE File menu showing Open Folder option" width="30%">
+
+
 3. Navigate to and select the `bobchestrate-ws` folder
 4. Click **Open**
+5. Click **Yes, I trust the author** to trust the workspace
 
-## Step 5: Install watsonx Orchestrate SDK
+   <img src="image-1.png" alt="IBM Bob IDE File menu showing Open Folder option" width="40%">
+
+The empty workspace will open.
+
+## Step 5: Install watsonx Orchestrate VSCode Extension
+
+Install the watsonx Orchestrate extension for VS Code:
+
+1. Open the Extensions view in VS Code (Click the Extensions icon in the Activity Bar or press `Cmd+Shift+X` on Mac / `Ctrl+Shift+X` on Windows/Linux)
+
+   <img src="image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="10%">
+
+2. Search for "watsonx Orchestrate"
+3. Click **Install** on the "IBM watsonx Orchestrate" extension
+4. Wait for the installation to complete
+5. Reload VS Code if prompted
+6. You should now see the extension icon appear in the Activity Bar:
+
+   <img src="image-3.png" alt="IBM Bob IDE File menu showing Open Folder option" width="10%">
+
+The extension provides:
+- Syntax highlighting for agent YAML files
+- IntelliSense for agent configuration
+- Quick access to watsonx Orchestrate commands
+- Integration with the Orchestrate CLI
+
+## Step 6: Install watsonx Orchestrate SDK
 
 Install the IBM watsonx Orchestrate SDK:
 
@@ -64,7 +89,7 @@ Verify the installation:
 orchestrate --version
 ```
 
-## Step 6: Configure Your Credentials
+## Step 7: Configure Your Credentials
 
 You have two options:
 
@@ -114,7 +139,7 @@ export WO_URL="https://your-orchestrate-url.com"
 export WO_API_KEY="your-api-key"
 ```
 
-## Step 7: Verify Bob is Working
+## Step 8: Verify Bob is Working
 
 Let's test that Bob can help you with watsonx Orchestrate tasks.
 
@@ -131,7 +156,7 @@ Bob should respond with information about agents. If not, check that:
 - You're in the correct workspace folder
 - Bob has access to the watsonx-orchestrate-adk-docs MCP server
 
-## Step 8: Test Your Connection
+## Step 9: Test Your Connection
 
 Create a simple verification script to test your setup:
 
@@ -194,7 +219,7 @@ Run the script:
 python verify-setup.py
 ```
 
-## Step 9: Understand the Workshop Structure
+## Step 10: Understand the Workshop Structure
 
 Your workshop folder should look like this:
 
