@@ -123,7 +123,7 @@ Create a virtual environment for the workshop to keep dependencies isolated usin
 
 You can now see the .venv folder in your workspace explorer view.
 
-<img src="images/image-6.png" alt="IBM Bob IDE File menu showing Open Folder option" width="65%">
+<img src="images/image-6.png" alt="IBM Bob IDE File menu showing Open Folder option" width="50%">
 
 IBM Bob IDE will automatically:
 - Create a `.venv` folder in your workspace
@@ -132,18 +132,13 @@ IBM Bob IDE will automatically:
 
 **Note:** The virtual environment will be automatically activated when you open new terminals in IBM Bob IDE.
 
+**Note2:** If you're wondering about the .bob folder, it was created automatically when you installed the MCP Servers for Orchestrate. This folder contains all the IBM Bob IDE configuration files for the MCP Servers for Orchestrate. It's safe to leave it there.
+
 ## Step 8: Install watsonx Orchestrate SDK
 
-Install the IBM watsonx Orchestrate SDK:
+Since you have the watsonx Orchestrate ADK extension installed, you will see the ADK informaton in the bottom Status Bar. If you already have the ADK installed, you can see the current version, but otherwise you should see just a red cross stating that you need to install the ADK.
 
-```bash
-pip install ibm-watsonx-orchestrate
-```
-
-Verify the installation:
-```bash
-orchestrate --version
-```
+<img src="images/image-7.png" alt="IBM Bob IDE Status Bar showing ADK not installed" width="30%">
 
 ## Step 9: Configure Your Credentials
 
