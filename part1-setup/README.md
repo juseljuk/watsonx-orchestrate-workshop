@@ -26,7 +26,32 @@ Open a terminal and run:
 uv --version
 ```
 
-## Step 3: Install watsonx Orchestrate SDK
+## Step 3: Create Workshop Folder
+
+Create a dedicated folder for your workshop project - you can place it where ever you want:
+
+```bash
+mkdir bobchestrate-ws
+cd bobchestrate-ws
+```
+
+This folder will contain all your workshop files, agents, and tools.
+
+## Step 4: Open Folder in IBM Bob IDE
+
+Open the workshop folder in IBM Bob IDE:
+
+```bash
+code bobchestrate-ws
+```
+
+Or manually:
+1. Launch IBM Bob IDE
+2. Click **File** → **Open Folder**
+3. Navigate to and select the `bobchestrate-ws` folder
+4. Click **Open**
+
+## Step 5: Install watsonx Orchestrate SDK
 
 Install the IBM watsonx Orchestrate SDK:
 
@@ -39,7 +64,7 @@ Verify the installation:
 orchestrate --version
 ```
 
-## Step 4: Configure Your Credentials
+## Step 6: Configure Your Credentials
 
 You have two options:
 
@@ -89,7 +114,7 @@ export WO_URL="https://your-orchestrate-url.com"
 export WO_API_KEY="your-api-key"
 ```
 
-## Step 5: Verify Bob is Working
+## Step 7: Verify Bob is Working
 
 Let's test that Bob can help you with watsonx Orchestrate tasks.
 
@@ -106,7 +131,7 @@ Bob should respond with information about agents. If not, check that:
 - You're in the correct workspace folder
 - Bob has access to the watsonx-orchestrate-adk-docs MCP server
 
-## Step 6: Test Your Connection
+## Step 8: Test Your Connection
 
 Create a simple verification script to test your setup:
 
@@ -169,7 +194,7 @@ Run the script:
 python verify-setup.py
 ```
 
-## Step 7: Understand the Workshop Structure
+## Step 9: Understand the Workshop Structure
 
 Your workshop folder should look like this:
 
