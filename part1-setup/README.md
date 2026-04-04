@@ -187,7 +187,7 @@ Wait for the installation to complete. After a while, you should see a notificat
 
 <img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="40%">
 
-## Step 10: Get Your API key and API URL
+## Step 10: Get Your watsonx Orchestrate API key and API URL
 
 For the workshop, we will use the watsonx Orchestrate ADK to interact with a watsonx Orchestrate SaaS instance. The ADK requires your API key and API URL to authenticate and connect to your watsonx Orchestrate instance.
 
@@ -217,7 +217,27 @@ Copy the Service instance URL from the API details information. This is the base
 
    <img src="images/image-13.png" alt="Get the service URL" width="60%">
 
-#### Step 3: Configure the ADK Environment
+### Configure the ADK Environment
+
+#### Option A: Using the ADK CLI
+
+1. Open a terminal window within Bob IDE
+   - Form the Bob main menu bar, select **Terminal** > **New Terminal**
+
+      <img src="images/image-14.png" alt="Open terminal" width="70%">
+   
+   - This will open a terminal window in the Bob IDE - notice that your Python environment is already activated
+
+      <img src="images/image-15.png" alt="Terminal window opened in Bob IDE" width="80%">
+
+2. Run the following command in your terminal to add your environment:
+
+   ```bash
+   orchestrate env add -n <your-env-name> -u <your-api-url>
+   ```
+   Where `<your-env-name>` is a name you choose for your environment (e.g., "my-wxo-cloud") and `<your-api-url>` is the URL you got in Step 10.
+
+#### Option B: Using Bob to help you 😃
 
 Now add your environment configuration using the ADK CLI:
 
@@ -287,23 +307,6 @@ You can also configure using environment variables:
 export WO_URL="https://your-orchestrate-url.com"
 export WO_API_KEY="your-api-key"
 ```
-
-## Step 11: Verify Bob is Working
-
-Let's test that Bob can help you with watsonx Orchestrate tasks.
-
-1. Open VS Code
-2. Open the Bob chat panel (usually on the right side)
-3. Try this prompt:
-
-```
-Bob, can you help me understand what watsonx Orchestrate agents are?
-```
-
-Bob should respond with information about agents. If not, check that:
-- Bob extension is installed and enabled
-- You're in the correct workspace folder
-- Bob has access to the watsonx-orchestrate-adk-docs MCP server
 
 ## Step 12: Test Your Connection
 
