@@ -195,7 +195,7 @@ For the workshop, we will use the watsonx Orchestrate ADK to interact with a wat
 
 ### OPTIONAL: Using your own watsonx Orchestrate SaaS instance
 
-<u>To generate an API key for the ADK:</u>
+<ins>To generate an API key for the ADK:</ins>
 
 1. In your watsonx Orchestrate console, click on your **profile icon** in the top-right corner
 2. Select **Settings** from the dropdown menu
@@ -211,7 +211,7 @@ For the workshop, we will use the watsonx Orchestrate ADK to interact with a wat
 
 > **Security Best Practice**: Treat your API key like a password. Never commit it to version control or share it publicly.
 
-<u>To get the API URL:</u>
+<ins>To get the API URL:</ins>
 
 Copy the Service instance URL from the API details information. This is the base URL for your watsonx Orchestrate instance.
 
@@ -221,7 +221,8 @@ Copy the Service instance URL from the API details information. This is the base
 
 #### Option A: Using the ADK CLI
 
-1. Open a terminal window within Bob IDE
+1. Open a terminal window within Bob IDE:
+
    - Form the Bob main menu bar, select **Terminal** > **New Terminal**
 
       <img src="images/image-14.png" alt="Open terminal" width="70%">
@@ -230,12 +231,23 @@ Copy the Service instance URL from the API details information. This is the base
 
       <img src="images/image-15.png" alt="Terminal window opened in Bob IDE" width="80%">
 
-2. Run the following command in your terminal to add your environment:
+2. Run the following command in your terminal to **add** your environment:
 
    ```bash
    orchestrate env add -n <your-env-name> -u <your-api-url>
    ```
    Where `<your-env-name>` is a name you choose for your environment (e.g., "my-wxo-cloud") and `<your-api-url>` is the URL you got in Step 10.
+   
+   After running the command, you should see a message: `[INFO] Environment '<your-env-name>' has been created`
+
+3. Run the following command to **activate** the environment:
+
+   ```bash
+   orchestrate env activate <your-env-name> -a <your-api-key>
+   ```
+   Where `<your-env-name>` is a name you choose for your environment (e.g., "my-wxo-cloud") and `<your-api-key>` is the API key you got in Step 10.
+   
+   After running the command, you should see a message: `[INFO] Environment '<your-env-name>' is now active`. This means your environment is now active and ready to use with the ADK. You can ignore the warning regarding the Auth Type.
 
 #### Option B: Using Bob to help you 😃
 
