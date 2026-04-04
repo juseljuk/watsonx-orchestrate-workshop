@@ -413,18 +413,8 @@ orchestrate environment activate <name>
 
 ### Issue: Bob isn't responding
 **Solution:** 
-1. Check Bob extension is enabled in VS Code
-2. Restart VS Code
-3. Check the Bob output panel for errors
-
-### Issue: Connection refused (Developer Edition)
-**Solution:** Make sure Developer Edition is running:
-```bash
-# Check if containers are running
-docker ps
-# Start Developer Edition if needed
-orchestrate server start
-```
+1. Restart Bob IDE
+2. Check the Bob output panel for errors
 
 ## Quick Reference
 
@@ -450,15 +440,6 @@ orchestrate --help
 
 # Check version
 orchestrate --version
-```
-
-### Environment Variables
-```bash
-# Override default endpoint
-export ORCHESTRATE_URL="https://your-instance.com"
-
-# Set API key
-export ORCHESTRATE_API_KEY="your-api-key"
 ```
 
 ## Next Steps
