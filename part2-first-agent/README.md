@@ -21,13 +21,64 @@ A watsonx Orchestrate agent is an AI assistant that can:
 
 ## Step 1: Understanding Agent Structure
 
-An agent specification includes:
-- **name**: Unique identifier for your agent
-- **description**: What the agent does (used for routing)
-- **instructions**: How the agent should behave
-- **tools**: Functions the agent can call
-- **collaborators**: Other agents it can delegate to
-- **knowledge_base**: Information sources it can query
+An agent specification is defined using YAML or JSON format. Here's what you need to know:
+
+### Mandatory Fields
+
+Every agent MUST have these four fields:
+
+- **`spec_version`** (string): The specification version (e.g., "v1")
+- **`kind`** (string): The agent type - "native", "external", or "assistant" (default: "native")
+- **`name`** (string): Unique identifier for your agent
+- **`llm`** (string): The large language model that powers the agent (e.g., "watsonx/ibm/granite-3-8b-instruct" or "groq/openai/gpt-oss-120b")
+
+### Core Optional Fields
+
+These fields define your agent's behavior and capabilities:
+
+- **`description`** (string): Human-readable summary of the agent's purpose. This is visible in the UI and helps other agents understand its role when used as a collaborator
+- **`instructions`** (string): Natural language guidance that shapes the agent's behavior, persona, and how it uses tools and collaborators
+- **`style`** (string): Prompting structure - "default", "react", or "planner" (default: "default")
+- **`hide_reasoning`** (boolean): Whether to hide the agent's reasoning from users (default: false)
+
+### Extending Agent Capabilities
+
+- **`tools`** (list<string>): Names of tools the agent can use to perform actions (OpenAPI definitions, Python functions, agentic workflows, or MCP server tools)
+- **`collaborators`** (list<string>): Names of other agents this agent can delegate tasks to for solving complex problems
+- **`knowledge_base`** (list<string>): Names of knowledge bases providing domain-specific information from uploaded files or vector data stores
+
+### Advanced Configuration
+
+- **`guidelines`** (list<object>): Rule-based behavior controls with:
+  - `condition` (string, required): When to trigger the guideline
+  - `action` (string, optional): What action to perform
+  - `tool` (string, optional): Which tool to invoke
+  
+- **`restrictions`** (string): Whether the agent is "editable" or "non_editable" after import (default: "editable")
+- **`icon`** (string): SVG icon string for the agent (64-100px square, max 200KB)
+
+### Web Chat Features
+
+- **`welcome_content`** (object): Configure the initial greeting
+  - `welcome_message` (string): The welcome message shown to users
+  - `description` (string): Subtitle text below the welcome message
+
+- **`starter_prompts`** (object): Predefined prompts to help users start conversations
+  - `prompts` (list): Up to 3 prompt tiles with title, subtitle, and prompt text
+
+- **`chat_with_docs`** (object): Enable users to upload documents during chat
+  - `enabled` (boolean): Activate document upload feature
+  - `citations`: Configure how citations are displayed
+  - `generation`: Fine-tune document handling behavior
+
+### Context Variables
+
+- **`context_access_enabled`** (boolean): Enable access to context variables from upstream systems (default: false)
+- **`context_variables`** (list<string>): List of context variables the agent can access (e.g., wxo_email_id, wxo_user_name, wxo_tenant_id)
+
+### Key Insight
+
+The `instructions` field is the most critical part of your agent configuration. It defines the agent's personality, capabilities, and behavior patterns. Well-written instructions lead to predictable, helpful agent responses.
 
 ## Step 2: Create Your First Agent
 
