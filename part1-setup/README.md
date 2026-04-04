@@ -219,7 +219,7 @@ Copy the Service instance URL from the API details information. This is the base
 
 ### Configure the ADK Environment
 
-#### Option A: Using the ADK CLI
+#### Option A: Using the ADK CLI - check out the Option B before deciding which option to use 😉
 
 1. Open a terminal window within Bob IDE:
 
