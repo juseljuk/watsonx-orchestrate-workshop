@@ -251,11 +251,15 @@ Copy the Service instance URL from the API details information. This is the base
 
 #### Option B: Using Bob to help you 😃
 
-Now add your environment configuration using the ADK CLI:
+Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mode enabled, you can use Bob to help you with the setup.
 
-```bash
-orchestrate environment add
-```
+1. Make sure that you have the **WXO Agent Architect** mode selected for your Bob chat. Then ask Bon to create a script to add and activate new watsonx Orchestarte environment for the ADK:
+
+   ```
+   Create a script to add and activate new watsonx Orchestarte environment for the ADK. I have the environment URL and API key ready.
+   ```
+
+   <img src="images/image-16.png" alt="Create a script to add and activate new watsonx Orchestarte environment for the ADK" width="60%">
 
 When prompted, enter the following information:
 
