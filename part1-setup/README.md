@@ -305,7 +305,7 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
       <img src="images/image-21.png" alt="Env API key" width="70%">
 
-12. Verify your connection is working:
+12. Verify your connection is working. Run the following command in your Bob IDE terminal:
 
       ```bash
       orchestrate agents list
