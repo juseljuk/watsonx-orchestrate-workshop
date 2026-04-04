@@ -223,7 +223,7 @@ Copy the Service instance URL from the API details information. This is the base
 
 1. Open a terminal window within Bob IDE:
 
-   - Form the Bob main menu bar, select **Terminal** > **New Terminal**
+   - From the Bob main menu bar, select **Terminal** > **New Terminal**
 
       <img src="images/image-14.png" alt="Open terminal" width="70%">
    
@@ -253,156 +253,118 @@ Copy the Service instance URL from the API details information. This is the base
 
 Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mode enabled, you can use Bob to help you with the setup.
 
-1. Make sure that you have the **WXO Agent Architect** mode selected for your Bob chat. Then ask Bon to create a script to add and activate new watsonx Orchestarte environment for the ADK:
+1. Make sure that you have the **WXO Agent Architect** mode selected for your Bob chat. Then ask Bob to create a script to add and activate new watsonx Orchestarte environment for the ADK:
 
    ```
-   Create a script to add and activate new watsonx Orchestarte environment for the ADK. I have the environment URL and API key ready.
+   Create a simple shell script to add and activate new watsonx Orchestrate SaaS environment for the ADK. I have the environment URL and API key ready.
    ```
 
    <img src="images/image-16.png" alt="Create a script to add and activate new watsonx Orchestarte environment for the ADK" width="60%">
 
-When prompted, enter the following information:
+2. When Bob starts working, it will be asking for a permissionm to access watsonx-orchestarte-adk-docs MCP server. Click on the **Aprove** button to allow Bob to access the documentation.
 
-- **Environment Name**: A descriptive name for this environment (e.g., "my-wxo-cloud" or "production")
-- **URL**: The API URL you copied in Step 1 (e.g., `https://us.watsonx-orchestrate.ibm.com`)
-- **API Key**: The API key you generated in Step 2
+   >Note: You can also check the **Always allow** checkbox to always allow Bob to access the MCP server. One option is to enable **Auto-approval**. If you do this, you can specify the different options that you want to allow.
 
-Example interaction:
-```
-? Enter environment name: my-wxo-cloud
-? Enter URL: https://us.watsonx-orchestrate.ibm.com
-? Enter API key: [paste your API key here]
-✓ Environment 'my-wxo-cloud' added successfully
-```
+      <img src="images/image-17.png" alt="Approve access to MCP server" width="40%">
 
-#### Step 4: Activate the Environment
+   >Note: Bob might ask you to approve the MCP server access multiple times. This is because Bob is trying to access the MCP server to get the more detailed information after first learning about the environment setup. Recommendation is to enable **Auto-approval** for the MCP servers to avoid granting the permission manually each time.
 
-Activate your newly configured environment:
+3. After Bob has created the script (e.g. _add_wxo_env.sh_, name could be something else for you), it will ask you to permission to save the script. Click on the **Save** button to save the script.
 
-```bash
-orchestrate environment activate my-wxo-cloud
-```
+4. Next, Bob will create a documentation - an MD-file - for the script. Click on the **Save** button to save the documentation.
 
-You should see a confirmation message:
-```
-✓ Environment 'my-wxo-cloud' activated
-```
+5. After Bob has saved the documentation, it will ask you to permission to make the script executable. Click on the **Run** to execute the command.
 
-#### Step 5: Verify the Configuration
+6. Finally Bob will summarize the task for you.
 
-Verify your connection is working:
+    <img src="images/image-18.png" alt="Task summary" width="40%">
 
-```bash
-orchestrate agents list
-```
+7. Open a terminal window within Bob IDE:
 
-If configured correctly, this command will list any agents in your environment (or show an empty list if you haven't created any agents yet).
+   - From the Bob main menu bar, select **Terminal** > **New Terminal**
 
-### Option B: Using Developer Edition (Local)
+      <img src="images/image-14.png" alt="Open terminal" width="70%">
+   
+   - This will open a terminal window in the Bob IDE - notice that your Python environment is already activated
 
-If you're running watsonx Orchestrate Developer Edition locally:
+      <img src="images/image-15.png" alt="Terminal window opened in Bob IDE" width="80%">
 
-```bash
-# Add local environment
-orchestrate environment add
+8. Run the created script in your terminal to **add** your environment:
 
-# When prompted:
-# - Name: local-dev
-# - URL: http://localhost:4321
-# - API Key: (leave empty or use your local key)
+   `./<name of your cerated script>, e.g. ./_add_wxo_env.sh`
 
-# Activate it
-orchestrate environment activate local-dev
-```
+9. When asked, provide name for your environment, e.g. `my-wxo-cloud`:
 
-### Option C: Using Environment Variables
+   <img src="images/image-19.png" alt="Env name" width="70%">
 
-You can also configure using environment variables:
+10. When asked, provide the URL of your Orchestrate instance that you got earlier:
 
-```bash
-export WO_URL="https://your-orchestrate-url.com"
-export WO_API_KEY="your-api-key"
-```
+      <img src="images/image-20.png" alt="Env URL" width="90%">
 
-## Step 12: Test Your Connection
+11. When asked, provide the API key of your Orchestrate instance that you got earlier. The script will then create a new environment and activate it:
 
-Create a simple verification script to test your setup:
+      <img src="images/image-21.png" alt="Env API key" width="70%">
 
-**Ask Bob to help you:**
-```
-Bob, create a Python script called verify-setup.py that tests my watsonx Orchestrate connection by listing available agents
-```
+12. Verify your connection is working:
 
-Or use the provided script below:
+      ```bash
+      orchestrate agents list
+      ```
 
-```python
-# verify-setup.py
-from ibm_watsonx_orchestrate import AgentBuilder
+      If configured correctly, this command will list any agents in your environment (or show an empty list if you haven't created any agents yet).
 
-def verify_setup():
-    """Verify watsonx Orchestrate setup"""
-    try:
-        # Initialize the agent builder
-        builder = AgentBuilder()
-        
-        print("✅ Successfully connected to watsonx Orchestrate!")
-        print("\nListing available agents...")
-        
-        # List agents
-        agents = builder.list_agents()
-        
-        if agents.native_agents or agents.external_agents or agents.assistant_agents:
-            print(f"\n📋 Found agents:")
-            for agent in agents.native_agents:
-                print(f"  - {agent['name']} (native)")
-            for agent in agents.external_agents:
-                print(f"  - {agent['name']} (external)")
-            for agent in agents.assistant_agents:
-                print(f"  - {agent['name']} (assistant)")
-        else:
-            print("\n📋 No agents found yet (this is normal for a new environment)")
-        
-        print("\n✅ Setup verification complete!")
-        return True
-        
-    except Exception as e:
-        print(f"❌ Error: {e}")
-        print("\nTroubleshooting tips:")
-        print("1. Check your API key is correct")
-        print("2. Verify your network connection")
-        print("3. Ensure you configured your environment:")
-        print("   orchestrate environment add")
-        print("   orchestrate environment activate <name>")
-        print("4. Or set environment variables:")
-        print("   export WO_URL='your-url'")
-        print("   export WO_API_KEY='your-key'")
-        return False
-
-if __name__ == "__main__":
-    verify_setup()
-```
-
-Run the script:
-```bash
-python verify-setup.py
-```
-
-## Step 13: Understand the Workshop Structure
+## Step 11: Understand the Workshop Structure
 
 Your workshop folder should look like this:
 
 ```
-workshop/
-├── README.md                    # Main workshop guide
-├── part1-setup/                 # You are here!
+bobchestrate-workshop/
+├── README.md                           # Main workshop guide
+├── GETTING-STARTED.md                  # Quick start guide
+├── .bob/                               # Bob IDE configuration
+├── bob-prompts/                        # Helpful Bob prompts
+│   └── helpful-prompts.md
+├── part1-setup/                        # You are here!
 │   ├── README.md
-│   └── verify-setup.py
-├── part2-first-agent/           # Next: Build your first agent
-├── part3-custom-tools/          # Then: Create custom tools
-├── part4-advanced/              # Advanced features
-├── part5-deployment/            # Deploy your agent
-├── solutions/                   # Reference solutions
-└── bob-prompts/                 # Helpful Bob prompts
+│   ├── verify-setup.py
+│   ├── files/
+│   │   └── wxo-agent-architect-export.yaml
+│   └── images/                         # Screenshots for setup guide
+├── part2-first-agent/                  # Next: Build your first agent
+│   ├── README.md
+│   ├── exercises.md
+│   └── hello-agent.yaml
+├── part3-custom-tools/                 # Create custom tools
+│   ├── README.md
+│   ├── exercises.md
+│   ├── order_status_tool.py
+│   └── refund_tool.py
+├── part4-knowledge/                    # Knowledge bases
+│   ├── README.md
+│   ├── customer-support-agent.yaml
+│   ├── escalation-agent.yaml
+│   └── faq-knowledge-base.yaml
+├── part5-guidelines-guardrails/        # Guidelines and guardrails
+│   ├── README.md
+│   ├── customer-support-with-guidelines.yaml
+│   └── content_safety_plugin.py
+├── part6-mcp-servers/                  # MCP server integration
+│   ├── README.md
+│   ├── product-assistant-agent.yaml
+│   ├── product-catalog-server.py
+│   ├── product-catalog-toolkit.yaml
+│   └── requirements.txt
+├── part7-multi-agent-orchestration/    # Multi-agent systems
+│   ├── README.md
+│   ├── travel-concierge-agent.yaml
+│   ├── activity-planner-agent.yaml
+│   ├── budget-advisor-agent.yaml
+│   ├── flight-specialist-agent.yaml
+│   ├── hotel-specialist-agent.yaml
+│   ├── flight_tools.py
+│   └── hotel_tools.py
+└── part8-deployment/                   # Deploy your agent
+    └── README.md
 ```
 
 ## Using Bob Throughout the Workshop
