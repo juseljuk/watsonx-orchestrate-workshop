@@ -181,35 +181,86 @@ Since you have the watsonx Orchestrate ADK extension installed, you will see the
 
 Click on the red cross to install the ADK. This will open a couple of commands to the search/command bar. Select the one to install the ADK.
 
-<img src="images/image-8.png" alt="IBM Bob IDE Command Palette showing Install ADK command" width="60%">
+<img src="images/image-8.png" alt="IBM Bob IDE Command Palette showing Install ADK command" width="70%">
 
-Wait for the installation to complete. You should see a notification and a green checkmark in the Status Bar with the latest version number of the ADK.
+Wait for the installation to complete. After a while, you should see a notification and a green checkmark in the Status Bar with the latest version number of the ADK.
 
 <img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="40%">
 
-## Step 10: Configure Your Credentials
+## Step 10: Get Your API key and API URL
 
-You have two options:
+For the workshop, we will use the watsonx Orchestrate ADK to interact with a watsonx Orchestrate SaaS instance. The ADK requires your API key and API URL to authenticate and connect to your watsonx Orchestrate instance.
 
-### Option A: Using Cloud watsonx Orchestrate
+> **_Note:_** `Your instructor will provide you with the API key and API URL for your watsonx Orchestrate instance.` If you are using your own instance, you can follow the instructions below to get the needed API key and the API URL.
 
-1. Get your API key from the watsonx Orchestrate console
-2. Add your environment configuration:
+### OPTIONAL: Using your own watsonx Orchestrate SaaS instance
+
+<u>To generate an API key for the ADK:</u>
+
+1. In your watsonx Orchestrate console, click on your **profile icon** in the top-right corner
+2. Select **Settings** from the dropdown menu
+3. Navigate to the **API details** tab
+4. Click **Generate API key** button
+
+   <img src="images/image-12.png" alt="Generate API key button highlighted" width="40%">
+
+5. When the key is generated, click **Copy** to save it to your clipboard
+6. **Important**: Copy the API key immediately and _store_ it securely
+   - The key will only be shown once
+   - If you lose it, you'll need to create a new one
+
+> **Security Best Practice**: Treat your API key like a password. Never commit it to version control or share it publicly.
+
+<u>To get the API URL:</u>
+
+Copy the Service instance URL from the API details information. This is the base URL for your watsonx Orchestrate instance.
+
+   <img src="images/image-13.png" alt="Get the service URL" width="60%">
+
+#### Step 3: Configure the ADK Environment
+
+Now add your environment configuration using the ADK CLI:
 
 ```bash
 orchestrate environment add
 ```
 
-Follow the prompts to enter:
-- **Environment Name**: A name for this environment (e.g., "my-wxo")
-- **URL**: Your watsonx Orchestrate URL
-- **API Key**: Your watsonx Orchestrate API key
+When prompted, enter the following information:
 
-3. Activate the environment:
+- **Environment Name**: A descriptive name for this environment (e.g., "my-wxo-cloud" or "production")
+- **URL**: The API URL you copied in Step 1 (e.g., `https://us.watsonx-orchestrate.ibm.com`)
+- **API Key**: The API key you generated in Step 2
+
+Example interaction:
+```
+? Enter environment name: my-wxo-cloud
+? Enter URL: https://us.watsonx-orchestrate.ibm.com
+? Enter API key: [paste your API key here]
+✓ Environment 'my-wxo-cloud' added successfully
+```
+
+#### Step 4: Activate the Environment
+
+Activate your newly configured environment:
 
 ```bash
-orchestrate environment activate <environment-name>
+orchestrate environment activate my-wxo-cloud
 ```
+
+You should see a confirmation message:
+```
+✓ Environment 'my-wxo-cloud' activated
+```
+
+#### Step 5: Verify the Configuration
+
+Verify your connection is working:
+
+```bash
+orchestrate agents list
+```
+
+If configured correctly, this command will list any agents in your environment (or show an empty list if you haven't created any agents yet).
 
 ### Option B: Using Developer Edition (Local)
 
