@@ -91,9 +91,9 @@ When working with IBM watsonx Orchestrate or watsonx Orchestrate ADK projects:
 
 2. **Download the enhanced rule file:**
    
-   Download the comprehensive `wxo-dev-rule-enhanced.md` file from the workshop repository:
-   - **File location in repository:** `part2b-bob-custom-rules/wxo-dev-rule-enhanced.md`
-   - Navigate to this file in the GitHub repository and click "Raw" to download it, or use the direct link if you have the repository cloned locally
+   Download the comprehensive [wxo-dev-rule-enhanced.md](./wxo-dev-rule-enhanced.md) file from the workshop repository.
+   
+   Click the link above to view the file, then click the "Raw" button in GitHub to download it, or copy the content directly.
 
 3. **Place the file in your rules directory:**
    ```bash
