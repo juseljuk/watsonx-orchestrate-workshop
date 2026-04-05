@@ -256,9 +256,9 @@ The exercises cover:
 
 ## Next Steps
 
-Now that you understand basic agents, you're ready to make them more powerful by adding custom tools!
+Now that you understand basic agents, learn how to configure Bob IDE with custom rules for more efficient development!
 
-Continue to [Part 3: Adding Custom Tools](../part3-custom-tools/README.md) →
+Continue to [Part 2b: Using Custom Rules with Bob IDE](../part2b-bob-custom-rules/README.md) →
 
 ## Additional Resources
 

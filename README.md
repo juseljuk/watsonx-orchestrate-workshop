@@ -36,6 +36,12 @@ You'll create a **Customer Support Agent** that can:
 - Test your agent with the chat interface
 - Learn how to use Bob to help debug issues
 
+### [Part 2b: Using Custom Rules with Bob IDE](./part2b-bob-custom-rules/README.md) (10 min)
+- Learn how to configure Bob with custom development rules
+- Understand the watsonx Orchestrate development rule
+- Set up project-specific conventions for Bob
+- Create your own custom rules for consistent development
+
 ### [Part 3: Adding Custom Tools](./part3-custom-tools/README.md) (30 min)
 - Create a Python tool to check order status
 - Create a tool to process refund requests
@@ -98,6 +104,9 @@ workshop/
 │   ├── README.md
 │   ├── hello-agent.yaml
 │   └── exercises.md
+├── part2b-bob-custom-rules/
+│   ├── README.md
+│   └── wxo-dev-rule.md
 ├── part3-custom-tools/
 │   ├── README.md
 │   ├── order_status_tool.py
