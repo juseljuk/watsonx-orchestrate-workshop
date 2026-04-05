@@ -125,6 +125,7 @@ Bob, what custom rules are you following for this watsonx Orchestrate project?
 
 Bob should acknowledge the watsonx Orchestrate development rule and explain how it will apply the conventions.
 
+
 ## Step 4: Test the Custom Rules
 
 Let's test that Bob follows the custom rules by asking it to create a new agent:
@@ -132,6 +133,7 @@ Let's test that Bob follows the custom rules by asking it to create a new agent:
 ```
 Bob, create a new agent called "test-rules-agent" that demonstrates you're following the watsonx Orchestrate development conventions.
 ```
+>NOTE: Bob might work for a while. Be patient 😇 and let it create the agent and all the other files. Keep your eye on the chat as well, since Bob might ask you to confirm some of the actions.
 
 **What to observe:**
 - ✅ Bob should save the agent YAML in the `agents/` directory
