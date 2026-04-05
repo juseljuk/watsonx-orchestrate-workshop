@@ -8,7 +8,7 @@ Complete these exercises to reinforce your understanding of agent creation.
 
 **Task:** Create a pirate-themed customer service agent that helps users but speaks like a pirate.
 
-**Steps:**
+**Manual Steps Needed:**
 1. Create a new file `pirate-agent.yaml`
 2. Define the agent with appropriate instructions
 3. Import and test the agent
