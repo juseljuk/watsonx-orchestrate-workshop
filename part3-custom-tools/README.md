@@ -24,32 +24,31 @@ Tools extend your agent's capabilities beyond conversation. They allow agents to
 A watsonx Orchestrate Python tool has this structure:
 
 ```python
-from ibm_watsonx_orchestrate.agent_builder.tools import PythonTool
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
 
-class MyTool(PythonTool):
-    """Tool description that helps the agent understand when to use it"""
+@tool
+def my_tool(param1: str) -> dict:
+    """Tool description that helps the agent understand when to use it.
     
-    def __init__(self):
-        super().__init__(
-            name="my_tool",
-            description="What this tool does",
-            parameters={
-                "param1": {
-                    "type": "string",
-                    "description": "What this parameter is for",
-                    "required": True
-                }
-            }
-        )
-    
-    def run(self, param1: str) -> dict:
-        """Execute the tool logic"""
-        # Your code here
-        return {
-            "result": "success",
-            "data": "your result"
-        }
+    Args:
+        param1 (str): What this parameter is for
+        
+    Returns:
+        dict: The result of the tool execution
+    """
+    # Your code here
+    return {
+        "result": "success",
+        "data": "your result"
+    }
 ```
+
+**Key Points:**
+- Use the `@tool` decorator to define tools
+- Tool name defaults to the function name (or specify with `@tool(name="custom_name")`)
+- Description is extracted from the docstring
+- Parameter types and descriptions come from type hints and docstring Args section
+- Must use Google-style docstrings for proper parameter documentation
 
 ## Step 1: Create an Order Status Tool
 
@@ -64,72 +63,55 @@ Or create it manually:
 
 ```python
 # order_status_tool.py
-from ibm_watsonx_orchestrate.agent_builder.tools import PythonTool
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
 from datetime import datetime, timedelta
 import random
 
-class OrderStatusTool(PythonTool):
-    """Check the status of a customer order"""
+@tool
+def check_order_status(order_id: str) -> dict:
+    """
+    Retrieves the current status and details of a customer order by order ID.
+    Use this when customers ask about their order status, delivery date, or order details.
     
-    def __init__(self):
-        super().__init__(
-            name="check_order_status",
-            description="Retrieves the current status and details of a customer order by order ID",
-            parameters={
-                "order_id": {
-                    "type": "string",
-                    "description": "The unique order identifier (e.g., ORD-12345)",
-                    "required": True
-                }
-            }
-        )
-    
-    def run(self, order_id: str) -> dict:
-        """
-        Check order status (simulated for workshop)
+    Args:
+        order_id (str): The unique order identifier (e.g., ORD-12345)
         
-        Args:
-            order_id: The order identifier
-            
-        Returns:
-            Dictionary with order details
-        """
-        # Validate order ID format
-        if not order_id.startswith("ORD-"):
-            return {
-                "success": False,
-                "error": "Invalid order ID format. Must start with 'ORD-'"
-            }
-        
-        # Simulate order lookup
-        statuses = ["Processing", "Shipped", "Out for Delivery", "Delivered"]
-        status = random.choice(statuses)
-        
-        # Generate mock order data
-        order_date = datetime.now() - timedelta(days=random.randint(1, 10))
-        delivery_date = order_date + timedelta(days=random.randint(3, 7))
-        
-        items = [
-            {"name": "Laptop", "quantity": 1, "price": 999.99},
-            {"name": "Mouse", "quantity": 1, "price": 29.99},
-            {"name": "Keyboard", "quantity": 1, "price": 79.99}
-        ]
-        
-        total = sum(item["price"] * item["quantity"] for item in items)
-        
+    Returns:
+        dict: Dictionary with order details including status, items, dates, and tracking
+    """
+    # Validate order ID format
+    if not order_id.startswith("ORD-"):
         return {
-            "success": True,
-            "order_id": order_id,
-            "status": status,
-            "order_date": order_date.strftime("%Y-%m-%d"),
-            "estimated_delivery": delivery_date.strftime("%Y-%m-%d"),
-            "items": items,
-            "total": f"${total:.2f}",
-            "tracking_number": f"TRK{random.randint(100000, 999999)}"
+            "success": False,
+            "error": "Invalid order ID format. Must start with 'ORD-'"
         }
-
-# Export the tool
-tool = OrderStatusTool()
+    
+    # Simulate order lookup
+    statuses = ["Processing", "Shipped", "Out for Delivery", "Delivered"]
+    status = random.choice(statuses)
+    
+    # Generate mock order data
+    order_date = datetime.now() - timedelta(days=random.randint(1, 10))
+    delivery_date = order_date + timedelta(days=random.randint(3, 7))
+    
+    items = [
+        {"name": "Laptop", "quantity": 1, "price": 999.99},
+        {"name": "Mouse", "quantity": 1, "price": 29.99},
+        {"name": "Keyboard", "quantity": 1, "price": 79.99}
+    ]
+    
+    total = sum(item["price"] * item["quantity"] for item in items)
+    
+    return {
+        "success": True,
+        "order_id": order_id,
+        "status": status,
+        "order_date": order_date.strftime("%Y-%m-%d"),
+        "estimated_delivery": delivery_date.strftime("%Y-%m-%d"),
+        "items": items,
+        "total": f"${total:.2f}",
+        "tracking_number": f"TRK{random.randint(100000, 999999)}"
+    }
 ```
 
 ## Step 2: Create a Refund Processing Tool
@@ -143,92 +125,65 @@ Bob, create a Python tool that processes refund requests. It should take order_i
 
 ```python
 # refund_tool.py
-from ibm_watsonx_orchestrate.agent_builder.tools import PythonTool
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
 from datetime import datetime
 import random
 
-class RefundTool(PythonTool):
-    """Process customer refund requests"""
+@tool
+def process_refund(order_id: str, reason: str, amount: float) -> dict:
+    """
+    Processes a refund request for a customer order.
+    Use this when customers request refunds or returns.
     
-    def __init__(self):
-        super().__init__(
-            name="process_refund",
-            description="Processes a refund request for a customer order",
-            parameters={
-                "order_id": {
-                    "type": "string",
-                    "description": "The order ID to refund",
-                    "required": True
-                },
-                "reason": {
-                    "type": "string",
-                    "description": "Reason for the refund request",
-                    "required": True
-                },
-                "amount": {
-                    "type": "number",
-                    "description": "Refund amount in dollars",
-                    "required": True
-                }
-            }
-        )
-    
-    def run(self, order_id: str, reason: str, amount: float) -> dict:
-        """
-        Process a refund request
+    Args:
+        order_id (str): The order ID to refund (format: ORD-XXXXX)
+        reason (str): Reason for the refund request (must be at least 10 characters)
+        amount (float): Refund amount in dollars (must be positive and under $10,000)
         
-        Args:
-            order_id: The order to refund
-            reason: Reason for refund
-            amount: Amount to refund
-            
-        Returns:
-            Refund confirmation details
-        """
-        # Validation
-        if not order_id.startswith("ORD-"):
-            return {
-                "success": False,
-                "error": "Invalid order ID format"
-            }
-        
-        if amount <= 0:
-            return {
-                "success": False,
-                "error": "Refund amount must be greater than 0"
-            }
-        
-        if amount > 10000:
-            return {
-                "success": False,
-                "error": "Refund amount exceeds maximum. Please contact manager.",
-                "requires_approval": True
-            }
-        
-        if not reason or len(reason) < 10:
-            return {
-                "success": False,
-                "error": "Please provide a detailed reason (at least 10 characters)"
-            }
-        
-        # Process refund (simulated)
-        refund_id = f"REF-{random.randint(10000, 99999)}"
-        processing_time = "3-5 business days"
-        
+    Returns:
+        dict: Refund confirmation details including refund ID, status, and processing time
+    """
+    # Validation
+    if not order_id.startswith("ORD-"):
         return {
-            "success": True,
-            "refund_id": refund_id,
-            "order_id": order_id,
-            "amount": f"${amount:.2f}",
-            "reason": reason,
-            "status": "Approved",
-            "processing_time": processing_time,
-            "refund_method": "Original payment method",
-            "confirmation_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            "success": False,
+            "error": "Invalid order ID format"
         }
-
-# Export the tool
-tool = RefundTool()
+    
+    if amount <= 0:
+        return {
+            "success": False,
+            "error": "Refund amount must be greater than 0"
+        }
+    
+    if amount > 10000:
+        return {
+            "success": False,
+            "error": "Refund amount exceeds maximum. Please contact manager.",
+            "requires_approval": True
+        }
+    
+    if not reason or len(reason) < 10:
+        return {
+            "success": False,
+            "error": "Please provide a detailed reason (at least 10 characters)"
+        }
+    
+    # Process refund (simulated)
+    refund_id = f"REF-{random.randint(10000, 99999)}"
+    processing_time = "3-5 business days"
+    
+    return {
+        "success": True,
+        "refund_id": refund_id,
+        "order_id": order_id,
+        "amount": f"${amount:.2f}",
+        "reason": reason,
+        "status": "Approved",
+        "processing_time": processing_time,
+        "refund_method": "Original payment method",
+        "confirmation_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
 ```
 
 ## Step 3: Import Your Tools
@@ -236,9 +191,10 @@ tool = RefundTool()
 Import the tools into watsonx Orchestrate:
 
 ```bash
-orchestrate tools import -k python order_status_tool.py
-orchestrate tools import -k python refund_tool.py
+orchestrate tools import -k python tools/order_status_tool.py
+orchestrate tools import -k python tools/refund_tool.py
 ```
+>NOTE: The name of the tools - when Bob generates them - might be different what is shown here. Use the tool names in your woorkspace.
 
 Verify they were imported:
 ```bash

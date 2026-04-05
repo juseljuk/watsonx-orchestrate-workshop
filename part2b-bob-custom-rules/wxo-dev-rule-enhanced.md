@@ -143,6 +143,77 @@ def my_tool(param: str) -> dict:
 
 ## 3. Testing & Quality Assurance
 
+### Testing Python Tools with @tool Decorator
+
+**CRITICAL**: The `@tool` decorator from watsonx Orchestrate wraps functions and changes their return behavior. When creating test files for Python tools:
+
+1. **DO NOT import the decorated function directly** - The decorator expects specific return formats (`content` or `context_updates` keys)
+2. **Create standalone test versions** - Copy the tool's business logic into test files WITHOUT the `@tool` decorator
+3. **Keep tool and test logic synchronized** - When updating tools, update corresponding tests
+
+#### Example Test File Structure
+
+```python
+"""
+Test cases for my_tool.
+
+Note: This file contains a copy of the tool logic WITHOUT the @tool decorator
+for testing purposes. The actual tool in tools/my_tool.py uses the @tool decorator.
+"""
+
+from datetime import datetime
+from typing import Dict
+
+def my_tool(param1: str, param2: int) -> Dict:
+    """
+    Test version of my_tool without @tool decorator.
+    Copy the exact business logic from tools/my_tool.py
+    """
+    try:
+        # Business logic here (same as in tools/my_tool.py)
+        result = process_data(param1, param2)
+        return {
+            "status": "success",
+            "data": result
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+
+def test_successful_case():
+    """Test successful execution."""
+    result = my_tool("test", 42)
+    assert result['status'] == 'success'
+    print("✓ Test passed")
+
+def test_error_case():
+    """Test error handling."""
+    result = my_tool("", -1)
+    assert result['status'] == 'error'
+    print("✓ Test passed")
+
+if __name__ == "__main__":
+    test_successful_case()
+    test_error_case()
+```
+
+#### Why This Approach
+
+- **Decorator Complexity**: The `@tool` decorator is designed for watsonx Orchestrate's agent framework, not local testing
+- **Return Format**: Decorated functions return data in a specific format that's incompatible with direct dictionary access
+- **Testing Independence**: Test files should test business logic independently of framework decorators
+- **Maintainability**: Keep tool logic and test logic in sync manually
+
+#### Alternative: Integration Testing
+
+For testing tools within the watsonx Orchestrate environment:
+```bash
+# Use orchestrate CLI evaluation tools
+orchestrate evaluations quick-eval -p tests/ -o results/ -t tools/
+```
+
 ### Quick Evaluation
 ```bash
 # Quick evaluation of agent
