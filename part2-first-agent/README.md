@@ -82,14 +82,14 @@ The `instructions` field is the most critical part of your agent configuration. 
 
 ## Step 2: Create Your First Agent
 
-Let's create a simple "Hello World" agent.
+Let's create a simple "Hello World" agent. Make sure you have the `WXO Agent Architect` mode selected for the Bob chat. **Start New Task** in the Bob chat.
 
-### Ask Bob to Help:
+#### Ask Bob to Help:
 ```
-Bob, create a YAML file called hello-agent.yaml that defines a simple watsonx Orchestrate agent that greets users and tells them about itself
+Bob, create a YAML file called hello-agent.yaml that defines a simple watsonx Orchestrate agent that greets users and tells them about itself.
 ```
 
-Or create it manually:
+Or create the yaml-file manually (see [hello-agent-EXAMPLE.yaml](./hello-agent-EXAMPLE.yaml) for reference):
 
 ```yaml
 # hello-agent.yaml
@@ -109,38 +109,42 @@ instructions: |
 
 # Optional: Specify the LLM model to use
 llm: groq/openai/gpt-oss-120b
-
-# Optional: Agent configuration
-config:
-  hidden: false
-  enable_cot: false
 ```
 
 ## Step 3: Import Your Agent
 
-Use the watsonx Orchestrate CLI to import your agent:
+### _IMPORTANT!_ ##
+> Since the workshop participants are working in the same environment, you need to import the agent with a unique name. Please use your initials in the agent name. Edit the agent name in the YAML file before importing by adding your initials to the agent name. For example, change `hello_agent` to `hello_agent_JKJ`.
+
+<img src="images/image.png" alt="Agent renaming" width="60%">
+
+### Option A: Using Bob
+```
+Bob, help me import the hello-agent.yaml file into my active environment.
+```
+
+>NOTE! IBM Bob is using its own terminal to run the commands and therefore it takes a while to undestand that it needs to use the existing Python virtual environment (.venv). Approve Bob to have access to all the necessary files and the wxO MCP servers. Bob should eventually figure things out by itself and import the agent correctly.
+
+<img src="images/image-1.png" alt="Bob importing the agent" width="60%">
+
+### Option B: Manually using the watsonx Orchestrate CLI - running _orchestrate_ command in the terminal
 
 ```bash
-orchestrate agents import hello-agent.yaml
+orchestrate agents import -f hello-agent.yaml
 ```
 
 You should see:
 ```
-✅ Successfully imported agent: hello-world-agent
-```
-
-### Using Bob:
-```
-Bob, help me import the hello-agent.yaml file into watsonx Orchestrate
+[INFO] - Agent '<your_agent_name>' imported successfully
 ```
 
 ## Step 4: Test Your Agent
 
-### Option A: Using the CLI Chat Interface
-
 ```bash
-orchestrate chat --agent hello-world-agent
+orchestrate chat ask --agent-name <your_agent_name>
 ```
+
+This will start an interactive chat session with your agent. This is very useful for testing your agent's responses without needing to login to your watsonx Orchestrate instance UI.
 
 Try these test messages:
 - "Hello!"
@@ -148,44 +152,6 @@ Try these test messages:
 - "Tell me about watsonx Orchestrate"
 
 Type `exit` or press Ctrl+C to quit.
-
-### Option B: Using Python
-
-Create a test script:
-
-```python
-# test-hello-agent.py
-from ibm_watsonx_orchestrate import AgentBuilder
-
-def test_agent():
-    builder = AgentBuilder()
-    
-    # Start a conversation
-    response = builder.chat_with_agent(
-        agent_name="hello-world-agent",
-        message="Hello! What can you do?"
-    )
-    
-    print(f"Agent: {response['message']}")
-    print(f"Thread ID: {response['thread_id']}")
-    
-    # Continue the conversation
-    response = builder.chat_with_agent(
-        agent_name="hello-world-agent",
-        message="Tell me more about watsonx Orchestrate",
-        thread_id=response['thread_id']
-    )
-    
-    print(f"\nAgent: {response['message']}")
-
-if __name__ == "__main__":
-    test_agent()
-```
-
-Run it:
-```bash
-python test-hello-agent.py
-```
 
 ## Step 5: Understanding Agent Instructions
 

@@ -30,9 +30,4 @@ instructions: |
 # Specify the LLM model to use
 llm: groq/openai/gpt-oss-120b
 
-# Agent configuration
-config:
-  hidden: false          # Show this agent in the UI
-  enable_cot: false      # Don't show chain-of-thought reasoning
-
 # Made with Bob
