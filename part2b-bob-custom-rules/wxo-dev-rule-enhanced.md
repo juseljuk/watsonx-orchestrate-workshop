@@ -36,6 +36,7 @@ Follow ADK conventions when creating and saving artifacts:
 ### Tool & Flow Development
 - Use `@flow` decorator for flows with proper type hints
 - Use `@tool` decorator for Python tools with clear docstrings
+- **CRITICAL**: Always import tool decorator as `from ibm_watsonx_orchestrate.agent_builder.tools import tool`
 - Include inline KVP schemas for document processing
 - Create native agents for document handling tasks
 - Implement proper input validation and schema definitions
@@ -43,6 +44,8 @@ Follow ADK conventions when creating and saving artifacts:
 
 ### Error Handling
 ```python
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
+
 @tool
 def my_tool(param: str) -> dict:
     """Tool with proper error handling."""
@@ -117,7 +120,7 @@ orchestrate evaluations quick-eval -c evaluation/config.yaml
 #### Pre-invoke Guardrails
 ```python
 # plugins/content_safety_plugin.py
-from ibm_watsonx_orchestrate import plugin
+from ibm_watsonx_orchestrate.agent_builder.plugins import plugin
 
 @plugin(type="pre-invoke")
 def content_safety_check(input_text: str) -> dict:
@@ -132,6 +135,8 @@ def content_safety_check(input_text: str) -> dict:
 
 #### Post-invoke Guardrails
 ```python
+from ibm_watsonx_orchestrate.agent_builder.plugins import plugin
+
 @plugin(type="post-invoke")
 def pii_detection(response: str) -> dict:
     """Detect and redact PII in responses."""
@@ -336,6 +341,8 @@ examples:
 
 ### Tool Documentation
 ```python
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
+
 @tool
 def check_order_status(order_id: str) -> dict:
     """
@@ -456,6 +463,9 @@ orchestrate connections set-credentials -a <app-id> --env draft -u <username> -p
 
 ### Efficient Tool Chaining
 ```python
+import asyncio
+from ibm_watsonx_orchestrate.agent_builder.tools import flow
+
 @flow
 async def optimized_flow(input_data: dict) -> dict:
     """Efficient flow with parallel tool execution."""

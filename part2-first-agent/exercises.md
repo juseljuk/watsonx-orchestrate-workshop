@@ -1,6 +1,6 @@
 # Part 2 Exercises: Practice Building Agents
 
-Complete these exercises to reinforce your understanding of agent creation.
+Complete these exercises to reinforce your understanding of agent creation. **Remember to use the `WXO Agent Architect` mode to create your agents.**
 
 ## Exercise 1: Personality Agent (Easy)
 
@@ -8,8 +8,8 @@ Complete these exercises to reinforce your understanding of agent creation.
 
 **Task:** Create a pirate-themed customer service agent that helps users but speaks like a pirate.
 
-**Manual Steps Needed:**
-1. Create a new file `pirate-agent.yaml`
+**Steps Needed:**
+1. Create agent yaml file
 2. Define the agent with appropriate instructions
 3. Import and test the agent
 
@@ -22,6 +22,8 @@ Bob, create a YAML file for a pirate-themed customer service agent that speaks l
 - "Hello, I need help with my order"
 - "What can you do?"
 - "Thank you for your help"
+
+>Reminder: Use `orchestrate agents import -f <your_agent_name>.yaml` to import your agent and `orchestrate chat ask --agent-name <your_agent_name>` to test it.
 
 **Success criteria:**
 - Agent responds in pirate speak
@@ -64,7 +66,7 @@ Bob, create an agent that's a Python programming expert. It should provide code 
 
 **Goal:** Create an agent that can respond in multiple languages
 
-**Task:** Modify the hello-world-agent to support English, Spanish, and French.
+**Task:** Modify the hello-agent to support English, Spanish, and French.
 
 **Requirements:**
 - Agent should detect the user's language
@@ -221,16 +223,8 @@ After completing the exercises, consider:
 
 ---
 
-## Solutions
-
-Solutions for all exercises are available in the `../solutions/part2/` directory.
-
-Don't peek until you've tried them yourself! 😊
-
----
-
 ## Next Steps
 
-Once you've completed these exercises, you're ready to make your agents more powerful with custom tools!
+Once you've completed these exercises, you're ready to learn how to customize Bob's behavior with custom rules!
 
-Continue to [Part 3: Adding Custom Tools](../part3-custom-tools/README.md) →
+Continue to [Part 2b: Bob Custom Rules](../part2b-bob-custom-rules/README.md) →
