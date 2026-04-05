@@ -21,10 +21,72 @@ Follow ADK conventions when creating and saving artifacts:
 
 ### Essential Files
 - **import-all.sh** - Comprehensive deployment script for all artifact types
-- **requirements.txt** - Python dependencies
+- **requirements.txt** - Python dependencies (exclude `ibm-watsonx-orchestrate` - it's platform-managed)
 - **.env.example** - Environment variable templates (never commit actual .env)
 - **README.md** - Architecture diagrams, workflow diagrams, setup instructions
 - **.gitignore** - Exclude .env, credentials, and local config files
+
+### Environment Configuration (.env.example)
+
+The `.env.example` file must follow the official watsonx Orchestrate Developer Edition structure:
+
+#### Required: Choose ONE Authentication Method
+
+**Option 1: watsonx Orchestrate Account (SaaS/Trial)**
+```bash
+WO_DEVELOPER_EDITION_SOURCE=orchestrate
+WO_INSTANCE=https://your-instance.watson-orchestrate.ibm.com
+WO_API_KEY=your-api-key-here
+```
+
+**Option 2: myIBM (On-premises/Purchased)**
+```bash
+WO_DEVELOPER_EDITION_SOURCE=myibm
+WO_ENTITLEMENT_KEY=your-entitlement-key
+GROQ_API_KEY=your-groq-api-key
+WATSONX_APIKEY=your-watsonx-api-key
+WATSONX_SPACE_ID=your-space-id
+```
+
+**Option 3: Custom Image Registry**
+```bash
+WO_DEVELOPER_EDITION_SOURCE=custom
+REGISTRY_URL=your-registry-url
+REGISTRY_USERNAME=your-username
+REGISTRY_PASSWORD=your-password
+```
+
+#### Optional: Service Credentials
+Developer Edition includes built-in services (Minio, Langfuse, MCP Gateway, etc.). Only override if using external services:
+```bash
+# MINIO_ROOT_USER=minioadmin
+# MINIO_ROOT_PASSWORD=minioadmin
+# LANGFUSE_SECRET_KEY=your-secret-key
+# MCP_GATEWAY_API_KEY=your-api-key
+```
+
+#### Optional: Regional Configuration
+For non-us-south regions, configure regional endpoints:
+```bash
+# ASSISTANT_LLM_API_BASE=https://us-south.ml.cloud.ibm.com
+# ASSISTANT_EMBEDDINGS_API_BASE=https://us-south.ml.cloud.ibm.com
+# ROUTING_LLM_API_BASE=https://us-south.ml.cloud.ibm.com
+# WATSONX_URL=https://us-south.ml.cloud.ibm.com
+```
+
+#### Optional: On-Premises Configuration
+For on-premises deployments with Docker:
+```bash
+# DOCKER_IMAGE_PULL_POLICY=IfNotPresent
+# DOCKER_SKIP_SSL_VERIFY=false
+# DOCKER_ENABLE_LAYER_CACHING=true
+```
+
+**IMPORTANT**:
+- Never include actual credentials in `.env.example`
+- Do NOT use non-standard variables like `ORCHESTRATE_API_KEY`, `ORCHESTRATE_ENVIRONMENT`, or `TIMEOUT_SECONDS`
+- Do NOT include Slack, database, or other service-specific configs unless they're official Developer Edition variables
+- Always refer to official documentation for the latest environment variable requirements
 
 ---
 
@@ -116,6 +178,13 @@ orchestrate evaluations quick-eval -c evaluation/config.yaml
 ## 4. Security & Guardrails
 
 ### Guardrail Plugins
+
+**IMPORTANT**: Guardrails must be implemented as plugin files before they can be referenced in agent YAML configurations. Do NOT add guardrail references to agent YAML unless the corresponding plugin files exist in the `plugins/` directory and have been imported.
+
+Only reference guardrails in agent YAML after:
+1. Creating the plugin file (e.g., `plugins/content_safety_plugin.py`)
+2. Importing the plugin: `orchestrate plugins import -f plugins/content_safety_plugin.py`
+3. Verifying the plugin exists: `orchestrate plugins list`
 
 #### Pre-invoke Guardrails
 ```python
@@ -322,7 +391,13 @@ Deployment instructions for each environment
 
 ### Agent YAML Documentation
 ```yaml
+spec_version: v1
+kind: native
 name: customer-support-agent
+llm: groq/openai/gpt-oss-120b  # Simple string format: provider/model-id
+style: default  # Options: default, react, planner
+hide_reasoning: false
+
 description: |
   Handles customer support inquiries including:
   - Order status checks
@@ -333,10 +408,23 @@ instructions: |
   You are a helpful customer support agent.
   Always be polite and professional.
   Escalate complex issues to human agents.
-  
-examples:
-  - input: "Where is my order?"
-    output: "I'll check your order status. Could you provide your order number?"
+
+tools:
+  - check_order_status
+  - process_refund
+
+collaborators: []
+
+knowledge_base: []
+
+restrictions: editable  # Options: editable, non_editable
+
+# Only include guardrails section if plugins are implemented and imported
+# guardrails:
+#   pre_invoke:
+#     - content_safety_check
+#   post_invoke:
+#     - pii_detection
 ```
 
 ### Tool Documentation
@@ -394,8 +482,10 @@ orchestrate connections list  # Check if connection exists
 #### Runtime Errors
 ```bash
 # Error: Agent timeout
-# Solution: Optimize tool execution, increase timeout
-# Check agent YAML: timeout: 60
+# Solution: Optimize tool execution time
+# - Reduce complexity of tool operations
+# - Implement caching for repeated operations
+# - Use async operations where possible
 
 # Error: Token limit exceeded
 # Solution: Reduce context, optimize prompts
