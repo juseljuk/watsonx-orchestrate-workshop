@@ -51,7 +51,7 @@ A good custom rule includes:
 
 ### Example: watsonx Orchestrate Development Rule
 
-Here's the development rule for watsonx Orchestrate projects:
+Here's a simple example for a development rule for watsonx Orchestrate projects:
 
 ```markdown
 ## watsonx Orchestrate Development Rule
@@ -91,20 +91,14 @@ When working with IBM watsonx Orchestrate or watsonx Orchestrate ADK projects:
 
 2. **Download the enhanced rule file:**
    
-   Download the comprehensive [wxo-dev-rule-enhanced.md](./wxo-dev-rule-enhanced.md) file from the workshop repository.
+   Download more comprehensive [wxo-dev-rule-enhanced.md](./wxo-dev-rule-enhanced.md) file from the workshop repository.
    
-   Click the link above to view the file, then click the "Raw" button in GitHub to download it, or copy the content directly.
+   Click the link above to view the file, then click the "Download raw file" button in GitHub to download it and save it to your local machine.
 
 3. **Place the file in your rules directory:**
    ```bash
    # Move the downloaded file to your .bob/rules directory
    mv ~/Downloads/wxo-dev-rule-enhanced.md .bob/rules/
-   ```
-
-   Or if you have the workshop repository cloned:
-   ```bash
-   # Copy from the workshop directory
-   cp part2b-bob-custom-rules/wxo-dev-rule-enhanced.md .bob/rules/
    ```
 
 ### What's in the Enhanced Rule File?

@@ -30,6 +30,9 @@ Follow ADK conventions when creating and saving artifacts:
 
 ## 2. Development Patterns & Best Practices
 
+### LLM Configuration for Agents
+- Use groq/openai/gpt-oss-120b as the default LLM model
+
 ### Tool & Flow Development
 - Use `@flow` decorator for flows with proper type hints
 - Use `@tool` decorator for Python tools with clear docstrings
