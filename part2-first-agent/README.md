@@ -166,7 +166,7 @@ The `instructions` field is crucial - it defines your agent's behavior.
 
 ### Example: Improving Instructions
 
-**Ask Bob:**
+**Ask Bob:** (make sure to have the WXO Agent Architect mode selected)
 ```
 Bob, improve the instructions in hello-agent.yaml to make the agent more helpful and specific about what it can do in this workshop context
 ```
@@ -175,47 +175,44 @@ Bob might suggest something like:
 
 ```yaml
 instructions: |
-  You are HelloBot, a friendly AI assistant created as part of a watsonx Orchestrate workshop.
+  You are the Hello Agent, a demonstration agent designed for watsonx Orchestrate workshops.
   
-  Your purpose is to:
-  - Welcome users to the workshop
-  - Explain what watsonx Orchestrate agents can do
-  - Answer questions about agent capabilities
-  - Provide examples of how agents work
+  Your primary purpose is to help workshop participants understand the basics of agent creation and interaction.
   
-  When users ask what you can do, explain that you're a simple demonstration agent
-  showing the basics of agent creation. Mention that more advanced agents can:
-  - Call custom tools to perform actions
-  - Access knowledge bases for information
-  - Collaborate with other specialized agents
-  - Integrate with external systems
+  When users interact with you:
+  1. Greet them warmly and introduce yourself as the Hello Agent
+  2. Explain that you're a simple demonstration agent built to showcase watsonx Orchestrate capabilities
+  3. Describe your specific capabilities:
+     - Providing friendly greetings and introductions
+     - Explaining what watsonx Orchestrate agents are and how they work
+     - Demonstrating basic conversational AI patterns
+     - Serving as a starting point for learning agent development
+  4. Offer to answer questions about:
+     - How agents are structured (spec_version, kind, name, description, instructions, etc.)
+     - The role of LLMs in agent behavior
+     - How agents can be extended with tools and collaborators
+     - Next steps in the workshop for building more complex agents
   
-  Keep responses concise (2-3 sentences) and encouraging. If asked about topics
-  outside your scope, politely explain your limitations and suggest they'll learn
-  more in later workshop sections.
+  Workshop Context:
+  - You are part of a hands-on learning experience
+  - Participants are learning to create and deploy watsonx Orchestrate agents
+  - Your simplicity is intentional - you demonstrate core concepts without complexity
+  - You can help participants understand the YAML structure that defines you
+  
+  Always be polite, enthusiastic, educational, and encouraging. Help participants feel confident about building their own agents.
 ```
+
+Let Bob save the updated instructions to your hello-agent.yaml file.
 
 ## Step 6: Update Your Agent
 
 After modifying the YAML file, re-import it:
 
 ```bash
-orchestrate agents import hello-agent.yaml
+orchestrate agents import -f hello-agent.yaml
 ```
 
-The agent will be updated with your new instructions. Test it again to see the difference!
-
-## Step 7: View Your Agent Details
-
-List all agents:
-```bash
-orchestrate agents list
-```
-
-Get detailed information about your agent:
-```bash
-orchestrate agents get hello-world-agent
-```
+The agent will be updated with your new instructions. **Test** it again to see the difference!
 
 ## Common Issues and Solutions
 
@@ -237,33 +234,17 @@ Bob, why might my agent be giving unexpected responses? Here are the instruction
 Bob, check this YAML file for syntax errors: [paste YAML]
 ```
 
-## Exercises
+## Additional Exercises
 
-Try these exercises to practice:
+For hands-on practice building agents, see the [Part 2 Exercises](./exercises.md).
 
-### Exercise 1: Personality Agent
-Create an agent with a specific personality (e.g., pirate, Shakespeare, tech guru).
-
-**Ask Bob:**
-```
-Bob, create an agent YAML file for a pirate-themed customer service agent
-```
-
-### Exercise 2: Domain Expert
-Create an agent that's an expert in a specific domain (e.g., Python programming, cooking, fitness).
-
-**Ask Bob:**
-```
-Bob, create an agent that's a Python programming expert who can answer coding questions
-```
-
-### Exercise 3: Multi-lingual Agent
-Create an agent that can respond in multiple languages.
-
-**Ask Bob:**
-```
-Bob, modify hello-agent.yaml to support English, Spanish, and French
-```
+The exercises cover:
+- Creating personality-based agents
+- Building domain expert agents
+- Multi-lingual agent support
+- Structured output formatting
+- Conversational flow patterns
+- Debugging agent issues
 
 ## Key Takeaways
 
@@ -281,9 +262,9 @@ Continue to [Part 3: Adding Custom Tools](../part3-custom-tools/README.md) →
 
 ## Additional Resources
 
-- [Agent Configuration Reference](https://developer.watson-orchestrate.ibm.com/agents/configuration)
-- [Writing Effective Instructions](https://developer.watson-orchestrate.ibm.com/agents/instructions)
-- [Agent Styles Guide](https://developer.watson-orchestrate.ibm.com/agents/styles)
+- [Agent Configuration Reference](https://developer.watson-orchestrate.ibm.com/agents/build_agent)
+- [Writing Effective Instructions](https://developer.watson-orchestrate.ibm.com/agents/descriptions)
+- [Agent Styles Guide](https://developer.watson-orchestrate.ibm.com/agents/agent_styles)
 
 ---
 
