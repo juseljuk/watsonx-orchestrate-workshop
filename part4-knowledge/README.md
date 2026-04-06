@@ -27,7 +27,7 @@ Let's create a simple FAQ knowledge base for our customer support agent. Choose 
 Create FAQ content using the example provided below or create your own using Bob! Bob prompt provided after the example.
 
 ```yaml
-# faq-knowledge-base.yaml
+# customer-suport-faq.yaml
 kind: knowledge_base
 name: customer-support-faq
 description: Frequently asked questions for customer support
@@ -108,7 +108,7 @@ Bob, create a knowledge base YAML file with FAQs about shipping, returns, paymen
 
 ### Option B: Import PDF with Bob's Help
 
-Use Bob to extract content from the provided FAQ.pdf and create a knowledge base YAML file.
+Use Bob to create a knowledge base YAML file to import the FAQ PDF.
 
 1. **Download the FAQ PDF**:
    - **Direct download**: [FAQ.pdf](./FAQ.pdf)
@@ -121,34 +121,56 @@ Use Bob to extract content from the provided FAQ.pdf and create a knowledge base
    - Order Management
    - Customer Support
 
-2. **Ask Bob to create the knowledge base**:
+2. **Place the PDF in the `knowledge_bases` directory in your workspace.**
+
+3. **Ask Bob to create the knowledge base**:
    ```
-   Bob, read the FAQ.pdf file in the part4-knowledge directory and create a knowledge base YAML file that imports this PDF content. The knowledge base should be named 'customer-support-faq' and organize the content by topic sections.
+   Bob, create a knowledge base yaml-file to import the FAQ.pdf in the knowledge_bases directory as a knowledge to watsonx Orchestrate. The yaml-file should be called "customer-support-faq.yaml".
    ```
 
-3. **What Bob will do**:
-   - Read and extract content from FAQ.pdf
-   - Organize the content into logical document sections
-   - Create a properly formatted knowledge base YAML file
+4. **What Bob will do**:
+   - Verify that the FAQ.pdf file exists in the knowledge_bases directory
+   - Create a properly formatted knowledge base YAML file to import the PDF as a knowledge base
    - Structure it for optimal retrieval in watsonx Orchestrate
 
-4. **Expected output**: Bob will create a `faq-knowledge-base.yaml` file with the PDF content structured as documents, similar to Option A but with the comprehensive content from the PDF.
+5. **Expected output**: Bob will create a `customer-support-faq.yaml` file with the PDF content ready for import into watsonx Orchestrate.
 
 **💡 Pro Tip:** Option B is ideal when you have existing documentation in PDF format. Bob can help you quickly convert it into a knowledge base without manual copying and formatting!
 
+#### Knowledge Base Naming Guidelines
+
+When naming your knowledge base, follow these best practices:
+- Use lowercase letters, numbers, and hyphens (e.g., `customer-support-faq`)
+- Keep names descriptive and meaningful
+- Avoid spaces (use hyphens instead)
+- Use consistent naming conventions across your project
+- Example good names: `product-catalog`, `technical-docs`, `company-policies`
+
 ## Step 2: Import the Knowledge Base
+
+### IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _knowledge-base_ in the yaml-file by adding your initials as a postfix. ###
+
+>For example, `name: customer-support-faq` becomes `name: customer-support-faq-JKJ`.
+
+<img src="images/image-2.png" alt="" width="350px">
+
+⬇︎
+
+<img src="images/image-1.png" alt="" width="350px">
 
 Import your knowledge base:
 
 ```bash
-orchestrate knowledge-bases import faq-knowledge-base.yaml
+orchestrate knowledge-bases import -f knowledge_bases/customer-support-faq.yaml
 ```
 
 Check the status:
 ```bash
 orchestrate knowledge-bases list
-orchestrate knowledge-bases status customer-support-faq
+orchestrate knowledge-bases status -n customer-support-faq-<your_initials_here>
 ```
+
+<img src="images/image.png" alt="KB status" width="600px">
 
 Wait for the knowledge base to be indexed (status: "ready").
 
