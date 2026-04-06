@@ -390,42 +390,147 @@ orchestrate evaluations quick-eval -c evaluation/config.yaml
 
 ### Guardrail Plugins
 
-**IMPORTANT**: Guardrails must be implemented as plugin files before they can be referenced in agent YAML configurations. Do NOT add guardrail references to agent YAML unless the corresponding plugin files exist in the `plugins/` directory and have been imported.
+**IMPORTANT**: Guardrails must be implemented as Python tools with specific plugin types before they can be referenced in agent YAML configurations. Do NOT add guardrail references to agent YAML unless the corresponding plugin files exist and have been imported.
 
 Only reference guardrails in agent YAML after:
 1. Creating the plugin file (e.g., `plugins/content_safety_plugin.py`)
-2. Importing the plugin: `orchestrate plugins import -f plugins/content_safety_plugin.py`
-3. Verifying the plugin exists: `orchestrate plugins list`
+2. Importing the plugin: `orchestrate tools import -k python -f plugins/content_safety_plugin.py`
+3. Verifying the plugin exists: `orchestrate tools list`
 
 #### Pre-invoke Guardrails
+Pre-invoke plugins run BEFORE the agent processes input. They can filter, modify, or block requests.
+
 ```python
 # plugins/content_safety_plugin.py
-from ibm_watsonx_orchestrate.agent_builder.plugins import plugin
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
+from ibm_watsonx_orchestrate.agent_builder.tools.types import (
+    PythonToolKind,
+    PluginContext,
+    AgentPreInvokePayload,
+    AgentPreInvokeResult,
+    TextContent,
+    Message
+)
 
-@plugin(type="pre-invoke")
-def content_safety_check(input_text: str) -> dict:
+@tool(description="Filters inappropriate content", kind=PythonToolKind.AGENTPREINVOKE)
+def content_safety_guardrail(plugin_context: PluginContext, agent_pre_invoke_payload: AgentPreInvokePayload) -> AgentPreInvokeResult:
     """Check for inappropriate content before processing."""
-    if contains_inappropriate_content(input_text):
-        return {
-            "block": True,
-            "reason": "Content violates safety guidelines"
-        }
-    return {"block": False}
+    result = AgentPreInvokeResult()
+    
+    # Check if we have messages
+    if not agent_pre_invoke_payload or not agent_pre_invoke_payload.messages:
+        result.continue_processing = True
+        result.modified_payload = agent_pre_invoke_payload
+        return result
+    
+    # Get user message
+    last_message = agent_pre_invoke_payload.messages[-1]
+    content = getattr(last_message, "content", None)
+    
+    if content is None or not hasattr(content, "text") or content.text is None:
+        result.continue_processing = True
+        result.modified_payload = agent_pre_invoke_payload
+        return result
+    
+    user_message = content.text
+    
+    # Check for inappropriate content
+    if contains_inappropriate_content(user_message):
+        # Block the request by replacing message
+        new_text = "I cannot process this request as it violates our content guidelines."
+        new_content = TextContent(type="text", text=new_text)
+        new_message = Message(role=last_message.role, content=new_content)
+        
+        modified_payload = agent_pre_invoke_payload.copy(deep=True)
+        modified_payload.messages[-1] = new_message
+        
+        result.continue_processing = False
+        result.modified_payload = modified_payload
+        return result
+    
+    # Allow through
+    result.continue_processing = True
+    result.modified_payload = agent_pre_invoke_payload
+    return result
 ```
 
 #### Post-invoke Guardrails
-```python
-from ibm_watsonx_orchestrate.agent_builder.plugins import plugin
+Post-invoke plugins run AFTER the agent generates a response. They can filter, modify, or redact output.
 
-@plugin(type="post-invoke")
-def pii_detection(response: str) -> dict:
+```python
+# plugins/pii_filter_plugin.py
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
+from ibm_watsonx_orchestrate.agent_builder.tools.types import (
+    PythonToolKind,
+    PluginContext,
+    AgentPostInvokePayload,
+    AgentPostInvokeResult,
+    TextContent,
+    Message
+)
+import re
+
+@tool(description="Redacts PII from responses", kind=PythonToolKind.AGENTPOSTINVOKE)
+def pii_filter_guardrail(plugin_context: PluginContext, agent_post_invoke_payload: AgentPostInvokePayload) -> AgentPostInvokeResult:
     """Detect and redact PII in responses."""
-    if contains_pii(response):
-        return {
-            "modified_response": redact_pii(response),
-            "warning": "PII detected and redacted"
-        }
-    return {"modified_response": response}
+    result = AgentPostInvokeResult()
+    
+    # Check if we have messages
+    if not agent_post_invoke_payload or not agent_post_invoke_payload.messages or len(agent_post_invoke_payload.messages) == 0:
+        result.continue_processing = False
+        return result
+    
+    # Get agent's response
+    first_msg = agent_post_invoke_payload.messages[0]
+    content = getattr(first_msg, "content", None)
+    
+    if content is None or not hasattr(content, "text") or content.text is None:
+        result.continue_processing = False
+        return result
+    
+    response_text = content.text
+    
+    # Redact PII patterns
+    response_text = re.sub(r'\b\d{3}-\d{2}-\d{4}\b', '[SSN REDACTED]', response_text)
+    response_text = re.sub(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', '[EMAIL REDACTED]', response_text)
+    
+    # Create modified response
+    new_content = TextContent(type="text", text=response_text)
+    new_message = Message(role=first_msg.role, content=new_content)
+    
+    modified_payload = agent_post_invoke_payload.copy(deep=True)
+    modified_payload.messages[0] = new_message
+    
+    result.continue_processing = True
+    result.modified_payload = modified_payload
+    return result
+```
+
+#### Attaching Plugins to Agents
+```yaml
+# agent-with-guardrails.yaml
+spec_version: v1
+kind: native
+name: safe_customer_support
+description: Customer support agent with safety guardrails
+
+instructions: |
+  You are a helpful customer support agent.
+
+llm: groq/openai/gpt-oss-120b
+
+tools:
+  - check_order_status
+
+# Attach guardrail plugins
+plugins:
+  agent_pre_invoke:
+    - plugin_name: content_safety_guardrail
+  agent_post_invoke:
+    - plugin_name: pii_filter_guardrail
+
+config:
+  hidden: false
 ```
 
 ### Security Best Practices

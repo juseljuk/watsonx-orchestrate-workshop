@@ -3,11 +3,19 @@ Content Safety Guardrail Plugin for watsonx Orchestrate
 Pre-invoke plugin that filters inappropriate content and detects security threats
 """
 
-from ibm_watsonx_orchestrate.agent_builder.plugins import plugin
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
+from ibm_watsonx_orchestrate.agent_builder.tools.types import (
+    PythonToolKind,
+    PluginContext,
+    AgentPreInvokePayload,
+    AgentPreInvokeResult,
+    TextContent,
+    Message
+)
 import re
 
-@plugin(plugin_type="pre_invoke")
-def content_safety_guardrail(input_data: dict) -> dict:
+@tool(description="Filters inappropriate content and detects security threats", kind=PythonToolKind.AGENTPREINVOKE)
+def content_safety_guardrail(plugin_context: PluginContext, agent_pre_invoke_payload: AgentPreInvokePayload) -> AgentPreInvokeResult:
     """
     Filter input before it reaches the agent to ensure safety and security.
     
@@ -18,12 +26,33 @@ def content_safety_guardrail(input_data: dict) -> dict:
     - Security threats
     
     Args:
-        input_data: User's message and context
+        plugin_context: Context information about the plugin execution
+        agent_pre_invoke_payload: The incoming message payload
         
     Returns:
-        Modified input or blocked response
+        AgentPreInvokeResult with continue_processing flag and modified payload
     """
-    user_message = input_data.get("message", "")
+    
+    result = AgentPreInvokeResult()
+    modified_payload = agent_pre_invoke_payload
+    
+    # Get user input from the last message
+    if not agent_pre_invoke_payload or not agent_pre_invoke_payload.messages:
+        result.continue_processing = True
+        result.modified_payload = modified_payload
+        return result
+    
+    last_message = agent_pre_invoke_payload.messages[-1]
+    content = getattr(last_message, "content", None)
+    
+    # Check if content has text attribute (TextContent type)
+    if content is None or not hasattr(content, "text") or content.text is None:
+        result.continue_processing = True
+        result.modified_payload = modified_payload
+        return result
+    
+    user_message = content.text
+    message_lower = user_message.lower()
     
     # Define patterns for sensitive data
     sensitive_patterns = {
@@ -36,16 +65,19 @@ def content_safety_guardrail(input_data: dict) -> dict:
     # Check for sensitive data
     for data_type, pattern in sensitive_patterns.items():
         if re.search(pattern, user_message, re.IGNORECASE):
-            return {
-                "blocked": True,
-                "reason": f"sensitive_data_detected_{data_type}",
-                "message": (
-                    "I noticed you may have shared sensitive information. "
-                    "For your security, please don't share passwords, credit card numbers, "
-                    "social security numbers, or API keys in chat. "
-                    "How else can I help you?"
-                )
-            }
+            new_text = (
+                "I noticed you may have shared sensitive information. "
+                "For your security, please don't share passwords, credit card numbers, "
+                "social security numbers, or API keys in chat. "
+                "How else can I help you?"
+            )
+            new_content = TextContent(type="text", text=new_text)
+            new_message = Message(role=last_message.role, content=new_content)
+            modified_payload = agent_pre_invoke_payload.copy(deep=True)
+            modified_payload.messages[-1] = new_message
+            result.continue_processing = False
+            result.modified_payload = modified_payload
+            return result
     
     # Define inappropriate content patterns
     # Note: In production, use a more comprehensive list or external service
@@ -54,18 +86,20 @@ def content_safety_guardrail(input_data: dict) -> dict:
         # Add more as needed
     ]
     
-    message_lower = user_message.lower()
     for keyword in inappropriate_keywords:
         if keyword in message_lower:
-            return {
-                "blocked": True,
-                "reason": "inappropriate_content",
-                "message": (
-                    "I'm here to help with customer support questions. "
-                    "Please keep our conversation professional. "
-                    "How can I assist you today?"
-                )
-            }
+            new_text = (
+                "I'm here to help with customer support questions. "
+                "Please keep our conversation professional. "
+                "How can I assist you today?"
+            )
+            new_content = TextContent(type="text", text=new_text)
+            new_message = Message(role=last_message.role, content=new_content)
+            modified_payload = agent_pre_invoke_payload.copy(deep=True)
+            modified_payload.messages[-1] = new_message
+            result.continue_processing = False
+            result.modified_payload = modified_payload
+            return result
     
     # Check for prompt injection attempts
     injection_indicators = [
@@ -83,14 +117,17 @@ def content_safety_guardrail(input_data: dict) -> dict:
     
     for indicator in injection_indicators:
         if indicator in message_lower:
-            return {
-                "blocked": True,
-                "reason": "potential_injection",
-                "message": (
-                    "I'm designed to help with customer support. "
-                    "Let me know what you need assistance with!"
-                )
-            }
+            new_text = (
+                "I'm designed to help with customer support. "
+                "Let me know what you need assistance with!"
+            )
+            new_content = TextContent(type="text", text=new_text)
+            new_message = Message(role=last_message.role, content=new_content)
+            modified_payload = agent_pre_invoke_payload.copy(deep=True)
+            modified_payload.messages[-1] = new_message
+            result.continue_processing = False
+            result.modified_payload = modified_payload
+            return result
     
     # Check for attempts to extract system information
     system_probes = [
@@ -103,15 +140,18 @@ def content_safety_guardrail(input_data: dict) -> dict:
     
     for probe in system_probes:
         if probe in message_lower:
-            return {
-                "blocked": True,
-                "reason": "system_probe",
-                "message": (
-                    "I'm a customer support agent. "
-                    "I can help you with orders, returns, and general inquiries. "
-                    "What would you like help with?"
-                )
-            }
+            new_text = (
+                "I'm a customer support agent. "
+                "I can help you with orders, returns, and general inquiries. "
+                "What would you like help with?"
+            )
+            new_content = TextContent(type="text", text=new_text)
+            new_message = Message(role=last_message.role, content=new_content)
+            modified_payload = agent_pre_invoke_payload.copy(deep=True)
+            modified_payload.messages[-1] = new_message
+            result.continue_processing = False
+            result.modified_payload = modified_payload
+            return result
     
     # Check for data exfiltration attempts
     exfiltration_patterns = [
@@ -123,19 +163,21 @@ def content_safety_guardrail(input_data: dict) -> dict:
     
     for pattern in exfiltration_patterns:
         if re.search(pattern, message_lower):
-            return {
-                "blocked": True,
-                "reason": "data_exfiltration_attempt",
-                "message": (
-                    "I can only access information related to your specific account. "
-                    "Please provide your order ID if you need help with an order."
-                )
-            }
+            new_text = (
+                "I can only access information related to your specific account. "
+                "Please provide your order ID if you need help with an order."
+            )
+            new_content = TextContent(type="text", text=new_text)
+            new_message = Message(role=last_message.role, content=new_content)
+            modified_payload = agent_pre_invoke_payload.copy(deep=True)
+            modified_payload.messages[-1] = new_message
+            result.continue_processing = False
+            result.modified_payload = modified_payload
+            return result
     
     # Input passed all checks - allow it through
-    return {
-        "blocked": False,
-        "input_data": input_data
-    }
+    result.continue_processing = True
+    result.modified_payload = modified_payload
+    return result
 
 # Made with Bob

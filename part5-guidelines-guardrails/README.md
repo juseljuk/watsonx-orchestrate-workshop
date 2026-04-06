@@ -368,167 +368,172 @@ Filter and validate agent responses before sending to users.
 
 ```python
 # content_safety_plugin.py
-from ibm_watsonx_orchestrate.agent_builder.plugins import Plugin
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
+from ibm_watsonx_orchestrate.agent_builder.tools.types import (
+    PythonToolKind,
+    PluginContext,
+    AgentPreInvokePayload,
+    AgentPreInvokeResult
+)
 import re
 
-class ContentSafetyPlugin(Plugin):
+@tool(description="Filters inappropriate content and detects security threats", kind=PythonToolKind.AGENTPREINVOKE)
+def content_safety_guardrail(plugin_context: PluginContext, agent_pre_invoke_payload: AgentPreInvokePayload) -> AgentPreInvokeResult:
     """
     Pre-invoke plugin that filters inappropriate content
     and detects potential security issues
     """
     
-    def __init__(self):
-        super().__init__(
-            name="content_safety_guardrail",
-            description="Filters inappropriate content and detects security threats",
-            plugin_type="pre_invoke"  # Runs before agent processes input
-        )
-        
-        # Define blocked patterns
-        self.blocked_patterns = [
-            r'\b(password|passwd|pwd)\s*[:=]\s*\S+',  # Password patterns
-            r'\b\d{3}-\d{2}-\d{4}\b',  # SSN patterns
-            r'\b\d{16}\b',  # Credit card patterns
-        ]
-        
-        # Define inappropriate content patterns
-        self.inappropriate_patterns = [
-            r'\b(profanity1|profanity2)\b',  # Add actual profanity
-            # Add more patterns as needed
-        ]
+    result = AgentPreInvokeResult()
+    modified_payload = agent_pre_invoke_payload
     
-    def execute(self, input_data: dict) -> dict:
-        """
-        Filter input before it reaches the agent
-        
-        Args:
-            input_data: User's message and context
-            
-        Returns:
-            Modified input or error response
-        """
-        user_message = input_data.get("message", "")
-        
-        # Check for sensitive data
-        for pattern in self.blocked_patterns:
-            if re.search(pattern, user_message, re.IGNORECASE):
-                return {
-                    "blocked": True,
-                    "reason": "sensitive_data_detected",
-                    "message": "I noticed you may have shared sensitive information. For your security, please don't share passwords, credit card numbers, or social security numbers in chat. How else can I help you?"
-                }
-        
-        # Check for inappropriate content
-        for pattern in self.inappropriate_patterns:
-            if re.search(pattern, user_message, re.IGNORECASE):
-                return {
-                    "blocked": True,
-                    "reason": "inappropriate_content",
-                    "message": "I'm here to help with customer support questions. Please keep our conversation professional. How can I assist you today?"
-                }
-        
-        # Check for prompt injection attempts
-        injection_indicators = [
-            "ignore previous instructions",
-            "disregard all",
-            "forget everything",
-            "new instructions:",
-            "system:",
-            "override"
-        ]
-        
-        message_lower = user_message.lower()
-        for indicator in injection_indicators:
-            if indicator in message_lower:
-                return {
-                    "blocked": True,
-                    "reason": "potential_injection",
-                    "message": "I'm designed to help with customer support. Let me know what you need assistance with!"
-                }
-        
-        # Input is safe, allow it through
-        return {
-            "blocked": False,
-            "input_data": input_data
-        }
-
-# Export the plugin
-plugin = ContentSafetyPlugin()
+    # Get user input from the last message
+    if not agent_pre_invoke_payload or not agent_pre_invoke_payload.messages:
+        result.continue_processing = True
+        result.modified_payload = modified_payload
+        return result
+    
+    user_message = agent_pre_invoke_payload.messages[-1].content.text
+    
+    # Define blocked patterns
+    blocked_patterns = [
+        r'\b(password|passwd|pwd)\s*[:=]\s*\S+',  # Password patterns
+        r'\b\d{3}-\d{2}-\d{4}\b',  # SSN patterns
+        r'\b\d{16}\b',  # Credit card patterns
+    ]
+    
+    # Check for sensitive data
+    for pattern in blocked_patterns:
+        if re.search(pattern, user_message, re.IGNORECASE):
+            modified_payload.messages[-1].content.text = "I noticed you may have shared sensitive information. For your security, please don't share passwords, credit card numbers, or social security numbers in chat. How else can I help you?"
+            result.continue_processing = False
+            result.modified_payload = modified_payload
+            return result
+    
+    # Define inappropriate content patterns
+    inappropriate_patterns = [
+        r'\b(profanity1|profanity2)\b',  # Add actual profanity
+        # Add more patterns as needed
+    ]
+    
+    # Check for inappropriate content
+    for pattern in inappropriate_patterns:
+        if re.search(pattern, user_message, re.IGNORECASE):
+            modified_payload.messages[-1].content.text = "I'm here to help with customer support questions. Please keep our conversation professional. How can I assist you today?"
+            result.continue_processing = False
+            result.modified_payload = modified_payload
+            return result
+    
+    # Check for prompt injection attempts
+    injection_indicators = [
+        "ignore previous instructions",
+        "disregard all",
+        "forget everything",
+        "new instructions:",
+        "system:",
+        "override"
+    ]
+    
+    message_lower = user_message.lower()
+    for indicator in injection_indicators:
+        if indicator in message_lower:
+            modified_payload.messages[-1].content.text = "I'm designed to help with customer support. Let me know what you need assistance with!"
+            result.continue_processing = False
+            result.modified_payload = modified_payload
+            return result
+    
+    # Input is safe, allow it through
+    result.continue_processing = True
+    result.modified_payload = modified_payload
+    return result
 ```
 
 ### Output Guardrail Example
 
 ```python
 # response_filter_plugin.py
-from ibm_watsonx_orchestrate.agent_builder.plugins import Plugin
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
+from ibm_watsonx_orchestrate.agent_builder.tools.types import (
+    PythonToolKind,
+    PluginContext,
+    AgentPostInvokePayload,
+    AgentPostInvokeResult,
+    TextContent,
+    Message
+)
 import re
 
-class ResponseFilterPlugin(Plugin):
+@tool(description="Filters sensitive data from agent responses", kind=PythonToolKind.AGENTPOSTINVOKE)
+def response_filter_guardrail(plugin_context: PluginContext, agent_post_invoke_payload: AgentPostInvokePayload) -> AgentPostInvokeResult:
     """
     Post-invoke plugin that filters agent responses
     to ensure they don't contain sensitive information
     """
     
-    def __init__(self):
-        super().__init__(
-            name="response_filter_guardrail",
-            description="Filters sensitive data from agent responses",
-            plugin_type="post_invoke"  # Runs after agent generates response
-        )
+    result = AgentPostInvokeResult()
     
-    def execute(self, output_data: dict) -> dict:
-        """
-        Filter agent response before sending to user
-        
-        Args:
-            output_data: Agent's response
-            
-        Returns:
-            Filtered response
-        """
-        response = output_data.get("message", "")
-        
-        # Redact email addresses (except in specific contexts)
-        response = re.sub(
-            r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',
-            '[EMAIL REDACTED]',
-            response
-        )
-        
-        # Redact phone numbers
-        response = re.sub(
-            r'\b\d{3}[-.]?\d{3}[-.]?\d{4}\b',
-            '[PHONE REDACTED]',
-            response
-        )
-        
-        # Redact potential API keys or tokens
-        response = re.sub(
-            r'\b[A-Za-z0-9]{32,}\b',
-            '[TOKEN REDACTED]',
-            response
-        )
-        
-        # Add disclaimer for certain topics
-        if any(word in response.lower() for word in ['legal', 'lawsuit', 'attorney']):
-            response += "\n\n*Disclaimer: This is general information only and not legal advice. Please consult with a qualified attorney for legal matters.*"
-        
-        output_data["message"] = response
-        return output_data
-
-# Export the plugin
-plugin = ResponseFilterPlugin()
+    # Check if we have messages to process
+    if not agent_post_invoke_payload or not agent_post_invoke_payload.messages or len(agent_post_invoke_payload.messages) == 0:
+        result.continue_processing = False
+        return result
+    
+    # Get the first message (agent's response)
+    first_msg = agent_post_invoke_payload.messages[0]
+    content = getattr(first_msg, "content", None)
+    
+    if content is None or not hasattr(content, "text") or content.text is None:
+        result.continue_processing = False
+        return result
+    
+    response = content.text
+    
+    # Redact email addresses (except in specific contexts)
+    response = re.sub(
+        r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',
+        '[EMAIL REDACTED]',
+        response
+    )
+    
+    # Redact phone numbers
+    response = re.sub(
+        r'\b\d{3}[-.]?\d{3}[-.]?\d{4}\b',
+        '[PHONE REDACTED]',
+        response
+    )
+    
+    # Redact potential API keys or tokens
+    response = re.sub(
+        r'\b[A-Za-z0-9]{32,}\b',
+        '[TOKEN REDACTED]',
+        response
+    )
+    
+    # Add disclaimer for certain topics
+    if any(word in response.lower() for word in ['legal', 'lawsuit', 'attorney']):
+        response += "\n\n*Disclaimer: This is general information only and not legal advice. Please consult with a qualified attorney for legal matters.*"
+    
+    # Create modified payload with filtered response
+    new_content = TextContent(type="text", text=response)
+    new_message = Message(role=first_msg.role, content=new_content)
+    
+    modified_payload = agent_post_invoke_payload.copy(deep=True)
+    modified_payload.messages[0] = new_message
+    
+    result.continue_processing = True
+    result.modified_payload = modified_payload
+    
+    return result
 ```
 
 ### Importing Plugins
 
 ```bash
 # Import the guardrail plugins
-orchestrate plugins import content_safety_plugin.py
-orchestrate plugins import response_filter_plugin.py
+orchestrate tools import -k python -f content_safety_plugin.py
+orchestrate tools import -k python -f response_filter_plugin.py
 
 # Verify they're imported
-orchestrate plugins list
+orchestrate tools list
 ```
 
 ### Attaching Plugins to Agents
@@ -550,10 +555,10 @@ tools:
 
 # Attach guardrail plugins
 plugins:
-  pre_invoke:
-    - content_safety_guardrail
-  post_invoke:
-    - response_filter_guardrail
+  agent_pre_invoke:
+    - plugin_name: content_safety_guardrail
+  agent_post_invoke:
+    - plugin_name: response_filter_guardrail
 
 config:
   hidden: false
