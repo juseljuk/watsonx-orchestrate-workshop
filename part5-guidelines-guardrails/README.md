@@ -281,6 +281,58 @@ Bob, add some guidelines to my customer support agent concerning input safety an
 
 ## Part 2: Implementing Guardrails
 
+### Guidelines vs Guardrails: Understanding the Difference
+
+While both Guidelines and Guardrails help control agent behavior, they work in fundamentally different ways:
+
+| Aspect | Guidelines (Part 1) | Guardrails (Part 2) |
+|--------|-------------------|-------------------|
+| **Implementation** | Declarative rules in agent YAML | Code-based plugins (Python) |
+| **Execution** | Evaluated by LLM during reasoning | Executed automatically before/after LLM |
+| **Timing** | During agent processing | Pre-invoke (input) or Post-invoke (output) |
+| **Purpose** | Define conditional business logic | Enforce security and safety boundaries |
+| **Flexibility** | LLM interprets and applies contextually | Deterministic pattern matching |
+| **Scope** | Agent-specific scenarios | Cross-cutting concerns (all agents) |
+| **Examples** | "Escalate refunds over $10k" | "Block credit card numbers in input" |
+
+**Key Differences:**
+
+1. **Processing Layer**
+   - **Guidelines**: Work *within* the LLM's reasoning process. The LLM reads the guideline, understands the condition, and decides to follow the action.
+   - **Guardrails**: Work *outside* the LLM as automated filters. They intercept inputs/outputs before the LLM even sees them.
+
+2. **Control Type**
+   - **Guidelines**: Provide *guidance* - the LLM interprets conditions and actions contextually
+   - **Guardrails**: Provide *enforcement* - deterministic rules that always execute the same way
+
+3. **Use Cases**
+   - **Guidelines**: Business rules, escalation logic, conditional workflows, policy-based routing
+   - **Guardrails**: Security filtering, data protection, compliance enforcement, content moderation
+
+4. **Complementary Nature**
+   - Guidelines handle "what should the agent do when X happens?"
+   - Guardrails handle "what should never reach/leave the agent?"
+
+**Example Scenario:**
+
+For a customer support agent handling a refund request with a credit card number:
+
+```
+User Input: "I need a $15,000 refund to card 4532-1234-5678-9010"
+                    ↓
+[Guardrail - Pre-Invoke] ← Blocks credit card, sanitizes input
+                    ↓
+Sanitized: "I need a $15,000 refund"
+                    ↓
+[Agent with Guidelines] ← LLM sees guideline: "refund > $10k → escalate"
+                    ↓
+Agent Response: "Connecting you to specialist for $15k refund..."
+                    ↓
+[Guardrail - Post-Invoke] ← Validates no sensitive data in response
+                    ↓
+Final Response to User
+```
+
 ### What Are Guardrails?
 
 Guardrails are automated safety mechanisms that:
