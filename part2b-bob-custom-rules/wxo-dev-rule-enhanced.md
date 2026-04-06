@@ -92,25 +92,165 @@ For on-premises deployments with Docker:
 
 ## 2. Development Patterns & Best Practices
 
+### Agent Naming Conventions
+
+**CRITICAL**: Agent names must follow strict naming conventions to ensure proper routing and identification within watsonx Orchestrate.
+
+#### Required Naming Format
+- **Use snake_case** - Names must use underscores, not camelCase or spaces
+- **No spaces allowed** - Agent names cannot contain spaces
+- **No special characters** - Avoid special characters in names
+- **Keep names short and descriptive** - Names should be concise yet meaningful
+- **Use domain-specific language** - Names should reflect the agent's purpose and domain
+
+#### Naming Examples
+
+✅ **Good Examples:**
+- `customer_support_agent`
+- `sales_outreach_agent`
+- `ibm_historical_knowledge_agent`
+- `product_catalog_agent`
+- `order_processing_agent`
+
+❌ **Bad Examples:**
+- `customerSupportAgent` (camelCase not allowed)
+- `customer support agent` (spaces not allowed)
+- `agent-123` (special characters not recommended)
+- `helper` (too generic)
+- `myAgent1` (not descriptive, uses camelCase)
+
+#### Why These Conventions Matter
+- **Routing agents** work better with snake_case names
+- **User identification** is easier with clear, descriptive names
+- **System consistency** is maintained across all agents
+- **Avoid generic terms** like "helper" or "assistant" - use domain-specific language instead
+
 ### LLM Configuration for Agents
 - Use groq/openai/gpt-oss-120b as the default LLM model
 
 ### Tool & Flow Development
 - Use `@flow` decorator for flows with proper type hints
-- Use `@tool` decorator for Python tools with clear docstrings
+- Use `@tool` decorator (without parentheses) for Python tools with clear docstrings
 - **CRITICAL**: Always import tool decorator as `from ibm_watsonx_orchestrate.agent_builder.tools import tool`
+- **CRITICAL**: Use explicit type hints that match docstring descriptions to avoid parameter parsing warnings
+- **CRITICAL**: Use Google-style docstrings with type annotations in parentheses (e.g., `param (str):`)
+- **CRITICAL**: Return type in docstring must match function return type hint exactly (e.g., `Dict[str, Any]:` not `dict:`)
 - Include inline KVP schemas for document processing
 - Create native agents for document handling tasks
 - Implement proper input validation and schema definitions
 - Use async/await patterns for I/O-bound operations in flows
 
+### Type Hints Best Practices
+
+**IMPORTANT**: The watsonx Orchestrate platform relies on type hints to generate proper tool schemas. Incorrect or missing type hints will cause warnings like:
+```
+[WARNING] - Unable to properly parse parameter descriptions due to missing or incorrect type hints.
+```
+
+#### Required Type Hint Standards
+1. **All parameters must have explicit type hints** - Never omit parameter types
+2. **Return types must be specified** - Always include `-> TypeHint`
+3. **Use specific types over generic ones** - Prefer `Dict[str, Any]` over `Dict`
+4. **Import necessary typing constructs** - `from typing import Dict, List, Any, Optional`
+5. **Type hints must match docstring descriptions** - Consistency is critical
+
+#### Correct Type Hint Examples
+
+```python
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
+from typing import Dict, List, Any, Optional
+
+@tool
+def check_order_status(order_id: str) -> Dict[str, Any]:
+    """
+    Check the status of a customer order.
+    
+    Args:
+        order_id (str): The unique order identifier (format: ORD-XXXXX)
+        
+    Returns:
+        Dict[str, Any]: Order status information including status, delivery date, etc.
+    """
+    # Implementation
+    return {"status": "shipped", "order_id": order_id}
+
+@tool
+def process_items(items: List[Dict[str, Any]], priority: Optional[int] = None) -> Dict[str, Any]:
+    """
+    Process a list of items with optional priority.
+    
+    Args:
+        items (List[Dict[str, Any]]): List of item dictionaries with name and quantity
+        priority (Optional[int]): Optional priority level (1-5)
+        
+    Returns:
+        Dict[str, Any]: Processing result with status and processed count
+    """
+    # Implementation
+    return {"status": "success", "processed": len(items)}
+```
+
+#### Common Type Hint Mistakes
+
+❌ **Wrong - Generic Dict without type parameters:**
+```python
+def my_tool(data: dict) -> Dict:  # Too generic, causes warnings
+```
+
+✅ **Correct - Specific type parameters:**
+```python
+def my_tool(data: Dict[str, Any]) -> Dict[str, Any]:  # Explicit and clear
+```
+
+❌ **Wrong - Missing return type:**
+```python
+def my_tool(param: str):  # No return type specified
+```
+
+✅ **Correct - Explicit return type:**
+```python
+def my_tool(param: str) -> Dict[str, Any]:  # Clear return type
+```
+
+❌ **Wrong - Inconsistent with docstring:**
+```python
+@tool
+def my_tool(count: str) -> dict:  # Docstring says count is int
+    """
+    Args:
+        count (int): Number of items (integer)
+    """
+```
+
+✅ **Correct - Matches docstring:**
+```python
+@tool
+def my_tool(count: int) -> Dict[str, Any]:  # Matches docstring
+    """
+    Args:
+        count (int): Number of items (integer)
+        
+    Returns:
+        Dict[str, Any]: Processing result
+    """
+```
+
 ### Error Handling
 ```python
 from ibm_watsonx_orchestrate.agent_builder.tools import tool
+from typing import Dict, Any
 
 @tool
-def my_tool(param: str) -> dict:
-    """Tool with proper error handling."""
+def my_tool(param: str) -> Dict[str, Any]:
+    """
+    Tool with proper error handling.
+    
+    Args:
+        param (str): Input parameter
+        
+    Returns:
+        Dict[str, Any]: Result with status and data or error message
+    """
     try:
         # Tool logic
         result = process_data(param)
@@ -501,17 +641,18 @@ restrictions: editable  # Options: editable, non_editable
 ### Tool Documentation
 ```python
 from ibm_watsonx_orchestrate.agent_builder.tools import tool
+from typing import Dict, Any
 
 @tool
-def check_order_status(order_id: str) -> dict:
+def check_order_status(order_id: str) -> Dict[str, Any]:
     """
     Check the status of a customer order.
     
     Args:
-        order_id: The unique order identifier (format: ORD-XXXXX)
+        order_id (str): The unique order identifier (format: ORD-XXXXX)
         
     Returns:
-        dict: Order status information including:
+        Dict[str, Any]: Order status information including:
             - status: Current order status
             - estimated_delivery: Expected delivery date
             - tracking_number: Shipping tracking number

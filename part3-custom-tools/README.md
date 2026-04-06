@@ -220,12 +220,21 @@ You should see your tools listed!
 
 ## Step 4: Create a Customer Support Agent with Tools
 
-Now create an agent that uses these tools:
+Now create an agent that uses these tools. You can use the definition below - it was also created by Bob.
+
+1. Create a new file `customer-support-agent.yaml` in the `agents` directory of your workspace. The directory should have been created by Bob when it created the tools. If not, create it manually.
+2. Copy the content below into the file and save it.
+
+
+You can also create your own agent definition if you prefer.
+
+### IMPORTANT: Make sure to change the tool names in the agent definition to match the names of the tools you imported! ALSO the postfix the name of the agent with your initials! ###
 
 ```yaml
 # customer-support-agent.yaml
+spec_version: v1
 kind: native
-name: customer-support-agent
+name: customer_support_agent_<your_initials_here>
 description: A customer support agent that can check orders and process refunds
 
 instructions: |
@@ -255,17 +264,14 @@ llm: groq/openai/gpt-oss-120b
 
 # Specify which tools this agent can use
 tools:
-  - check_order_status
-  - process_refund
+  - check_order_status_<your_initials_here>
+  - process_refund_<your_initials_here>
 
-config:
-  hidden: false
-  enable_cot: false
 ```
 
 Import the agent:
 ```bash
-orchestrate agents import customer-support-agent.yaml
+orchestrate agents import -f agents/customer-support-agent.yaml
 ```
 
 ## Step 5: Test Your Agent with Tools
@@ -273,7 +279,7 @@ orchestrate agents import customer-support-agent.yaml
 Test the agent:
 
 ```bash
-orchestrate chat --agent customer-support-agent
+orchestrate chat ask -n customer_support_agent_<your_initials_here>
 ```
 
 Try these test scenarios:
@@ -290,7 +296,7 @@ The agent should call the `check_order_status` tool and present the results.
 User: I need to request a refund for order ORD-12345
 Agent: [asks for reason]
 User: The product arrived damaged
-Agent: [asks for amount]
+Agent: [provides you with the refund amount / asks for confirmation]
 User: $99.99
 ```
 
