@@ -176,12 +176,15 @@ Wait for the knowledge base to be indexed (status: "ready").
 
 ## Step 3: Connect Knowledge Base to Agent
 
-Update your customer support agent to use the knowledge base:
+Update your _**customer support agent**_ to use the knowledge base. **Add the "knowledge_base" field to your agent configuration.**
+
+>NOTE: The example below might be a bit different what you have as your customer support agent, but the main things is to add the "knowledge_base" field to your agent configuration.
 
 ```yaml
 # customer-support-agent.yaml
+spec_version: v1
 kind: native
-name: customer-support-agent
+name: customer_support_agent_<your_initials_here>
 description: A customer support agent that can check orders, process refunds, and answer FAQs
 
 instructions: |
@@ -208,47 +211,49 @@ llm: groq/openai/gpt-oss-120b
 
 # Tools this agent can use
 tools:
-  - check_order_status
-  - process_refund
+  - check_order_status_<your_initials_here>
+  - process_refund_<your_initials_here>
 
 # Knowledge bases this agent can access
 knowledge_base:
-  - customer-support-faq
+  - customer-support-faq-<your_initials_here>
 
-config:
-  hidden: false
-  enable_cot: false
 ```
 
 Re-import the agent:
 ```bash
-orchestrate agents import customer-support-agent.yaml
+orchestrate agents import -f agents/customer-support-agent.yaml
 ```
+
+<img src="images/image-3.png" alt="Agent reimported successfully" width="850px">
 
 ## Step 4: Test Knowledge Base Integration
 
 Test the agent with FAQ questions:
 
 ```bash
-orchestrate chat --agent customer-support-agent
+orchestrate chat ask -n customer_support_agent_<your_initials_here>
 ```
 
 Try these questions:
 - "What's your shipping policy?"
-- "How do I return an item?"
 - "What payment methods do you accept?"
 - "How long does standard shipping take?"
+- "Do you accept returns?"
 
 The agent should retrieve and present information from the knowledge base!
 
 ## Step 5: Create a Specialized Escalation Agent
 
-Now let's create a specialized agent for handling complex issues:
+Now let's create a specialized agent for handling complex issues. Use the example below as a template and store it in `agents/escalation-agent.yaml`.
+
+**AGAIN**, remember to replace `<your_initials_here>` with your actual initials in all file names and references!
 
 ```yaml
 # escalation-agent.yaml
+spec_version: v1
 kind: native
-name: escalation-agent
+name: escalation_agent_<your_initials_here>
 description: Handles complex customer issues that require manager approval or special handling
 
 instructions: |
@@ -280,21 +285,18 @@ llm: groq/openai/gpt-oss-120b
 
 # This agent can use the same tools
 tools:
-  - check_order_status
-  - process_refund
+  - check_order_status_<your_initials_here>
+  - process_refund_<your_initials_here>
 
 # And access the same knowledge base
 knowledge_base:
-  - customer-support-faq
+  - customer-support-faq-<your_initials_here>
 
-config:
-  hidden: false
-  enable_cot: true  # Enable chain-of-thought for complex reasoning
 ```
 
 Import the escalation agent:
 ```bash
-orchestrate agents import escalation-agent.yaml
+orchestrate agents import -f agents/escalation-agent.yaml
 ```
 
 ## Step 6: Create Agent Collaboration
@@ -303,8 +305,9 @@ Update the main customer support agent to collaborate with the escalation agent:
 
 ```yaml
 # customer-support-agent.yaml (updated)
+spec_version: v1
 kind: native
-name: customer-support-agent
+name: customer_support_agent_<your_initials_here>
 description: A customer support agent that can check orders, process refunds, and answer FAQs
 
 instructions: |
@@ -333,24 +336,40 @@ instructions: |
 llm: groq/openai/gpt-oss-120b
 
 tools:
-  - check_order_status
-  - process_refund
+  - check_order_status_<your_initials_here>
+  - process_refund_<your_initials_here>
 
 knowledge_base:
-  - customer-support-faq
+  - customer-support-faq-<your_initials_here>
 
 # Add the escalation agent as a collaborator
 collaborators:
-  - escalation-agent
+  - escalation_agent_<your_initials_here>
 
-config:
-  hidden: false
-  enable_cot: false
+```
+
+***The important parts:***
+- Add escalation_agent_<your_initials_here> to collaborators
+- Add instructions about when to escalate under your customer support agent's instructions
+```
+When to escalate to escalation_agent_<your_initials_here>:
+  - Refund requests over $10,000
+  - Customer is very upset or threatening legal action
+  - Request requires policy exception
+  - Issue is beyond your authority
+  - Customer specifically requests a manager
+  
+  When escalating:
+  1. Explain to the customer that you're connecting them with a specialist
+  2. Summarize the issue for the escalation agent
+  3. Let the escalation agent take over
+  
+  For routine matters, handle them yourself efficiently and professionally.
 ```
 
 Re-import:
 ```bash
-orchestrate agents import customer-support-agent.yaml
+orchestrate agents import -f agents/customer-support-agent.yaml
 ```
 
 ## Step 7: Test Agent Collaboration
@@ -358,7 +377,7 @@ orchestrate agents import customer-support-agent.yaml
 Test the collaboration:
 
 ```bash
-orchestrate chat --agent customer-support-agent
+orchestrate chat ask -n customer_support_agent_<your_initials_here>
 ```
 
 Try these scenarios:
@@ -376,6 +395,9 @@ User: I need a refund for order ORD-12345. The item was damaged. Amount is $99.9
 **Scenario 3: Large Refund (escalated)**
 ```
 User: I need a refund for order ORD-67890. The entire shipment was wrong. Amount is $15,000.
+```
+```
+User: This is very unprofessional service. I'm considering legal action. I need to be refunded NOW!
 ```
 
 The agent should recognize this needs escalation and delegate to the escalation-agent!
