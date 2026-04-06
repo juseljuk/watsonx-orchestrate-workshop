@@ -194,11 +194,11 @@ def process_refund(order_id: str, reason: str, amount: float) -> dict:
 
 >For example, `def check_order_status` becomes `def check_order_status_JKJ`. Make sure to use the same postfix for all your tools.
 
-<img src="images/image-1.png" alt="" width="50%">
+<img src="images/image-1.png" alt="" width="450px">
 
 ⬇︎
 
-<img src="images/image.png" alt="" width="50%">
+<img src="images/image.png" alt="" width="480px">
 
 Notice that now that Bob is uing the custom wxO development rule, the tools are stored in _**tools**_ directory.
 
@@ -386,31 +386,17 @@ class WeatherTool(PythonTool):
 
 ## Exercises
 
-Try these exercises:
+Ready to practice? We've prepared a comprehensive set of exercises to help you master custom tool creation!
 
-### Exercise 1: Calculator Tool
-Create a tool that performs mathematical calculations.
+📝 **[View All Exercises](exercises.md)** - Complete exercises ranging from easy to advanced
 
-**Ask Bob:**
-```
-Bob, create a calculator tool that can add, subtract, multiply, and divide two numbers
-```
+We strongly recommend working through at least a few of these exercises before moving forward with the workshop. They'll help solidify your understanding of:
+- Tool structure and best practices
+- Input validation and error handling
+- Creating tools that agents can effectively use
+- Debugging common tool issues
 
-### Exercise 2: Email Validator Tool
-Create a tool that validates email addresses.
-
-**Ask Bob:**
-```
-Bob, create a tool that validates email addresses and returns whether they're valid
-```
-
-### Exercise 3: Data Formatter Tool
-Create a tool that formats data in different ways (JSON, CSV, table).
-
-**Ask Bob:**
-```
-Bob, create a tool that takes data and formats it as JSON, CSV, or a markdown table
-```
+The exercises include detailed requirements, test cases, and success criteria to guide your learning.
 
 ## Key Takeaways
 
@@ -424,13 +410,13 @@ Bob, create a tool that takes data and formats it as JSON, CSV, or a markdown ta
 
 Now that your agent has tools, let's add knowledge bases and collaborators!
 
-Continue to [Part 4: Knowledge Bases & Collaborators](../part4-advanced/README.md) →
+Continue to [Part 4: Knowledge Bases & Collaborators](../part4-knowledge/README.md) →
 
 ## Additional Resources
 
 - [Python Tools Guide](https://developer.watson-orchestrate.ibm.com/tools/create_tool)
-- [Tool Best Practices](https://developer.watson-orchestrate.ibm.com/tools/best_practices)
-- [Connecting Tools to APIs](https://developer.watson-orchestrate.ibm.com/tools/api_integration)
+- [Managing Tools](https://developer.watson-orchestrate.ibm.com/tools/manage_tool)
+- [Associating Connections to Python Tools](https://developer.watson-orchestrate.ibm.com/connections/associate_connection_to_tool/python_connections)
 
 ---
 

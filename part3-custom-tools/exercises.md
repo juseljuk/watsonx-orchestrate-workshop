@@ -337,14 +337,6 @@ After completing the exercises:
 
 ---
 
-## Solutions
-
-Solutions for all exercises are available in `../solutions/part3/` directory.
-
-Try to complete them yourself first! 💪
-
----
-
 ## Next Steps
 
 Once you've mastered custom tools, you're ready to add knowledge bases and create agent collaborators!
