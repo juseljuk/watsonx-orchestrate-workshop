@@ -43,47 +43,47 @@ When a user sends a request to an agent with guidelines, here's what happens:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        User Request                              │
-│                   "I need a $15,000 refund"                      │
+│                        User Request                             │
+│                   "I need a $15,000 refund"                     │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Pre-Invoke Plugins                            │
-│              (Guardrails - Input Filtering)                      │
-│  • Check for sensitive data                                      │
-│  • Detect prompt injection                                       │
-│  • Validate input format                                         │
+│                    Pre-Invoke Plugins                           │
+│              (Guardrails - Input Filtering)                     │
+│  • Check for sensitive data                                     │
+│  • Detect prompt injection                                      │
+│  • Validate input format                                        │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                  Guideline Evaluation                            │
-│                                                                   │
-│  1. Analyze user request against ALL guideline conditions        │
-│  2. Identify matching guidelines (in priority order)             │
-│  3. Select ONLY relevant guidelines for this request             │
-│                                                                   │
-│  Example Match:                                                  │
-│  ✓ "Customer requests refund over $10,000"                       │
-│    → Action: Escalate to specialist                              │
-│    → Tool: escalation_agent                                      │
+│                  Guideline Evaluation                           │
+│                                                                 │
+│  1. Analyze user request against ALL guideline conditions       │
+│  2. Identify matching guidelines (in priority order)            │
+│  3. Select ONLY relevant guidelines for this request            │
+│                                                                 │
+│  Example Match:                                                 │
+│  ✓ "Customer requests refund over $10,000"                      │
+│    → Action: Escalate to specialist                             │
+│    → Tool: escalation_agent                                     │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Prompt Construction                           │
-│                                                                   │
-│  Base Prompt = Instructions + Relevant Guidelines                │
-│                                                                   │
+│                    Prompt Construction                          │
+│                                                                 │
+│  Base Prompt = Instructions + Relevant Guidelines               │
+│                                                                 │
 │  ┌─────────────────────────────────────────────────┐            │
-│  │ Instructions:                                    │            │
+│  │ Instructions:                                    │           │
 │  │ "You are a customer support agent..."           │            │
-│  │                                                  │            │
+│  │                                                  │           │
 │  │ Relevant Guidelines (for this request):         │            │
 │  │ • When refund > $10k → escalate                 │            │
-│  │                                                  │            │
-│  │ Available Tools:                                 │            │
+│  │                                                  │           │
+│  │ Available Tools:                                 │           │
 │  │ • check_order_status                            │            │
 │  │ • process_refund                                │            │
 │  │ • escalation_agent                              │            │
@@ -92,47 +92,47 @@ When a user sends a request to an agent with guidelines, here's what happens:
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                      LLM Processing                              │
-│                                                                   │
-│  • Understands context from instructions                         │
-│  • Recognizes guideline applies to this situation                │
-│  • Decides to follow guideline action                            │
-│  • Invokes escalation_agent tool                                 │
+│                      LLM Processing                             │
+│                                                                 │
+│  • Understands context from instructions                        │
+│  • Recognizes guideline applies to this situation               │
+│  • Decides to follow guideline action                           │
+│  • Invokes escalation_agent tool                                │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Tool Execution                                │
-│                                                                   │
-│  escalation_agent invoked with context:                          │
-│  "Customer requests $15,000 refund - requires manager approval"  │
+│                    Tool Execution                               │
+│                                                                 │
+│  escalation_agent invoked with context:                         │
+│  "Customer requests $15,000 refund - requires manager approval" │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                 Response Generation                              │
-│                                                                   │
-│  Agent generates response based on:                              │
-│  • Guideline action                                              │
-│  • Tool result                                                   │
-│  • Instructions (tone, style)                                    │
+│                 Response Generation                             │
+│                                                                 │
+│  Agent generates response based on:                             │
+│  • Guideline action                                             │
+│  • Tool result                                                  │
+│  • Instructions (tone, style)                                   │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                   Post-Invoke Plugins                            │
-│              (Guardrails - Output Filtering)                     │
-│  • Redact sensitive information                                  │
-│  • Add compliance disclaimers                                    │
-│  • Validate response format                                      │
+│                   Post-Invoke Plugins                           │
+│              (Guardrails - Output Filtering)                    │
+│  • Redact sensitive information                                 │
+│  • Add compliance disclaimers                                   │
+│  • Validate response format                                     │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                      Final Response                              │
-│  "I understand you need a $15,000 refund. This amount requires   │
-│   manager approval. I'm connecting you with a specialist who     │
-│   can review your request and provide authorization."            │
+│                      Final Response                             │
+│  "I understand you need a $15,000 refund. This amount requires  │
+│   manager approval. I'm connecting you with a specialist who    │
+│   can review your request and provide authorization."           │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
