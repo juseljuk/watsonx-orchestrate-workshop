@@ -24,7 +24,7 @@ Let's create a simple FAQ knowledge base for our customer support agent.
 
 ### Create FAQ Documents
 
-First, create some sample FAQ content:
+First, create some sample FAQ content. Use the example provided below or create your own using Bob! Bob prompt provided after the example.
 
 ```yaml
 # faq-knowledge-base.yaml
@@ -99,11 +99,6 @@ documents:
       Contact customer support to request account deletion. This process takes
       3-5 business days.
 
-# Configuration
-config:
-  chunk_size: 500
-  chunk_overlap: 50
-  embedding_model: "default"
 ```
 
 ### Ask Bob to Help:
