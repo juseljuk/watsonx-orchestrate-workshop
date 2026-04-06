@@ -530,7 +530,7 @@ Bob, review my knowledge base and suggest improvements for better retrieval
 
 You've built a complete customer support system! Now let's test and deploy it.
 
-Continue to [Part 5: Testing & Deployment](../part5-deployment/README.md) →
+Continue to [Part 5: Agent guidelines and guardrails](../part5-guidelines-guardrails/README.md) →
 
 ## Additional Resources
 

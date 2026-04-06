@@ -1,4 +1,4 @@
-# Part 4B: Agent Guidelines & Guardrails
+# Part 5: Agent Guidelines & Guardrails
 
 **Duration:** 20 minutes  
 **Objective:** Learn how to implement safety guidelines and guardrails to ensure responsible AI agent behavior
@@ -24,119 +24,79 @@ As AI agents become more powerful, it's crucial to ensure they:
 
 ### What Are Agent Guidelines?
 
-Guidelines are instructions embedded in your agent that define:
-- What the agent should and shouldn't do
-- How to handle sensitive topics
-- When to escalate or refuse requests
-- Tone and communication style
-- Data handling policies
+Guidelines are **rule-based instructions** that control your agent's behavior in specific situations. Unlike general instructions that shape overall behavior, guidelines create **predictable, automated responses** to defined conditions.
 
-### Writing Effective Guidelines
+Guidelines use a **When-Then format**:
+- **When** a specific condition is met
+- **Then** perform an action and/or invoke a tool
 
-#### Basic Structure
+**Key characteristics:**
+- 🎯 **Condition-based**: Triggered only when specific criteria are met
+- ⚡ **Predictable**: Create consistent, rule-based responses
+- 🔧 **Actionable**: Can invoke tools or perform specific actions
+- 📊 **Priority-ordered**: Execute based on their position in the list
+- 🎨 **Selective**: Only relevant guidelines are included in the agent prompt
+
+### When to Use Guidelines vs Instructions
+
+| Use Guidelines For | Use Instructions For |
+|-------------------|---------------------|
+| Specific condition-action rules | General behavior and persona |
+| Automated tool invocation | How to reason and respond |
+| Escalation triggers | Communication style |
+| Policy enforcement | Domain knowledge |
+| Exception handling | Tool usage patterns |
+
+### Guidelines Format
+
+Guidelines follow this structure in your agent YAML:
 
 ```yaml
-instructions: |
-  You are a [role] that [primary function].
-  
-  ## Core Responsibilities
-  - [Responsibility 1]
-  - [Responsibility 2]
-  
-  ## Guidelines
-  
-  ### What You SHOULD Do:
-  - [Positive guideline 1]
-  - [Positive guideline 2]
-  
-  ### What You MUST NOT Do:
-  - [Restriction 1]
-  - [Restriction 2]
-  
-  ### Handling Sensitive Topics:
-  - [Policy 1]
-  - [Policy 2]
-  
-  ### Escalation Criteria:
-  - [When to escalate 1]
-  - [When to escalate 2]
+guidelines:
+  - condition: "Description of when this guideline applies"
+    action: "What the agent should do"  # Optional if tool is provided
+    tool: "tool_name_to_invoke"  # Optional if action is provided
 ```
+
+**Important:**
+- You must provide at least one of `action` or `tool`
+- Guidelines execute in priority order (list position matters)
+- Only relevant guidelines are included in prompts to reduce complexity
 
 ### Example: Customer Support Agent with Guidelines
 
 ```yaml
 # customer-support-with-guidelines.yaml
+spec_version: v1
 kind: native
-name: customer-support-safe
-description: Customer support agent with comprehensive safety guidelines
+name: customer_support_safe
+description: Customer support agent with rule-based guidelines for handling common scenarios
 
 instructions: |
   You are a professional customer support agent for an e-commerce company.
   
-  ## Core Responsibilities
+  Your role is to:
   - Assist customers with orders, returns, and general inquiries
   - Provide accurate information from the knowledge base
-  - Process refunds within your authority limits
-  - Maintain a helpful and professional demeanor
+  - Process refunds within your authority limits ($10,000 or less)
+  - Maintain a helpful, empathetic, and professional demeanor
   
-  ## Guidelines
+  When handling customer requests:
+  1. Verify customer identity using order ID and email
+  2. Listen actively and acknowledge their concerns
+  3. Provide clear, accurate information
+  4. Follow company policies strictly
+  5. Document all interactions appropriately
   
-  ### What You SHOULD Do:
-  - Verify customer identity before discussing order details
-  - Provide clear, accurate information
-  - Be empathetic and understanding
-  - Follow company policies strictly
-  - Document all interactions appropriately
-  - Offer alternatives when you can't fulfill a request
-  
-  ### What You MUST NOT Do:
-  - Share customer data with unauthorized parties
-  - Make promises outside company policy
-  - Process refunds over your authority limit ($10,000)
-  - Provide medical, legal, or financial advice
-  - Engage in arguments or unprofessional behavior
-  - Override security measures
-  - Share internal company information
-  
-  ### Handling Sensitive Topics:
-  
-  **Personal Information:**
+  For sensitive information:
   - Never ask for passwords, full credit card numbers, or SSN
   - Only request order ID and email for verification
   - Remind customers not to share sensitive data in chat
   
-  **Complaints and Disputes:**
-  - Listen actively and acknowledge frustration
-  - Apologize for issues without admitting fault
-  - Focus on solutions within your authority
-  - Escalate if customer is threatening legal action
-  
-  **Inappropriate Requests:**
-  - Politely decline requests outside your scope
-  - Do not engage with harassment or abuse
-  - Escalate serious violations to management
-  
-  **Data Privacy:**
-  - Only access customer data necessary for the request
-  - Never share data between customer accounts
-  - Follow GDPR/privacy regulations
-  
-  ### Escalation Criteria:
-  
-  Escalate immediately when:
-  - Refund request exceeds $10,000
-  - Customer threatens legal action
-  - Request requires policy exception
-  - Suspected fraud or security breach
-  - Customer is abusive or threatening
-  - Request involves sensitive personal data
-  - Technical issue beyond your capability
-  
-  ### Response Format:
+  Response style:
   - Keep responses concise (2-4 sentences typically)
   - Use bullet points for lists
-  - Provide specific next steps
-  - Include relevant timeframes
+  - Provide specific next steps with timeframes
   - End with an offer to help further
 
 llm: groq/openai/gpt-oss-120b
@@ -149,16 +109,60 @@ knowledge_base:
   - customer-support-faq
 
 collaborators:
-  - escalation-agent
+  - escalation_agent
+
+# Rule-based guidelines for specific scenarios
+guidelines:
+  - condition: "Customer requests a refund over $10,000"
+    action: "Explain that this requires manager approval and you're connecting them with a specialist"
+    tool: "escalation_agent"
+  
+  - condition: "Customer threatens legal action or mentions lawsuit"
+    action: "Acknowledge their concern professionally and escalate to specialist who can address legal matters"
+    tool: "escalation_agent"
+  
+  - condition: "Customer shares sensitive information like passwords, credit card numbers, or SSN"
+    action: "Immediately inform them not to share sensitive data in chat for their security, and guide them to secure channels if needed"
+  
+  - condition: "Customer expresses extreme dissatisfaction or uses profanity"
+    action: "Remain calm and professional, acknowledge their frustration, and ask for specific details about their experience so it can be addressed properly"
+  
+  - condition: "Customer requests medical, legal, or financial advice"
+    action: "Politely explain that you can only help with order-related questions and suggest they consult appropriate professionals for specialized advice"
+  
+  - condition: "Suspected fraud or security breach is detected"
+    action: "Follow security protocols, do not alert the customer, and escalate immediately to the security team"
+    tool: "escalation_agent"
+  
+  - condition: "Customer requests access to another customer's data"
+    action: "Decline the request, explain privacy policies, and verify they are inquiring about their own account"
+  
+  - condition: "Request requires an exception to standard policy"
+    action: "Explain the standard policy, note their request, and connect them with a specialist who can review exceptions"
+    tool: "escalation_agent"
 
 config:
   hidden: false
   enable_cot: false
 ```
 
+### Understanding the Example
+
+**Instructions** define the agent's overall behavior:
+- Role and responsibilities
+- General approach to customer service
+- Communication style
+- Standard procedures
+
+**Guidelines** handle specific scenarios:
+- Large refund requests → Automatic escalation
+- Legal threats → Escalation with context
+- Sensitive data sharing → Security warning
+- Policy exceptions → Specialist routing
+
 ### Ask Bob to Help:
 ```
-Bob, review these agent guidelines and suggest improvements for safety and clarity
+Bob, create guidelines in the When-Then format for my customer support agent that handles refunds, complaints, and escalations
 ```
 
 ## Part 2: Implementing Guardrails
@@ -521,19 +525,22 @@ if __name__ == "__main__":
 ### Guidelines Best Practices
 
 ✅ **DO:**
-- Be specific and explicit about boundaries
-- Provide examples of acceptable/unacceptable behavior
-- Include escalation criteria
-- Define data handling policies
-- Specify tone and communication style
-- Update guidelines based on real usage
+- Use clear, specific conditions that are easy to detect
+- Order guidelines by priority (most important first)
+- Keep guidelines focused and actionable
+- Provide both action and tool when appropriate
+- Test that conditions trigger correctly
+- Combine guidelines with clear instructions
+- Update guidelines based on real usage patterns
+- Use guidelines for rule-based, predictable responses
 
 ❌ **DON'T:**
-- Use vague or ambiguous language
-- Assume the agent will infer restrictions
-- Forget to test edge cases
-- Ignore regulatory requirements
-- Make guidelines too complex
+- Create overly complex or ambiguous conditions
+- Rely solely on guidelines (they complement instructions)
+- Forget that only relevant guidelines are included in prompts
+- Make conditions too broad or overlapping
+- Use guidelines for general behavior (use instructions instead)
+- Ignore the priority order of guidelines
 
 ### Guardrails Best Practices
 
@@ -579,12 +586,12 @@ When building agents for production:
 
 ## Exercises
 
-### Exercise 1: Write Comprehensive Guidelines
-Create guidelines for a healthcare appointment booking agent that must comply with HIPAA.
+### Exercise 1: Write Guidelines for Healthcare Agent
+Create guidelines in the When-Then format for a healthcare appointment booking agent that must comply with HIPAA.
 
 **Ask Bob:**
 ```
-Bob, create comprehensive guidelines for a HIPAA-compliant healthcare appointment booking agent
+Bob, create guidelines in the When-Then format for a HIPAA-compliant healthcare appointment booking agent. Include conditions for handling PHI, appointment scheduling, and emergency situations.
 ```
 
 ### Exercise 2: Build a Content Filter
@@ -595,22 +602,33 @@ Create a guardrail that detects and blocks requests for medical diagnoses.
 Bob, create a guardrail plugin that blocks requests for medical diagnoses and suggests consulting a doctor
 ```
 
-### Exercise 3: Test Safety Measures
+### Exercise 3: Combine Guidelines and Guardrails
+Create an agent that uses both guidelines for rule-based responses and guardrails for content filtering.
+
+**Ask Bob:**
+```
+Bob, create a financial services agent with guidelines for handling account inquiries and guardrails for protecting sensitive financial data
+```
+
+### Exercise 4: Test Safety Measures
 Create a comprehensive test suite for your agent's safety measures.
 
 **Ask Bob:**
 ```
-Bob, create test cases that try to bypass my agent's safety guidelines and guardrails
+Bob, create test cases that try to bypass my agent's safety guidelines and guardrails, including edge cases and adversarial inputs
 ```
 
 ## Key Takeaways
 
-✅ Guidelines define agent behavior and boundaries  
-✅ Guardrails provide automated safety enforcement  
-✅ Layer multiple safety measures for defense in depth  
-✅ Test with adversarial inputs  
-✅ Monitor and update based on real usage  
-✅ Consider regulatory compliance requirements  
+✅ Guidelines use When-Then format for rule-based, predictable responses
+✅ Guidelines complement instructions (not replace them)
+✅ Only relevant guidelines are included in agent prompts
+✅ Guidelines execute in priority order based on list position
+✅ Guardrails provide automated content filtering and validation
+✅ Layer multiple safety measures for defense in depth
+✅ Test with adversarial inputs and edge cases
+✅ Monitor and update based on real usage patterns
+✅ Consider regulatory compliance requirements
 
 ## Next Steps
 
@@ -620,10 +638,11 @@ Continue to [Part 5: Testing & Deployment](../part5-deployment/README.md) →
 
 ## Additional Resources
 
-- [Responsible AI Guidelines](https://developer.watson-orchestrate.ibm.com/responsible_ai)
+- [Agent Guidelines Documentation](https://developer.watson-orchestrate.ibm.com/agents/build_agent#guidelines)
+- [Authoring Native Agents](https://developer.watson-orchestrate.ibm.com/agents/build_agent)
+- [Agent Instructions Guide](https://developer.watson-orchestrate.ibm.com/agents/descriptions)
 - [Plugin Development Guide](https://developer.watson-orchestrate.ibm.com/plugins/overview)
-- [Security Best Practices](https://developer.watson-orchestrate.ibm.com/security/best_practices)
 
 ---
 
-**💡 Pro Tip:** Use Bob to help you think through edge cases: "Bob, what safety issues should I consider for my [use case] agent?"
+**💡 Pro Tip:** Use Bob to help design guidelines: "Bob, create When-Then guidelines for my [use case] agent that handle [specific scenarios]" or "Bob, what edge cases should my guidelines cover for [specific situation]?"
