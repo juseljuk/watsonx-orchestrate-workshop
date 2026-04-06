@@ -426,18 +426,13 @@ documents:
       [Troubleshooting steps here]
 ```
 
-Then assign different knowledge bases to different agents:
+Then assign different knowledge bases to different agents. _**Multiple agents can access the same knowledge base or each can have their own.**_
 
 ```yaml
 # technical-support-agent.yaml
 knowledge_base:
   - technical-support-kb
   - customer-support-faq  # Can access multiple KBs
-```
-
-### Ask Bob for Help:
-```
-Bob, create a technical support knowledge base with troubleshooting guides
 ```
 
 ## Best Practices
@@ -493,11 +488,11 @@ Bob, create a technical support knowledge base with troubleshooting guides
 ### Issue: Collaborator agent not accessible
 **Solution:**
 ```bash
-orchestrate agents list
+orchestrate agents list | grep -E "your_initials"
 # Verify both agents are imported
 ```
 
-## Exercises
+## Optional exercises
 
 ### Exercise 1: Product Catalog Knowledge Base
 Create a knowledge base with product information and connect it to a sales agent.
@@ -539,9 +534,9 @@ Continue to [Part 5: Testing & Deployment](../part5-deployment/README.md) →
 
 ## Additional Resources
 
-- [Knowledge Base Guide](https://developer.watson-orchestrate.ibm.com/knowledge_bases/overview)
-- [Agent Collaboration Patterns](https://developer.watson-orchestrate.ibm.com/agents/collaboration)
-- [Best Practices for Multi-Agent Systems](https://developer.watson-orchestrate.ibm.com/agents/best_practices)
+- [Knowledge Base Guide](https://developer.watson-orchestrate.ibm.com/knowledge_base/build_kb)
+- [Agent Collaboration Patterns](https://developer.watson-orchestrate.ibm.com/agents/overview)
+- [Best Practices for Multi-Agent Systems](https://developer.watson-orchestrate.ibm.com/agents/descriptions)
 
 ---
 
