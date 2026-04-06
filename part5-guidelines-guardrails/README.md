@@ -37,6 +37,113 @@ Guidelines use a **When-Then format**:
 - 📊 **Priority-ordered**: Execute based on their position in the list
 - 🎨 **Selective**: Only relevant guidelines are included in the agent prompt
 
+### How Guidelines Work: Request Processing Flow
+
+When a user sends a request to an agent with guidelines, here's what happens:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        User Request                              │
+│                   "I need a $15,000 refund"                      │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    Pre-Invoke Plugins                            │
+│              (Guardrails - Input Filtering)                      │
+│  • Check for sensitive data                                      │
+│  • Detect prompt injection                                       │
+│  • Validate input format                                         │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                  Guideline Evaluation                            │
+│                                                                   │
+│  1. Analyze user request against ALL guideline conditions        │
+│  2. Identify matching guidelines (in priority order)             │
+│  3. Select ONLY relevant guidelines for this request             │
+│                                                                   │
+│  Example Match:                                                  │
+│  ✓ "Customer requests refund over $10,000"                       │
+│    → Action: Escalate to specialist                              │
+│    → Tool: escalation_agent                                      │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    Prompt Construction                           │
+│                                                                   │
+│  Base Prompt = Instructions + Relevant Guidelines                │
+│                                                                   │
+│  ┌─────────────────────────────────────────────────┐            │
+│  │ Instructions:                                    │            │
+│  │ "You are a customer support agent..."           │            │
+│  │                                                  │            │
+│  │ Relevant Guidelines (for this request):         │            │
+│  │ • When refund > $10k → escalate                 │            │
+│  │                                                  │            │
+│  │ Available Tools:                                 │            │
+│  │ • check_order_status                            │            │
+│  │ • process_refund                                │            │
+│  │ • escalation_agent                              │            │
+│  └─────────────────────────────────────────────────┘            │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      LLM Processing                              │
+│                                                                   │
+│  • Understands context from instructions                         │
+│  • Recognizes guideline applies to this situation                │
+│  • Decides to follow guideline action                            │
+│  • Invokes escalation_agent tool                                 │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    Tool Execution                                │
+│                                                                   │
+│  escalation_agent invoked with context:                          │
+│  "Customer requests $15,000 refund - requires manager approval"  │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                 Response Generation                              │
+│                                                                   │
+│  Agent generates response based on:                              │
+│  • Guideline action                                              │
+│  • Tool result                                                   │
+│  • Instructions (tone, style)                                    │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                   Post-Invoke Plugins                            │
+│              (Guardrails - Output Filtering)                     │
+│  • Redact sensitive information                                  │
+│  • Add compliance disclaimers                                    │
+│  • Validate response format                                      │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      Final Response                              │
+│  "I understand you need a $15,000 refund. This amount requires   │
+│   manager approval. I'm connecting you with a specialist who     │
+│   can review your request and provide authorization."            │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Key Points:**
+
+1. **Selective Inclusion**: Only guidelines relevant to the current request are added to the prompt, keeping it efficient
+2. **Priority Order**: Guidelines are evaluated in the order they appear in your YAML file
+3. **Complementary**: Guidelines work alongside instructions - instructions provide general behavior, guidelines handle specific scenarios
+4. **Tool Integration**: Guidelines can automatically invoke tools or collaborator agents
+5. **Guardrails**: Pre/post-invoke plugins provide an additional safety layer independent of guidelines
+
 ### When to Use Guidelines vs Instructions
 
 | Use Guidelines For | Use Instructions For |
