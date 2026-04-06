@@ -20,11 +20,11 @@ Knowledge bases allow agents to:
 
 ## Step 1: Create a Knowledge Base
 
-Let's create a simple FAQ knowledge base for our customer support agent.
+Let's create a simple FAQ knowledge base for our customer support agent. Choose one of the following options:
 
-### Create FAQ Documents
+### Option A: Manual YAML Creation
 
-First, create some sample FAQ content. Use the example provided below or create your own using Bob! Bob prompt provided after the example.
+Create FAQ content using the example provided below or create your own using Bob! Bob prompt provided after the example.
 
 ```yaml
 # faq-knowledge-base.yaml
@@ -101,10 +101,40 @@ documents:
 
 ```
 
-### Ask Bob to Help:
+#### Ask Bob to Help:
 ```
 Bob, create a knowledge base YAML file with FAQs about shipping, returns, payments, and account management
 ```
+
+### Option B: Import PDF with Bob's Help
+
+Use Bob to extract content from the provided FAQ.pdf and create a knowledge base YAML file.
+
+1. **Download the FAQ PDF**:
+   - **Direct download**: [FAQ.pdf](./FAQ.pdf)
+   
+   The FAQ.pdf contains comprehensive FAQs about:
+   - Shipping Information
+   - Returns and Refunds
+   - Payment Methods and Billing
+   - Account Management
+   - Order Management
+   - Customer Support
+
+2. **Ask Bob to create the knowledge base**:
+   ```
+   Bob, read the FAQ.pdf file in the part4-knowledge directory and create a knowledge base YAML file that imports this PDF content. The knowledge base should be named 'customer-support-faq' and organize the content by topic sections.
+   ```
+
+3. **What Bob will do**:
+   - Read and extract content from FAQ.pdf
+   - Organize the content into logical document sections
+   - Create a properly formatted knowledge base YAML file
+   - Structure it for optimal retrieval in watsonx Orchestrate
+
+4. **Expected output**: Bob will create a `faq-knowledge-base.yaml` file with the PDF content structured as documents, similar to Option A but with the comprehensive content from the PDF.
+
+**💡 Pro Tip:** Option B is ideal when you have existing documentation in PDF format. Bob can help you quickly convert it into a knowledge base without manual copying and formatting!
 
 ## Step 2: Import the Knowledge Base
 
