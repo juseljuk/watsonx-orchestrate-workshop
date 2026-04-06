@@ -620,6 +620,14 @@ instructions: |
   Always be polite and professional.
   Escalate complex issues to human agents.
 
+# Guidelines for rule-based behavior control
+guidelines:
+  - condition: "The customer requests a refund"
+    action: "Verify the order ID and process the refund using the process_refund tool"
+    tool: "process_refund"
+  - condition: "The customer is very upset"
+    action: "Acknowledge their frustration and escalate to a supervisor"
+
 tools:
   - check_order_status
   - process_refund
@@ -636,6 +644,146 @@ restrictions: editable  # Options: editable, non_editable
 #     - content_safety_check
 #   post_invoke:
 #     - pii_detection
+```
+
+### Agent Guidelines
+
+**IMPORTANT**: Guidelines provide rule-based behavior control for agents. They create predictable, consistent responses for specific conditions.
+
+#### Guidelines Structure
+
+Guidelines use a specific YAML format with three fields:
+
+```yaml
+guidelines:
+  - condition: "When this situation occurs"
+    action: "Then perform this action"
+    tool: "tool_name"  # Optional: tool to invoke
+```
+
+#### Required Fields
+- **condition** (required): The trigger condition in natural language (the "when" part)
+- **action** (optional): The action to perform when condition is met (the "then" part)
+- **tool** (optional): The tool name to invoke (must match a tool in the `tools` list)
+
+**Note**: You must provide at least one of `action` or `tool` for each guideline.
+
+#### Guidelines Best Practices
+
+1. **Write Clear Conditions**: Use natural language that describes the trigger situation
+   - ✅ Good: "The customer requests a refund over $10,000"
+   - ❌ Bad: "High value refund"
+
+2. **Specify Concrete Actions**: Describe exactly what the agent should do
+   - ✅ Good: "Acknowledge the request, explain that high-value refunds require specialist review, and escalate to the escalation agent"
+   - ❌ Bad: "Handle it appropriately"
+
+3. **Order Matters**: Guidelines are evaluated in order, so place more specific conditions before general ones
+   ```yaml
+   guidelines:
+     - condition: "The refund amount exceeds $10,000"  # Specific first
+       action: "Escalate to specialist"
+     - condition: "The customer requests a refund"      # General second
+       action: "Process normally"
+       tool: "process_refund"
+   ```
+
+4. **Tool References**: When specifying a tool, ensure it exists in the `tools` list
+   ```yaml
+   tools:
+     - process_refund_JKJ
+     - check_order_status_JKJ
+   
+   guidelines:
+     - condition: "Customer asks about order"
+       tool: "check_order_status_JKJ"  # Must match exactly
+   ```
+
+5. **Combine with Instructions**: Use guidelines for specific rules, instructions for general behavior
+   - **Instructions**: Overall persona, tone, general approach
+   - **Guidelines**: Specific "when-then" rules for predictable scenarios
+
+#### Guidelines vs Instructions
+
+| Use Guidelines For | Use Instructions For |
+|-------------------|---------------------|
+| Specific trigger conditions | General behavior and persona |
+| Rule-based responses | Tone and style guidance |
+| Tool invocation rules | Context and background |
+| Escalation triggers | Overall approach |
+| Conditional logic | Flexible decision-making |
+
+#### Example: Complete Agent with Guidelines
+
+```yaml
+spec_version: v1
+kind: native
+name: customer_support_agent
+llm: groq/openai/gpt-oss-120b
+style: default
+
+description: Handles customer support for orders and refunds
+
+instructions: |
+  You are a professional customer support agent.
+  Always be empathetic and solution-focused.
+  Use the guidelines to handle specific scenarios consistently.
+
+guidelines:
+  # Refund processing rules
+  - condition: "The customer requests a refund under $500"
+    action: "Process immediately and confirm 5-7 day timeline"
+    tool: "process_refund"
+  
+  - condition: "The customer requests a refund over $10,000"
+    action: "Acknowledge request and escalate to specialist for review"
+  
+  # Escalation rules
+  - condition: "The customer mentions legal action or lawyers"
+    action: "Remain professional and immediately escalate to the escalation agent"
+  
+  - condition: "The customer is very upset after 2-3 resolution attempts"
+    action: "Acknowledge frustration and connect with a specialist"
+  
+  # Order status rules
+  - condition: "The customer asks about their order status"
+    action: "Request order ID if not provided, then check status"
+    tool: "check_order_status"
+
+tools:
+  - check_order_status
+  - process_refund
+
+collaborators:
+  - escalation_agent
+```
+
+#### Common Guideline Patterns
+
+**Escalation Pattern:**
+```yaml
+- condition: "The [specific trigger condition]"
+  action: "Acknowledge [the situation] and escalate to [collaborator agent]"
+```
+
+**Tool Invocation Pattern:**
+```yaml
+- condition: "The customer [requests something]"
+  action: "Verify [required info] and use the tool to [accomplish task]"
+  tool: "tool_name"
+```
+
+**Conditional Processing Pattern:**
+```yaml
+- condition: "The [metric] is [comparison] [threshold]"
+  action: "Process using [specific approach] and inform customer of [outcome]"
+  tool: "tool_name"
+```
+
+**Error Handling Pattern:**
+```yaml
+- condition: "The [tool/operation] fails or returns an error"
+  action: "Apologize, explain the issue, and [fallback action]"
 ```
 
 ### Tool Documentation
