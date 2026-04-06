@@ -527,6 +527,8 @@ def response_filter_guardrail(plugin_context: PluginContext, agent_post_invoke_p
 
 ### Importing Plugins
 
+Guardrails are implemented as special kind of tools and therefore also imported as tools:
+
 ```bash
 # Import the guardrail plugins
 orchestrate tools import -k python -f content_safety_plugin.py
@@ -540,6 +542,7 @@ orchestrate tools list
 
 ```yaml
 # agent-with-guardrails.yaml
+spec_version: v1
 kind: native
 name: safe-customer-support
 description: Customer support agent with safety guardrails
@@ -560,14 +563,12 @@ plugins:
   agent_post_invoke:
     - plugin_name: response_filter_guardrail
 
-config:
-  hidden: false
-  enable_cot: false
+hidden: false
 ```
 
-### Ask Bob to Help:
+### Ask Bob to create a new guardrail for you:
 ```
-Bob, create a guardrail plugin that detects and blocks requests for unauthorized data access
+Bob, create a guardrail plugin for the customer support agent that detects and blocks requests for unauthorized data access
 ```
 
 ## Part 3: Testing Guidelines and Guardrails

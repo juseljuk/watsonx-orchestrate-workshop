@@ -529,8 +529,7 @@ plugins:
   agent_post_invoke:
     - plugin_name: pii_filter_guardrail
 
-config:
-  hidden: false
+hidden: false
 ```
 
 ### Security Best Practices
