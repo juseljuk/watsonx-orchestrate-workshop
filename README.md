@@ -1,4 +1,12 @@
 # Bobchestrate Workshop - Building AI Agents with watsonx Orchestrate and IBM Bob
+
+
+
+<p align="center">
+  <img src="Bobchestrate_Workshop_logo.png" alt="Bobchestrate Workshop Logo" width="700">
+</p>
+
+
 ## A Hands-On Workshop for Agentic AI Development
 
 Welcome! This workshop will guide you through building AI agents using IBM watsonx Orchestrate. You'll use IBM Bob, an AI coding assistant, to help you along the way.
