@@ -390,6 +390,15 @@ orchestrate evaluations quick-eval -c evaluation/config.yaml
 
 ### Guardrail Plugins
 
+**CRITICAL DECORATOR SYNTAX**: Guardrail plugins MUST use the correct `@tool` decorator format:
+- ✅ **CORRECT**: `@tool(description="...", kind=PythonToolKind.AGENTPREINVOKE)`
+- ❌ **WRONG**: `@tool` (without parameters)
+- ❌ **WRONG**: `@plugin` (wrong decorator)
+- The `description` parameter is REQUIRED
+- The `kind` parameter is REQUIRED and must be either:
+  - `PythonToolKind.AGENTPREINVOKE` for pre-invoke plugins
+  - `PythonToolKind.AGENTPOSTINVOKE` for post-invoke plugins
+
 **IMPORTANT**: Guardrails must be implemented as Python tools with specific plugin types before they can be referenced in agent YAML configurations. Do NOT add guardrail references to agent YAML unless the corresponding plugin files exist and have been imported.
 
 Only reference guardrails in agent YAML after:
