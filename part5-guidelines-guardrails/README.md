@@ -77,13 +77,13 @@ When a user sends a request to an agent with guidelines, here's what happens:
 │  Base Prompt = Instructions + Relevant Guidelines               │
 │                                                                 │
 │  ┌─────────────────────────────────────────────────┐            │
-│  │ Instructions:                                    │           │
+│  │ Instructions:                                   │            │
 │  │ "You are a customer support agent..."           │            │
-│  │                                                  │           │
+│  │                                                 │            │
 │  │ Relevant Guidelines (for this request):         │            │
 │  │ • When refund > $10k → escalate                 │            │
-│  │                                                  │           │
-│  │ Available Tools:                                 │           │
+│  │                                                 │            │
+│  │ Available Tools:                                │            │
 │  │ • check_order_status                            │            │
 │  │ • process_refund                                │            │
 │  │ • escalation_agent                              │            │
