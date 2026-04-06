@@ -122,7 +122,7 @@ Now let's create a tool that processes refund requests.
 ```
 Bob, create a Python tool that processes refund requests. It should take order_id, reason, and amount parameters, validate them, and return a refund confirmation.
 ```
-
+An example what Bob might come up with:
 ```python
 # refund_tool.py
 from ibm_watsonx_orchestrate.agent_builder.tools import tool
@@ -186,19 +186,34 @@ def process_refund(order_id: str, reason: str, amount: float) -> dict:
     }
 ```
 
+>NOTE: You might see Bob ceating also tests for the tools and some tools related documentation. If this is the case, you're welcome to explore those files as well.
+
 ## Step 3: Import Your Tools
+
+### IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _tool definitions_ in the tool python files by adding your initials as a postfix. ###
+
+>For example, `def check_order_status` becomes `def check_order_status_JKJ`. Make sure to use the same postfix for all your tools.
+
+<img src="images/image-1.png" alt="" width="50%">
+
+⬇︎
+
+<img src="images/image.png" alt="" width="50%">
+
+Notice that now that Bob is uing the custom wxO development rule, the tools are stored in _**tools**_ directory.
 
 Import the tools into watsonx Orchestrate:
 
 ```bash
-orchestrate tools import -k python tools/order_status_tool.py
-orchestrate tools import -k python tools/refund_tool.py
+orchestrate tools import -k python -f tools/order_status_tool_JKJ.py -r requirements.txt
+orchestrate tools import -k python -f tools/refund_tool_JKJ.py -r requirements.txt
 ```
->NOTE: The name of the tools - when Bob generates them - might be different what is shown here. Use the tool names in your woorkspace.
+
+>NOTE: The name of the python files - when Bob generates them - might be different what is shown here. Use the file names as Bob created them for you.
 
 Verify they were imported:
-```bash
-orchestrate tools list
+```
+orchestrate tools list | grep -E "<your_initials>", for example: orchestrate tools list | grep -E "JKJ"
 ```
 
 You should see your tools listed!
