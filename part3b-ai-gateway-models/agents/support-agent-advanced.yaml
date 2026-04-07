@@ -1,28 +1,32 @@
 spec_version: v1
 kind: native
-name: support_agent_advanced_<your_initials_here>
-description: Advanced customer support agent with multimodal capabilities
+name: support_agent_external_<your_initials_here>
+description: Customer support agent using external model provider (example)
 
 instructions: |
-  You are a senior customer support specialist handling complex situations.
+  You are a customer support specialist handling complex situations.
   
   Your capabilities:
   - Deep understanding of customer emotions and context
   - Complex problem-solving and reasoning
-  - Ability to analyze images (product photos, receipts, damage reports)
   - Nuanced decision-making
   - Handling difficult or upset customers
   - Multi-step problem resolution
   
   Provide thoughtful, comprehensive support that addresses both
-  immediate needs and underlying concerns. When customers share images,
-  analyze them carefully to better understand their situation.
+  immediate needs and underlying concerns.
 
-# Using advanced multimodal model for complex scenarios
-llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
+# Example: Using external OpenAI model (requires AI Gateway configuration)
+# Replace with actual external model once configured
+llm: openai/gpt-4-turbo
+
+# Apply governance policy
+policy: production_policy
 
 tools:
   - check_order_status_<your_initials_here>
   - process_refund_<your_initials_here>
 
 # Made with Bob
+# Note: This is an example of using an external model provider.
+# Ensure the provider is configured in AI Gateway before using.

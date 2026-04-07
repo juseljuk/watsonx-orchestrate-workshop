@@ -10,33 +10,38 @@ instructions: |
   Routing Logic:
   
   Route to support_agent_standard_<your_initials_here> for:
-  - Standard customer support requests (80% of queries)
+  - Standard customer support requests (most queries)
   - Order status checks
   - FAQ questions
   - General refund requests
   - Most typical interactions
   
-  Route to support_agent_advanced_<your_initials_here> for:
-  - Complex problem-solving (15% of queries)
-  - Queries involving images or documents
+  Route to support_agent_external_<your_initials_here> for:
+  - Complex problem-solving requiring external model capabilities
   - Multi-faceted issues
   - Situations requiring deeper analysis
+  - When external model provider is configured and available
   
-  Route to support_agent_expert_<your_initials_here> for:
-  - Most complex scenarios (5% of queries)
+  Route to support_agent_anthropic_<your_initials_here> for:
+  - Most complex scenarios requiring premium model
   - Very upset or frustrated customers
   - VIP customers
   - Situations requiring exceptions or special handling
   - High-value or sensitive matters
+  - When Anthropic provider is configured and available
   
   Analyze the query, determine complexity, and delegate immediately.
   Do not try to answer yourself - always delegate to a specialist.
+  
+  Note: External model agents require proper AI Gateway configuration.
+  If external providers are not configured, route all queries to the
+  standard agent using the default model.
 
 llm: groq/openai/gpt-oss-120b  # Fast, efficient model for routing decisions
 
 collaborators:
   - support_agent_standard_<your_initials_here>
-  - support_agent_advanced_<your_initials_here>
-  - support_agent_expert_<your_initials_here>
+  - support_agent_external_<your_initials_here>
+  - support_agent_anthropic_<your_initials_here>
 
 # Made with Bob

@@ -1,96 +1,276 @@
-# Part 3b: AI Gateway and Using Different Models
+# Part 3b: AI Gateway and External Model Providers
 
 **Duration:** 25 minutes
-**Objective:** Learn how to configure and use different AI models through watsonx Orchestrate's AI Gateway
+**Objective:** Learn how to configure external AI models through watsonx Orchestrate's AI Gateway and implement model policies
 
-> 📋 **Quick Reference:** Check out the [Model Selection Guide](model-selection-guide.md) for a quick reference on choosing the right model!
+> 📋 **Quick Reference:** Check out the [Model Selection Guide](model-selection-guide.md) for a quick reference on AI Gateway capabilities!
 
 ## What You'll Learn
 
 - Understanding the AI Gateway architecture
-- How to configure different LLM providers
-- Selecting appropriate models for different use cases
-- Model performance and cost considerations
-- Testing agents with different models
-- Best practices for model selection
+- How to connect external LLM providers
+- Configuring model policies for governance
+- Managing model access and usage
+- Testing agents with external models
+- Best practices for model management
 
 ## Why AI Gateway Matters
 
 The AI Gateway in watsonx Orchestrate provides:
 - 🔌 **Unified Interface** - Access multiple LLM providers through a single API
+- 🌐 **External Provider Support** - Connect to OpenAI, Anthropic, Google, AWS Bedrock, Azure, and more
 - 🔄 **Model Flexibility** - Switch between models without changing agent code
-- 💰 **Cost Optimization** - Choose models based on performance/cost tradeoffs
-- 🛡️ **Governance** - Centralized control over model access and usage
-- 📊 **Monitoring** - Track model usage, performance, and costs
+- 🛡️ **Governance & Policies** - Centralized control over model access, usage limits, and compliance
+- 💰 **Cost Management** - Track and control model usage and costs
+- 📊 **Monitoring** - Comprehensive visibility into model performance and usage patterns
 
-## Available Model Providers
+## Available Model Options
 
-watsonx Orchestrate supports multiple LLM providers through the AI Gateway. The platform includes preferred models that are optimized and validated for use:
+watsonx Orchestrate supports models through two main approaches:
 
-### Preferred Models (Included with Platform)
+### Default Platform Models
 
-#### 1. Groq Models
-- **groq/openai/gpt-oss-120b** ⭐ - High-performance model optimized for speed, tool calling, and multilingual support. **Recommended default choice.**
+The platform includes a default model that is optimized and validated:
 
-#### 2. watsonx.ai Models
-- **watsonx/meta-llama/llama-3-2-90b-vision-instruct** ⭐ - Advanced multimodal model supporting both text and vision tasks with 90B parameters
-- **watsonx/meta-llama/llama-3-405b-instruct** ⭐ - Meta's largest open-source model with 405B parameters, optimized for the most complex reasoning tasks
+- **groq/openai/gpt-oss-120b** ⭐ - High-performance model optimized for speed, tool calling, and multilingual support
+  - Available from Groq (ultra-fast inference)
+  - Also available from AWS Bedrock (enterprise-grade reliability)
 
-### Additional Models via AI Gateway
+### External Models via AI Gateway
 
-You can also add custom models from other providers through the AI Gateway:
-- **Anthropic Claude** - claude-3-opus, claude-3-sonnet, claude-3-haiku
-- **OpenAI** - GPT-4, GPT-3.5-turbo
-- **Google Gemini** - gemini-pro, gemini-flash
-- **AWS Bedrock** - Various models
-- **Azure OpenAI** - Azure-hosted models
-- **Ollama** - Locally hosted models
+You can connect to external model providers through the AI Gateway:
 
-> **Note:** Models marked with ⭐ are preferred models that have been validated and optimized for watsonx Orchestrate.
+| Provider | Example Models | Use Cases |
+|----------|---------------|-----------|
+| **OpenAI** | GPT-4, GPT-4-turbo, GPT-3.5-turbo | General purpose, advanced reasoning |
+| **Anthropic** | Claude 3 Opus, Sonnet, Haiku | Long context, analysis, coding |
+| **Google** | Gemini Pro, Gemini Flash | Multimodal, fast inference |
+| **AWS Bedrock** | Various foundation models | Enterprise deployment, compliance |
+| **Azure OpenAI** | Azure-hosted OpenAI models | Microsoft ecosystem integration |
+| **Ollama** | Locally hosted models | On-premises, data privacy |
 
-## Step 1: Understanding Model Selection
+> **Note:** External models require proper configuration through the AI Gateway and may incur additional costs from the provider.
 
-Different models excel at different tasks. Here's a guide:
+## Step 1: Understanding AI Gateway Architecture
 
-### Task-Based Model Selection
-
-| Task Type | Recommended Model | Why |
-|-----------|------------------|-----|
-| General purpose, tool calling | groq/openai/gpt-oss-120b | Optimized for speed and tool calling, best default choice |
-| Multimodal (text + images) | watsonx/meta-llama/llama-3-2-90b-vision-instruct | Handles both text and vision tasks |
-| Complex reasoning | watsonx/meta-llama/llama-3-405b-instruct | Highest capability, 405B parameters |
-| Customer support | groq/openai/gpt-oss-120b | Fast, reliable, good tool calling |
-| Code generation | groq/openai/gpt-oss-120b | Strong coding capabilities |
-| Creative writing | watsonx/meta-llama/llama-3-405b-instruct | Superior creativity and reasoning |
-| Document analysis with images | watsonx/meta-llama/llama-3-2-90b-vision-instruct | Vision capabilities |
-
-### Performance vs. Cost Tradeoffs
+The AI Gateway acts as a unified interface between your agents and various LLM providers:
 
 ```
-High Performance, High Cost
-    ↑
-    │  watsonx/meta-llama/llama-3-405b-instruct (405B params)
-    │
-    │  watsonx/meta-llama/llama-3-2-90b-vision-instruct (90B params + vision)
-    │
-    │  groq/openai/gpt-oss-120b (optimized for speed)
-    ↓
-Fast & Efficient
+┌─────────────────────────────────────────────────────────┐
+│                  watsonx Orchestrate                     │
+│                                                          │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐             │
+│  │ Agent A  │  │ Agent B  │  │ Agent C  │             │
+│  └────┬─────┘  └────┬─────┘  └────┬─────┘             │
+│       │             │             │                     │
+│       └─────────────┴─────────────┘                     │
+│                     │                                    │
+│              ┌──────▼──────┐                            │
+│              │ AI Gateway  │                            │
+│              │  + Policies │                            │
+│              └──────┬──────┘                            │
+│                     │                                    │
+└─────────────────────┼────────────────────────────────────┘
+                      │
+        ┌─────────────┼─────────────┐
+        │             │             │
+   ┌────▼────┐   ┌───▼────┐   ┌───▼────┐
+   │ OpenAI  │   │Anthropic│   │ Google │
+   └─────────┘   └─────────┘   └────────┘
 ```
 
-## Step 2: Create Agents with Different Models
+### Key Capabilities
 
-Let's create three versions of a customer support agent using different models to compare their behavior.
+1. **Provider Abstraction** - Agents don't need to know which provider they're using
+2. **Policy Enforcement** - Centralized governance and compliance
+3. **Usage Tracking** - Monitor costs and performance across all models
+4. **Failover Support** - Automatic fallback to alternative providers
+5. **Rate Limiting** - Control usage to manage costs
 
-### Agent 1: Standard Support Agent (Groq GPT - Recommended)
+## Step 2: Configuring External Model Providers
+
+### Adding an External Provider
+
+To add an external model provider, you'll need to configure it through the AI Gateway:
+
+```bash
+# List currently available models
+orchestrate models list
+
+# View AI Gateway configuration
+orchestrate gateway config show
+```
+
+### Example: Connecting to OpenAI
+
+```yaml
+# ai-gateway-config.yaml
+providers:
+  - name: openai
+    type: openai
+    api_key: ${OPENAI_API_KEY}  # Use environment variable
+    models:
+      - gpt-4
+      - gpt-4-turbo
+      - gpt-3.5-turbo
+    default_model: gpt-4-turbo
+```
+
+### Example: Connecting to Anthropic
+
+```yaml
+# ai-gateway-config.yaml
+providers:
+  - name: anthropic
+    type: anthropic
+    api_key: ${ANTHROPIC_API_KEY}
+    models:
+      - claude-3-opus-20240229
+      - claude-3-sonnet-20240229
+      - claude-3-haiku-20240307
+    default_model: claude-3-sonnet-20240229
+```
+
+## Step 3: Implementing Model Policies
+
+Model policies allow you to coordinate multiple models for load balancing, fallback, and retry strategies.
+
+### Policy Strategy Types
+
+1. **Load Balancing** - Distribute requests across multiple model instances
+2. **Fallback** - Automatically switch to backup models on errors
+3. **Single with Retry** - Retry failed requests on the same model
+
+### Creating Model Policies
+
+#### Load Balancing Policy
+
+Distributes traffic across multiple models based on weight:
+
+```yaml
+# load-balance-policy.yaml
+spec_version: v1
+kind: model
+name: balanced_gpt
+description: Load balances between Groq and AWS Bedrock
+display_name: Balanced GPT
+
+policy:
+  strategy:
+    mode: loadbalance
+    on_status_codes: [503, 504]
+  retry:
+    attempts: 1
+  targets:
+    - model_name: groq/openai/gpt-oss-120b
+      weight: 0.75   # 75% of traffic
+    - model_name: aws-bedrock/gpt-oss-120b
+      weight: 0.25   # 25% of traffic
+```
+
+#### Fallback Policy
+
+Automatically switches to backup model on errors:
+
+```yaml
+# fallback-policy.yaml
+spec_version: v1
+kind: model
+name: resilient_gpt
+description: Falls back to AWS Bedrock if Groq fails
+display_name: Resilient GPT
+
+policy:
+  strategy:
+    mode: fallback
+  retry:
+    attempts: 1
+    on_status_codes: [503, 500]
+  targets:
+    - model_name: groq/openai/gpt-oss-120b
+    - model_name: aws-bedrock/gpt-oss-120b
+```
+
+#### Single Model with Retry
+
+Retries on the same model for transient errors:
+
+```yaml
+# retry-policy.yaml
+spec_version: v1
+kind: model
+name: retry_gpt
+description: Retries up to 3 times on transient errors
+display_name: Retry GPT
+
+policy:
+  strategy:
+    mode: single
+  retry:
+    attempts: 3
+    on_status_codes: [503]
+  targets:
+    - model_name: groq/openai/gpt-oss-120b
+```
+
+### Managing Model Policies
+
+```bash
+# Add a policy via CLI
+orchestrate models policy add \
+  --name resilient_gpt \
+  --model groq/openai/gpt-oss-120b \
+  --model aws-bedrock/gpt-oss-120b \
+  --strategy fallback \
+  --strategy-on-code 503 \
+  --retry-attempts 2
+
+# Import from YAML file
+orchestrate models policy import --file fallback-policy.yaml
+
+# List all policies
+orchestrate models policy list
+
+# Export a policy
+orchestrate models policy export -n resilient_gpt -o policy.zip
+
+# Remove a policy
+orchestrate models policy remove -n resilient_gpt
+```
+
+### Applying Policies to Agents
+
+Once created, reference the policy name in your agent's `llm` field:
+
+```yaml
+# agent-with-policy.yaml
+spec_version: v1
+kind: native
+name: resilient_support_agent
+description: Support agent with automatic fallback
+
+instructions: |
+  You are a customer support agent providing helpful, efficient responses.
+
+# Reference the policy name (not a direct model)
+llm: resilient_gpt
+
+tools:
+  - check_order_status
+  - process_refund
+```
+
+## Step 4: Create a Support Agent with External Model
+
+Let's create a customer support agent that can use external models:
 
 📥 **[Download Agent](agents/support-agent-standard.yaml)** | Place it into `agents/` directory of your workspace
 
 ```yaml
 spec_version: v1
 kind: native
-name: support_agent_standard_<your_initials_here>
-description: Standard customer support agent - recommended for most use cases
+name: support_agent_<your_initials_here>
+description: Customer support agent using default platform model
 
 instructions: |
   You are a customer support agent providing helpful, efficient responses.
@@ -104,402 +284,208 @@ instructions: |
   
   Balance speed with quality service.
 
-# Using the recommended default model - optimized for tool calling and speed
+# Using the default platform model
 llm: groq/openai/gpt-oss-120b
 
 tools:
   - check_order_status_<your_initials_here>
   - process_refund_<your_initials_here>
-
 ```
 
-### Agent 2: Advanced Support Agent (Llama 3.2 90B Vision)
+### IMPORTANT: Replace `<your_initials_here>` with your actual initials in all references inside the agent yaml-file you downloaded - Agent _name_ and the _tool references_. Make sure that the tools are correctly referenced in the YAML file, your tool files might be named differently. Use the tools you created and imported in the previous part.
 
-📥 **[Download Agent](agents/support-agent-advanced.yaml)** | Place it into `agents/` directory of your workspace
+## Step 5: Import and Test the Agent
 
-```yaml
-spec_version: v1
-kind: native
-name: support_agent_advanced_<your_initials_here>
-description: Advanced customer support agent with multimodal capabilities
+Before you begin, check the models available in your environment:
 
-instructions: |
-  You are a senior customer support specialist handling complex situations.
-  
-  Your capabilities:
-  - Deep understanding of customer emotions and context
-  - Complex problem-solving and reasoning
-  - Ability to analyze images (product photos, receipts, damage reports)
-  - Nuanced decision-making
-  - Handling difficult or upset customers
-  - Multi-step problem resolution
-  
-  Provide thoughtful, comprehensive support that addresses both
-  immediate needs and underlying concerns. When customers share images,
-  analyze them carefully to better understand their situation.
-
-# Using advanced multimodal model for complex scenarios
-llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
-
-tools:
-  - check_order_status_<your_initials_here>
-  - process_refund_<your_initials_here>
-
-```
-
-### Agent 3: Expert Support Agent (Llama 3 405B)
-
-📥 **[Download Agent](agents/support-agent-expert.yaml)** | Place it into `agents/` directory of your workspace
-
-```yaml
-spec_version: v1
-kind: native
-name: support_agent_expert_<your_initials_here>
-description: Expert-level customer support for the most complex scenarios
-
-instructions: |
-  You are an executive-level customer support specialist handling the most
-  complex and sensitive customer situations.
-  
-  Your capabilities:
-  - Exceptional reasoning and problem-solving
-  - Deep empathy and emotional intelligence
-  - Creative solutions for unique situations
-  - Authority to make exceptions and special accommodations
-  - Handling VIP customers and critical escalations
-  
-  Provide world-class support that exceeds expectations while maintaining
-  company policies and profitability. Think creatively to find win-win solutions.
-
-# Using the most capable model for highest-complexity scenarios
-llm: watsonx/meta-llama/llama-3-405b-instruct
-
-tools:
-  - check_order_status_<your_initials_here>
-  - process_refund_<your_initials_here>
-
-```
-
-## Step 3: Import and Test the Agents
-
-Before you begin, you can check the models available in your current active environment by running below command in your terminal:
 ```bash
 orchestrate models list
 ```
 
 <img src="images/image.png" alt="" width="800px">
 
-### IMPORTANT: Replace `<your_initials_here>` with your actual initials in all references inside the agent yaml-files you downloaded - Agent _name_ and the _tool references_. Make sure that the tools are correctly referenced in the YAML files, your tool files might be named differently. Use the tools you created and imported in the previous part.
-
-Then, import all three agents:
+Import the agent:
 
 ```bash
 orchestrate agents import -f agents/support-agent-standard.yaml
-orchestrate agents import -f agents/support-agent-advanced.yaml
-orchestrate agents import -f agents/support-agent-expert.yaml
 ```
 
-Verify they were imported:
+Verify it was imported:
 ```bash
 orchestrate agents list | grep -E "<your_initials>"
 ```
 
-## Step 4: Compare Model Performance
+## Step 6: Test with Different Scenarios
 
-Test each agent with the same scenarios to compare their responses.
+Test your agent with various scenarios:
 
 ### Test Scenario 1: Simple Query
 
-Test all three agents with:
 ```
 What's your return policy?
 ```
 
->REMINDER: You can chat with the agents using the `orchestrate chat ask -n <agent_name>` command.
-
-**Expected Differences:**
-- **Standard Agent**: Quick, clear, well-structured answer
-- **Advanced Agent**: Detailed response with context
-- **Expert Agent**: Comprehensive answer with nuanced understanding
+> REMINDER: You can chat with the agent using the `orchestrate chat ask -n <agent_name>` command.
 
 ### Test Scenario 2: Complex Situation
 
-Test with:
 ```
 I ordered a laptop 3 weeks ago (ORD-12345), it arrived damaged, I need it for work tomorrow, and I'm very frustrated. What can you do?
 ```
 
-**Expected Differences:**
-- **Standard Agent**: Efficient handling with empathy and clear solutions
-- **Advanced Agent**: Deep empathy, creative problem-solving, proactive suggestions
-- **Expert Agent**: Exceptional empathy, creative win-win solutions, may offer special accommodations
-
 ### Test Scenario 3: Multi-Step Request
 
-Test with:
 ```
 I need to check my order status, and if it hasn't shipped yet, I want to change the shipping address and upgrade to express shipping.
 ```
 
-**Expected Differences:**
-- **Standard Agent**: Handles multi-step flow efficiently with good tool usage
-- **Advanced Agent**: Smooth orchestration with anticipation of needs
-- **Expert Agent**: Seamless handling with proactive suggestions and alternatives
+## Step 7: Monitoring and Governance
 
-### Test Scenario 4: Image Analysis (Advanced Agent Only)
+### Viewing Model Usage
 
-Test the advanced agent with:
-```
-I received a damaged product. [Attach image of damaged item]
-```
-
-**Expected Behavior:**
-- **Advanced Agent**: Can analyze the image to assess damage severity and provide appropriate solutions
-
-## Step 5: Model Configuration Best Practices
-
-### When to Use Each Model Type
-
-#### Use Standard Model (groq/openai/gpt-oss-120b) When:
-- ✅ General purpose tasks
-- ✅ Tool calling is important
-- ✅ Response speed matters
-- ✅ Most production use cases
-- ✅ Default choice for new agents
-- ✅ Cost-effective for high volume
-
-#### Use Advanced Model (llama-3-2-90b-vision) When:
-- ✅ Multimodal tasks (text + images)
-- ✅ Complex reasoning required
-- ✅ Document analysis with visuals
-- ✅ Product inspection scenarios
-- ✅ Higher quality needed than standard
-
-#### Use Expert Model (llama-3-405b) When:
-- ✅ Most complex reasoning required
-- ✅ Handling VIP or sensitive situations
-- ✅ Quality is paramount
-- ✅ Creative problem-solving needed
-- ✅ Executive-level interactions
-- ✅ Lower volume, high-value scenarios
-
-### Model Configuration Tips
-
-```yaml
-# Standard model specification
-llm: groq/openai/gpt-oss-120b
-
-# For multimodal tasks
-llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
-
-# For highest capability
-llm: watsonx/meta-llama/llama-3-405b-instruct
-```
-
-**Note:** watsonx Orchestrate does not support setting temperature or other model parameters directly in the agent YAML. Model behavior is controlled through your agent instructions.
-
-## Step 6: Create a Model Router Agent
-
-Let's create an intelligent agent that routes to different models based on complexity.
-
-### Ask Bob:
-```
-Bob, create a router agent that analyzes the customer query and delegates to either the standard, advanced, or expert support agent based on query complexity.
-```
-
-Or create manually:
-
-```yaml
-# support-router-agent.yaml
-spec_version: v1
-kind: native
-name: support_router_<your_initials_here>
-description: Routes customer queries to appropriate support agent based on complexity
-
-instructions: |
-  You are a routing agent that analyzes customer queries and delegates to
-  the most appropriate support agent.
-  
-  Routing Logic:
-  
-  Route to support_agent_standard_<your_initials_here> for:
-  - Standard customer support requests (80% of queries)
-  - Order status checks
-  - FAQ questions
-  - General refund requests
-  - Most typical interactions
-  
-  Route to support_agent_advanced_<your_initials_here> for:
-  - Complex problem-solving (15% of queries)
-  - Queries involving images or documents
-  - Multi-faceted issues
-  - Situations requiring deeper analysis
-  
-  Route to support_agent_expert_<your_initials_here> for:
-  - Most complex scenarios (5% of queries)
-  - Very upset or frustrated customers
-  - VIP customers
-  - Situations requiring exceptions or special handling
-  - High-value or sensitive matters
-  
-  Analyze the query, determine complexity, and delegate immediately.
-  Do not try to answer yourself - always delegate to a specialist.
-
-llm: groq/openai/gpt-oss-120b  # Fast, efficient model for routing decisions
-
-collaborators:
-  - support_agent_standard_<your_initials_here>
-  - support_agent_advanced_<your_initials_here>
-  - support_agent_expert_<your_initials_here>
-```
-
-Import and test:
 ```bash
-orchestrate agents import -f agents/support-router-agent.yaml
-orchestrate chat ask -n support_router_<your_initials_here>
+# View model usage statistics
+orchestrate gateway usage --period 7d
+
+# View policy violations
+orchestrate gateway policy-violations --period 24h
+
+# View cost breakdown
+orchestrate gateway costs --group-by model
 ```
 
-## Step 7: Monitor Model Performance
+### Setting Up Alerts
 
-### Using Bob to Analyze Performance
-
-Ask Bob to help analyze your agent's performance:
-
+```yaml
+# alerts-config.yaml
+alerts:
+  - name: high_cost_alert
+    condition: daily_cost > 100
+    action: email
+    recipients:
+      - admin@company.com
+  
+  - name: rate_limit_alert
+    condition: rate_limit_exceeded
+    action: slack
+    channel: "#ai-ops"
+  
+  - name: policy_violation_alert
+    condition: policy_violation
+    action: pagerduty
+    severity: high
 ```
-Bob, analyze the response times and quality of my three support agents and recommend which model to use for production.
-```
-
-### Key Metrics to Consider
-
-1. **Response Time**
-   - How quickly does the agent respond?
-   - Is speed acceptable for your use case?
-
-2. **Response Quality**
-   - Does it understand complex queries?
-   - Are responses accurate and helpful?
-   - Does it handle edge cases well?
-
-3. **Cost**
-   - What's the cost per interaction?
-   - What's the monthly projected cost?
-
-4. **User Satisfaction**
-   - Do users get their questions answered?
-   - Do they need to rephrase or repeat?
-   - Is the tone appropriate?
 
 ## Best Practices
 
 ### ✅ DO:
 
-- Start with balanced models and adjust based on needs
-- Test multiple models with your specific use cases
-- Consider cost vs. performance tradeoffs
-- Use lightweight models for high-volume, simple tasks
-- Reserve advanced models for complex scenarios
-- Monitor and optimize model usage over time
-- Document why you chose specific models
+- **Start with default models** - Use groq/openai/gpt-oss-120b for most use cases
+- **Implement policies early** - Set up governance before scaling
+- **Monitor usage closely** - Track costs and performance regularly
+- **Use environment variables** - Never hardcode API keys
+- **Test external models** - Validate behavior before production use
+- **Document model choices** - Record why specific models were selected
+- **Set up alerts** - Get notified of issues before they become problems
+- **Review policies regularly** - Adjust as usage patterns change
 
 ### ❌ DON'T:
 
-- Use advanced models for everything (unnecessary cost)
-- Use lightweight models for complex reasoning
-- Forget to test with real user scenarios
-- Ignore response time requirements
-- Overlook cost implications at scale
-- Change models without testing impact
+- **Expose API keys** - Always use secure credential management
+- **Skip policy configuration** - Governance is critical for production
+- **Ignore cost monitoring** - External models can be expensive
+- **Use untested models** - Always validate before production deployment
+- **Forget about compliance** - Consider data residency and privacy requirements
+- **Overlook rate limits** - Plan for provider limitations
+- **Mix environments** - Keep development and production configurations separate
 
-## Advanced: Dynamic Model Selection
+## Advanced: Multi-Provider Strategy
 
-You can create agents that dynamically select models based on context:
+You can design agents that leverage multiple providers for resilience:
 
 ```yaml
-# adaptive-agent.yaml
+# multi-provider-agent.yaml
 spec_version: v1
 kind: native
-name: adaptive_support_<your_initials_here>
-description: Adapts model selection based on query complexity
+name: resilient_agent_<your_initials_here>
+description: Agent with multi-provider fallback strategy
 
 instructions: |
-  You are an adaptive support agent that adjusts your approach based on
-  the complexity of the customer's needs.
-  
-  For simple queries, provide quick, efficient responses.
-  For complex situations, engage in deeper analysis and problem-solving.
-  
-  Always prioritize customer satisfaction while being cost-effective.
+  You are a customer support agent with high availability requirements.
 
-# Start with balanced model
+# Primary model
 llm: groq/openai/gpt-oss-120b
+
+# Fallback configuration (conceptual - check current platform capabilities)
+fallback:
+  - provider: aws-bedrock
+    model: gpt-oss-120b
+  - provider: openai
+    model: gpt-4-turbo
+
+policy: high_availability_policy
 
 tools:
   - check_order_status_<your_initials_here>
   - process_refund_<your_initials_here>
-
-knowledge_base:
-  - customer-support-faq-<your_initials_here>
-
-# Can delegate to advanced agent when needed
-collaborators:
-  - support_agent_advanced_<your_initials_here>
 ```
 
 ## Exercises
 
-Ready to practice? We've prepared comprehensive exercises to help you master model selection and optimization!
+Ready to practice? We've prepared comprehensive exercises to help you master AI Gateway and model policies!
 
 📝 **[View All Exercises](exercises.md)** - Complete exercises ranging from easy to advanced
 
 The exercises cover:
-- Model performance comparison
+- Configuring external model providers
+- Implementing model policies
 - Cost optimization strategies
-- Domain-specific model selection
-- Advanced routing with context
-- Model parameter tuning
-- Multi-model workflows
-- Fallback strategies
+- Multi-provider architectures
+- Monitoring and governance
+- Compliance and security
 
 We recommend working through at least the first 2-3 exercises to solidify your understanding before moving to the next part.
 
 ## Common Issues
 
-### Issue: Agent using wrong model
-**Solution:** Check the `llm` field in your agent YAML. Re-import after changes.
-
-### Issue: Model not available
-**Solution:** Verify model name is correct. Check available models:
+### Issue: External model not available
+**Solution:** Verify provider configuration and API key. Check:
 ```bash
-orchestrate models list
+orchestrate gateway providers list
+orchestrate gateway test-connection --provider openai
 ```
 
-### Issue: Slow responses
-**Solution:** Consider using a faster model or optimizing agent instructions.
+### Issue: Policy violation errors
+**Solution:** Review policy configuration and adjust limits or allowed models.
 
-### Issue: Poor quality responses
-**Solution:** Try a more capable model or improve agent instructions.
+### Issue: High costs
+**Solution:** Implement stricter policies, use rate limiting, or switch to more cost-effective models.
+
+### Issue: Slow responses
+**Solution:** Check provider status, consider using faster models, or implement caching.
 
 ## Key Takeaways
 
-✅ Different models have different strengths and costs  
-✅ Match model capability to task complexity  
-✅ Test multiple models with your specific use cases  
-✅ Balance performance, cost, and quality  
-✅ Use routing agents for intelligent model selection  
-✅ Monitor and optimize model usage over time  
+✅ AI Gateway provides unified access to multiple model providers  
+✅ Model policies enable governance and cost control  
+✅ External models offer flexibility but require careful management  
+✅ Monitoring and alerts are essential for production use  
+✅ Start with default models and add external providers as needed  
+✅ Security and compliance must be built in from the start  
 
 ## Next Steps
 
-Now that you understand model selection, let's add knowledge bases and collaborators!
+Now that you understand AI Gateway and model policies, let's add knowledge bases and collaborators!
 
 Continue to [Part 4: Knowledge Bases & Collaborators](../part4-knowledge/README.md) →
 
 ## Additional Resources
 
-- [watsonx Orchestrate Model Guide](https://developer.watson-orchestrate.ibm.com/models/overview)
-- [LLM Selection Best Practices](https://developer.watson-orchestrate.ibm.com/models/selection)
-- [Cost Optimization Strategies](https://developer.watson-orchestrate.ibm.com/models/cost_optimization)
+- [watsonx Orchestrate AI Gateway Documentation](https://developer.watson-orchestrate.ibm.com/llm/managing_llm)
+- [Model Policies Guide](https://developer.watson-orchestrate.ibm.com/llm/policies)
+- [External Provider Configuration](https://developer.watson-orchestrate.ibm.com/llm/providers)
+- [Cost Optimization Strategies](https://developer.watson-orchestrate.ibm.com/llm/cost_optimization)
 
 ---
 
-**💡 Pro Tip:** Start with the balanced model (groq/openai/gpt-oss-120b) for most use cases, then optimize based on actual performance data!
+**💡 Pro Tip:** Start with the default groq/openai/gpt-oss-120b model and only add external providers when you have specific requirements that the default model cannot meet!

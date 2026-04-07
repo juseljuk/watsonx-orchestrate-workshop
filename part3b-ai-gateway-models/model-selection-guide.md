@@ -1,189 +1,389 @@
-# Quick Model Selection Guide
+# Quick AI Gateway and Model Selection Guide
 
-A quick reference for choosing the right model for your watsonx Orchestrate agents.
+A quick reference for understanding AI Gateway capabilities and choosing models for your watsonx Orchestrate agents.
 
-## Model Comparison Table
+## AI Gateway Overview
 
-| Model | Speed | Cost | Capability | Best For |
-|-------|-------|------|------------|----------|
-| **groq/openai/gpt-oss-120b** | ⚡⚡⚡ | 💰💰 | ⭐⭐⭐⭐ | General purpose, balanced performance, tool calling |
-| **watsonx/meta-llama/llama-3-2-90b-vision-instruct** | ⚡⚡ | 💰💰💰 | ⭐⭐⭐⭐⭐ | Multimodal tasks, vision + text, complex reasoning |
-| **watsonx/meta-llama/llama-3-405b-instruct** | ⚡ | 💰💰💰💰 | ⭐⭐⭐⭐⭐ | Most complex reasoning, highest capability |
-
-## Decision Tree
+The AI Gateway provides a unified interface to access multiple LLM providers:
 
 ```
-Start Here
+Your Agents → AI Gateway → External Providers (OpenAI, Anthropic, Google, etc.)
+              ↓
+         Policies & Governance
+```
+
+### Key Benefits
+
+| Feature | Description |
+|---------|-------------|
+| **Unified API** | Single interface for all model providers |
+| **Flexibility** | Switch providers without code changes |
+| **Governance** | Centralized policies and controls |
+| **Monitoring** | Track usage, costs, and performance |
+| **Security** | Secure credential management |
+
+## Default Platform Model
+
+| Model | Provider | Speed | Best For |
+|-------|----------|-------|----------|
+| **groq/openai/gpt-oss-120b** | Groq / AWS Bedrock | ⚡⚡⚡ | General purpose, tool calling, production use |
+
+**Recommended as the default choice for most use cases.**
+
+## External Model Providers
+
+### Provider Comparison
+
+| Provider | Strengths | Use Cases |
+|----------|-----------|-----------|
+| **OpenAI** | Advanced reasoning, broad capabilities | Complex tasks, general purpose |
+| **Anthropic** | Long context, analysis, safety | Document analysis, research |
+| **Google** | Multimodal, fast inference | Vision tasks, quick responses |
+| **AWS Bedrock** | Enterprise features, compliance | Regulated industries, enterprise |
+| **Azure OpenAI** | Microsoft integration | Enterprise Microsoft shops |
+| **Ollama** | On-premises, privacy | Data-sensitive applications |
+
+### When to Use External Providers
+
+```
+Start Here: groq/openai/gpt-oss-120b (default)
     |
-    ├─ Does it involve images or vision?
-    │   └─ YES → watsonx/meta-llama/llama-3-2-90b-vision-instruct
+    ├─ Need specific capabilities not in default?
+    │   └─ YES → Consider external provider
     │
-    ├─ Does it require the highest capability reasoning?
-    │   └─ YES → watsonx/meta-llama/llama-3-405b-instruct
+    ├─ Have compliance requirements?
+    │   └─ YES → AWS Bedrock or Azure
     │
-    └─ General purpose / Standard tasks?
-        └─ groq/openai/gpt-oss-120b (recommended default)
+    ├─ Need on-premises deployment?
+    │   └─ YES → Ollama
+    │
+    └─ Default model meets needs?
+        └─ YES → Stay with default (recommended)
 ```
 
-## Use Case Examples
+## Model Policies
 
-### Customer Support
+Model policies allow you to coordinate multiple models for load balancing, fallback, and retry strategies.
+
+### Policy Strategy Types
+
+| Strategy | Purpose | Use Case |
+|----------|---------|----------|
+| **loadbalance** | Distributes requests between models based on weight | Balance load across multiple model instances |
+| **fallback** | Uses another model if one becomes unavailable | High availability and resilience |
+| **single** | Uses one model with retry capability | Simple retry logic for transient errors |
+
+### Load Balancing Policy Example
 
 ```yaml
-# Standard support agent (recommended for most queries)
-llm: groq/openai/gpt-oss-120b
+spec_version: v1
+kind: model
+name: balanced_gpt
+description: Load balances between two GPT model instances
+display_name: Balanced GPT
 
-# Advanced support agent (complex issues, high-value customers)
-llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
-
-# Executive escalation agent (most complex scenarios)
-llm: watsonx/meta-llama/llama-3-405b-instruct
+policy:
+  strategy:
+    mode: loadbalance
+    on_status_codes: [503, 504]
+  retry:
+    attempts: 1
+  targets:
+    - model_name: groq/openai/gpt-oss-120b
+      weight: 0.75   # 75% of traffic
+    - model_name: aws-bedrock/gpt-oss-120b
+      weight: 0.25   # 25% of traffic
 ```
 
-### Content Generation
+### Fallback Policy Example
 
 ```yaml
-# Product descriptions (creative, high quality)
-llm: watsonx/meta-llama/llama-3-405b-instruct
+spec_version: v1
+kind: model
+name: resilient_gpt
+description: Falls back to alternative model on errors
+display_name: Resilient GPT
 
-# Technical documentation (precise)
-llm: groq/openai/gpt-oss-120b
-
-# Marketing content with images
-llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
+policy:
+  strategy:
+    mode: fallback
+  retry:
+    attempts: 1
+    on_status_codes: [503, 500]
+  targets:
+    - model_name: groq/openai/gpt-oss-120b
+    - model_name: aws-bedrock/gpt-oss-120b
 ```
 
-### Data Processing
+### Single Model with Retry Example
 
 ```yaml
-# Data extraction and analysis
+spec_version: v1
+kind: model
+name: retry_gpt
+description: Single model with retry on transient errors
+display_name: Retry GPT
+
+policy:
+  strategy:
+    mode: single
+  retry:
+    attempts: 3
+    on_status_codes: [503]
+  targets:
+    - model_name: groq/openai/gpt-oss-120b
+```
+
+## Configuration Examples
+
+### Basic Agent (Default Model)
+
+```yaml
+spec_version: v1
+kind: native
+name: support_agent
+description: Standard support agent
+
+instructions: |
+  You are a helpful customer support agent.
+
+# Use default platform model
 llm: groq/openai/gpt-oss-120b
 
-# Complex data reasoning and insights
-llm: watsonx/meta-llama/llama-3-405b-instruct
+tools:
+  - check_order_status
+```
 
-# Document analysis with images/charts
-llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
+### Agent with External Model
+
+```yaml
+spec_version: v1
+kind: native
+name: advanced_agent
+description: Agent using external model
+
+instructions: |
+  You are an advanced support specialist.
+
+# Use external OpenAI model (requires AI Gateway configuration)
+llm: openai/gpt-4-turbo
+
+tools:
+  - check_order_status
+```
+
+### Agent with Model Policy
+
+```yaml
+spec_version: v1
+kind: native
+name: resilient_agent
+description: Agent with fallback model policy
+
+instructions: |
+  You are a customer support agent with high availability.
+
+# Use model policy for resilience (policy must be created first)
+llm: resilient_gpt
+
+tools:
+  - check_order_status
 ```
 
 ## Cost Optimization Strategies
 
-### Strategy 1: Tiered Approach
-- **Tier 1 (80% of queries):** groq/openai/gpt-oss-120b (default for most tasks)
-- **Tier 2 (15% of queries):** watsonx/meta-llama/llama-3-2-90b-vision-instruct (complex or multimodal)
-- **Tier 3 (5% of queries):** watsonx/meta-llama/llama-3-405b-instruct (highest complexity)
+### Strategy 1: Default First
+- Start with groq/openai/gpt-oss-120b for all agents
+- Only add external models when specifically needed
+- Monitor usage and costs regularly
 
-### Strategy 2: Time-Based
-- **Peak hours:** Fast models for quick responses
-- **Off-peak:** Advanced models for quality
+### Strategy 2: Tiered Access
+- **Standard agents:** Default model (80% of use cases)
+- **Advanced agents:** External models (15% of use cases)
+- **Specialized agents:** Premium models (5% of use cases)
 
-### Strategy 3: User-Based
-- **Free tier users:** Standard models
-- **Premium users:** Advanced models
+### Strategy 3: Policy-Based Control
+- Set daily/monthly budget caps
+- Implement rate limiting
+- Monitor and alert on high usage
+- Review and optimize regularly
 
+## Monitoring and Governance
+
+### Key Metrics to Track
+
+```bash
+# View model usage
+orchestrate gateway usage --period 7d
+
+# Check policy violations
+orchestrate gateway policy-violations --period 24h
+
+# Monitor costs
+orchestrate gateway costs --group-by model
+
+# Test provider connection
+orchestrate gateway test-connection --provider openai
+```
+
+### Setting Up Alerts
+
+```yaml
+alerts:
+  - name: cost_alert
+    condition: daily_cost > 100
+    action: email
+  
+  - name: rate_limit_alert
+    condition: rate_limit_exceeded
+    action: slack
+```
 
 ## Common Patterns
 
-### Pattern 1: Router + Specialists
+### Pattern 1: Default Model for Production
+
 ```yaml
-# Router (fast, efficient)
-router_agent:
-  llm: groq/openai/gpt-oss-120b
+# Most production agents should use the default model directly
+spec_version: v1
+kind: native
+name: production_agent
+description: Standard production agent
 
-# Specialists (appropriate for domain)
-standard_agent:
-  llm: groq/openai/gpt-oss-120b
+instructions: |
+  You are a helpful assistant.
 
-advanced_agent:
-  llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
-
-expert_agent:
-  llm: watsonx/meta-llama/llama-3-405b-instruct
+llm: groq/openai/gpt-oss-120b
 ```
 
-### Pattern 2: Progressive Enhancement
+### Pattern 2: Load Balanced for High Volume
+
 ```yaml
-# Start with standard model
-initial_agent:
-  llm: groq/openai/gpt-oss-120b
-  
-# Escalate to advanced model if needed
-escalation_agent:
-  llm: watsonx/meta-llama/llama-3-405b-instruct
+# Create policy first, then reference it
+spec_version: v1
+kind: native
+name: high_volume_agent
+description: Agent with load balanced models
+
+instructions: |
+  You are a helpful assistant.
+
+llm: balanced_gpt  # References the load balancing policy
 ```
 
-### Pattern 3: Hybrid Workflow
+### Pattern 3: Fallback for Resilience
+
 ```yaml
-# Stage 1: Initial processing
-triage:
-  llm: groq/openai/gpt-oss-120b
+# Create fallback policy first, then reference it
+spec_version: v1
+kind: native
+name: resilient_agent
+description: Agent with automatic fallback
 
-# Stage 2: Complex analysis
-processing:
-  llm: watsonx/meta-llama/llama-3-2-90b-vision-instruct
+instructions: |
+  You are a helpful assistant.
 
-# Stage 3: Final review (highest quality)
-quality_check:
-  llm: watsonx/meta-llama/llama-3-405b-instruct
+llm: resilient_gpt  # References the fallback policy
 ```
 
-## Performance Benchmarks
-
-### Response Time (Approximate)
-- **groq/openai/gpt-oss-120b:** 1-3 seconds (optimized for speed)
-- **watsonx/meta-llama/llama-3-2-90b-vision-instruct:** 2-5 seconds
-- **watsonx/meta-llama/llama-3-405b-instruct:** 3-8 seconds
-
-### Token Limits
-- **groq/openai/gpt-oss-120b:** Large context window
-- **watsonx/meta-llama/llama-3-2-90b-vision-instruct:** 8,192 tokens
-- **watsonx/meta-llama/llama-3-405b-instruct:** 8,192 tokens
-
-## Troubleshooting
-
-### Problem: Responses too slow
-**Solution:** Switch to a faster model or optimize instructions
-
-### Problem: Poor quality responses
-**Solution:** Switch to a more capable model or improve prompts
-
-### Problem: High costs
-**Solution:** Implement routing to use cheaper models when possible
-
-### Problem: Inconsistent responses
-**Solution:** Use a more deterministic model or refine agent instructions for consistency
-
-## Quick Tips
-
-1. **Start with groq/openai/gpt-oss-120b** - Good default choice
-2. **Test with real queries** - Don't assume, measure
-3. **Monitor costs** - Track usage and optimize
-4. **Use routing** - Don't use expensive models for simple tasks
-5. **Consider latency** - Faster models for real-time interactions
-7. **Document choices** - Record why you chose each model
-
-## Model Selection Checklist
+## Decision Checklist
 
 Before choosing a model, ask:
 
-- [ ] What's the complexity of the task?
-- [ ] What's the expected query volume?
-- [ ] What's the budget constraint?
-- [ ] What's the acceptable response time?
-- [ ] Is creativity or consistency more important?
-- [ ] What's the cost of errors?
-- [ ] Can I use routing to optimize?
+- [ ] Does the default model (groq/openai/gpt-oss-120b) meet my needs?
+- [ ] Do I have specific requirements that need an external provider?
+- [ ] Have I configured appropriate policies?
+- [ ] Am I monitoring costs and usage?
+- [ ] Have I tested the model with real scenarios?
+- [ ] Is my API key management secure?
+- [ ] Do I have alerts set up?
+- [ ] Have I documented my choice?
+
+## Troubleshooting
+
+### Issue: External model not available
+**Check:**
+- Provider configuration: `orchestrate gateway providers list`
+- API key validity: `orchestrate gateway test-connection`
+- Model name spelling
+
+### Issue: Policy violations
+**Check:**
+- Policy configuration
+- Rate limits
+- Cost caps
+- Allowed models list
+
+### Issue: High costs
+**Solutions:**
+- Review usage patterns
+- Implement stricter policies
+- Use default model where possible
+- Set up cost alerts
+
+### Issue: Slow responses
+**Solutions:**
+- Check provider status
+- Consider faster models
+- Implement caching
+- Review network connectivity
+
+## Best Practices Summary
+
+### ✅ DO:
+- Start with default model (groq/openai/gpt-oss-120b)
+- Implement policies from day one
+- Monitor usage and costs regularly
+- Use environment variables for API keys
+- Test thoroughly before production
+- Document model choices
+- Set up alerts and monitoring
+
+### ❌ DON'T:
+- Use external models without clear need
+- Skip policy configuration
+- Hardcode API keys
+- Ignore cost monitoring
+- Deploy untested models
+- Forget about compliance
+- Mix development and production configs
+
+## Quick Commands Reference
+
+```bash
+# List available models
+orchestrate models list
+
+# View AI Gateway configuration
+orchestrate gateway config show
+
+# List providers
+orchestrate gateway providers list
+
+# Test provider connection
+orchestrate gateway test-connection --provider openai
+
+# View usage statistics
+orchestrate gateway usage --period 7d
+
+# Check policy violations
+orchestrate gateway policy-violations --period 24h
+
+# Monitor costs
+orchestrate gateway costs --group-by model
+```
 
 ## Additional Resources
 
-- [watsonx Orchestrate Documentation](https://developer.watson-orchestrate.ibm.com/)
-- [Agent Builder Guide](https://developer.watson-orchestrate.ibm.com/agents/overview)
-- [AI Gateway - Managing Custom LLMs](https://developer.watson-orchestrate.ibm.com/llm/managing_llm#managing-custom-llms-with-the-ai-gateway)
+- [AI Gateway Documentation](https://developer.watson-orchestrate.ibm.com/llm/managing_llm)
+- [Model Policies Guide](https://developer.watson-orchestrate.ibm.com/llm/policies)
+- [External Provider Configuration](https://developer.watson-orchestrate.ibm.com/llm/providers)
+- [Cost Optimization](https://developer.watson-orchestrate.ibm.com/llm/cost_optimization)
 
 ---
 
-**Remember:** The best model is the one that meets your requirements at the lowest cost. Always test with your specific use case!
+**Remember:** The default model (groq/openai/gpt-oss-120b) is optimized for most use cases. Only add external providers when you have specific requirements that the default model cannot meet!
 
 ---
 
-> 📚 **Full Tutorial:** For detailed explanations and step-by-step instructions, see the [Part 3b: AI Gateway and Using Different Models](README.md) main guide.
+> 📚 **Full Tutorial:** For detailed explanations and step-by-step instructions, see the [Part 3b: AI Gateway and External Model Providers](README.md) main guide.
