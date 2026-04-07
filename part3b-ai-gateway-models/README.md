@@ -89,47 +89,89 @@ The AI Gateway acts as a unified interface between your agents and various LLM p
 
 ## Step 2: Configuring External Model Providers
 
-### Adding an External Provider
+### How to Connect to an External Model
 
-To add an external model provider, you'll need to configure it through the AI Gateway:
+To connect an external model provider to watsonx Orchestrate, you need to follow these key steps:
 
+#### 1. Create a Connection Definition
+
+First, establish a connection to your external provider by configuring the necessary credentials and endpoint information. This typically involves:
+
+- **Provider credentials** - Normaly an API key
+- **Endpoint configuration** - Base URL and region settings for the provider - needed for custom providers
+- **Authentication method** - How the gateway will authenticate with the provider - if something else than API key
+
+Example API Key connection configuration:
 ```bash
-# List currently available models
+orchestrate connections add -a openai
+orchestrate connections configure -a openai --env draft -k key_value -t team
+orchestrate connections set-credentials -a openai --env draft -e "api_key=<your_openai_api_key>"
+```
+>NOTE: The `--env draft` flag indicates that the configuration is for draft environment. If you want to use it with agents deployed also to production, you need to create the connection with `--env live` as well.
+
+#### 2. Add the Model Definition
+
+Once the connection is established, you can add specific models using either of two methods:
+
+**Method A: Using a YAML File (Recommended for complex configurations)**
+
+Create a model definition file:
+```yaml
+# gpt-5.yaml
+spec_version: v1
+kind: model
+name: openai/gpt-5-2025-08-07
+display_name: GPT 5
+description: |-
+    GPT-5 is our flagship model for coding, reasoning, and agentic tasks across domains. Learn more in our GPT-5 usage guide.
+tags:
+- openai
+- gpt
+model_type: chat
+```
+
+Import the model:
+```bash
+orchestrate models import -f gpt-5.yaml -a openai
+```
+
+**Method B: Using CLI Commands (Quick setup)**
+
+Add a model directly via command line:
+```bash
+orchestrate models add \
+  --name  openai/gpt-5-2025-08-07 \
+  --description "OpenAI GPT-5 for advanced reasoning" \
+  --display-name "GPT 5" \
+  --app-id openai \
+  --type chat
+```
+
+#### 3. Verify the Model
+
+After adding the model, verify it's available:
+```bash
+# List all available models
 orchestrate models list
-
-# Manage model policies
-orchestrate models policy [import|export|add|remove] -n (model_policy_name) -m (model_name) -s (strategy)
 ```
 
-### Example: Connecting to OpenAI
+#### 4. Use in Your Agents
 
+Reference the model in your agent configuration:
 ```yaml
-# ai-gateway-config.yaml
-providers:
-  - name: openai
-    type: openai
-    api_key: ${OPENAI_API_KEY}  # Use environment variable
-    models:
-      - gpt-4
-      - gpt-4-turbo
-      - gpt-3.5-turbo
-    default_model: gpt-4-turbo
+spec_version: v1
+kind: native
+name: my_agent
+description: Agent using external model
+
+llm: openai_gpt4  # Reference your external model
+
+instructions: |
+  Your agent instructions here...
 ```
 
-### Example: Connecting to Anthropic
+> **Security Note:** Always use environment variables or secure credential management systems for API keys. Never commit credentials to version control.
 
-```yaml
-# ai-gateway-config.yaml
-providers:
-  - name: anthropic
-    type: anthropic
-    api_key: ${ANTHROPIC_API_KEY}
-    models:
-      - claude-3-opus-20240229
-      - claude-3-sonnet-20240229
-      - claude-3-haiku-20240307
-    default_model: claude-3-sonnet-20240229
-```
 
 ## Step 3: Implementing Model Policies
 
