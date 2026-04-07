@@ -3,7 +3,7 @@
 
 
 <p align="center">
-  <img src="Bobchestrate_Workshop_logo.png" alt="Bobchestrate Workshop Logo" width="700">
+  <img src="Bobchestrate_Workshop_logo_new.png" alt="Bobchestrate Workshop Logo" width="700">
 </p>
 
 
