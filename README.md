@@ -11,7 +11,7 @@ Welcome! This workshop will guide you through building AI agents using IBM watso
 
 ## Workshop Overview
 
-**Duration:** 165-195 minutes
+**Duration:** 190-220 minutes
 
 **Level:** Beginner to Intermediate
 
@@ -78,6 +78,14 @@ Each system builds on concepts from previous parts, teaching you to create incre
 - Create a tool to process refund requests
 - Import tools into your agent
 - Use Bob to help write and debug tool code
+
+### [Part 3b: AI Gateway and Using Different Models](./part3b-ai-gateway-models/README.md) (25 min)
+- Understand the AI Gateway architecture
+- Learn about different LLM providers and models
+- Configure agents with different models
+- Compare model performance and costs
+- Create intelligent model routing agents
+- Best practices for model selection
 
 ### [Part 4: Knowledge Bases & Collaborators](./part4-knowledge/README.md) (25 min)
 - Add a knowledge base for FAQs
@@ -158,6 +166,9 @@ bobchestrate-workshop/
 │   ├── exercises.md
 │   └── images/
 │
+├── part3b-ai-gateway-models/                # AI Gateway and Models (25 min)
+│   └── README.md                            # Model selection and configuration
+│
 ├── part4-knowledge/                         # Knowledge Bases & Collaborators (25 min)
 │   ├── README.md
 │   ├── customer-support-agent.yaml          # Main support agent
@@ -209,6 +220,7 @@ By the end of this workshop, you will:
 - ✅ Build custom Python tools for specific business logic
 - ✅ Integrate knowledge bases for FAQ handling
 - ✅ Use agent collaborators for complex workflows
+- ✅ Configure and use different AI models through the AI Gateway
 - ✅ Implement safety guidelines and guardrails
 - ✅ Create and use MCP servers for backend integration
 - ✅ Design and orchestrate multi-agent systems
