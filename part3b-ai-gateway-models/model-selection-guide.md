@@ -166,7 +166,7 @@ instructions: |
   You are an advanced support specialist.
 
 # Use external OpenAI model (requires AI Gateway configuration)
-llm: openai/gpt-4-turbo
+llm: virtual-model/openai/gpt-4-turbo
 
 tools:
   - check_order_status
@@ -201,43 +201,6 @@ tools:
 - **Standard agents:** Default model (80% of use cases)
 - **Advanced agents:** External models (15% of use cases)
 - **Specialized agents:** Premium models (5% of use cases)
-
-### Strategy 3: Policy-Based Control
-- Set daily/monthly budget caps
-- Implement rate limiting
-- Monitor and alert on high usage
-- Review and optimize regularly
-
-## Monitoring and Governance
-
-### Key Metrics to Track
-
-```bash
-# View model usage
-orchestrate gateway usage --period 7d
-
-# Check policy violations
-orchestrate gateway policy-violations --period 24h
-
-# Monitor costs
-orchestrate gateway costs --group-by model
-
-# Test provider connection
-orchestrate gateway test-connection --provider openai
-```
-
-### Setting Up Alerts
-
-```yaml
-alerts:
-  - name: cost_alert
-    condition: daily_cost > 100
-    action: email
-  
-  - name: rate_limit_alert
-    condition: rate_limit_exceeded
-    action: slack
-```
 
 ## Common Patterns
 
@@ -296,7 +259,6 @@ Before choosing a model, ask:
 - [ ] Am I monitoring costs and usage?
 - [ ] Have I tested the model with real scenarios?
 - [ ] Is my API key management secure?
-- [ ] Do I have alerts set up?
 - [ ] Have I documented my choice?
 
 ## Troubleshooting
@@ -307,25 +269,16 @@ Before choosing a model, ask:
 - API key validity: `orchestrate gateway test-connection`
 - Model name spelling
 
-### Issue: Policy violations
-**Check:**
-- Policy configuration
-- Rate limits
-- Cost caps
-- Allowed models list
-
 ### Issue: High costs
 **Solutions:**
 - Review usage patterns
 - Implement stricter policies
 - Use default model where possible
-- Set up cost alerts
 
 ### Issue: Slow responses
 **Solutions:**
 - Check provider status
 - Consider faster models
-- Implement caching
 - Review network connectivity
 
 ## Best Practices Summary
@@ -337,7 +290,6 @@ Before choosing a model, ask:
 - Use environment variables for API keys
 - Test thoroughly before production
 - Document model choices
-- Set up alerts and monitoring
 
 ### ❌ DON'T:
 - Use external models without clear need
@@ -347,31 +299,6 @@ Before choosing a model, ask:
 - Deploy untested models
 - Forget about compliance
 - Mix development and production configs
-
-## Quick Commands Reference
-
-```bash
-# List available models
-orchestrate models list
-
-# View AI Gateway configuration
-orchestrate gateway config show
-
-# List providers
-orchestrate gateway providers list
-
-# Test provider connection
-orchestrate gateway test-connection --provider openai
-
-# View usage statistics
-orchestrate gateway usage --period 7d
-
-# Check policy violations
-orchestrate gateway policy-violations --period 24h
-
-# Monitor costs
-orchestrate gateway costs --group-by model
-```
 
 ## Additional Resources
 

@@ -341,77 +341,11 @@ Bob, create a shell script that imports an external model "openai/gpt-5-2025-08-
 - **Overlook rate limits** - Plan for provider limitations
 - **Mix environments** - Keep development and production configurations separate
 
-## Advanced: Multi-Provider Strategy
-
-You can design agents that leverage multiple providers for resilience:
-
-```yaml
-# multi-provider-agent.yaml
-spec_version: v1
-kind: native
-name: resilient_agent_<your_initials_here>
-description: Agent with multi-provider fallback strategy
-
-instructions: |
-  You are a customer support agent with high availability requirements.
-
-# Primary model
-llm: groq/openai/gpt-oss-120b
-
-# Fallback configuration (conceptual - check current platform capabilities)
-fallback:
-  - provider: aws-bedrock
-    model: gpt-oss-120b
-  - provider: openai
-    model: gpt-4-turbo
-
-policy: high_availability_policy
-
-tools:
-  - check_order_status_<your_initials_here>
-  - process_refund_<your_initials_here>
-```
-
-## Exercises
-
-Ready to practice? We've prepared comprehensive exercises to help you master AI Gateway and model policies!
-
-📝 **[View All Exercises](exercises.md)** - Complete exercises ranging from easy to advanced
-
-The exercises cover:
-- Configuring external model providers
-- Implementing model policies
-- Cost optimization strategies
-- Multi-provider architectures
-- Monitoring and governance
-- Compliance and security
-
-We recommend working through at least the first 2-3 exercises to solidify your understanding before moving to the next part.
-
-## Common Issues
-
-### Issue: External model not available
-**Solution:** Verify provider configuration and API key. Check:
-```bash
-orchestrate gateway providers list
-orchestrate gateway test-connection --provider openai
-```
-
-### Issue: Policy violation errors
-**Solution:** Review policy configuration and adjust limits or allowed models.
-
-### Issue: High costs
-**Solution:** Implement stricter policies, use rate limiting, or switch to more cost-effective models.
-
-### Issue: Slow responses
-**Solution:** Check provider status, consider using faster models, or implement caching.
-
 ## Key Takeaways
 
 ✅ AI Gateway provides unified access to multiple model providers  
 ✅ Model policies enable governance and cost control  
 ✅ External models offer flexibility but require careful management  
-✅ Monitoring and alerts are essential for production use  
 ✅ Start with default models and add external providers as needed  
 ✅ Security and compliance must be built in from the start  
 
@@ -424,9 +358,9 @@ Continue to [Part 4: Knowledge Bases & Collaborators](../part4-knowledge/README.
 ## Additional Resources
 
 - [watsonx Orchestrate AI Gateway Documentation](https://developer.watson-orchestrate.ibm.com/llm/managing_llm)
-- [Model Policies Guide](https://developer.watson-orchestrate.ibm.com/llm/policies)
-- [External Provider Configuration](https://developer.watson-orchestrate.ibm.com/llm/providers)
-- [Cost Optimization Strategies](https://developer.watson-orchestrate.ibm.com/llm/cost_optimization)
+- [Model Policies Guide](https://developer.watson-orchestrate.ibm.com/llm/model_policies)
+- [External Provider Configuration](https://developer.watson-orchestrate.ibm.com/llm/managing_llm#supported-providers)
+- [LLM Monitoring and Observability](https://developer.watson-orchestrate.ibm.com/llm/observability)
 
 ---
 
