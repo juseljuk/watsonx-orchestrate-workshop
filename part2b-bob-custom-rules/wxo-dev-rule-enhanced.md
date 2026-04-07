@@ -558,6 +558,66 @@ auth:
   type: bearer_token
   token: ${API_TOKEN}  # From environment variable
 ```
+### Creating Connections for External Model APIs
+
+When importing external models (like OpenAI, Anthropic, etc.) that require API keys, follow this three-step process:
+
+#### Step 1: Add the Connection
+```bash
+orchestrate connections add --app-id <connection-name> --env draft
+orchestrate connections add --app-id <connection-name> --env live
+```
+
+#### Step 2: Configure the Connection
+Use `key_value` kind for API key-based connections:
+```bash
+orchestrate connections configure --app-id <connection-name> --env draft --type team --kind key_value
+orchestrate connections configure --app-id <connection-name> --env live --type team --kind key_value
+```
+
+**Parameters:**
+- `--type team` - Credentials shared across all users (use `member` for per-user credentials)
+- `--kind key_value` - Allows passing arbitrary key-value pairs for flexible authentication
+
+#### Step 3: Set Credentials
+Set the API key as a key-value pair with the key name "api_key":
+```bash
+orchestrate connections set-credentials --app-id <connection-name> --env draft --entries "api_key=$YOUR_API_KEY"
+orchestrate connections set-credentials --app-id <connection-name> --env live --entries "api_key=$YOUR_API_KEY"
+```
+
+#### Example: OpenAI Connection Script
+```bash
+#!/bin/bash
+set -e
+
+APP_ID="openai"
+
+# Check environment variable
+if [ -z "$OPENAI_API_KEY" ]; then
+    echo "Error: OPENAI_API_KEY environment variable is not set"
+    exit 1
+fi
+
+# Draft environment
+orchestrate connections add --app-id "$APP_ID" --env draft
+orchestrate connections configure --app-id "$APP_ID" --env draft --type team --kind key_value
+orchestrate connections set-credentials --app-id "$APP_ID" --env draft --entries "api_key=$OPENAI_API_KEY"
+
+# Live environment
+orchestrate connections add --app-id "$APP_ID" --env live
+orchestrate connections configure --app-id "$APP_ID" --env live --type team --kind key_value
+orchestrate connections set-credentials --app-id "$APP_ID" --env live --entries "api_key=$OPENAI_API_KEY"
+
+echo "✓ Connection created successfully"
+```
+
+**Important Notes:**
+- Always use environment variables for API keys, never hardcode them
+- The `key_value` kind is more flexible than `api_key` kind for model integrations
+- Use the key name "api_key" when setting credentials for consistency
+- Verify the connection exists: `orchestrate connections list`
+
 
 ---
 

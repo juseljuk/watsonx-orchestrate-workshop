@@ -207,7 +207,7 @@ policy:
   targets:
     - model_name: groq/openai/gpt-oss-120b
       weight: 0.75   # 75% of traffic
-    - model_name: aws-bedrock/gpt-oss-120b
+    - model_name: bedrock/openai.gpt-oss-120b-1:0
       weight: 0.25   # 25% of traffic
 ```
 
@@ -231,7 +231,7 @@ policy:
     on_status_codes: [503, 500]
   targets:
     - model_name: groq/openai/gpt-oss-120b
-    - model_name: aws-bedrock/gpt-oss-120b
+    - model_name: bedrock/openai.gpt-oss-120b-1:0
 ```
 
 #### Single Model with Retry
@@ -263,16 +263,13 @@ policy:
 orchestrate models policy add \
   --name resilient_gpt \
   --model groq/openai/gpt-oss-120b \
-  --model aws-bedrock/gpt-oss-120b \
+  --model bedrock/openai.gpt-oss-120b-1:0 \
   --strategy fallback \
   --strategy-on-code 503 \
   --retry-attempts 2
 
 # Import from YAML file
 orchestrate models policy import --file fallback-policy.yaml
-
-# List all policies
-orchestrate models policy list
 
 # Export a policy
 orchestrate models policy export -n resilient_gpt -o policy.zip
@@ -303,120 +300,14 @@ tools:
   - process_refund
 ```
 
-## Step 4: Create a Support Agent with External Model
+## Create with Bob
 
-Let's create a customer support agent that can use external models:
+Test createting some of the model related configurations with Bob.
 
-📥 **[Download Agent](agents/support-agent-standard.yaml)** | Place it into `agents/` directory of your workspace
-
-```yaml
-spec_version: v1
-kind: native
-name: support_agent_<your_initials_here>
-description: Customer support agent using default platform model
-
-instructions: |
-  You are a customer support agent providing helpful, efficient responses.
-  
-  Your approach:
-  - Understand customer needs quickly
-  - Provide clear, actionable guidance
-  - Show empathy and professionalism
-  - Handle multi-step requests efficiently
-  - Use tools effectively for order and refund management
-  
-  Balance speed with quality service.
-
-# Using the default platform model
-llm: groq/openai/gpt-oss-120b
-
-tools:
-  - check_order_status_<your_initials_here>
-  - process_refund_<your_initials_here>
-```
-
-### IMPORTANT: Replace `<your_initials_here>` with your actual initials in all references inside the agent yaml-file you downloaded - Agent _name_ and the _tool references_. Make sure that the tools are correctly referenced in the YAML file, your tool files might be named differently. Use the tools you created and imported in the previous part.
-
-## Step 5: Import and Test the Agent
-
-Before you begin, check the models available in your environment:
-
-```bash
-orchestrate models list
-```
-
-<img src="images/image.png" alt="" width="800px">
-
-Import the agent:
-
-```bash
-orchestrate agents import -f agents/support-agent-standard.yaml
-```
-
-Verify it was imported:
-```bash
-orchestrate agents list | grep -E "<your_initials>"
-```
-
-## Step 6: Test with Different Scenarios
-
-Test your agent with various scenarios:
-
-### Test Scenario 1: Simple Query
+1. Create a script to adds new connection definition to be used to import an external model from OpenAI
 
 ```
-What's your return policy?
-```
-
-> REMINDER: You can chat with the agent using the `orchestrate chat ask -n <agent_name>` command.
-
-### Test Scenario 2: Complex Situation
-
-```
-I ordered a laptop 3 weeks ago (ORD-12345), it arrived damaged, I need it for work tomorrow, and I'm very frustrated. What can you do?
-```
-
-### Test Scenario 3: Multi-Step Request
-
-```
-I need to check my order status, and if it hasn't shipped yet, I want to change the shipping address and upgrade to express shipping.
-```
-
-## Step 7: Monitoring and Governance
-
-### Viewing Model Usage
-
-```bash
-# View model usage statistics
-orchestrate gateway usage --period 7d
-
-# View policy violations
-orchestrate gateway policy-violations --period 24h
-
-# View cost breakdown
-orchestrate gateway costs --group-by model
-```
-
-### Setting Up Alerts
-
-```yaml
-# alerts-config.yaml
-alerts:
-  - name: high_cost_alert
-    condition: daily_cost > 100
-    action: email
-    recipients:
-      - admin@company.com
-  
-  - name: rate_limit_alert
-    condition: rate_limit_exceeded
-    action: slack
-    channel: "#ai-ops"
-  
-  - name: policy_violation_alert
-    condition: policy_violation
-    action: pagerduty
-    severity: high
+Bob, create a shell script that adds a new connection definition with an API key to both draft and live enviroment. Connection app-id should be "openai". The script should be named "add_openai_connection.sh" and should be executable.
 ```
 
 ## Best Practices
