@@ -248,9 +248,6 @@ guidelines:
     action: "Explain the standard policy, note their request, and connect them with a specialist who can review exceptions"
     tool: "escalation_agent"
 
-config:
-  hidden: false
-  enable_cot: false
 ```
 
 ### Understanding the Example
@@ -364,7 +361,7 @@ Filter and validate agent responses before sending to users.
 - Validate response format
 - Add disclaimers
 
-### Creating a Guardrail Plugin
+### Input Guardrail Example - Agent pre-invoke
 
 ```python
 # content_safety_plugin.py
@@ -385,7 +382,7 @@ def content_safety_guardrail(plugin_context: PluginContext, agent_pre_invoke_pay
     """
     
     result = AgentPreInvokeResult()
-    modified_payload = agent_pre_invoke_payload
+    modified_payload = agent_pre_invoke_payload.copy(deep=True)
     
     # Get user input from the last message
     if not agent_pre_invoke_payload or not agent_pre_invoke_payload.messages:
@@ -448,7 +445,7 @@ def content_safety_guardrail(plugin_context: PluginContext, agent_pre_invoke_pay
     return result
 ```
 
-### Output Guardrail Example
+### Output Guardrail Example - Agent post-invoke
 
 ```python
 # response_filter_plugin.py
@@ -527,7 +524,9 @@ def response_filter_guardrail(plugin_context: PluginContext, agent_post_invoke_p
 
 ### Importing Plugins
 
-Guardrails are implemented as special kind of tools and therefore also imported as tools:
+Guardrails are implemented as special kind of tools and therefore are also imported as tools:
+
+>NOTE: Do NOT import / attach these guardrails, they are just for your future reference. Next, you will ask Bob to create a new guardrail for you.
 
 ```bash
 # Import the guardrail plugins
@@ -538,7 +537,7 @@ orchestrate tools import -k python -f response_filter_plugin.py
 orchestrate tools list
 ```
 
-### Attaching Plugins to Agents
+### Attaching Plugins to Agents - an example
 
 ```yaml
 # agent-with-guardrails.yaml
@@ -563,7 +562,6 @@ plugins:
   agent_post_invoke:
     - plugin_name: response_filter_guardrail
 
-hidden: false
 ```
 
 ### Ask Bob to create a new guardrail for you:
@@ -574,7 +572,7 @@ Bob, create a guardrail plugin for the customer support agent that detects and b
 
 ## Part 3: Testing Guidelines and Guardrails
 
-### Test Scenarios for Guidelines
+### Test Scenarios for Guidelines - an example
 
 ```python
 # test_guidelines.py
@@ -637,7 +635,7 @@ if __name__ == "__main__":
     test_agent_guidelines()
 ```
 
-### Test Scenarios for Guardrails
+### Test Scenarios for Guardrails - an example
 
 ```python
 # test_guardrails.py
@@ -793,29 +791,29 @@ Bob, create test cases that try to bypass my agent's safety guidelines and guard
 
 ## Key Takeaways
 
-✅ Guidelines use When-Then format for rule-based, predictable responses
-✅ Guidelines complement instructions (not replace them)
-✅ Only relevant guidelines are included in agent prompts
-✅ Guidelines execute in priority order based on list position
-✅ Guardrails provide automated content filtering and validation
-✅ Layer multiple safety measures for defense in depth
-✅ Test with adversarial inputs and edge cases
-✅ Monitor and update based on real usage patterns
-✅ Consider regulatory compliance requirements
+- ✅ Guidelines use When-Then format for rule-based, predictable responses
+- ✅ Guidelines complement instructions (not replace them)
+- ✅ Only relevant guidelines are included in agent prompts
+- ✅ Guidelines execute in priority order based on list position
+- ✅ Guardrails provide automated content filtering and validation
+- ✅ Layer multiple safety measures for defense in depth
+- ✅ Test with adversarial inputs and edge cases
+- ✅ Monitor and update based on real usage patterns
+- ✅ Consider regulatory compliance requirements
 
 ## Next Steps
 
 Now that you understand guidelines and guardrails, you're ready to deploy your agent safely!
 
-Continue to [Part 5: Testing & Deployment](../part5-deployment/README.md) →
+Continue to [Part 6: MCP Servers](../part6-mcp-servers/README.md) →
 
 ## Additional Resources
 
 - [Agent Guidelines Documentation](https://developer.watson-orchestrate.ibm.com/agents/build_agent#guidelines)
 - [Authoring Native Agents](https://developer.watson-orchestrate.ibm.com/agents/build_agent)
 - [Agent Instructions Guide](https://developer.watson-orchestrate.ibm.com/agents/descriptions)
-- [Plugin Development Guide](https://developer.watson-orchestrate.ibm.com/plugins/overview)
+- [Plugin Development Guide](https://developer.watson-orchestrate.ibm.com/plugins/plugins)
 
 ---
 
-**💡 Pro Tip:** Use Bob to help design guidelines: "Bob, create When-Then guidelines for my [use case] agent that handle [specific scenarios]" or "Bob, what edge cases should my guidelines cover for [specific situation]?"
+**💡 Pro Tip:** Use Bob to help design guidelines: "Bob, create guidelines for my [use case] agent that handle [specific scenarios]" or "Bob, what edge cases should my guidelines cover for [specific situation]?"
