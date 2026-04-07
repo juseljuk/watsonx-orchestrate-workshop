@@ -97,9 +97,11 @@ To connect an external model provider to watsonx Orchestrate, you need to follow
 
 First, establish a connection to your external provider by configuring the necessary credentials and endpoint information. This typically involves:
 
-- **Provider credentials** - Normaly an API key
+- **Provider credentials** - Normally an API key
 - **Endpoint configuration** - Base URL and region settings for the provider - needed for custom providers
 - **Authentication method** - How the gateway will authenticate with the provider - if something else than API key
+
+> If you want to test this, you can get your api key from here: https://platform.openai.com/api-keys, you need to login / create your developer account first though. You can see the available OpenAI models here: https://developers.openai.com/api/docs/models/all
 
 Example API Key connection configuration:
 ```bash
@@ -108,6 +110,8 @@ orchestrate connections configure -a openai --env draft -k key_value -t team
 orchestrate connections set-credentials -a openai --env draft -e "api_key=<your_openai_api_key>"
 ```
 >NOTE: The `--env draft` flag indicates that the configuration is for draft environment. If you want to use it with agents deployed also to production, you need to create the connection with `--env live` as well.
+
+> **Security Note:** Always use environment variables or secure credential management systems for API keys. Never commit credentials to version control.
 
 #### 2. Add the Model Definition
 
@@ -140,7 +144,7 @@ orchestrate models import -f gpt-5.yaml -a openai
 Add a model directly via command line:
 ```bash
 orchestrate models add \
-  --name  openai/gpt-5-2025-08-07 \
+  --name openai/gpt-5-2025-08-07 \
   --description "OpenAI GPT-5 for advanced reasoning" \
   --display-name "GPT 5" \
   --app-id openai \
@@ -164,14 +168,11 @@ kind: native
 name: my_agent
 description: Agent using external model
 
-llm: openai_gpt4  # Reference your external model
+llm: virtual-model/openai/gpt-5-2025-08-07   # Reference your external model as it shows when listing models from your orchestrate instance
 
 instructions: |
   Your agent instructions here...
 ```
-
-> **Security Note:** Always use environment variables or secure credential management systems for API keys. Never commit credentials to version control.
-
 
 ## Step 3: Implementing Model Policies
 
