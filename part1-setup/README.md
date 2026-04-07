@@ -43,14 +43,14 @@ Open the workshop folder in IBM Bob IDE:
 1. Launch IBM Bob IDE
 2. Click **File** → **Open Folder**
 
-   <img src="images/image.png" alt="IBM Bob IDE File menu showing Open Folder option" width="30%">
+   <img src="images/image.png" alt="IBM Bob IDE File menu showing Open Folder option" width="250px">
 
 
 3. Navigate to and select the `bobchestrate-ws` folder
 4. Click **Open**
 5. Click **Yes, I trust the author** to trust the workspace
 
-   <img src="images/image-1.png" alt="IBM Bob IDE File menu showing Open Folder option" width="40%">
+   <img src="images/image-1.png" alt="IBM Bob IDE File menu showing Open Folder option" width="400px">
 
 The empty workspace will open.
 
@@ -60,18 +60,18 @@ Install the watsonx Orchestrate extension for IBM Bob IDE:
 
 1. Open the Extensions view in IBM Bob IDE (Click the Extensions icon in the Activity Bar or press `Cmd+Shift+X` on Mac / `Ctrl+Shift+X` on Windows/Linux)
 
-   <img src="images/image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="10%">
+   <img src="images/image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="50px">
 
 2. Search for "watsonx Orchestrate"
 
-    <img src="images/image-4.png" alt="IBM Bob IDE File menu showing Open Folder option" width="40%">
+    <img src="images/image-4.png" alt="IBM Bob IDE File menu showing Open Folder option" width="350px">
 
 3. Click **Install** on the "IBM watsonx Orchestrate ADK" extension
 4. Wait for the installation to complete
 5. Reload VS Code if prompted
 6. You should now see the extension icon appear in the Activity Bar:
 
-   <img src="images/image-3.png" alt="IBM Bob IDE File menu showing Open Folder option" width="10%">
+   <img src="images/image-3.png" alt="IBM Bob IDE File menu showing Open Folder option" width="75px">
 
 The extension provides:
 - Syntax highlighting for agent YAML files
@@ -103,7 +103,7 @@ Alternatively, you can check the MCP servers configuration:
 2. Type "MCP Servers" and select it
 3. Verify that the watsonx Orchestrate MCP servers are listed in the configuration and both of them marked with a green bullet point
 
-   <img src="images/image-5.png" alt="IBM Bob IDE File menu showing Open Folder option" width="75%">
+   <img src="images/image-5.png" alt="IBM Bob IDE File menu showing Open Folder option" width="650px">
 
 The MCP servers provide:
 - Access to watsonx Orchestrate documentation
@@ -119,7 +119,7 @@ Import a pre-configured custom mode specialized for building watsonx Orchestrate
    - Visit: https://github.com/juseljuk/bobchestrate-workshop/blob/main/part1-setup/files/wxo-agent-architect-export.yaml
    - Click the **Download raw file** button
 
-      <img src="images/image-10.png" alt="Download the raw file" width="40%">
+      <img src="images/image-10.png" alt="Download the raw file" width="300px">
 
    - Save the file to your Downloads folder or a location you can easily access
 
@@ -129,7 +129,7 @@ Import a pre-configured custom mode specialized for building watsonx Orchestrate
 
 4. Click on **Import** icon in the modes panel
 
-   <img src="images/image-11.png" alt="Import custom mode" width="40%">
+   <img src="images/image-11.png" alt="Import custom mode" width="400px">
    
 5. Select the `wxo-agent-architect-export.yaml` file you downloaded and click **Open**
 
@@ -162,7 +162,7 @@ Create a virtual environment for the workshop to keep dependencies isolated usin
 
 You can now see the .venv folder in your workspace explorer view.
 
-<img src="images/image-6.png" alt="IBM Bob IDE File menu showing Open Folder option" width="50%">
+<img src="images/image-6.png" alt="IBM Bob IDE File menu showing Open Folder option" width="350px">
 
 IBM Bob IDE will automatically:
 - Create a `.venv` folder in your workspace
@@ -175,17 +175,17 @@ IBM Bob IDE will automatically:
 
 ## Step 9: Install watsonx Orchestrate SDK
 
-Since you have the watsonx Orchestrate ADK extension installed, you will see the ADK informaton in the bottom Status Bar. Since we just created a fresh Python virtual environment to our workspace, you should see just a red cross stating that you need to install the ADK.
+Since you have the watsonx Orchestrate ADK extension installed, you will see the ADK informaton in the bottom Status Bar. Since we just created a fresh Python virtual environment to our workspace, you should see just a red cross ❌ stating that you need to install the ADK.
 
-<img src="images/image-7.png" alt="IBM Bob IDE Status Bar showing ADK not installed" width="40%">
+<img src="images/image-7.png" alt="IBM Bob IDE Status Bar showing ADK not installed" width="300px">
 
 Click on the red cross to install the ADK. This will open a couple of commands to the search/command bar. Select the one to install the ADK.
 
-<img src="images/image-8.png" alt="IBM Bob IDE Command Palette showing Install ADK command" width="70%">
+<img src="images/image-8.png" alt="IBM Bob IDE Command Palette showing Install ADK command" width="500px">
 
 Wait for the installation to complete. After a while, you should see a notification and a green checkmark in the Status Bar with the latest version number of the ADK.
 
-<img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="40%">
+<img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="300px">
 
 ## Step 10: Get Your watsonx Orchestrate API key and API URL
 
@@ -202,7 +202,7 @@ For the workshop, we will use the watsonx Orchestrate ADK to interact with a wat
 3. Navigate to the **API details** tab
 4. Click **Generate API key** button
 
-   <img src="images/image-12.png" alt="Generate API key button highlighted" width="40%">
+   <img src="images/image-12.png" alt="Generate API key button highlighted" width="350px">
 
 5. When the key is generated, click **Copy** to save it to your clipboard
 6. **Important**: Copy the API key immediately and _store_ it securely
@@ -215,7 +215,7 @@ For the workshop, we will use the watsonx Orchestrate ADK to interact with a wat
 
 Copy the Service instance URL from the API details information. This is the base URL for your watsonx Orchestrate instance.
 
-   <img src="images/image-13.png" alt="Get the service URL" width="60%">
+   <img src="images/image-13.png" alt="Get the service URL" width="500px">
 
 ### Configure the ADK Environment
 
@@ -225,11 +225,11 @@ Copy the Service instance URL from the API details information. This is the base
 
    - From the Bob main menu bar, select **Terminal** > **New Terminal**
 
-      <img src="images/image-14.png" alt="Open terminal" width="70%">
+      <img src="images/image-14.png" alt="Open terminal" width="500px">
    
-   - This will open a terminal window in the Bob IDE - notice that your Python environment is already activated
+   - This will open a terminal window in the Bob IDE - notice that your Python virtual environment is automatically activated
 
-      <img src="images/image-15.png" alt="Terminal window opened in Bob IDE" width="80%">
+      <img src="images/image-15.png" alt="Terminal window opened in Bob IDE" width="700px">
 
 2. Run the following command in your terminal to **add** your environment:
 
@@ -259,13 +259,13 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
    Create a simple shell script to add and activate new watsonx Orchestrate SaaS environment for the ADK. I have the environment URL and API key ready.
    ```
 
-   <img src="images/image-16.png" alt="Create a script to add and activate new watsonx Orchestarte environment for the ADK" width="60%">
+   <img src="images/image-16.png" alt="Create a script to add and activate new watsonx Orchestarte environment for the ADK" width="400px">
 
 2. When Bob starts working, it will be asking for a permissionm to access watsonx-orchestarte-adk-docs MCP server. Click on the **Aprove** button to allow Bob to access the documentation.
 
    >Note: You can also check the **Always allow** checkbox to always allow Bob to access the MCP server. One option is to enable **Auto-approval**. If you do this, you can specify the different options that you want to allow.
 
-      <img src="images/image-17.png" alt="Approve access to MCP server" width="40%">
+      <img src="images/image-17.png" alt="Approve access to MCP server" width="350px">
 
    >Note: Bob might ask you to approve the MCP server access multiple times. This is because Bob is trying to access the MCP server to get the more detailed information after first learning about the environment setup. Recommendation is to enable **Auto-approval** for the MCP servers to avoid granting the permission manually each time.
 
@@ -277,17 +277,17 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
 6. Finally Bob will summarize the task for you.
 
-    <img src="images/image-18.png" alt="Task summary" width="40%">
+    <img src="images/image-18.png" alt="Task summary" width="350px">
 
 7. Open a terminal window within Bob IDE:
 
    - From the Bob main menu bar, select **Terminal** > **New Terminal**
 
-      <img src="images/image-14.png" alt="Open terminal" width="70%">
+      <img src="images/image-14.png" alt="Open terminal" width="450px">
    
    - This will open a terminal window in the Bob IDE - notice that your Python environment is already activated
 
-      <img src="images/image-15.png" alt="Terminal window opened in Bob IDE" width="80%">
+      <img src="images/image-15.png" alt="Terminal window opened in Bob IDE" width="700px">
 
 8. Run the created script in your terminal to **add** your environment:
 
@@ -295,15 +295,15 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
 9. When asked, provide name for your environment, e.g. `my-wxo-cloud`:
 
-   <img src="images/image-19.png" alt="Env name" width="70%">
+   <img src="images/image-19.png" alt="Env name" width="450px">
 
 10. When asked, provide the URL of your Orchestrate instance that you got earlier:
 
-      <img src="images/image-20.png" alt="Env URL" width="90%">
+      <img src="images/image-20.png" alt="Env URL" width="700px">
 
 11. When asked, provide the API key of your Orchestrate instance that you got earlier. The script will then create a new environment and activate it:
 
-      <img src="images/image-21.png" alt="Env API key" width="70%">
+      <img src="images/image-21.png" alt="Env API key" width="450px">
 
 12. Verify your connection is working. Run the following command in your Bob IDE terminal:
 
@@ -455,9 +455,9 @@ Continue to [Part 2: Building Your First Agent](../part2-first-agent/README.md) 
 
 ## Additional Resources
 
-- [Installation Guide](https://developer.watson-orchestrate.ibm.com/getting_started/installation)
-- [Configuration Reference](https://developer.watson-orchestrate.ibm.com/getting_started/configuration)
-- [Developer Edition Setup](https://developer.watson-orchestrate.ibm.com/developer_edition/getting_started)
+- [Installation Guide](https://developer.watson-orchestrate.ibm.com/getting_started/installing)
+- [Environment Configuration](https://developer.watson-orchestrate.ibm.com/environment/initiate_environment)
+- [Developer Edition Setup](https://developer.watson-orchestrate.ibm.com/developer_edition/wxOde_setup)
 
 ---
 
