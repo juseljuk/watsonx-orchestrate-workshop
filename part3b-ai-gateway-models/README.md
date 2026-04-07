@@ -182,7 +182,14 @@ tools:
 
 ## Step 3: Import and Test the Agents
 
-### IMPORTANT: Replace `<your_initials_here>` with your actual initials in all references inside the yaml-files - Agent _name_ and the _tool references_. Make sure that the tools are correctly referenced in the YAML files, your tool files might be named differently. Use the tools you created and imported in the previous part.
+Before you begin, you can check the models available in your current active environment by running below command in your terminal:
+```bash
+orchestrate models list
+```
+
+<img src="images/image.png" alt="" width="800px">
+
+### IMPORTANT: Replace `<your_initials_here>` with your actual initials in all references inside the agent yaml-files you downloaded - Agent _name_ and the _tool references_. Make sure that the tools are correctly referenced in the YAML files, your tool files might be named differently. Use the tools you created and imported in the previous part.
 
 Then, import all three agents:
 
@@ -194,7 +201,7 @@ orchestrate agents import -f agents/support-agent-expert.yaml
 
 Verify they were imported:
 ```bash
-orchestrate agents list | grep -E "support_agent.*<your_initials>"
+orchestrate agents list | grep -E "<your_initials>"
 ```
 
 ## Step 4: Compare Model Performance
@@ -207,6 +214,8 @@ Test all three agents with:
 ```
 What's your return policy?
 ```
+
+>REMINDER: You can chat with the agents using the `orchestrate chat ask -n <agent_name>` command.
 
 **Expected Differences:**
 - **Standard Agent**: Quick, clear, well-structured answer
