@@ -618,6 +618,62 @@ echo "✓ Connection created successfully"
 - Use the key name "api_key" when setting credentials for consistency
 - Verify the connection exists: `orchestrate connections list`
 
+### Importing External Models
+
+After creating a connection for an external model provider, import the model to make it available for use in agents.
+
+#### Model Import Command
+```bash
+orchestrate models add --name <model-id> --app-id <connection-name>
+```
+
+**Parameters:**
+- `--name` - The model identifier in format `provider/model-name` (e.g., `openai/gpt-4`, `openai/gpt-5-2025-08-07`)
+- `--app-id` - The connection name created in the previous step (e.g., `openai`)
+
+**Important Notes:**
+- The `orchestrate models add` command does NOT support `--env` parameter
+- Models are added globally and available in all environments
+- Model ID format must match the provider's naming convention
+
+#### Example: Import OpenAI Model Script
+```bash
+#!/bin/bash
+set -e
+
+MODEL_ID="openai/gpt-5-2025-08-07"
+CONNECTION_NAME="openai"
+
+echo "Importing OpenAI model: $MODEL_ID"
+echo "Using connection: $CONNECTION_NAME"
+echo ""
+
+# Add model
+echo "Adding model..."
+orchestrate models add \
+  --name "$MODEL_ID" \
+  --app-id "$CONNECTION_NAME"
+
+if [ $? -eq 0 ]; then
+    echo "✓ Successfully added model"
+else
+    echo "✗ Failed to add model"
+    exit 1
+fi
+
+echo ""
+echo "✓ Model added successfully"
+echo ""
+echo "To verify the import, run:"
+echo "  orchestrate models list"
+```
+
+#### Verification
+```bash
+# List all imported models
+orchestrate models list
+```
+
 
 ---
 

@@ -307,7 +307,15 @@ Test createting some of the model related configurations with Bob.
 1. Create a script to adds new connection definition to be used to import an external model from OpenAI
 
 ```
-Bob, create a shell script that adds a new connection definition with an API key to both draft and live enviroment. Connection app-id should be "openai". The script should be named "add_openai_connection.sh" and should be executable.
+Bob, create a shell script that adds a new connection definition for importing OpenAI LLM model with an API key to both draft and live enviroment. Connection app-id should be "openai". The script should be named "add_openai_connection.sh" and should be executable.
+```
+
+> NOTE: When asking Bob to create something, it's best practice to be as specific as possible about what you want created. This helps Bob generate the most accurate and useful output.
+
+2. Create a script to import an external model from OpenAI
+
+```
+Bob, create a shell script that imports an external model "openai/gpt-5-2025-08-07" from OpenAI using the connection definition "openai" to both draft and live enviroment. The script should be named "import_openai_model.sh" and should be executable.
 ```
 
 ## Best Practices
