@@ -1,7 +1,5 @@
 # Bobchestrate Workshop - Building AI Agents with watsonx Orchestrate and IBM Bob
 
-
-
 <p align="center">
   <img src="Bobchestrate_Workshop_logo_new.png" alt="Bobchestrate Workshop Logo" width="700">
 </p>
@@ -26,11 +24,34 @@ Welcome! This workshop will guide you through building AI agents using IBM watso
 
 ## What You'll Build
 
-You'll create a **Customer Support Agent** that can:
-1. Answer frequently asked questions using a knowledge base
-2. Check order status via a custom Python tool
-3. Process refund requests with business logic
-4. Escalate complex issues to specialized sub-agents
+Throughout this workshop, you'll build progressively more sophisticated AI agents:
+
+### 1. Hello World Agent (Part 2)
+Your first simple agent to understand the basics of agent configuration and behavior.
+
+### 2. Customer Support System (Parts 3-5)
+A complete customer support solution featuring:
+- **Custom Python tools** for order status checking and refund processing
+- **Knowledge base integration** for FAQ handling
+- **Specialized escalation agent** for complex issues
+- **Safety guidelines and guardrails** for responsible AI
+
+### 3. Product Catalog System (Part 6)
+An **MCP server-powered agent** that demonstrates backend integration:
+- Product search and details
+- Inventory checking
+- Product recommendations
+- Reusable MCP server architecture
+
+### 4. Travel Planning System (Part 7)
+A **multi-agent orchestration** showcasing advanced patterns:
+- **Travel Concierge** (orchestrator) - Intelligent routing
+- **Flight Specialist** - Flight bookings and search
+- **Hotel Specialist** - Accommodation management
+- **Activity Planner** - Local activities and attractions
+- **Budget Advisor** - Cost analysis and optimization
+
+Each system builds on concepts from previous parts, teaching you to create increasingly sophisticated agentic AI solutions.
 
 ## Workshop Structure
 
@@ -105,55 +126,72 @@ Throughout this workshop, you'll use Bob to:
 ## Workshop Files
 
 ```
-workshop/
+bobchestrate-workshop/
 ├── README.md (this file)
-├── part1-setup/
+├── Bobchestrate_Workshop_logo_new.png
+├── .bob/                                    # Bob IDE configuration
+├── bob-prompts/
+│   └── helpful-prompts.md                   # Useful Bob prompts for the workshop
+│
+├── part1-setup/                             # Setup & Environment (15 min)
 │   ├── README.md
-│   └── verify-setup.py
-├── part2-first-agent/
+│   ├── verify-setup.py
+│   ├── files/
+│   │   └── wxo-agent-architect-export.yaml  # Pre-configured mode export
+│   └── images/                              # Setup screenshots
+│
+├── part2-first-agent/                       # Building Your First Agent (20 min)
 │   ├── README.md
-│   ├── hello-agent.yaml
-│   └── exercises.md
-├── part2b-bob-custom-rules/
+│   ├── hello-agent-EXAMPLE.yaml
+│   ├── exercises.md
+│   └── images/
+│
+├── part2b-bob-custom-rules/                 # Using Custom Rules with Bob (10 min)
 │   ├── README.md
-│   └── wxo-dev-rule.md
-├── part3-custom-tools/
+│   ├── wxo-dev-rule.md
+│   └── wxo-dev-rule-enhanced.md
+│
+├── part3-custom-tools/                      # Adding Custom Tools (30 min)
 │   ├── README.md
-│   ├── order_status_tool.py
+│   ├── order_status_tool.py                 # Customer support tools
 │   ├── refund_tool.py
-│   └── exercises.md
-├── part4-advanced/
+│   ├── exercises.md
+│   └── images/
+│
+├── part4-knowledge/                         # Knowledge Bases & Collaborators (25 min)
 │   ├── README.md
-│   ├── customer-support-agent.yaml
-│   ├── escalation-agent.yaml
-│   └── faq-knowledge-base.yaml
-├── part5-guidelines-guardrails/
+│   ├── customer-support-agent.yaml          # Main support agent
+│   ├── escalation-agent.yaml                # Specialized escalation agent
+│   ├── faq-knowledge-base.yaml              # FAQ knowledge base
+│   ├── FAQ.pdf                              # Sample FAQ document
+│   └── images/
+│
+├── part5-guidelines-guardrails/             # Agent Guidelines & Guardrails (20 min)
 │   ├── README.md
 │   ├── customer-support-with-guidelines.yaml
-│   └── content_safety_plugin.py
-├── part6-mcp-servers/
+│   └── content_safety_plugin.py             # Safety filtering plugin
+│
+├── part6-mcp-servers/                       # MCP Servers (25 min)
 │   ├── README.md
-│   ├── product_catalog_server.py
-│   ├── product-catalog-toolkit.yaml
-│   ├── product-assistant-agent.yaml
+│   ├── product_catalog_server.py            # MCP server implementation
+│   ├── product-catalog-toolkit.yaml         # Toolkit configuration
+│   ├── product-assistant-agent.yaml         # Agent using MCP tools
 │   └── requirements.txt
-├── part7-multi-agent-orchestration/
+│
+├── part7-multi-agent-orchestration/         # Multi-Agent Orchestration (30 min)
 │   ├── README.md
-│   ├── travel-concierge-agent.yaml
-│   ├── flight-specialist-agent.yaml
+│   ├── travel-concierge-agent.yaml          # Orchestrator agent
+│   ├── flight-specialist-agent.yaml         # Specialist agents
 │   ├── hotel-specialist-agent.yaml
 │   ├── activity-planner-agent.yaml
 │   ├── budget-advisor-agent.yaml
-│   ├── flight_tools.py
+│   ├── flight_tools.py                      # Domain-specific tools
 │   └── hotel_tools.py
-├── part8-deployment/
-│   ├── README.md
-│   ├── test-scenarios.md
-│   └── deployment-checklist.md
-├── solutions/
-│   └── (completed code for reference)
-└── bob-prompts/
-    └── helpful-prompts.md
+│
+└── part8-deployment/                        # Testing & Deployment (20 min)
+    ├── README.md
+    ├── test-scenarios.md
+    └── deployment-checklist.md
 ```
 
 ## Getting Started
