@@ -99,6 +99,8 @@ if __name__ == "__main__":
 
 Let's build a complete MCP server for product catalog operations.
 
+>Note: You can switch your Bob chat to **Code** mode for this.
+
 **💡 Ask Bob to help:**
 ```
 Bob, create a file called product_catalog_server.py with an MCP server 
@@ -319,9 +321,9 @@ if __name__ == "__main__":
     asyncio.run(stdio_server(app))
 ```
 
-### Step 3: Create Requirements File
+### Step 3: Create Requirements File (Bob has probably already created it 😊)
 
-Create `requirements.txt` for the MCP server dependencies:
+Make sure that you have `requirements.txt` file in your workspace and it has dependency for **mcp**:
 
 ```txt
 mcp>=0.9.0
@@ -333,13 +335,84 @@ Before importing to watsonx Orchestrate, test it locally:
 
 ```bash
 # Install dependencies
-pip install -r requirements.txt
+pip install -r requirements.txt # This might run for a while, do not interrupt
 
-# Test the server (it will wait for input)
+# Run the server (it will wait for input)
 python product_catalog_server.py
 ```
 
-The server runs in stdio mode, waiting for JSON-RPC messages. You can test it with the MCP inspector or move on to importing it.
+The server runs in stdio mode, waiting for JSON-RPC messages. You can now test it of course with MCP inspector (https://modelcontextprotocol.io/docs/tools/inspector), but here's a simple script that you can also use:
+
+
+**Download the test script**: [simple_test.py](./simple_test.py)
+
+Or create it yourself:
+
+```python
+# simple_test.py
+import asyncio
+import json
+import sys
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+async def test_mcp_server():
+    """Simple test script for the Product Catalog MCP Server."""
+    
+    # Connect to the MCP server
+    server_params = StdioServerParameters(
+        command="python",
+        args=["product_catalog_server.py"]
+    )
+    
+    async with stdio_client(server_params) as (read, write):
+        async with ClientSession(read, write) as session:
+            # Initialize the session
+            await session.initialize()
+            
+            # List available tools
+            print("Available tools:")
+            tools = await session.list_tools()
+            for tool in tools.tools:
+                print(f"  - {tool.name}: {tool.description}")
+            print()
+            
+            # Test 1: Search for products
+            print("Test 1: Searching for 'laptop'...")
+            result = await session.call_tool("search_products", {"query": "laptop"})
+            print(json.dumps(json.loads(result.content[0].text), indent=2))
+            print()
+            
+            # Test 2: Get product details
+            print("Test 2: Getting details for LAPTOP-001...")
+            result = await session.call_tool("get_product_details", {"product_id": "LAPTOP-001"})
+            print(json.dumps(json.loads(result.content[0].text), indent=2))
+            print()
+            
+            # Test 3: Check inventory
+            print("Test 3: Checking inventory for PHONE-001...")
+            result = await session.call_tool("check_inventory", {"product_id": "PHONE-001"})
+            print(json.dumps(json.loads(result.content[0].text), indent=2))
+            print()
+            
+            # Test 4: Get recommendations
+            print("Test 4: Getting tablet recommendations...")
+            result = await session.call_tool("get_recommendations", {"category": "Tablets"})
+            print(json.dumps(json.loads(result.content[0].text), indent=2))
+            print()
+            
+            print("All tests completed successfully!")
+
+if __name__ == "__main__":
+    asyncio.run(test_mcp_server())
+```
+
+Run the test:
+
+```bash
+python simple_test.py
+```
+
 
 ---
 

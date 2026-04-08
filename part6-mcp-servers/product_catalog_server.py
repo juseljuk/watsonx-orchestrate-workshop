@@ -248,6 +248,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
 # Run the server
 if __name__ == "__main__":
     import asyncio
+    import asyncio
     asyncio.run(stdio_server(app))
 
 # Made with Bob

@@ -1,4 +1,4 @@
-# Customer Support Agent with Guidelines (When-Then Format)
+# Customer Support Agent with Guidelines
 spec_version: v1
 kind: native
 name: customer_support_safe
