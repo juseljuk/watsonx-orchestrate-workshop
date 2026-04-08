@@ -326,7 +326,7 @@ if __name__ == "__main__":
 Make sure that you have `requirements.txt` file in your workspace and it has dependency for **mcp**:
 
 ```txt
-mcp>=0.9.0
+mcp>=1.0.0
 ```
 
 ### Step 4: Test Your MCP Server Locally
@@ -346,73 +346,16 @@ The server runs in stdio mode, waiting for JSON-RPC messages. You can now test i
 
 **Download the test script**: [simple_test.py](./simple_test.py)
 
-Or create it yourself:
-
-```python
-# simple_test.py
-import asyncio
-import json
-import sys
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
-
-async def test_mcp_server():
-    """Simple test script for the Product Catalog MCP Server."""
-    
-    # Connect to the MCP server
-    server_params = StdioServerParameters(
-        command="python",
-        args=["product_catalog_server.py"]
-    )
-    
-    async with stdio_client(server_params) as (read, write):
-        async with ClientSession(read, write) as session:
-            # Initialize the session
-            await session.initialize()
-            
-            # List available tools
-            print("Available tools:")
-            tools = await session.list_tools()
-            for tool in tools.tools:
-                print(f"  - {tool.name}: {tool.description}")
-            print()
-            
-            # Test 1: Search for products
-            print("Test 1: Searching for 'laptop'...")
-            result = await session.call_tool("search_products", {"query": "laptop"})
-            print(json.dumps(json.loads(result.content[0].text), indent=2))
-            print()
-            
-            # Test 2: Get product details
-            print("Test 2: Getting details for LAPTOP-001...")
-            result = await session.call_tool("get_product_details", {"product_id": "LAPTOP-001"})
-            print(json.dumps(json.loads(result.content[0].text), indent=2))
-            print()
-            
-            # Test 3: Check inventory
-            print("Test 3: Checking inventory for PHONE-001...")
-            result = await session.call_tool("check_inventory", {"product_id": "PHONE-001"})
-            print(json.dumps(json.loads(result.content[0].text), indent=2))
-            print()
-            
-            # Test 4: Get recommendations
-            print("Test 4: Getting tablet recommendations...")
-            result = await session.call_tool("get_recommendations", {"category": "Tablets"})
-            print(json.dumps(json.loads(result.content[0].text), indent=2))
-            print()
-            
-            print("All tests completed successfully!")
-
-if __name__ == "__main__":
-    asyncio.run(test_mcp_server())
-```
-
-Run the test:
+Run the test in <ins>**new terminal**</ins> (leave the server running in the other terminal):
 
 ```bash
 python simple_test.py
 ```
+It will show you the response from the server and conclude the findings:
 
+<img src="images/image.png" alt="test results" width="550px">
+
+Ypu can now close the new terminal and stop the server in the other terminal with `Ctrl+C` (or just close the terminal and open a new one).
 
 ---
 
@@ -434,9 +377,28 @@ tools:
 ```
 
 **💡 Ask Bob:**
+
+>NOTE: Before consulting Bob, check your toolkit folder and ensure that Bob has not already created any yaml-files to it. If is has, please remove it to avoid any confusion.
+
+>NOTE2: Switch your Bob chat mode back to **WXO Agent Architect**.
+
 ```
 Bob, create a YAML file called product-catalog-toolkit.yaml that 
 specifies the MCP server configuration for importing into watsonx Orchestrate.
+```
+
+After Bob finishes, you should see the YAML file created in your **toolkits** folder.
+
+```yaml
+spec_version: v1
+kind: mcp
+name: product-catalog
+description: Product catalog MCP server providing search, details, inventory, and recommendations
+command: python3 product_catalog_server.py
+env: []
+tools:
+  - "*"
+package_root: .
 ```
 
 ### Step 2: Import the MCP Server
