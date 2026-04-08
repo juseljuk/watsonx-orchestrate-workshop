@@ -1,4 +1,4 @@
-# Part 4C: MCP Servers - Connecting to Backend Services
+# Part 6: MCP Servers - Connecting to Backend Services
 
 **Duration**: 25 minutes  
 **Difficulty**: Intermediate
@@ -405,14 +405,18 @@ package_root: .
 
 Use the watsonx Orchestrate CLI to import:
 
+**IMPORTANT: Since we're using one shared environment, please add your initials again as the postfix for the name of the toolkit. This is to avoid name conflicts. For example, if your initials are "JKJ", the name should be "product-catalog-JKJ". Remember to save changes to the file.**
+
+**ALSO IMPORTANT: Make sure that the python file that implements the MCP sever - product_catalog_server.py - is also in the <ins>toolkit</ins> folder, othewise the import will fail.** 
+
 ```bash
 # Import the MCP server as a toolkit
-orchestrate toolkit import product-catalog-toolkit.yaml
+orchestrate toolkits import -f toolkits/product-catalog-toolkit.yaml
 ```
 
 Or use Bob:
 ```
-Bob, import the product-catalog-toolkit.yaml MCP server into watsonx Orchestrate
+Bob, import the product-catalog-toolkit.yaml MCP server into the active wxO environment. Use the python .venv in the workspace.
 ```
 
 ### Step 3: Verify Import
@@ -420,10 +424,12 @@ Bob, import the product-catalog-toolkit.yaml MCP server into watsonx Orchestrate
 List toolkits to confirm:
 
 ```bash
-orchestrate toolkit list
+orchestrate toolkits list | grep -E "<your_initials>", e.g. orchestrate toolkits list | grep -E "JKJ"
 ```
 
 You should see `product-catalog` in the list with all 4 tools.
+
+<img src="images/image-1.png" alt="MCP servers listing" width="750px">
 
 ---
 
