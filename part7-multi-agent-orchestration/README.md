@@ -133,9 +133,12 @@ Specialists have unique tools that trigger routing:
 
 ### Step 1: Create Flight Specialist
 
-Create `flight-specialist-agent.yaml`:
+
+Create `flight-specialist-agent.yaml` ([download](./flight-specialist-agent.yaml)):
+
 
 ```yaml
+spec_version: v1
 kind: native
 name: flight-specialist
 title: Flight Booking Specialist
@@ -190,6 +193,7 @@ for handling flight bookings and searches.
 Create `hotel-specialist-agent.yaml`:
 
 ```yaml
+spec_version: v1
 kind: native
 name: hotel-specialist
 title: Hotel Booking Specialist
@@ -239,6 +243,7 @@ llm: groq/openai/gpt-oss-120b
 Create `activity-planner-agent.yaml`:
 
 ```yaml
+spec_version: v1
 kind: native
 name: activity-planner
 title: Local Activity Specialist
@@ -288,6 +293,7 @@ llm: groq/openai/gpt-oss-120b
 Create `budget-advisor-agent.yaml`:
 
 ```yaml
+spec_version: v1
 kind: native
 name: budget-advisor
 title: Travel Budget Specialist
@@ -344,6 +350,7 @@ The orchestrator needs clear routing logic:
 Create `travel-concierge-agent.yaml`:
 
 ```yaml
+spec_version: v1
 kind: native
 name: travel-concierge
 title: Travel Concierge
@@ -368,36 +375,27 @@ instructions: |
   Routing guidelines:
   
   1. Flight queries → flight-specialist
-     - "Find me flights to Paris"
-     - "Change my flight booking"
-     - "What's the baggage allowance?"
+     Examples: "Find me flights to Paris", "Change my flight booking"
   
   2. Hotel queries → hotel-specialist
-     - "Find hotels in Tokyo"
-     - "Book a hotel near the airport"
-     - "Cancel my hotel reservation"
+     Examples: "Find hotels in Tokyo", "Book a hotel near the airport"
   
   3. Activity queries → activity-planner
-     - "What should I do in Rome?"
-     - "Recommend restaurants in Barcelona"
-     - "Plan a 3-day itinerary"
+     Examples: "What should I do in Rome?", "Recommend restaurants"
   
   4. Budget queries → budget-advisor
-     - "How much will this trip cost?"
-     - "Help me save money on my trip"
-     - "Compare these options"
+     Examples: "How much will this trip cost?", "Help me save money"
   
-  5. Complex queries → Multiple specialists
-     - "Plan a week in London" → hotel + activity-planner + budget-advisor
-     - "Book my entire trip" → flight + hotel + activity-planner
+  5. Complex queries → Multiple specialists in sequence
+     Example: "Plan a week in London"
+     - Route to flight-specialist first
+     - Then hotel-specialist
+     - Then activity-planner
+     - Finally budget-advisor
   
   Workflow for complex requests:
   1. Break down the request into components
-  2. Route to specialists in logical order:
-     - Flights first (determines dates)
-     - Hotels second (based on flight dates)
-     - Activities third (based on location and dates)
-     - Budget last (analyzes all costs)
+  2. Route to specialists in logical order
   3. Synthesize responses into cohesive plan
   4. Present complete solution to user
   
@@ -412,20 +410,6 @@ instructions: |
   - Clear about which specialist is helping
   - Synthesize specialist responses naturally
   - Proactive in suggesting next steps
-  
-  Example interactions:
-  
-  User: "I want to visit Paris next month"
-  You: "I'd love to help you plan your Paris trip! Let me connect you with
-  our specialists. First, let me check with our flight specialist for
-  available flights..."
-  [Route to flight-specialist]
-  
-  User: "Plan a complete 5-day trip to Tokyo"
-  You: "Exciting! Let me coordinate with our team to plan your Tokyo adventure.
-  I'll work with our flight, hotel, and activity specialists to create a
-  complete itinerary for you..."
-  [Route to flight-specialist, then hotel-specialist, then activity-planner]
 
 collaborators:
   - flight-specialist
