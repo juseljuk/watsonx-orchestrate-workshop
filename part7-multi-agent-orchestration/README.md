@@ -1,4 +1,4 @@
-# Part 4D: Multi-Agent Orchestration & Workflows
+# Part 7: Multi-Agent Orchestration & Workflows
 
 **Duration**: 30 minutes  
 **Difficulty**: Advanced

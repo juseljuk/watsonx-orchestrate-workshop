@@ -468,10 +468,10 @@ instructions: |
   4. Use get_recommendations to suggest alternatives
 
 tools:
-  - search_products
-  - get_product_details
-  - check_inventory
-  - get_recommendations
+  - <toolkit_name>:search_products
+  - <toolkit_name>:get_product_details
+  - <toolkit_name>:check_inventory
+  - <toolkit_name>:get_recommendations
 
 llm: groq/openai/gpt-oss-120b
 ```
@@ -500,51 +500,280 @@ Test with various queries:
 
 ```bash
 # Search for products
-orchestrate chat --agent product-assistant --message "Show me laptops"
+orchestrate chat ask --agent-name product_catalog_agent_<your_initials> "Show me the gaming products you have"
 
-# Get product details
-orchestrate chat --agent product-assistant --message "Tell me about LAPTOP-001"
+# And when the agent chat is open:
+"Tell me about LAPTOP-001"
 
 # Check inventory
-orchestrate chat --agent product-assistant --message "Is the SmartPhone X in stock?"
+"Is the SmartPhone X in stock?"
 
 # Get recommendations
-orchestrate chat --agent product-assistant --message "What tablets do you recommend?"
+"What accessories do you recommend?"
 ```
+
+>NOTE: You might not have all the products in the dummy database, so your agent might come back saying it doesn't have that specific product. You can check the dummy data looking at your `product-catalog-server.py` file in the toolkits folder.
 
 ---
 
-## Part 4: Advanced MCP Server Features
+## Part 4: Importing Existing MCP Servers
+
+In real-world scenarios, you'll often want to connect to **existing MCP servers** rather than building your own. The MCP ecosystem has a growing collection of pre-built servers for popular services and APIs.
+
+### Why Use Existing MCP Servers?
+
+**Benefits:**
+- ⚡ **Faster integration** - No need to build from scratch
+- 🔧 **Maintained by community** - Regular updates and bug fixes
+- 📚 **Well-documented** - Established patterns and examples
+- 🌐 **Wide coverage** - Servers for many popular services
+
+### Finding MCP Servers
+
+**Popular sources:**
+- [MCP Servers Repository](https://github.com/modelcontextprotocol/servers) - Official collection
+- [NPM Registry](https://www.npmjs.com/search?q=keywords:mcp-server) - Node.js MCP servers
+- [PyPI](https://pypi.org/search/?q=mcp+server) - Python MCP servers
+- Community repositories and documentation
+
+### Example: Importing a Remote MCP Server
+
+Let's connect to an existing remote MCP server. We'll use the **watsonx Orchestrate Documentation MCP Server** as an example.
+
+**IMPORTANT: Again, since we're all using the same wxO SaaS tenant, please add your initials to the MCP server name to avoid conflicts.**
+
+#### Step 1: Add Remote MCP Server Using CLI
+
+```bash
+# Import the watsonx Orchestrate docs MCP server
+orchestrate toolkits add \
+  --kind mcp \
+  --name wxo-docs-<your_initials> \
+  --description "Search watsonx Orchestrate documentation" \
+  --url "https://developer.watson-orchestrate.ibm.com/mcp" \
+  --transport streamable_http \
+  --tools "*"
+```
+
+**Key parameters:**
+- `--url`: The remote server endpoint
+- `--transport`: Protocol (`sse` or `streamable_http`)
+- `--tools`: Which tools to import (`"*"` for all, or comma-separated list)
+
+#### Step 2: Import from YAML File
+
+Alternatively, create a YAML file for easier management:
+
+```yaml
+spec_version: v1
+kind: mcp
+name: wxo-docs-<your_initials>
+description: Search watsonx Orchestrate documentation
+transport: streamable_http
+server_url: https://developer.watson-orchestrate.ibm.com/mcp
+tools:
+  - "*"
+```
+
+Then import it:
+
+```bash
+orchestrate toolkits import -f toolkits/wxo-docs-toolkit.yaml
+```
+
+#### Step 3: Verify the Import
+
+```bash
+# List all toolkits with details
+orchestrate toolkits list -v | grep wxo-docs
+
+# Or list all tools to see the imported tools
+orchestrate tools list | grep wxo-docs
+```
+
+### Example: Importing from NPM/PyPI
+
+Many MCP servers are published as packages. Here's how to import them:
+
+#### From NPM (Node.js)
+
+```bash
+# Example: Import a weather MCP server from NPM
+orchestrate toolkits add \
+  --kind mcp \
+  --name weather \
+  --description "Get weather information" \
+  --command "npx -y @example/weather-mcp-server" \
+  --tools "*"
+```
+
+#### From PyPI (Python)
+
+```bash
+# Example: Import a database MCP server from PyPI
+orchestrate toolkits add \
+  --kind mcp \
+  --name database \
+  --description "Database operations" \
+  --command "uvx database-mcp-server" \
+  --tools "*"
+```
+
+### Importing with Authentication
+
+Many external MCP servers require authentication. Here's how to handle it:
+
+#### Step 1: Create Connection
+
+```bash
+# Add connection for the MCP server
+orchestrate connections add -a external-api
+
+# Configure for both environments
+for env in draft live; do
+    orchestrate connections configure -a external-api \
+      --env $env \
+      --type team \
+      --kind key_value
+    
+    orchestrate connections set-credentials -a external-api \
+      --env $env \
+      --entries '{"API_KEY": "your-api-key-here"}'
+done
+```
+
+#### Step 2: Import with Connection
+
+```bash
+# Import MCP server with authentication
+orchestrate toolkits add \
+  --kind mcp \
+  --name external-service \
+  --description "External service integration" \
+  --url "https://api.external-service.com/mcp" \
+  --transport streamable_http \
+  --tools "*" \
+  --app-id external-api
+```
+
+Or in YAML:
+
+```yaml
+spec_version: v1
+kind: mcp
+name: external-service
+description: External service integration
+transport: streamable_http
+server_url: https://api.external-service.com/mcp
+tools:
+  - "*"
+connections:
+  - external-api
+```
+
+### Using Imported MCP Servers in Agents
+
+Once imported, use the tools just like any other toolkit:
+
+```yaml
+kind: native
+name: documentation_helper
+title: Documentation Helper
+description: Helps users find information in watsonx Orchestrate docs
+
+instructions: |
+  You help users find information in the watsonx Orchestrate documentation.
+  Use the search tool to find relevant documentation pages.
+
+tools:
+  - wxo-docs:search_ibm_watsonx_orchestrate_adk
+  - wxo-docs:get_page_ibm_watsonx_orchestrate_adk
+
+llm: groq/openai/gpt-oss-120b
+```
+
+### Best Practices for External MCP Servers
+
+✅ **DO:**
+- Test the server locally before importing (if possible)
+- Review the server's documentation for required credentials
+- Use specific tool names instead of `"*"` for better control
+- Set up proper authentication for production use
+- Monitor server availability and response times
+
+❌ **DON'T:**
+- Import untrusted MCP servers without review
+- Hardcode credentials in YAML files
+- Import all tools if you only need a few
+- Skip testing in draft environment first
+
+### Common External MCP Servers
+
+Here are some popular MCP servers you might want to use:
+
+| Server | Purpose | Transport | Package |
+|--------|---------|-----------|---------|
+| GitHub Copilot | GitHub integration | streamable_http | Remote |
+| Tavily | Web search | sse/streamable_http | NPM/PyPI |
+| Brave Search | Web search | sse | Remote |
+| Filesystem | File operations | stdio | NPM/PyPI |
+| PostgreSQL | Database queries | stdio | NPM/PyPI |
+
+### Troubleshooting External MCP Servers
+
+**Issue: Connection timeout**
+- Check if the server URL is correct and accessible
+- Verify network connectivity
+- Check if authentication is required
+
+**Issue: Tools not appearing**
+- Verify the server is running and responding
+- Check if specific tools need to be listed instead of `"*"`
+- Review server logs for errors
+
+**Issue: Authentication failures**
+- Verify credentials are set correctly
+- Check if the connection name matches in toolkit YAML
+- Ensure the connection type is `key_value` for remote servers
+
+---
+
+## Part 5: Advanced MCP Server Features
 
 ### Adding Authentication
 
 For MCP servers that need to access authenticated APIs:
 
 ```yaml
+spec_version: v1
 kind: mcp
 name: product-catalog
 description: Product catalog with authentication
-language: python
-package_root: ./
 command: python product_catalog_server.py
+package_root: ./
 tools:
   - "*"
-app_id:
+connections:
   - product-api-credentials  # Connection for API credentials
 ```
 
 Then create a connection:
 
 ```bash
-orchestrate connection create product-api-credentials
-orchestrate connection configure product-api-credentials \
-  --environment draft \
-  --type kv \
-  --kind key_value
+# Add the connection
+orchestrate connections add -a product-api-credentials
 
-orchestrate connection set-credentials product-api-credentials \
-  --environment draft \
-  --entries '{"API_KEY": "your-api-key", "API_URL": "https://api.example.com"}'
+# Configure it for each environment
+for env in draft live; do
+    orchestrate connections configure -a product-api-credentials \
+      --env $env \
+      --type team \
+      --kind key_value
+    
+    orchestrate connections set-credentials -a product-api-credentials \
+      --env $env \
+      --entries '{"API_KEY": "your-api-key", "API_URL": "https://api.example.com"}'
+done
 ```
 
 ### Using Environment Variables in MCP Server
@@ -570,20 +799,27 @@ async def call_tool(name: str, arguments: dict):
 You can also deploy MCP servers remotely and connect via HTTP:
 
 ```yaml
+spec_version: v1
 kind: mcp
 name: product-catalog-remote
 description: Remote product catalog service
 transport: streamable_http
-url: https://your-mcp-server.example.com
+server_url: https://your-mcp-server.example.com/mcp
 tools:
   - "*"
-app_id:
+connections:
   - api-auth  # For authentication to remote server
 ```
 
+**Note:** Remote MCP servers support two transport protocols:
+- `sse` - Server-Sent Events
+- `streamable_http` - Streamable HTTP
+
+For remote servers, only `key_value` connections are supported for authentication.
+
 ---
 
-## Part 5: Best Practices
+## Part 6: Best Practices
 
 ### 1. Tool Design
 
@@ -602,26 +838,33 @@ app_id:
 
 ### 2. Error Handling
 
-Always handle errors gracefully:
+Always handle errors gracefully by wrapping your tool logic in a try-except block:
 
 ```python
 @app.call_tool()
 async def call_tool(name: str, arguments: dict):
     try:
-        # Tool logic here
-        result = process_request(arguments)
-        return [TextContent(type="text", text=json.dumps(result))]
-    except ValueError as e:
-        return [TextContent(
-            type="text",
-            text=json.dumps({"error": f"Invalid input: {str(e)}"})
-        )]
+        if name == "my_tool":
+            # Tool logic here
+            result = process_request(arguments)
+            return [TextContent(type="text", text=json.dumps(result))]
+        else:
+            return [TextContent(
+                type="text",
+                text=json.dumps({"error": f"Unknown tool: {name}"})
+            )]
     except Exception as e:
         return [TextContent(
             type="text",
             text=json.dumps({"error": f"Server error: {str(e)}"})
         )]
 ```
+
+**Best practices:**
+- Wrap the entire function body in a try-except block
+- Return errors as JSON with an "error" key for consistency
+- Handle unknown tool names explicitly
+- Use a catch-all Exception handler to prevent server crashes
 
 ### 3. Performance
 
@@ -662,7 +905,7 @@ Environment Variables:
 
 ---
 
-## Exercises
+## Part 7: Exercises
 
 ### Exercise 1: Add a New Tool (Easy)
 
@@ -693,7 +936,7 @@ Then create an agent that uses both `product-catalog` and `shopping-cart` toolki
 
 ---
 
-## Common Issues
+## Part 8: Common Issues
 
 ### Issue: MCP Server Won't Start
 
@@ -727,7 +970,7 @@ Then create an agent that uses both `product-catalog` and `shopping-cart` toolki
 
 ---
 
-## Summary
+## Part 9: Summary
 
 In this lesson, you learned:
 
@@ -764,4 +1007,4 @@ In this lesson, you learned:
 
 ---
 
-**Ready for the next lesson?** Head to [Part 5: Testing & Deployment](../part5-deployment/README.md) to learn how to test and deploy your agents! 🚀
+**Ready for the next lesson?** Head to [Part 7: Multi-agent orchestration & workflows](../part7-multi-agent-orchestration/README.md) to learn how to test and deploy your agents! 🚀
