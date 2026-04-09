@@ -1,6 +1,6 @@
 spec_version: v1
 kind: native
-name: budget-advisor
+name: budget_advisor
 title: Travel Budget Specialist
 description: Expert in travel cost analysis, budget planning, and money-saving strategies. Helps travelers understand costs, find deals, and optimize their travel budget.
 

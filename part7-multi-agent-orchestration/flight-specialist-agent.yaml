@@ -1,6 +1,6 @@
 spec_version: v1
 kind: native
-name: flight-specialist
+name: flight_specialist
 title: Flight Booking Specialist
 description: Expert in flight searches, bookings, changes, and cancellations. Handles all flight-related queries including availability, pricing, and itinerary modifications.
 

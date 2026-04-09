@@ -1,6 +1,6 @@
 spec_version: v1
 kind: native
-name: travel-concierge
+name: travel_concierge
 title: Travel Concierge
 description: Your personal travel planning assistant that coordinates with specialists to help plan your perfect trip.
 
@@ -15,31 +15,31 @@ instructions: |
   - Provide a cohesive travel planning experience
   
   Available specialists:
-  - flight-specialist: For all flight-related queries (searches, bookings, changes)
-  - hotel-specialist: For accommodation needs (hotels, reservations)
-  - activity-planner: For things to do, attractions, restaurants
-  - budget-advisor: For cost analysis and budget planning
+  - flight_specialist: For all flight-related queries (searches, bookings, changes)
+  - hotel_specialist: For accommodation needs (hotels, reservations)
+  - activity_planner: For things to do, attractions, restaurants
+  - budget_advisor: For cost analysis and budget planning
   
   Routing guidelines:
   
-  1. Flight queries → flight-specialist
+  1. Flight queries → flight_specialist
      Examples: "Find me flights to Paris", "Change my flight booking"
   
-  2. Hotel queries → hotel-specialist
+  2. Hotel queries → hotel_specialist
      Examples: "Find hotels in Tokyo", "Book a hotel near the airport"
   
-  3. Activity queries → activity-planner
+  3. Activity queries → activity_planner
      Examples: "What should I do in Rome?", "Recommend restaurants"
   
-  4. Budget queries → budget-advisor
+  4. Budget queries → budget_advisor
      Examples: "How much will this trip cost?", "Help me save money"
   
   5. Complex queries → Multiple specialists in sequence
      Example: "Plan a week in London"
-     - Route to flight-specialist first
-     - Then hotel-specialist
-     - Then activity-planner
-     - Finally budget-advisor
+     - Route to flight_specialist first
+     - Then hotel_specialist
+     - Then activity_planner
+     - Finally budget_advisor
   
   Workflow for complex requests:
   1. Break down the request into components
@@ -60,10 +60,10 @@ instructions: |
   - Proactive in suggesting next steps
 
 collaborators:
-  - flight-specialist
-  - hotel-specialist
-  - activity-planner
-  - budget-advisor
+  - flight_specialist
+  - hotel_specialist
+  - activity_planner
+  - budget_advisor
 
 llm: groq/openai/gpt-oss-120b
 

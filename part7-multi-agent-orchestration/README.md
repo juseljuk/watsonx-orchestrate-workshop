@@ -98,8 +98,8 @@ The orchestrator uses agent descriptions to decide routing:
 ```yaml
 # Orchestrator sees these descriptions
 collaborators:
-  - flight-specialist  # "Handles flight searches, bookings, and changes"
-  - hotel-specialist   # "Manages hotel reservations and accommodations"
+  - flight_specialist  # "Handles flight searches, bookings, and changes"
+  - hotel_specialist   # "Manages hotel reservations and accommodations"
 ```
 
 **2. Instruction-Based Routing**
@@ -108,14 +108,14 @@ Explicit routing logic in orchestrator instructions:
 ```yaml
 instructions: |
   When user asks about flights:
-  - Route to flight-specialist
-  
+  - Route to flight_specialist
+
   When user asks about hotels:
-  - Route to hotel-specialist
-  
+  - Route to hotel_specialist
+
   When user needs both:
-  - Route to flight-specialist first
-  - Then route to hotel-specialist
+  - Route to flight_specialist first
+  - Then route to hotel_specialist
   - Synthesize both responses
 ```
 
@@ -124,7 +124,7 @@ Specialists have unique tools that trigger routing:
 
 ```yaml
 # Orchestrator has no flight tools
-# When it needs flight info, must use flight-specialist
+# When it needs flight info, must use flight_specialist
 ```
 
 ---
@@ -134,13 +134,12 @@ Specialists have unique tools that trigger routing:
 ### Step 1: Create Flight Specialist
 
 
-Create `flight-specialist-agent.yaml` ([download](./flight-specialist-agent.yaml)):
-
+[Download](./flight-specialist-agent.yaml) example `flight-specialist-agent.yaml` or ask Bob for it (look example prompt below the example yaml). HINT: you should ask Bob. It will create a better than the simple example 🤓 And it's only around 0.3 bobcoins 🪙
 
 ```yaml
 spec_version: v1
 kind: native
-name: flight-specialist
+name: flight_specialist
 title: Flight Booking Specialist
 description: Expert in flight searches, bookings, changes, and cancellations. Handles all flight-related queries including availability, pricing, and itinerary modifications.
 
@@ -184,18 +183,19 @@ llm: groq/openai/gpt-oss-120b
 
 **💡 Ask Bob:**
 ```
-Bob, create a flight-specialist-agent.yaml file with focused instructions
+Bob, create a flight_specialist_agent.yaml file with focused instructions
 for handling flight bookings and searches.
 ```
+When Bob is finished, you will have a new agent file stored to your agents directory. Have a look what Bob created for you. Quite professional, isn't it? With real guidelines and tool placeholder. We create the tools a bit later.
 
 ### Step 2: Create Hotel Specialist
 
-Create `hotel-specialist-agent.yaml` ([download](./hotel-specialist-agent.yaml)):
+[Download](./hotel-specialist-agent.yaml) example `hotel-specialist-agent.yaml` or ask Bob for it. At this point, you should have some idea how to prompt this agent 😉 You can try several times until you are satisfied with the result.
 
 ```yaml
 spec_version: v1
 kind: native
-name: hotel-specialist
+name: hotel_specialist
 title: Hotel Booking Specialist
 description: Expert in hotel accommodations, reservations, and lodging options. Handles hotel searches, bookings, modifications, and provides recommendations based on preferences and budget.
 
@@ -240,12 +240,12 @@ llm: groq/openai/gpt-oss-120b
 
 ### Step 3: Create Activity Planner
 
-Create `activity-planner-agent.yaml` ([download](./activity-planner-agent.yaml)):
+[Download](./activity-planner-agent.yaml) example `activity-planner-agent.yaml` or ask Bob for it.
 
 ```yaml
 spec_version: v1
 kind: native
-name: activity-planner
+name: activity_planner
 title: Local Activity Specialist
 description: Expert in local attractions, activities, tours, and experiences. Provides personalized recommendations for things to do based on interests, location, and travel dates.
 
@@ -290,12 +290,12 @@ llm: groq/openai/gpt-oss-120b
 
 ### Step 4: Create Budget Advisor
 
-Create `budget-advisor-agent.yaml` ([download](./budget-advisor-agent.yaml)):
+[Download](./budget-advisor-agent.yaml) example `budget-advisor-agent.yaml` or ask Bob for it. HINT: ever considered to ask Bob for a promt to create a certain type of an agent? Just thinking aloud here 😉
 
 ```yaml
 spec_version: v1
 kind: native
-name: budget-advisor
+name: budget_advisor
 title: Travel Budget Specialist
 description: Expert in travel cost analysis, budget planning, and money-saving strategies. Helps travelers understand costs, find deals, and optimize their travel budget.
 
@@ -347,12 +347,12 @@ llm: groq/openai/gpt-oss-120b
 
 The orchestrator needs clear routing logic:
 
-Create `travel-concierge-agent.yaml` ([download](./travel-concierge-agent.yaml)):
+[Download](./travel-concierge-agent.yaml) example `travel-concierge-agent.yaml` or ask Bob for it (look example prompt below the example yaml).
 
 ```yaml
 spec_version: v1
 kind: native
-name: travel-concierge
+name: travel_concierge
 title: Travel Concierge
 description: Your personal travel planning assistant that coordinates with specialists to help plan your perfect trip.
 
@@ -367,31 +367,31 @@ instructions: |
   - Provide a cohesive travel planning experience
   
   Available specialists:
-  - flight-specialist: For all flight-related queries (searches, bookings, changes)
-  - hotel-specialist: For accommodation needs (hotels, reservations)
-  - activity-planner: For things to do, attractions, restaurants
-  - budget-advisor: For cost analysis and budget planning
+  - flight_specialist: For all flight-related queries (searches, bookings, changes)
+  - hotel_specialist: For accommodation needs (hotels, reservations)
+  - activity_planner: For things to do, attractions, restaurants
+  - budget_advisor: For cost analysis and budget planning
   
   Routing guidelines:
   
-  1. Flight queries → flight-specialist
+  1. Flight queries → flight_specialist
      Examples: "Find me flights to Paris", "Change my flight booking"
   
-  2. Hotel queries → hotel-specialist
+  2. Hotel queries → hotel_specialist
      Examples: "Find hotels in Tokyo", "Book a hotel near the airport"
   
-  3. Activity queries → activity-planner
+  3. Activity queries → activity_planner
      Examples: "What should I do in Rome?", "Recommend restaurants"
   
-  4. Budget queries → budget-advisor
+  4. Budget queries → budget_advisor
      Examples: "How much will this trip cost?", "Help me save money"
   
   5. Complex queries → Multiple specialists in sequence
      Example: "Plan a week in London"
-     - Route to flight-specialist first
-     - Then hotel-specialist
-     - Then activity-planner
-     - Finally budget-advisor
+     - Route to flight_specialist first
+     - Then hotel_specialist
+     - Then activity_planner
+     - Finally budget_advisor
   
   Workflow for complex requests:
   1. Break down the request into components
@@ -412,17 +412,17 @@ instructions: |
   - Proactive in suggesting next steps
 
 collaborators:
-  - flight-specialist
-  - hotel-specialist
-  - activity-planner
-  - budget-advisor
+  - flight_specialist
+  - hotel_specialist
+  - activity_planner
+  - budget_advisor
 
 llm: groq/openai/gpt-oss-120b
 ```
 
 **💡 Ask Bob:**
 ```
-Bob, create a travel-concierge-agent.yaml that orchestrates between
+Bob, create a travel_concierge_agent.yaml that orchestrates between
 the four specialist agents with clear routing logic.
 ```
 
@@ -762,26 +762,26 @@ orchestrate agent import travel-concierge-agent.yaml
 
 **Test 1: Single Specialist**
 ```bash
-orchestrate chat --agent travel-concierge \
+orchestrate chat --agent travel_concierge \
   --message "Find me flights from New York to London for next week"
 ```
 
 Expected flow:
 1. Concierge receives request
-2. Routes to flight-specialist
-3. Flight-specialist searches flights
+2. Routes to flight_specialist
+3. Flight specialist searches flights
 4. Returns results to user
 
 **Test 2: Multiple Specialists**
 ```bash
-orchestrate chat --agent travel-concierge \
+orchestrate chat --agent travel_concierge \
   --message "Plan a 5-day trip to Paris including flights and hotels"
 ```
 
 Expected flow:
 1. Concierge receives request
-2. Routes to flight-specialist for flights
-3. Routes to hotel-specialist for hotels
+2. Routes to flight_specialist for flights
+3. Routes to hotel_specialist for hotels
 4. Synthesizes complete plan
 5. Returns to user
 
@@ -789,17 +789,17 @@ Expected flow:
 
 **Test 3: Full Trip Planning**
 ```bash
-orchestrate chat --agent travel-concierge \
-  --message "I want to visit Tokyo for a week. I have a budget of $3000. 
+orchestrate chat --agent travel_concierge \
+  --message "I want to visit Tokyo for a week. I have a budget of $3000.
   Help me plan everything including flights, hotel, and activities."
 ```
 
 Expected flow:
 1. Concierge breaks down request
-2. Routes to flight-specialist
-3. Routes to hotel-specialist
-4. Routes to activity-planner
-5. Routes to budget-advisor
+2. Routes to flight_specialist
+3. Routes to hotel_specialist
+4. Routes to activity_planner
+5. Routes to budget_advisor
 6. Synthesizes complete itinerary
 7. Returns comprehensive plan
 
@@ -812,7 +812,7 @@ Expected flow:
 **Keep Specialists Focused:**
 ```yaml
 # ✅ Good - Focused specialist
-name: flight-specialist
+name: flight_specialist
 tools:
   - search_flights
   - book_flight
@@ -846,12 +846,12 @@ description: Helps with travel stuff
 instructions: |
   # ✅ Good - Clear routing rules
   When user asks about flights:
-  - Route to flight-specialist
+  - Route to flight_specialist
   - Wait for response
   - Present to user
   
   When user asks about hotels:
-  - Route to hotel-specialist
+  - Route to hotel_specialist
   - Wait for response
   - Present to user
 ```
@@ -940,7 +940,7 @@ instructions: |
 ```yaml
 instructions: |
   If user mentions budget constraints:
-  - Route to budget-advisor FIRST
+  - Route to budget_advisor FIRST
   - Get budget recommendations
   - Then route to other specialists with budget in mind
   
@@ -983,13 +983,13 @@ Add a "Car Rental Specialist" to the travel system.
 **Requirements:**
 - Create car-rental-specialist-agent.yaml
 - Create car_rental_tools.py with search and book functions
-- Update travel-concierge to include new specialist
+- Update travel_concierge to include new specialist
 - Test routing to car rental specialist
 
 **💡 Ask Bob:**
 ```
-Bob, create a car-rental-specialist agent with tools for searching
-and booking rental cars, and update the travel-concierge to route
+Bob, create a car_rental_specialist agent with tools for searching
+and booking rental cars, and update the travel_concierge to route
 car rental queries appropriately.
 ```
 
@@ -998,8 +998,8 @@ car rental queries appropriately.
 Modify the orchestrator to always check budget first for trip planning requests.
 
 **Requirements:**
-- Update travel-concierge instructions
-- Route to budget-advisor before other specialists
+- Update travel_concierge instructions
+- Route to budget_advisor before other specialists
 - Use budget constraints when routing to other specialists
 - Test with budget-constrained requests
 

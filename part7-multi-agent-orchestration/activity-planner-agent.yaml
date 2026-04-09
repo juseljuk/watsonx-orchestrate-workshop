@@ -1,6 +1,6 @@
 spec_version: v1
 kind: native
-name: activity-planner
+name: activity_planner
 title: Local Activity Specialist
 description: Expert in local attractions, activities, tours, and experiences. Provides personalized recommendations for things to do based on interests, location, and travel dates.
 

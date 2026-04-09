@@ -1,6 +1,6 @@
 spec_version: v1
 kind: native
-name: hotel-specialist
+name: hotel_specialist
 title: Hotel Booking Specialist
 description: Expert in hotel accommodations, reservations, and lodging options. Handles hotel searches, bookings, modifications, and provides recommendations based on preferences and budget.
 
