@@ -190,7 +190,7 @@ for handling flight bookings and searches.
 
 ### Step 2: Create Hotel Specialist
 
-Create `hotel-specialist-agent.yaml`:
+Create `hotel-specialist-agent.yaml` ([download](./hotel-specialist-agent.yaml)):
 
 ```yaml
 spec_version: v1
@@ -240,7 +240,7 @@ llm: groq/openai/gpt-oss-120b
 
 ### Step 3: Create Activity Planner
 
-Create `activity-planner-agent.yaml`:
+Create `activity-planner-agent.yaml` ([download](./activity-planner-agent.yaml)):
 
 ```yaml
 spec_version: v1
@@ -290,7 +290,7 @@ llm: groq/openai/gpt-oss-120b
 
 ### Step 4: Create Budget Advisor
 
-Create `budget-advisor-agent.yaml`:
+Create `budget-advisor-agent.yaml` ([download](./budget-advisor-agent.yaml)):
 
 ```yaml
 spec_version: v1
@@ -347,7 +347,7 @@ llm: groq/openai/gpt-oss-120b
 
 The orchestrator needs clear routing logic:
 
-Create `travel-concierge-agent.yaml`:
+Create `travel-concierge-agent.yaml` ([download](./travel-concierge-agent.yaml)):
 
 ```yaml
 spec_version: v1
