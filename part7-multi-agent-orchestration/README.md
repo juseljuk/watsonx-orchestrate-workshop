@@ -853,19 +853,19 @@ The file should include:
 
 ```bash
 # Import all tools
-orchestrate tools import flight_tools.py
-orchestrate tools import hotel_tools.py
-orchestrate tools import activity_tools.py
-orchestrate tools import budget_tools.py
+orchestrate tools import -k python -f flight_tools.py
+orchestrate tools import -k python -f hotel_tools.py
+orchestrate tools import -k python -f activity_tools.py
+orchestrate tools import -k python -f budget_tools.py
 
 # Import specialist agents
-orchestrate agent import flight-specialist-agent.yaml
-orchestrate agent import hotel-specialist-agent.yaml
-orchestrate agent import activity-planner-agent.yaml
-orchestrate agent import budget-advisor-agent.yaml
+orchestrate agents import -f flight-specialist-agent.yaml
+orchestrate agents import -f hotel-specialist-agent.yaml
+orchestrate agents import -f activity-planner-agent.yaml
+orchestrate agents import -f budget-advisor-agent.yaml
 
 # Import orchestrator (must be last, after collaborators exist)
-orchestrate agent import travel-concierge-agent.yaml
+orchestrate agents import -f travel-concierge-agent.yaml
 ```
 
 ### Test Simple Routing
@@ -940,14 +940,17 @@ tools:
 
 **Clear Descriptions:**
 ```yaml
-# ✅ Good - Clear, specific description
-description: Expert in flight searches, bookings, changes, and cancellations. 
-  Handles all flight-related queries including availability, pricing, and 
-  itinerary modifications.
+# ✅ Good - Clear, specific description with collaborators
+description: Expert in flight searches, bookings, changes, and cancellations.
+  Handles all flight-related queries including availability, pricing, and
+  itinerary modifications. Works with hotel_specialist and activity_planner
+  for complete travel planning.
 
 # ❌ Bad - Vague description
 description: Helps with travel stuff
 ```
+
+**Note:** Include mentions of collaborator agents in descriptions to help the orchestrator understand agent relationships and routing options.
 
 ### 2. Routing Logic
 
@@ -1012,22 +1015,367 @@ instructions: |
   - Don't expose technical details
 ```
 
-### 5. Performance Optimization
-
-**Minimize Hops:**
+**Timeout Handling:**
 ```yaml
-# ✅ Good - Direct routing
-User → Orchestrator → Specialist → User
-
-# ❌ Bad - Unnecessary hops
-User → Orchestrator → Coordinator → Specialist → Coordinator → Orchestrator → User
+instructions: |
+  If specialist doesn't respond within expected time:
+  - Acknowledge the delay to user
+  - Explain what might be happening
+  - Offer to try again or use alternative approach
+  - Log timeout for debugging
+  
+  Example: "The flight specialist is taking longer than expected.
+  This might be due to high search volume. Would you like me to
+  try a simpler search or wait a bit longer?"
 ```
 
-**Parallel Processing (Future):**
+**Input Validation:**
 ```yaml
-# When specialists don't depend on each other
-# Route to multiple specialists simultaneously
-# Synthesize all responses together
+instructions: |
+  Before routing to specialist:
+  - Validate user input completeness
+  - Check for required parameters
+  - Verify data format (dates, numbers, etc.)
+  - Ask for missing information before routing
+  
+  Example: If user asks "book a flight" without destination,
+  ask for required details before routing to flight_specialist.
+```
+
+**Logging and Debugging:**
+```yaml
+instructions: |
+  For debugging multi-agent workflows:
+  - Log routing decisions and reasons
+  - Track which specialist handled each request
+  - Record context passed between agents
+  - Note any errors or fallbacks used
+  
+  This helps identify issues in routing logic and specialist performance.
+```
+
+### 5. Optimizing Agent Performance
+
+**Agent Architecture:**
+```yaml
+# ✅ Good - Flat hierarchy with focused specialists
+User → Orchestrator → Specialist → User
+
+# ❌ Bad - Unnecessary intermediate layers
+User → Orchestrator → Coordinator → Specialist → Coordinator → Orchestrator → User
+
+# Keep your agent hierarchy simple. The LLM handles routing based on descriptions,
+# so additional coordinator layers just add latency without improving routing.
+```
+
+**Clear Agent Descriptions:**
+```yaml
+# The LLM uses descriptions to route requests
+# Make them specific and action-oriented
+
+# ✅ Good - Clear scope and capabilities
+description: |
+  Expert in flight searches, bookings, changes, and cancellations.
+  Handles all flight-related queries including availability, pricing,
+  and itinerary modifications. Works with hotel_specialist and
+  activity_planner for complete travel planning.
+
+# ❌ Bad - Vague or overlapping scope
+description: Helps with travel arrangements
+```
+
+**Explicit Routing Instructions:**
+```yaml
+instructions: |
+  # Guide the LLM on when to route to specialists
+  
+  When user asks about flights:
+  - Call the flight_specialist agent immediately
+  - Do NOT ask for additional parameters before routing
+  - Pass all available context from the conversation
+  
+  When user asks about hotels:
+  - Call the hotel_specialist agent immediately
+  - Include destination and dates if mentioned
+  
+  # Use explicit action verbs: "Call", "Execute", "Use"
+  # Avoid implicit language: "delegate", "route", "consider"
+```
+
+**Tool Design for Specialists:**
+```yaml
+# Keep specialist tools focused and simple
+# LLMs perform best with ≤10 tools per agent
+
+# ✅ Good - Focused tool set
+flight_specialist:
+  tools:
+    - search_flights
+    - book_flight
+    - modify_booking
+    - cancel_booking
+
+# ❌ Bad - Too many tools
+travel_agent:
+  tools:
+    - search_flights
+    - search_hotels
+    - search_activities
+    - search_restaurants
+    - book_flight
+    - book_hotel
+    # ... 20+ more tools
+```
+
+**Reasoning Efficiency (for GPT-OSS-120B):**
+```yaml
+instructions: |
+  # Limit reasoning depth to improve response time
+  
+  Reasoning and brevity controls:
+  - Use concise reasoning with at most 3 reasoning steps
+  - Do not re-plan unless the last tool result contradicts prior assumptions
+  - If you cannot progress after 3 steps, ask one focused question
+  
+  # This prevents excessive internal reasoning loops
+```
+
+**What You CANNOT Control:**
+
+- **Automatic Routing:** The LLM decides which specialist to call based on descriptions --> for more deterministic behavior, consider agentic workflows
+- **Parallel Processing:** Currently, agent calls are sequential (one at a time)
+- **Routing Algorithm:** watsonx Orchestrate's internal orchestration logic
+- **Response Time:** Inherent to the LLM and tool execution time
+
+**Best Practices:**
+
+1. **Keep hierarchies flat** - Minimize agent layers
+2. **Write clear descriptions** - Help the LLM route correctly
+3. **Use explicit instructions** - Guide routing decisions
+4. **Limit tools per agent** - Keep specialists focused (≤10 tools)
+5. **Design independent specialists** - Avoid dependencies between agents
+6. **Test routing behavior** - Verify the LLM routes as expected
+
+### 6. Testing Strategies
+
+Testing multi-agent systems involves three levels: testing individual specialists, testing routing logic, and testing complete workflows.
+
+**Understanding `assert` in Python Testing**
+
+Before diving into the examples, let's understand the `assert` statement used throughout:
+
+```python
+# assert checks if a condition is True
+# If True: test passes, continues
+# If False: test fails, stops with an error
+
+assert 5 > 3                    # ✅ Passes (5 is greater than 3)
+assert "hello" in "hello world" # ✅ Passes ("hello" is in the string)
+assert 2 + 2 == 4               # ✅ Passes (2+2 equals 4)
+
+assert 5 < 3                    # ❌ Fails! (5 is NOT less than 3)
+assert "cat" in "dog"           # ❌ Fails! ("cat" is NOT in "dog")
+
+# In our tests, we use assert to verify agent behavior:
+response = agent.chat("Find flights to Paris")
+assert "flight" in response.lower()  # ✅ Pass if response mentions flights
+                                     # ❌ Fail if response doesn't mention flights
+```
+
+**Why use `assert`?**
+- Automatically checks if your agent works correctly
+- Fails immediately when something is wrong
+- Makes it easy to run hundreds of tests automatically
+- Helps catch bugs before users see them
+
+Now let's see how we use `assert` to test our multi-agent system:
+
+---
+
+**Level 1: Unit Testing Individual Specialists**
+
+Purpose: Verify that each specialist agent works correctly in isolation, independent of the orchestrator.
+
+```python
+# Test that the flight specialist can handle flight queries correctly
+# This tests ONLY the specialist, not the routing to it
+
+import pytest
+from ibm_watsonx_orchestrate import Agent
+
+def test_flight_specialist_search():
+    """
+    Test that flight_specialist correctly uses search_flights tool
+    and returns flight information
+    """
+    # Load the specialist agent
+    agent = Agent.from_yaml("flight-specialist-agent.yaml")
+    
+    # Send a query directly to the specialist
+    response = agent.chat("Find flights from NYC to LAX on Dec 15")
+    
+    # Verify the response contains flight information
+    assert "flight" in response.lower() or "airline" in response.lower()
+    assert "NYC" in response or "New York" in response
+    assert "LAX" in response or "Los Angeles" in response
+    
+def test_flight_specialist_with_mock_tools():
+    """
+    Test specialist behavior with mock tools to avoid external API calls
+    """
+    # Create mock tool that returns predictable data
+    def mock_search_flights(origin, destination, date):
+        return {
+            "flights": [
+                {"airline": "United", "price": 350, "departure": "08:00"},
+                {"airline": "Delta", "price": 375, "departure": "10:30"}
+            ]
+        }
+    
+    # Load agent and replace tool with mock
+    agent = Agent.from_yaml("flight-specialist-agent.yaml")
+    agent.tools["search_flights"] = mock_search_flights
+    
+    response = agent.chat("Find flights from NYC to LAX")
+    
+    # Verify agent used the tool and formatted results
+    assert "United" in response
+    assert "350" in response or "$350" in response
+```
+
+**Why Unit Test Specialists?**
+- Verify each specialist's tools work correctly
+- Test specialist's response formatting
+- Ensure specialist handles errors gracefully
+- Faster than testing through orchestrator
+- Easier to debug when issues occur
+
+**Level 2: Integration Testing Routing**
+
+Purpose: Verify that the orchestrator correctly routes requests to the appropriate specialists.
+
+```python
+def test_orchestrator_routes_to_flight_specialist():
+    """
+    Test that orchestrator recognizes flight queries and routes to flight_specialist
+    """
+    # Load the orchestrator agent
+    orchestrator = Agent.from_yaml("travel-concierge-agent.yaml")
+    
+    # Ask about flights
+    response = orchestrator.chat("I need to book a flight to Paris")
+    
+    # Check that response contains flight information
+    # (indicating flight_specialist was called)
+    assert "flight" in response.lower()
+    
+    # You can also check orchestrator's internal logs if available
+    # to verify which collaborator was called
+
+def test_orchestrator_routes_to_hotel_specialist():
+    """
+    Test that orchestrator recognizes hotel queries
+    """
+    orchestrator = Agent.from_yaml("travel-concierge-agent.yaml")
+    
+    response = orchestrator.chat("Find me a hotel in Paris")
+    
+    # Verify hotel-related response
+    assert "hotel" in response.lower() or "accommodation" in response.lower()
+
+def test_orchestrator_handles_ambiguous_query():
+    """
+    Test that orchestrator asks clarifying questions for ambiguous requests
+    """
+    orchestrator = Agent.from_yaml("travel-concierge-agent.yaml")
+    
+    response = orchestrator.chat("I want to go to Paris")
+    
+    # Should ask what kind of help is needed
+    assert "?" in response  # Contains a question
+    assert any(word in response.lower() for word in ["flight", "hotel", "help"])
+```
+
+**Why Integration Test Routing?**
+- Verify orchestrator's descriptions and instructions work
+- Ensure LLM routes to correct specialists
+- Test edge cases and ambiguous queries
+- Validate multi-specialist workflows
+
+**Level 3: End-to-End Workflow Testing**
+
+Purpose: Test complete user journeys involving multiple specialists and conversation turns.
+
+```python
+def test_complete_trip_planning_workflow():
+    """
+    Test a realistic multi-turn conversation that uses multiple specialists
+    """
+    orchestrator = Agent.from_yaml("travel-concierge-agent.yaml")
+    
+    # Turn 1: Initial request
+    response1 = orchestrator.chat("I want to plan a trip to Tokyo in March")
+    assert "tokyo" in response1.lower()
+    
+    # Turn 2: Flight request
+    response2 = orchestrator.chat("I need flights from New York")
+    assert "flight" in response2.lower()
+    
+    # Turn 3: Budget constraint
+    response3 = orchestrator.chat("My budget is $3000 total")
+    assert "budget" in response3.lower() or "3000" in response3
+    
+    # Turn 4: Hotel request
+    response4 = orchestrator.chat("What hotels do you recommend?")
+    assert "hotel" in response4.lower()
+    
+    # Verify conversation context is maintained
+    # (orchestrator should remember Tokyo, March, $3000 budget)
+    assert "tokyo" in response4.lower() or "march" in response4.lower()
+
+def test_error_recovery_workflow():
+    """
+    Test that system handles errors gracefully in multi-agent workflow
+    """
+    orchestrator = Agent.from_yaml("travel-concierge-agent.yaml")
+    
+    # Request with invalid date
+    response = orchestrator.chat("Find flights to Paris on February 30")
+    
+    # Should handle gracefully, not crash
+    assert response is not None
+    assert "error" not in response.lower() or "invalid" in response.lower()
+```
+
+**Why End-to-End Test?**
+- Verify complete user journeys work
+- Test context retention across turns
+- Ensure specialists work together correctly
+- Validate real-world usage patterns
+
+**Testing Best Practices:**
+
+1. **Start with unit tests** - Test specialists individually first
+2. **Use mock tools** - Avoid external API calls in tests for speed and reliability
+3. **Test routing explicitly** - Verify orchestrator routes to correct specialists
+4. **Test conversation context** - Ensure information carries across turns
+5. **Test error scenarios** - Invalid inputs, missing data, tool failures
+6. **Use realistic queries** - Test with actual user language, not just technical terms
+7. **Automate tests** - Run tests on every code change
+8. **Test incrementally** - Add tests as you add specialists
+
+**Example Test Structure:**
+```
+tests/
+├── test_specialists/
+│   ├── test_flight_specialist.py
+│   ├── test_hotel_specialist.py
+│   ├── test_activity_planner.py
+│   └── test_budget_advisor.py
+├── test_routing/
+│   └── test_orchestrator_routing.py
+└── test_workflows/
+    └── test_trip_planning_workflows.py
 ```
 
 ---
