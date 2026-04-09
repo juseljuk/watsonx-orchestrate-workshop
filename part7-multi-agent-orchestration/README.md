@@ -423,14 +423,13 @@ llm: groq/openai/gpt-oss-120b
 **💡 Ask Bob:**
 ```
 Bob, create a travel_concierge_agent.yaml that orchestrates between
-the four specialist agents with clear routing logic.
+the four specialist agents with clear routing logic. The collaborators are flight_specialist, hotel_specialist, activity_planner, and budget_advisor. The agent should handle complex multi-aspect travel requests by routing to the appropriate specialist and synthesizing responses.
 ```
-
 ---
 
 ## Part 4: Implementing Mock Tools
 
-For this workshop, we'll create mock tools that simulate the specialist capabilities.
+For this workshop, we'll create mock tools that simulate the specialist capabilities. This allows us to focus on the orchestration logic without needing to integrate with real APIs yet. This approach is ideal for quick prototyping, demos and testing.
 
 ### Create Flight Tools
 
@@ -469,7 +468,8 @@ def search_flights(
             "arrival": f"{destination} 14:30",
             "duration": "6h 30m",
             "price": 450.00,
-            "stops": 0
+            "stops": 0,
+            "class": "Economy"
         },
         {
             "flight_number": "UA456",
@@ -478,7 +478,8 @@ def search_flights(
             "arrival": f"{destination} 17:15",
             "duration": "6h 45m",
             "price": 425.00,
-            "stops": 0
+            "stops": 0,
+            "class": "Economy"
         },
         {
             "flight_number": "DL789",
@@ -487,11 +488,12 @@ def search_flights(
             "arrival": f"{destination} 22:00",
             "duration": "8h 00m",
             "price": 380.00,
-            "stops": 1
+            "stops": 1,
+            "class": "Economy"
         }
     ]
     
-    return {
+    result = {
         "origin": origin,
         "destination": destination,
         "departure_date": departure_date,
@@ -500,6 +502,15 @@ def search_flights(
         "flights": flights,
         "count": len(flights)
     }
+    
+    if return_date:
+        result["trip_type"] = "round-trip"
+        result["total_price_range"] = f"${flights[-1]['price'] * 2} - ${flights[0]['price'] * 2}"
+    else:
+        result["trip_type"] = "one-way"
+        result["total_price_range"] = f"${flights[-1]['price']} - ${flights[0]['price']}"
+    
+    return result
 
 
 @tool
@@ -528,7 +539,13 @@ def book_flight(
         "flight_number": flight_number,
         "passenger_name": passenger_name,
         "email": passenger_email,
-        "message": f"Flight {flight_number} booked successfully! Confirmation: {confirmation}"
+        "booking_date": "2024-01-15",
+        "message": f"Flight {flight_number} booked successfully! Confirmation: {confirmation}",
+        "next_steps": [
+            "Check-in opens 24 hours before departure",
+            "Confirmation email sent to " + passenger_email,
+            "Download boarding pass via airline app"
+        ]
     }
 
 
@@ -549,15 +566,20 @@ def modify_flight(
     Returns:
         Modification confirmation
     """
+    changes = []
+    if new_date:
+        changes.append(f"Date changed to {new_date}")
+    if new_flight:
+        changes.append(f"Flight changed to {new_flight}")
+    
     return {
         "status": "modified",
         "confirmation_number": confirmation_number,
-        "changes": {
-            "new_date": new_date,
-            "new_flight": new_flight
-        },
-        "fee": 75.00,
-        "message": "Flight modified successfully. Change fee: $75.00"
+        "changes": changes,
+        "change_fee": 75.00,
+        "fare_difference": 25.00,
+        "total_cost": 100.00,
+        "message": "Flight modified successfully. Total cost: $100.00 (change fee + fare difference)"
     }
 
 
@@ -575,10 +597,11 @@ def cancel_flight(confirmation_number: str) -> dict:
     return {
         "status": "cancelled",
         "confirmation_number": confirmation_number,
+        "cancellation_fee": 100.00,
         "refund_amount": 350.00,
         "refund_method": "original payment method",
         "processing_time": "5-7 business days",
-        "message": "Flight cancelled. Refund of $350.00 will be processed."
+        "message": "Flight cancelled. Refund of $350.00 will be processed within 5-7 business days."
     }
 ```
 
@@ -622,24 +645,36 @@ def search_hotels(
             "location": location,
             "rating": 4.5,
             "price_per_night": 180.00,
-            "amenities": ["WiFi", "Breakfast", "Pool", "Gym"],
-            "cancellation": "Free cancellation until 24h before"
+            "amenities": ["WiFi", "Breakfast", "Pool", "Gym", "Parking"],
+            "cancellation": "Free cancellation until 24h before",
+            "distance_to_center": "0.5 miles"
         },
         {
             "name": "City Center Inn",
             "location": location,
             "rating": 4.0,
             "price_per_night": 120.00,
-            "amenities": ["WiFi", "Breakfast"],
-            "cancellation": "Free cancellation until 48h before"
+            "amenities": ["WiFi", "Breakfast", "Business Center"],
+            "cancellation": "Free cancellation until 48h before",
+            "distance_to_center": "0.2 miles"
         },
         {
             "name": "Budget Stay",
             "location": location,
             "rating": 3.5,
             "price_per_night": 80.00,
-            "amenities": ["WiFi"],
-            "cancellation": "Non-refundable"
+            "amenities": ["WiFi", "24h Reception"],
+            "cancellation": "Non-refundable",
+            "distance_to_center": "1.5 miles"
+        },
+        {
+            "name": "Luxury Suites",
+            "location": location,
+            "rating": 5.0,
+            "price_per_night": 350.00,
+            "amenities": ["WiFi", "Breakfast", "Pool", "Spa", "Gym", "Restaurant", "Parking"],
+            "cancellation": "Free cancellation until 72h before",
+            "distance_to_center": "0.3 miles"
         }
     ]
     
@@ -647,11 +682,22 @@ def search_hotels(
     if max_price:
         hotels = [h for h in hotels if h["price_per_night"] <= max_price]
     
+    # Calculate total cost
+    from datetime import datetime
+    check_in_date = datetime.strptime(check_in, "%Y-%m-%d")
+    check_out_date = datetime.strptime(check_out, "%Y-%m-%d")
+    nights = (check_out_date - check_in_date).days
+    
+    for hotel in hotels:
+        hotel["total_cost"] = hotel["price_per_night"] * nights
+        hotel["nights"] = nights
+    
     return {
         "location": location,
         "check_in": check_in,
         "check_out": check_out,
         "guests": guests,
+        "nights": nights,
         "hotels": hotels,
         "count": len(hotels)
     }
@@ -663,7 +709,8 @@ def book_hotel(
     guest_name: str,
     guest_email: str,
     check_in: str,
-    check_out: str
+    check_out: str,
+    room_type: str = "Standard"
 ) -> dict:
     """
     Book a hotel room.
@@ -674,6 +721,7 @@ def book_hotel(
         guest_email: Guest email
         check_in: Check-in date
         check_out: Check-out date
+        room_type: Type of room (Standard, Deluxe, Suite)
     
     Returns:
         Booking confirmation
@@ -688,7 +736,16 @@ def book_hotel(
         "guest_name": guest_name,
         "check_in": check_in,
         "check_out": check_out,
-        "message": f"Hotel booked successfully! Confirmation: {confirmation}"
+        "room_type": room_type,
+        "email": guest_email,
+        "message": f"Hotel booked successfully! Confirmation: {confirmation}",
+        "check_in_time": "3:00 PM",
+        "check_out_time": "11:00 AM",
+        "next_steps": [
+            "Confirmation email sent to " + guest_email,
+            "Check-in starts at 3:00 PM",
+            "Early check-in available upon request"
+        ]
     }
 
 
@@ -696,25 +753,35 @@ def book_hotel(
 def modify_hotel_booking(
     confirmation_number: str,
     new_check_in: str = None,
-    new_check_out: str = None
+    new_check_out: str = None,
+    new_room_type: str = None
 ) -> dict:
     """
-    Modify hotel booking dates.
+    Modify hotel booking dates or room type.
     
     Args:
         confirmation_number: Booking confirmation number
         new_check_in: New check-in date (optional)
         new_check_out: New check-out date (optional)
+        new_room_type: New room type (optional)
     
     Returns:
         Modification confirmation
     """
+    changes = []
+    if new_check_in:
+        changes.append(f"Check-in changed to {new_check_in}")
+    if new_check_out:
+        changes.append(f"Check-out changed to {new_check_out}")
+    if new_room_type:
+        changes.append(f"Room type changed to {new_room_type}")
+    
     return {
         "status": "modified",
         "confirmation_number": confirmation_number,
-        "new_check_in": new_check_in,
-        "new_check_out": new_check_out,
-        "message": "Hotel booking modified successfully"
+        "changes": changes,
+        "modification_fee": 0.00,
+        "message": "Hotel booking modified successfully. No modification fee."
     }
 
 
@@ -733,9 +800,50 @@ def cancel_hotel_booking(confirmation_number: str) -> dict:
         "status": "cancelled",
         "confirmation_number": confirmation_number,
         "refund_amount": 240.00,
-        "message": "Hotel booking cancelled. Full refund processed."
+        "cancellation_fee": 0.00,
+        "refund_method": "original payment method",
+        "processing_time": "3-5 business days",
+        "message": "Hotel booking cancelled. Full refund of $240.00 will be processed within 3-5 business days."
     }
 ```
+
+**💡 Ask Bob:**
+```
+Bob, create hotel_tools.py with mock implementations of search_hotels,
+book_hotel, modify_hotel_booking, and cancel_hotel_booking tools.
+```
+
+### Create Activity Tools
+
+Create `activity_tools.py` with tools for the activity planner:
+
+**💡 Ask Bob:**
+```
+Bob, create activity_tools.py with mock implementations of search_activities,
+get_activity_details, search_restaurants, and create_itinerary tools.
+```
+
+The file should include:
+- `search_activities`: Search for activities based on location and interests
+- `get_activity_details`: Get detailed information about specific activities
+- `search_restaurants`: Find restaurants by cuisine and price range
+- `create_itinerary`: Generate day-by-day itineraries
+
+### Create Budget Tools
+
+Create `budget_tools.py` with tools for the budget advisor:
+
+**💡 Ask Bob:**
+```
+Bob, create budget_tools.py with mock implementations of calculate_trip_cost,
+compare_options, find_deals, and budget_optimizer tools.
+```
+
+The file should include:
+- `calculate_trip_cost`: Calculate total trip costs with detailed breakdown
+- `compare_options`: Compare two travel options and provide recommendations
+- `find_deals`: Find current deals and discounts
+- `budget_optimizer`: Optimize budget allocation across categories
 
 ---
 
@@ -744,9 +852,11 @@ def cancel_hotel_booking(confirmation_number: str) -> dict:
 ### Import All Agents and Tools
 
 ```bash
-# Import tools
+# Import all tools
 orchestrate tools import flight_tools.py
 orchestrate tools import hotel_tools.py
+orchestrate tools import activity_tools.py
+orchestrate tools import budget_tools.py
 
 # Import specialist agents
 orchestrate agent import flight-specialist-agent.yaml
@@ -1081,4 +1191,4 @@ In this lesson, you learned:
 
 ---
 
-**Ready for deployment?** Head to [Part 5: Testing & Deployment](../part5-deployment/README.md) to learn how to test and deploy your multi-agent systems! 🚀
+**Ready for deployment?** Head to [Part 8: Testing & Deployment](../part8-deployment/README.md) to learn how to test and deploy your multi-agent systems! 🚀
