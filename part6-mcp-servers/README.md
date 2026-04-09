@@ -355,7 +355,7 @@ It will show you the response from the server and conclude the findings:
 
 <img src="images/image.png" alt="test results" width="550px">
 
-Ypu can now close the new terminal and stop the server in the other terminal with `Ctrl+C` (or just close the terminal and open a new one).
+Ypu can now close the new terminal and stop the server in the other terminal with `Ctrl+C`.
 
 ---
 
@@ -441,7 +441,7 @@ Create `product-assistant-agent.yaml`:
 
 ```yaml
 kind: native
-name: product-assistant
+name: product_assistant
 title: Product Assistant
 description: Helps customers find and learn about products
 
@@ -467,22 +467,31 @@ instructions: |
   3. Use check_inventory to verify availability
   4. Use get_recommendations to suggest alternatives
 
-toolkits:
-  - product-catalog  # Use all tools from the MCP server
+tools:
+  - search_products
+  - get_product_details
+  - check_inventory
+  - get_recommendations
 
 llm: groq/openai/gpt-oss-120b
 ```
 
 **💡 Ask Bob:**
 ```
-Bob, create an agent YAML file that uses the product-catalog MCP server 
-tools to help customers find and learn about products.
+Bob, create an agent YAML file that uses the product-catalog MCP server tools to help customers find and learn about products.
 ```
+
+Bob should place the created agent YAML file in the `agents` directory and provide a summary of what was done. Notice Bob picking the right toolkit and providing a clear description of the agent's purpose.
+
+<img src="images/image-2.png" alt="Agent creation" width="400px">
 
 ### Step 2: Import the Agent
 
+**IMPORTANT: Since we're using one shared environment, please add your initials again as the postfix for the name of the agent in the yaml-file. This is to avoid name conflicts. For example, if your initials are "JKJ", the name should be "product_catalog_agent_JKJ". Remember to save changes to the file before importing it.**
+
 ```bash
-orchestrate agent import product-assistant-agent.yaml
+# Note that your agent might have been named differently
+orchestrate agents import -f agents/product-catalog-agent.yaml
 ```
 
 ### Step 3: Test the Agent

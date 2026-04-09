@@ -739,33 +739,176 @@ orchestrate channels deploy <channel-name>
 
 ## 6. MCP Server Integration
 
-### MCP Toolkit Patterns
+### MCP Toolkit YAML Format
 
-#### Local MCP Server
+**CRITICAL**: MCP toolkit YAML files must follow the official watsonx Orchestrate format for importing from files.
+
+#### Required YAML Structure
 ```yaml
-# toolkits/local-mcp-toolkit.yaml
+spec_version: v1              # Required: Always use v1
+kind: mcp                     # Required: Must be "mcp"
+name: toolkit-name            # Required: Toolkit identifier
+description: "Description"    # Required: Clear description of toolkit purpose
+command: python3 server.py    # Required: Command to start MCP server (single string)
+env: []                       # Required: Environment variables (empty array if none)
+tools:                        # Required: Tools to import
+  - "*"                       # Use "*" to import all tools, or list specific tools
+package_root: .               # Required: Path to MCP server package (relative to YAML file)
+connections: []               # Optional: List of connection app_ids to bind
+```
+
+#### Local Python MCP Server Example
+```yaml
+# toolkits/product-catalog-toolkit.yaml
+spec_version: v1
+kind: mcp
 name: product-catalog
+description: Product catalog MCP server providing search, details, inventory, and recommendations
+command: python3 product_catalog_server.py
+env: []
+tools:
+  - "*"
+package_root: .
+```
+
+#### Local Node.js MCP Server Example
+```yaml
+# toolkits/weather-toolkit.yaml
+spec_version: v1
+kind: mcp
+name: weather-service
+description: Weather service providing forecasts and current conditions
+command: node dist/index.js
+env: []
+tools:
+  - "*"
+package_root: ./weather-server
+```
+
+#### MCP Server with Connection
+```yaml
+# toolkits/api-toolkit.yaml
+spec_version: v1
+kind: mcp
+name: external-api
+description: External API integration toolkit
+command: python3 api_server.py
+env: []
+tools:
+  - "*"
+package_root: .
+connections:
+  - external-api-connection
+```
+
+#### Common Mistakes to Avoid
+❌ **Wrong - Old format:**
+```yaml
+name: my-toolkit
 type: mcp
 transport: stdio
 command: python
 args:
-  - product_catalog_server.py
+  - server.py
+```
+
+✅ **Correct - New format:**
+```yaml
+spec_version: v1
+kind: mcp
+name: my-toolkit
+command: python server.py
+env: []
+tools:
+  - "*"
+package_root: .
+```
+
+#### Import Methods
+
+**Method 1: Import from YAML file (Recommended)**
+```bash
+orchestrate toolkits import -f toolkits/my-toolkit.yaml
+```
+
+**Method 2: Add directly via CLI**
+```bash
+orchestrate toolkits add \
+  --kind mcp \
+  --name my-toolkit \
+  --description "Toolkit description" \
+  --package-root ./mcp_server \
+  --command "python server.py" \
+  --tools "*"
+```
+
+### Referencing MCP Tools in Agent YAML
+
+**CRITICAL**: When referencing tools from MCP toolkits in agent YAML files, you MUST use the fully qualified tool name format: `toolkit-name:tool-name`
+
+#### Tool Reference Format
+Tools imported from MCP servers are namespaced with their toolkit name. When listing tools in an agent's `tools` section or in `guidelines`, use this format:
+
+```yaml
+tools:
+  - toolkit-name:tool-name
+```
+
+#### Example: Agent Using MCP Toolkit Tools
+
+```yaml
+# Agent YAML referencing MCP toolkit tools
+spec_version: v1
+kind: native
+name: product_catalog_agent
+llm: groq/openai/gpt-oss-120b
+
+tools:
+  - product-catalog:search_products
+  - product-catalog:get_product_details
+  - product-catalog:check_inventory
+  - product-catalog:get_recommendations
+
+guidelines:
+  - condition: "The customer asks to search for products"
+    action: "Use search_products tool to find matching products"
+    tool: "product-catalog:search_products"
+  
+  - condition: "The customer asks for product details"
+    action: "Use get_product_details tool with the product ID"
+    tool: "product-catalog:get_product_details"
+```
+
+#### Verifying Tool Names
+
+To see the exact tool names as they appear in the system (with toolkit prefix), run:
+```bash
+orchestrate tools list
+```
+
+This will show tools in the format `toolkit-name:tool-name`, which is exactly how they should be referenced in agent YAML files.
+
+#### Common Mistakes
+
+❌ **Wrong - Tool name without toolkit prefix:**
+```yaml
 tools:
   - search_products
   - get_product_details
 ```
 
-#### Remote MCP Server
+✅ **Correct - Tool name with toolkit prefix:**
 ```yaml
-# toolkits/remote-mcp-toolkit.yaml
-name: weather-service
-type: mcp
-transport: sse
-url: https://weather-api.example.com/mcp
 tools:
-  - get_forecast
-  - get_current_weather
+  - product-catalog:search_products
+  - product-catalog:get_product_details
 ```
+
+**Important Notes:**
+- The toolkit name used in the reference must match the `name` field in the toolkit YAML
+- Tool names are case-sensitive
+- Both the `tools` list and `guidelines` tool references must use the full `toolkit-name:tool-name` format
+- If you get an error like "Failed to find tool. No tools found with the name 'tool-name'", you're missing the toolkit prefix
 
 ### Error Handling
 - Handle server connection failures gracefully
