@@ -225,9 +225,9 @@ For the workshop, we will use the watsonx Orchestrate ADK to interact with a wat
 
 <ins>To get the API URL:</ins>
 
-Copy the Service instance URL from the API details information. This is the base URL for your watsonx Orchestrate instance.
+Copy the **Service instance URL** from the API details information. This is the base URL for your watsonx Orchestrate instance.
 
-   <img src="images/image-13.png" alt="Get the service URL" width="500px">
+   <img src="images/image-13.png" alt="Get the service URL" width="600px">
 
 ### Configure the ADK Environment
 
@@ -260,6 +260,9 @@ Copy the Service instance URL from the API details information. This is the base
    Where `<your-env-name>` is a name you choose for your environment (e.g., "my-wxo-cloud") and `<your-api-key>` is the API key you got in Step 10.
    
    After running the command, you should see a message: `[INFO] Environment '<your-env-name>' is now active`. This means your environment is now active and ready to use with the ADK. You can ignore the warning regarding the Auth Type.
+
+> [!IMPORTANT]
+> Authentication against a remote environment expires every two hours. After expiration, you need to run orchestrate env activate again. So, keep your API key avaiable and ready to use.
 
 #### Option B: Using Bob to help you 😃
 
