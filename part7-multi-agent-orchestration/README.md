@@ -119,13 +119,29 @@ instructions: |
   - Synthesize both responses
 ```
 
-**3. Tool-Based Routing**
-Specialists have unique tools that trigger routing:
+**3. Tool-Based Routing (Supervisory Pattern)**
+The orchestrator acts as a supervisor without domain-specific tools, delegating to specialists who have the actual tools:
 
 ```yaml
-# Orchestrator has no flight tools
-# When it needs flight info, must use flight_specialist
+# Orchestrator Agent (Supervisor)
+# - Has NO flight/hotel/activity tools
+# - Only has access to specialist agents as collaborators
+# - Analyzes user request and delegates to appropriate specialist
+
+# Flight Specialist Agent
+# - HAS flight search and booking tools
+# - Handles all flight-related operations
+
+# Hotel Specialist Agent
+# - HAS hotel search and booking tools
+# - Handles all hotel-related operations
 ```
+
+**Why this works:**
+- Orchestrator recognizes it lacks the tools needed for the task
+- It must delegate to a specialist agent that has those tools
+- This creates natural routing based on capability boundaries
+- Prevents the orchestrator from trying to handle domain-specific tasks directly
 
 ---
 
@@ -819,8 +835,7 @@ Create `activity_tools.py` with tools for the activity planner:
 
 **💡 Ask Bob:**
 ```
-Bob, create activity_tools.py with mock implementations of search_activities,
-get_activity_details, search_restaurants, and create_itinerary tools.
+Bob, create activity_tools.py with mock implementations of search_activities, get_activity_details, search_restaurants, and create_itinerary tools.
 ```
 
 The file should include:
@@ -940,33 +955,37 @@ With unique names:
 
 ---
 
-
 ## Part 5: Testing Multi-Agent Workflows
 
 ### Import All Agents and Tools
 
 ```bash
 # Import all tools
-orchestrate tools import -k python -f flight_tools.py
-orchestrate tools import -k python -f hotel_tools.py
-orchestrate tools import -k python -f activity_tools.py
-orchestrate tools import -k python -f budget_tools.py
+orchestrate tools import -k python -f tools/flight_tools.py
+orchestrate tools import -k python -f tools/hotel_tools.py
+orchestrate tools import -k python -f tools/activity_tools.py
+orchestrate tools import -k python -f tools/budget_tools.py
 
 # Import specialist agents
-orchestrate agents import -f flight-specialist-agent.yaml
-orchestrate agents import -f hotel-specialist-agent.yaml
-orchestrate agents import -f activity-planner-agent.yaml
-orchestrate agents import -f budget-advisor-agent.yaml
+orchestrate agents import -f agents/flight-specialist-agent.yaml
+orchestrate agents import -f agents/hotel-specialist-agent.yaml
+orchestrate agents import -f agents/activity-planner-agent.yaml
+orchestrate agents import -f agents/budget-advisor-agent.yaml
 
 # Import orchestrator (must be last, after collaborators exist)
 orchestrate agents import -f travel-concierge-agent.yaml
 ```
+**💡 Ask Bob:**
+```
+Bob, create a shell script that imports all agents (flight specialist, hotel specialist, activty planner, budget advisor and finally tra) and their tools in the correct order. Make sure each agent is imported after its collaborators.
+```
+>NOTE: Check the tools and agents importing syntax that Bob uses in the script that it generates. Even the information regrading the correct syntax is available in the custom development rule that we're using, sometimes Bob might fail to consult it before creating stuff.
 
 ### Test Simple Routing
 
 **Test 1: Single Specialist**
 ```bash
-orchestrate chat --agent travel_concierge \
+orchestrate chat ask --agent-name travel_concierge_<your_initials> \
   --message "Find me flights from New York to London for next week"
 ```
 
@@ -978,7 +997,7 @@ Expected flow:
 
 **Test 2: Multiple Specialists**
 ```bash
-orchestrate chat --agent travel_concierge \
+orchestrate chat ask --agent-name travel_concierge_<your_initials> \
   --message "Plan a 5-day trip to Paris including flights and hotels"
 ```
 
@@ -993,9 +1012,8 @@ Expected flow:
 
 **Test 3: Full Trip Planning**
 ```bash
-orchestrate chat --agent travel_concierge \
-  --message "I want to visit Tokyo for a week. I have a budget of $3000.
-  Help me plan everything including flights, hotel, and activities."
+orchestrate chat ask --agent-name travel_concierge_<your_initials> \
+  --message "I want to visit Tokyo for a week. I have a budget of $3000. Help me plan everything including flights, hotel, and activities."
 ```
 
 Expected flow:
