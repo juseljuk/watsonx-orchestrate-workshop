@@ -846,6 +846,100 @@ The file should include:
 - `budget_optimizer`: Optimize budget allocation across categories
 
 ---
+## Part 4.5: Naming Convention for Shared Environment
+
+**⚠️ IMPORTANT: Workshop Naming Requirements** - **YOU CAN IGNORE IF YOU ARE NOT USING THE SHARED WXO ENVIRONMENT**
+
+Since all workshop participants are using a shared watsonx Orchestrate environment, you **must** add your initials as a postfix to all tool and agent names to avoid conflicts.
+
+### Naming Pattern
+
+Use this pattern for all your tools and agents:
+- **Tools**: `tool_name_XX` (where XX are your initials)
+- **Agent YAML filenames**: `agent-name-XX.yaml` (dashes allowed in filename)
+- **Agent name field**: `agent_name_XX` (must use underscores, not dashes)
+
+### Example
+
+If your name is **Jane Smith** (initials: JS), rename your tools and agents as follows:
+
+**Tools:**
+```python
+# In flight_tools.py
+@tool
+def search_flights_JS(...):  # Added _JS postfix
+    """Search for available flights."""
+    ...
+
+@tool
+def book_flight_JS(...):  # Added _JS postfix
+    """Book a flight."""
+    ...
+```
+
+**Agent Files:**
+```yaml
+# Filename: flight-specialist-agent-JS.yaml (dashes OK in filename)
+name: flight_specialist_JS  # IMPORTANT: Use underscores in name field, not dashes!
+description: Specialist agent for flight bookings
+instructions: |
+  You are a flight booking specialist...
+tools:
+  - search_flights_JS      # Reference tools with _JS postfix
+  - book_flight_JS
+  - modify_flight_JS
+  - cancel_flight_JS
+```
+
+**⚠️ Critical Naming Rule:**
+- YAML **filename** can use dashes: `flight-specialist-agent-JS.yaml`
+- Agent **name field** must use underscores: `name: flight_specialist_JS`
+- This is a watsonx Orchestrate requirement for proper agent registration
+
+### Complete Naming Checklist
+
+Before importing, ensure you've renamed:
+
+**✅ Tool Files:**
+- [ ] All `@tool` function names in `flight_tools.py`
+- [ ] All `@tool` function names in `hotel_tools.py`
+- [ ] All `@tool` function names in `activity_tools.py`
+- [ ] All `@tool` function names in `budget_tools.py`
+
+**✅ Agent Files:**
+- [ ] Agent `name` field in `flight-specialist-agent.yaml`
+- [ ] Tool references in `tools` section
+- [ ] Agent `name` field in `hotel-specialist-agent.yaml`
+- [ ] Tool references in `tools` section
+- [ ] Agent `name` field in `activity-planner-agent.yaml`
+- [ ] Tool references in `tools` section
+- [ ] Agent `name` field in `budget-advisor-agent.yaml`
+- [ ] Tool references in `tools` section
+- [ ] Agent `name` field in `travel-concierge-agent.yaml`
+- [ ] Collaborator agent names in `collaborators` section
+
+**💡 Ask Bob:**
+```
+Bob, add a postfix "_<your_initials>" to all tool function names in flight_tools.py, hotel_tools.py, activity_tools.py, and budget_tools.py. Then update all agent YAML files to use the renamed tools (activity planner to use activity tools, flifgt specialist to use flight tools, etc.) and add "_<your_initials>" postfix to agent name fields within their yaml-files.
+```
+>NOTE: Needless to say, but update your initials to their placeholders in the prompt before sending it to Bob 😉
+
+### Why This Matters
+
+Without unique names:
+- ❌ Your tools will overwrite other participants' tools
+- ❌ Your agents will conflict with others' agents
+- ❌ Testing will produce unpredictable results
+- ❌ You may accidentally use someone else's implementation
+
+With unique names:
+- ✅ Your tools and agents are isolated
+- ✅ You can test independently
+- ✅ No conflicts with other participants
+- ✅ Clear ownership of your implementations
+
+---
+
 
 ## Part 5: Testing Multi-Agent Workflows
 
