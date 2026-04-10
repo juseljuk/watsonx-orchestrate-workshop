@@ -1,7 +1,9 @@
 # Part 8: Multi-Agent Orchestration & Workflows
 
 **Duration**: 30 minutes
+
 **Difficulty**: Advanced
+
 **Note**: This is a standalone advanced exercise that can be completed independently of earlier parts.
 
 ## Overview
@@ -988,8 +990,8 @@ Bob, create a shell script that imports all agents (flight specialist, hotel spe
 
 **Test 1: Single Specialist**
 ```bash
-orchestrate chat ask --agent-name travel_concierge_<your_initials> \
-  --message "Find me flights from New York to London for next week"
+orchestrate chat ask --agent-name travel_concierge_agent_<your_initials> \
+  "Find me flights from New York to London for next week"
 ```
 
 Expected flow:
@@ -1000,8 +1002,8 @@ Expected flow:
 
 **Test 2: Multiple Specialists**
 ```bash
-orchestrate chat ask --agent-name travel_concierge_<your_initials> \
-  --message "Plan a 5-day trip to Paris including flights and hotels"
+orchestrate chat ask --agent-name travel_concierge_agent_<your_initials> \
+  "Plan a 5-day trip to Paris including flights and hotels"
 ```
 
 Expected flow:
@@ -1015,8 +1017,8 @@ Expected flow:
 
 **Test 3: Full Trip Planning**
 ```bash
-orchestrate chat ask --agent-name travel_concierge_<your_initials> \
-  --message "I want to visit Tokyo for a week. I have a budget of $3000. Help me plan everything including flights, hotel, and activities."
+orchestrate chat ask --agent-name travel_concierge_agent_<your_initials> \
+  "I want to visit Tokyo for a week. I have a budget of $3000. Help me plan everything including flights, hotel, and activities."
 ```
 
 Expected flow:
