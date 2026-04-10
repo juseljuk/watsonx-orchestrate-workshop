@@ -298,9 +298,9 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
    - From the Bob main menu bar, select **Terminal** > **New Terminal**
 
-      <img src="images/image-14.png" alt="Open terminal" width="450px">
+      <img src="images/image-14.png" alt="Open terminal" width="550px">
    
-   - This will open a terminal window in the Bob IDE - notice that your Python environment is already activated
+   - This will open a terminal window in the Bob IDE - notice that your Python environment is automatically activated
 
       <img src="images/image-15.png" alt="Terminal window opened in Bob IDE" width="700px">
 
@@ -335,7 +335,7 @@ Your workshop folder should look like this:
 ```
 bobchestrate-workshop/
 ├── README.md                           # Main workshop guide
-├── GETTING-STARTED.md                  # Quick start guide
+├── .gitignore                          # Git ignore file
 ├── .bob/                               # Bob IDE configuration
 ├── bob-prompts/                        # Helpful Bob prompts
 │   └── helpful-prompts.md
@@ -348,17 +348,33 @@ bobchestrate-workshop/
 ├── part2-first-agent/                  # Next: Build your first agent
 │   ├── README.md
 │   ├── exercises.md
-│   └── hello-agent.yaml
+│   ├── hello-agent-EXAMPLE.yaml
+│   └── images/
+├── part2b-bob-custom-rules/            # Bob custom rules
+│   ├── README.md
+│   ├── wxo-dev-rule.md
+│   └── wxo-dev-rule-enhanced.md
 ├── part3-custom-tools/                 # Create custom tools
 │   ├── README.md
 │   ├── exercises.md
 │   ├── order_status_tool.py
-│   └── refund_tool.py
+│   ├── refund_tool.py
+│   └── images/
+├── part3b-ai-gateway-models/           # AI Gateway models
+│   ├── README.md
+│   ├── model-selection-guide.md
+│   └── agents/
+│       ├── support-agent-standard.yaml
+│       ├── support-agent-advanced.yaml
+│       ├── support-agent-expert.yaml
+│       └── support-router-agent.yaml
 ├── part4-knowledge/                    # Knowledge bases
 │   ├── README.md
 │   ├── customer-support-agent.yaml
 │   ├── escalation-agent.yaml
-│   └── faq-knowledge-base.yaml
+│   ├── faq-knowledge-base.yaml
+│   ├── FAQ.pdf
+│   └── images/
 ├── part5-guidelines-guardrails/        # Guidelines and guardrails
 │   ├── README.md
 │   ├── customer-support-with-guidelines.yaml
@@ -366,18 +382,13 @@ bobchestrate-workshop/
 ├── part6-mcp-servers/                  # MCP server integration
 │   ├── README.md
 │   ├── product-assistant-agent.yaml
-│   ├── product-catalog-server.py
 │   ├── product-catalog-toolkit.yaml
-│   └── requirements.txt
+│   ├── product_catalog_server.py
+│   ├── simple_test.py
+│   ├── requirements.txt
+│   └── images/
 ├── part7-deployment/                   # Testing & Deployment
-│   ├── README.md
-│   ├── travel-concierge-agent.yaml
-│   ├── activity-planner-agent.yaml
-│   ├── budget-advisor-agent.yaml
-│   ├── flight-specialist-agent.yaml
-│   ├── hotel-specialist-agent.yaml
-│   ├── flight_tools.py
-│   └── hotel_tools.py
+│   └── README.md
 └── part8-multi-agent-orchestration/    # Multi-agent systems
     ├── README.md
     ├── travel-concierge-agent.yaml
@@ -386,7 +397,9 @@ bobchestrate-workshop/
     ├── activity-planner-agent.yaml
     ├── budget-advisor-agent.yaml
     ├── flight_tools.py
-    └── hotel_tools.py
+    ├── hotel_tools.py
+    ├── activity_tools.py
+    └── budget_tools.py
 ```
 
 ## Using Bob Throughout the Workshop
@@ -424,13 +437,13 @@ pip install --user ibm-watsonx-orchestrate
 **Solution:** Check your environment configuration:
 ```bash
 # List environments
-orchestrate environment list
+orchestrate env list
 
 # Add/update environment
-orchestrate environment add
+orchestrate env add
 
 # Activate environment
-orchestrate environment activate <name>
+orchestrate env activate <name>
 ```
 
 ### Issue: Bob isn't responding
@@ -443,13 +456,13 @@ orchestrate environment activate <name>
 ### Useful Commands
 ```bash
 # Add environment
-orchestrate environment add
+orchestrate env add
 
 # List environments
-orchestrate environment list
+orchestrate env list
 
 # Activate environment
-orchestrate environment activate <name>
+orchestrate env activate <name>
 
 # List agents
 orchestrate agents list
