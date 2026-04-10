@@ -1007,4 +1007,4 @@ In this lesson, you learned:
 
 ---
 
-**Ready for the next lesson?** Head to [Part 7: Multi-agent orchestration & workflows](../part7-multi-agent-orchestration/README.md) to learn how to test and deploy your agents! 🚀
+**Ready for the next lesson?** Head to [Part 7: Testing & Deployment](../part7-deployment/README.md) to learn how to test and deploy your agents! 🚀

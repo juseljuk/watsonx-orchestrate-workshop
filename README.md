@@ -43,13 +43,13 @@ An **MCP server-powered agent** that demonstrates backend integration:
 - Product recommendations
 - Reusable MCP server architecture
 
-### 4. Travel Planning System (Part 7)
-A **multi-agent orchestration** showcasing advanced patterns:
-- **Travel Concierge** (orchestrator) - Intelligent routing
-- **Flight Specialist** - Flight bookings and search
-- **Hotel Specialist** - Accommodation management
-- **Activity Planner** - Local activities and attractions
-- **Budget Advisor** - Cost analysis and optimization
+### 4. Testing & Deployment (Part 7)
+Learn to **test and deploy** your customer support agent:
+- Comprehensive testing strategies
+- Unit and integration testing
+- Deployment best practices
+- Monitoring and observability
+- Production readiness checklist
 
 Each system builds on concepts from previous parts, teaching you to create increasingly sophisticated agentic AI solutions.
 
@@ -108,19 +108,20 @@ Each system builds on concepts from previous parts, teaching you to create incre
 - Use MCP server tools in your agents
 - Learn MCP best practices and patterns
 
-### [Part 7: Multi-Agent Orchestration & Workflows](./part7-multi-agent-orchestration/README.md) (30 min)
+### [Part 7: Testing & Deployment](./part7-deployment/README.md) (20 min)
+- Test your agent thoroughly
+- Deploy to different environments
+- Generate webchat embed code
+- Monitor agent performance
+
+### [Part 8: Multi-Agent Orchestration & Workflows](./part8-multi-agent-orchestration/README.md) (30 min)
 - Understand when and why to use multi-agent systems
 - Design focused specialist agents for specific domains
 - Create orchestrator agents with intelligent routing
 - Manage context and handoffs between agents
 - Implement complex multi-agent workflows
 - Learn best practices for agent hierarchies
-
-### [Part 8: Testing & Deployment](./part8-deployment/README.md) (20 min)
-- Test your agent thoroughly
-- Deploy to different environments
-- Generate webchat embed code
-- Monitor agent performance
+- **Advanced standalone exercise** - Build a complete travel planning system
 
 ## How Bob Helps You
 
@@ -189,20 +190,20 @@ bobchestrate-workshop/
 │   ├── product-assistant-agent.yaml         # Agent using MCP tools
 │   └── requirements.txt
 │
-├── part7-multi-agent-orchestration/         # Multi-Agent Orchestration (30 min)
+├── part7-deployment/                        # Testing & Deployment (20 min)
 │   ├── README.md
-│   ├── travel-concierge-agent.yaml          # Orchestrator agent
-│   ├── flight-specialist-agent.yaml         # Specialist agents
-│   ├── hotel-specialist-agent.yaml
-│   ├── activity-planner-agent.yaml
-│   ├── budget-advisor-agent.yaml
-│   ├── flight_tools.py                      # Domain-specific tools
-│   └── hotel_tools.py
+│   ├── test-scenarios.md
+│   └── deployment-checklist.md
 │
-└── part8-deployment/                        # Testing & Deployment (20 min)
+└── part8-multi-agent-orchestration/         # Multi-Agent Orchestration (30 min)
     ├── README.md
-    ├── test-scenarios.md
-    └── deployment-checklist.md
+    ├── travel-concierge-agent.yaml          # Orchestrator agent
+    ├── flight-specialist-agent.yaml         # Specialist agents
+    ├── hotel-specialist-agent.yaml
+    ├── activity-planner-agent.yaml
+    ├── budget-advisor-agent.yaml
+    ├── flight_tools.py                      # Domain-specific tools
+    └── hotel_tools.py
 ```
 
 ## Getting Started

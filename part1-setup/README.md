@@ -36,11 +36,20 @@ cd bobchestrate-ws
 ```
 
 This folder will contain all your workshop files, agents, and tools.
+## Step 4: Open IBM Bob IDE and Login with your IBM ID
 
-## Step 4: Open Folder in IBM Bob IDE
+> **Download IBM Bob IDE:** If you haven't installed IBM Bob IDE yet, download it from [bob.ibm.com/download](https://bob.ibm.com/download)
+
+<img src="images/image-0.png" alt="Getting started" width="700px">
+
+> **Detailed Installation Instructions:** For complete installation guidance, visit [bob.ibm.com/docs/ide/getting-started/install](https://bob.ibm.com/docs/ide/getting-started/install)
+
+> **Important:** You must be logged in to use Bob's AI capabilities throughout the workshop. If you encounter any login issues, contact your instructor.
+
+## Step 5: Open Folder in IBM Bob IDE
 
 Open the workshop folder in IBM Bob IDE:
-1. Launch IBM Bob IDE
+1. When Bob IDE opened:
 2. Click **File** → **Open Folder**
 
    <img src="images/image.png" alt="IBM Bob IDE File menu showing Open Folder option" width="250px">
@@ -54,7 +63,7 @@ Open the workshop folder in IBM Bob IDE:
 
 The empty workspace will open.
 
-## Step 5: Install watsonx Orchestrate ADK VS Code Extension
+## Step 6: Install watsonx Orchestrate ADK VS Code Extension
 
 Install the watsonx Orchestrate extension for IBM Bob IDE:
 
@@ -79,7 +88,7 @@ The extension provides:
 - Quick access to watsonx Orchestrate commands
 - Integration with the Orchestrate CLI
 
-## Step 6: Install watsonx Orchestrate MCP Servers
+## Step 7: Install watsonx Orchestrate MCP Servers
 
 Install the watsonx Orchestrate MCP servers through the ADK extension:
 
@@ -111,12 +120,14 @@ The MCP servers provide:
 - Tools for listing agents, tools, and other resources
 - Enhanced Bob capabilities for watsonx Orchestrate development
 
-## Step 7: Import WXO Agent Architect Mode
+## Step 8: Import WXO Agent Architect Mode
 
 Import a pre-configured custom mode specialized for building watsonx Orchestrate agents:
 
-1. Download the mode configuration file from GitHub:
-   - Visit: https://github.com/juseljuk/bobchestrate-workshop/blob/main/part1-setup/files/wxo-agent-architect-export.yaml
+
+1. Download the mode configuration file:
+   - The file is located at: [wxo-agent-architect-export.yaml](files/wxo-agent-architect-export.yaml)
+
    - Click the **Download raw file** button
 
       <img src="images/image-10.png" alt="Download the raw file" width="300px">
@@ -150,7 +161,7 @@ The imported "WXO Agent Architect" mode includes:
 5. Ask Bob: "What can you help me with in this mode?"
 6. Bob should respond with information about building watsonx Orchestrate agents and mention the available MCP servers
 
-## Step 8: Create Python Virtual Environment
+## Step 9: Create Python Virtual Environment
 
 Create a virtual environment for the workshop to keep dependencies isolated using IBM Bob IDE's built-in commands:
 
@@ -173,7 +184,7 @@ IBM Bob IDE will automatically:
 
 > **_Note2:_** If you're wondering about the .bob folder, it was created automatically when you installed the MCP Servers for Orchestrate. This folder contains all the IBM Bob IDE configuration files for the MCP Servers for Orchestrate. It's safe to leave it there.
 
-## Step 9: Install watsonx Orchestrate SDK
+## Step 10: Install watsonx Orchestrate SDK
 
 Since you have the watsonx Orchestrate ADK extension installed, you will see the ADK informaton in the bottom Status Bar. Since we just created a fresh Python virtual environment to our workspace, you should see just a red cross ❌ stating that you need to install the ADK.
 
@@ -187,7 +198,7 @@ Wait for the installation to complete. After a while, you should see a notificat
 
 <img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="300px">
 
-## Step 10: Get Your watsonx Orchestrate API key and API URL
+## Step 11: Get Your watsonx Orchestrate API key and API URL
 
 For the workshop, we will use the watsonx Orchestrate ADK to interact with a watsonx Orchestrate SaaS instance. The ADK requires your API key and API URL to authenticate and connect to your watsonx Orchestrate instance.
 
@@ -313,7 +324,7 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
       If configured correctly, this command will list any agents in your environment (or show an empty list if you haven't created any agents yet).
 
-## Step 11: Understand the Workshop Structure
+## Step 12: Understand the Workshop Structure
 
 Your workshop folder should look like this:
 
@@ -354,7 +365,7 @@ bobchestrate-workshop/
 │   ├── product-catalog-server.py
 │   ├── product-catalog-toolkit.yaml
 │   └── requirements.txt
-├── part7-multi-agent-orchestration/    # Multi-agent systems
+├── part7-deployment/                   # Testing & Deployment
 │   ├── README.md
 │   ├── travel-concierge-agent.yaml
 │   ├── activity-planner-agent.yaml
@@ -363,8 +374,15 @@ bobchestrate-workshop/
 │   ├── hotel-specialist-agent.yaml
 │   ├── flight_tools.py
 │   └── hotel_tools.py
-└── part8-deployment/                   # Deploy your agent
-    └── README.md
+└── part8-multi-agent-orchestration/    # Multi-agent systems
+    ├── README.md
+    ├── travel-concierge-agent.yaml
+    ├── flight-specialist-agent.yaml
+    ├── hotel-specialist-agent.yaml
+    ├── activity-planner-agent.yaml
+    ├── budget-advisor-agent.yaml
+    ├── flight_tools.py
+    └── hotel_tools.py
 ```
 
 ## Using Bob Throughout the Workshop

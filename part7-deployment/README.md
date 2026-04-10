@@ -1,4 +1,4 @@
-# Part 8: Testing & Deployment
+# Part 7: Testing & Deployment
 
 **Duration:** 20 minutes  
 **Objective:** Test your agent thoroughly and deploy it to production

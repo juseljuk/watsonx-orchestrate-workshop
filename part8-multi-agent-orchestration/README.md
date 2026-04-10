@@ -1,11 +1,14 @@
-# Part 7: Multi-Agent Orchestration & Workflows
+# Part 8: Multi-Agent Orchestration & Workflows
 
-**Duration**: 30 minutes  
+**Duration**: 30 minutes
 **Difficulty**: Advanced
+**Note**: This is a standalone advanced exercise that can be completed independently of earlier parts.
 
 ## Overview
 
 In this lesson, you'll learn how to build sophisticated multi-agent systems where specialized agents work together to solve complex tasks. You'll create agent hierarchies, implement routing logic, and orchestrate workflows across multiple agents.
+
+This part introduces a complete **travel planning system** as an advanced example of multi-agent orchestration. Unlike the customer support system built in earlier parts, this is a self-contained exercise demonstrating advanced patterns.
 
 ### What You'll Learn
 
@@ -1651,4 +1654,6 @@ In this lesson, you learned:
 
 ---
 
-**Ready for deployment?** Head to [Part 8: Testing & Deployment](../part8-deployment/README.md) to learn how to test and deploy your multi-agent systems! 🚀
+**Want to learn more?** This completes the advanced multi-agent orchestration module. You can now apply these patterns to build sophisticated agent systems for any domain! 🚀
+
+For testing and deployment best practices, refer back to [Part 7: Testing & Deployment](../part7-deployment/README.md).
