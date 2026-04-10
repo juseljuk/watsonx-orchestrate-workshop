@@ -44,7 +44,8 @@ This folder will contain all your workshop files, agents, and tools.
 
 > **Detailed Installation Instructions:** For complete installation guidance, visit [bob.ibm.com/docs/ide/getting-started/install](https://bob.ibm.com/docs/ide/getting-started/install)
 
-> **Important:** You must be logged in to use Bob's AI capabilities throughout the workshop. If you encounter any login issues, contact your instructor.
+> [!IMPORTANT]
+> You must be logged in to use Bob's AI capabilities throughout the workshop. If you encounter any login issues, contact your instructor.
 
 ## Step 5: Open Folder in IBM Bob IDE
 
