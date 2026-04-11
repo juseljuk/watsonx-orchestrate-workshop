@@ -105,16 +105,16 @@ When working with IBM watsonx Orchestrate or watsonx Orchestrate ADK projects:
 
 ### What's in the Enhanced Rule File?
 
-The enhanced rule file includes comprehensive guidance on:
-- **Project Structure** - Complete directory organization
-- **Development Patterns** - Error handling, logging, connections
-- **Testing & QA** - Evaluation strategies and metrics
-- **Security & Guardrails** - Pre/post-invoke plugins, credential management
-- **Deployment & Channels** - Multi-channel deployment patterns
-- **MCP Integration** - Local and remote MCP server patterns
-- **Documentation Standards** - README templates, YAML documentation
-- **Troubleshooting** - Common errors and debugging strategies
-- **Performance Optimization** - Token usage, caching, model selection
+The enhanced rule file includes comprehensive guidance on:<br>
+- **Project Structure** - Complete directory organization<br>
+- **Development Patterns** - Error handling, logging, connections<br>
+- **Testing & QA** - Evaluation strategies and metrics<br>
+- **Security & Guardrails** - Pre/post-invoke plugins, credential management<br>
+- **Deployment & Channels** - Multi-channel deployment patterns<br>
+- **MCP Integration** - Local and remote MCP server patterns<br>
+- **Documentation Standards** - README templates, YAML documentation<br>
+- **Troubleshooting** - Common errors and debugging strategies<br>
+- **Performance Optimization** - Token usage, caching, model selection<br>
 - **Quick Reference** - All CLI commands with correct syntax
 
 ## Step 3: Verify Bob Recognizes Your Rules
@@ -137,9 +137,9 @@ Bob, create a new agent called "test-rules-agent" that demonstrates you're follo
 ```
 >NOTE: Bob might work for a while. Be patient 😇 and let it create the agent and all the other files. Keep your eye on the chat as well, since Bob might ask you to confirm some of the actions.
 
-**What to observe:**
-- ✅ Bob should save the agent YAML in the `agents/` directory
-- ✅ Bob should use proper ADK conventions in the agent specification
+**What to observe:**<br>
+- ✅ Bob should save the agent YAML in the `agents/` directory<br>
+- ✅ Bob should use proper ADK conventions in the agent specification<br>
 - ✅ Bob should reference the MCP server documentation when needed
 
 ## Step 5: Creating Your Own Custom Rules
@@ -230,10 +230,10 @@ When working with [technology/framework]:
 
 ### Bob Isn't Following My Rules
 
-**Check:**
-1. Rule file is in `.bob/rules/` directory
-2. File has `.md` extension
-3. Rule syntax is valid markdown
+**Check:**<br>
+1. Rule file is in `.bob/rules/` directory<br>
+2. File has `.md` extension<br>
+3. Rule syntax is valid markdown<br>
 4. Bob has been restarted or refreshed
 
 **Solution:**
@@ -243,18 +243,18 @@ Bob, please reload your custom rules and confirm you can see the watsonx Orchest
 
 ### Rules Conflict with Each Other
 
-**Solution:**
-- Review all rule files in `.bob/rules/`
-- Consolidate overlapping rules
-- Establish clear priority order
+**Solution:**<br>
+- Review all rule files in `.bob/rules/`<br>
+- Consolidate overlapping rules<br>
+- Establish clear priority order<br>
 - Remove or update conflicting guidelines
 
 ### Bob Misinterprets a Rule
 
-**Solution:**
-- Make the rule more specific
-- Add examples to clarify intent
-- Break complex rules into simpler steps
+**Solution:**<br>
+- Make the rule more specific<br>
+- Add examples to clarify intent<br>
+- Break complex rules into simpler steps<br>
 - Test with Bob and iterate
 
 ## Key Takeaways
