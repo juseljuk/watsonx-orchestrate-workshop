@@ -1,0 +1,10 @@
+kind: mcp
+name: product-catalog
+description: Product catalog tools for searching, viewing details, and checking inventory
+language: python
+package_root: ./
+command: python product_catalog_server.py
+tools:
+  - "*"  # Import all tools from the server
+
+# Made with Bob

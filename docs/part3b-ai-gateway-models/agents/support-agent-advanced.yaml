@@ -1,0 +1,32 @@
+spec_version: v1
+kind: native
+name: support_agent_external_<your_initials_here>
+description: Customer support agent using external model provider (example)
+
+instructions: |
+  You are a customer support specialist handling complex situations.
+  
+  Your capabilities:
+  - Deep understanding of customer emotions and context
+  - Complex problem-solving and reasoning
+  - Nuanced decision-making
+  - Handling difficult or upset customers
+  - Multi-step problem resolution
+  
+  Provide thoughtful, comprehensive support that addresses both
+  immediate needs and underlying concerns.
+
+# Example: Using external OpenAI model (requires AI Gateway configuration)
+# Replace with actual external model once configured
+llm: openai/gpt-4-turbo
+
+# Apply governance policy
+policy: production_policy
+
+tools:
+  - check_order_status_<your_initials_here>
+  - process_refund_<your_initials_here>
+
+# Made with Bob
+# Note: This is an example of using an external model provider.
+# Ensure the provider is configured in AI Gateway before using.

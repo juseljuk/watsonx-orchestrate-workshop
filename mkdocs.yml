@@ -1,0 +1,107 @@
+site_name: Bobchestrate Workshop
+site_description: Hands-on workshop for building AI agents with IBM watsonx Orchestrate
+site_author: Workshop Team
+site_url: https://yourusername.github.io/bobchestrate-workshop/
+
+# Documentation directory
+docs_dir: docs
+
+# Repository
+repo_name: bobchestrate-workshop
+repo_url: https://github.com/yourusername/bobchestrate-workshop
+edit_uri: edit/main/
+
+# Theme configuration
+theme:
+  name: material
+  language: en
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+# Navigation structure
+nav:
+  - Home: index.md
+  - Part 1 - Setup:
+      - Overview: part1-setup/README.md
+  - Part 2 - First Agent:
+      - Overview: part2-first-agent/README.md
+      - Exercises: part2-first-agent/exercises.md
+  - Part 2b - Bob Custom Rules:
+      - Overview: part2b-bob-custom-rules/README.md
+  - Part 3 - Custom Tools:
+      - Overview: part3-custom-tools/README.md
+      - Exercises: part3-custom-tools/exercises.md
+  - Part 3b - AI Gateway Models:
+      - Overview: part3b-ai-gateway-models/README.md
+      - Model Selection Guide: part3b-ai-gateway-models/model-selection-guide.md
+  - Part 4 - Knowledge:
+      - Overview: part4-knowledge/README.md
+  - Part 5 - Guidelines & Guardrails:
+      - Overview: part5-guidelines-guardrails/README.md
+  - Part 6 - MCP Servers:
+      - Overview: part6-mcp-servers/README.md
+  - Part 7 - Deployment:
+      - Overview: part7-deployment/README.md
+  - Part 8 - Multi-Agent Orchestration:
+      - Overview: part8-multi-agent-orchestration/README.md
+  - Bob Prompts:
+      - Helpful Prompts: bob-prompts/helpful-prompts.md
+
+# Plugins
+plugins:
+  - search
+  - glightbox
+
+# Extra
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername/bobchestrate-workshop
+
+# Made with Bob

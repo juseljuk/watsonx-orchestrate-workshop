@@ -56,3 +56,7 @@ traces.json
 # Temporary files
 *.tmp
 temp/
+
+# MkDocs
+site/
+.cache/
