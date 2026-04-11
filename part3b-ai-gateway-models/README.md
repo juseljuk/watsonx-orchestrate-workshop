@@ -101,7 +101,7 @@ First, establish a connection to your external provider by configuring the neces
 - **Endpoint configuration** - Base URL and region settings for the provider - needed for custom providers
 - **Authentication method** - How the gateway will authenticate with the provider - if something else than API key
 
-> If you want to test this, you can get your api key from here: https://platform.openai.com/api-keys, you need to login / create your developer account first though. You can see the available OpenAI models here: https://developers.openai.com/api/docs/models/all
+> If you want to test this with OpenAI for example, you can get your api key from here: https://platform.openai.com/api-keys, you need to login / create your developer account first though. You can see the available OpenAI models here: https://developers.openai.com/api/docs/models/all
 
 Example API Key connection configuration:
 ```bash
