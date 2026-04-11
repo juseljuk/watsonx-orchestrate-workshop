@@ -5,9 +5,9 @@
 
 ## Prerequisites Check
 
-Before starting, ensure you have:
-- [ ] Python 3.11-3.13 installed
-- [ ] IBM Bob IDE installed
+Before starting, ensure you have:<br>
+- [ ] Python 3.11-3.13 installed<br>
+- [ ] IBM Bob IDE installed<br>
 - [ ] watsonx Orchestrate access (SaaS or Developer Edition)
 
 ## Step 1: Verify Python Installation
@@ -44,7 +44,7 @@ This folder will contain all your workshop files, agents, and tools.
 
 > **Detailed Installation Instructions:** For complete installation guidance, visit [bob.ibm.com/docs/ide/getting-started/install](https://bob.ibm.com/docs/ide/getting-started/install)
 
-> [!IMPORTANT]
+### IMPORTANT: ###
 > You must be logged in to use Bob's AI capabilities throughout the workshop. If you encounter any login issues, contact your instructor.
 
 ## Step 5: Open Folder in IBM Bob IDE
@@ -115,10 +115,10 @@ Alternatively, you can check the MCP servers configuration:
 
    <img src="images/image-5.png" alt="IBM Bob IDE File menu showing Open Folder option" width="650px">
 
-The MCP servers provide:
-- Access to watsonx Orchestrate documentation
-- Integration with the watsonx Orchestrate ADK
-- Tools for listing agents, tools, and other resources
+The MCP servers provide:<br>
+- Access to watsonx Orchestrate documentation<br>
+- Integration with the watsonx Orchestrate ADK<br>
+- Tools for listing agents, tools, and other resources<br>
 - Enhanced Bob capabilities for watsonx Orchestrate development
 
 ## Step 8: Import WXO Agent Architect Mode
@@ -147,10 +147,10 @@ Import a pre-configured custom mode specialized for building watsonx Orchestrate
 
 6. You should see a confirmation message that the mode was imported successfully and see the mode appear in the modes panel
 
-The imported "WXO Agent Architect" mode includes:
-- **Role Definition**: Specialized for building watsonx Orchestrate agents
-- **Custom Instructions**: Guidance on using MCP servers for agent development
-- **MCP Server Integration**: Automatically uses both `watsonx-orchestrate-adk` and `watsonx-orchestrate-adk-docs` servers
+The imported "WXO Agent Architect" mode includes:<br>
+- **Role Definition**: Specialized for building watsonx Orchestrate agents<br>
+- **Custom Instructions**: Guidance on using MCP servers for agent development<br>
+- **MCP Server Integration**: Automatically uses both `watsonx-orchestrate-adk` and `watsonx-orchestrate-adk-docs` servers<br>
 - **Tool Groups**: Access to read, edit, browser, command, and MCP tools
 
 **Verify the mode:**
@@ -176,9 +176,9 @@ You can now see the .venv folder in your workspace explorer view.
 
 <img src="images/image-6.png" alt="IBM Bob IDE File menu showing Open Folder option" width="350px">
 
-IBM Bob IDE will automatically:
-- Create a `.venv` folder in your workspace
-- Activate the virtual environment in new terminals
+IBM Bob IDE will automatically:<br>
+- Create a `.venv` folder in your workspace<br>
+- Activate the virtual environment in new terminals<br>
 - Show `(.venv)` in your terminal prompt
 
 > **_Note:_** The virtual environment will be automatically activated when you open new terminals in IBM Bob IDE.
@@ -261,7 +261,7 @@ Copy the **Service instance URL** from the API details information. This is the 
    
    After running the command, you should see a message: `[INFO] Environment '<your-env-name>' is now active`. This means your environment is now active and ready to use with the ADK. You can ignore the warning regarding the Auth Type.
 
-> [!IMPORTANT]
+### IMPORTANT: ###
 > Authentication against a remote environment expires every two hours. After expiration, you need to run orchestrate env activate again. So, keep your API key avaiable and ready to use.
 
 #### Option B: Using Bob to help you 😃
