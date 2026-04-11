@@ -17,10 +17,10 @@ In this lesson, you'll learn how to create and use **MCP (Model Context Protocol
 
 ### What You'll Build
 
-A **Product Catalog MCP Server** that provides tools for:
-- Searching products
-- Getting product details
-- Checking inventory
+A **Product Catalog MCP Server** that provides tools for:<br>
+- Searching products<br>
+- Getting product details<br>
+- Checking inventory<br>
 - Getting product recommendations
 
 Then you'll connect this MCP server to an agent that can help customers browse and find products.
@@ -33,11 +33,11 @@ Then you'll connect this MCP server to an agent that can help customers browse a
 
 ### Why Use MCP Servers?
 
-**Benefits:**
-- 📦 **Package related tools together** - Group tools by domain (e.g., all product-related tools)
-- 🔄 **Reusable across agents** - One MCP server can serve multiple agents
-- 🔌 **Easy integration** - Standard protocol makes connection simple
-- 🛡️ **Centralized logic** - Backend logic stays in one place
+**Benefits:**<br>
+- 📦 **Package related tools together** - Group tools by domain (e.g., all product-related tools)<br>
+- 🔄 **Reusable across agents** - One MCP server can serve multiple agents<br>
+- 🔌 **Easy integration** - Standard protocol makes connection simple<br>
+- 🛡️ **Centralized logic** - Backend logic stays in one place<br>
 - 🚀 **Scalable** - Can run locally or remotely
 
 **When to Use MCP Servers vs Individual Tools:**
@@ -522,10 +522,10 @@ In real-world scenarios, you'll often want to connect to **existing MCP servers*
 
 ### Why Use Existing MCP Servers?
 
-**Benefits:**
-- ⚡ **Faster integration** - No need to build from scratch
-- 🔧 **Maintained by community** - Regular updates and bug fixes
-- 📚 **Well-documented** - Established patterns and examples
+**Benefits:**<br>
+- ⚡ **Faster integration** - No need to build from scratch<br>
+- 🔧 **Maintained by community** - Regular updates and bug fixes<br>
+- 📚 **Well-documented** - Established patterns and examples<br>
 - 🌐 **Wide coverage** - Servers for many popular services
 
 ### Finding MCP Servers
@@ -823,17 +823,17 @@ For remote servers, only `key_value` connections are supported for authenticatio
 
 ### 1. Tool Design
 
-✅ **DO:**
-- Keep tools focused and single-purpose
-- Provide clear, descriptive tool names
-- Include detailed descriptions
-- Use proper JSON schema for parameters
+✅ **DO:**<br>
+- Keep tools focused and single-purpose<br>
+- Provide clear, descriptive tool names<br>
+- Include detailed descriptions<br>
+- Use proper JSON schema for parameters<br>
 - Return structured JSON responses
 
-❌ **DON'T:**
-- Create overly complex tools
-- Use vague tool names
-- Skip parameter descriptions
+❌ **DON'T:**<br>
+- Create overly complex tools<br>
+- Use vague tool names<br>
+- Skip parameter descriptions<br>
 - Return unstructured text
 
 ### 2. Error Handling
@@ -860,10 +860,10 @@ async def call_tool(name: str, arguments: dict):
         )]
 ```
 
-**Best practices:**
-- Wrap the entire function body in a try-except block
-- Return errors as JSON with an "error" key for consistency
-- Handle unknown tool names explicitly
+**Best practices:**<br>
+- Wrap the entire function body in a try-except block<br>
+- Return errors as JSON with an "error" key for consistency<br>
+- Handle unknown tool names explicitly<br>
 - Use a catch-all Exception handler to prevent server crashes
 
 ### 3. Performance
@@ -919,17 +919,17 @@ that takes a product_id and returns just the price.
 
 ### Exercise 2: Enhance Search (Medium)
 
-Improve the `search_products` tool to support:
-- Price range filtering
-- Category filtering
+Improve the `search_products` tool to support:<br>
+- Price range filtering<br>
+- Category filtering<br>
 - Sorting by price or name
 
 ### Exercise 3: Add Shopping Cart (Advanced)
 
-Create a new MCP server called `shopping-cart` with tools for:
-- Adding items to cart
-- Removing items from cart
-- Viewing cart contents
+Create a new MCP server called `shopping-cart` with tools for:<br>
+- Adding items to cart<br>
+- Removing items from cart<br>
+- Viewing cart contents<br>
 - Calculating cart total
 
 Then create an agent that uses both `product-catalog` and `shopping-cart` toolkits.
@@ -942,30 +942,30 @@ Then create an agent that uses both `product-catalog` and `shopping-cart` toolki
 
 **Symptoms**: Import fails or tools don't appear
 
-**Solutions:**
-1. Check Python version (3.9+)
-2. Verify `mcp` package is installed
-3. Test server locally first
+**Solutions:**<br>
+1. Check Python version (3.9+)<br>
+2. Verify `mcp` package is installed<br>
+3. Test server locally first<br>
 4. Check for syntax errors in server code
 
 ### Issue: Tools Not Working
 
 **Symptoms**: Agent can't call tools or gets errors
 
-**Solutions:**
-1. Verify toolkit is imported: `orchestrate toolkit list`
-2. Check agent YAML includes toolkit in `toolkits:` section
-3. Review tool input schema matches what agent sends
+**Solutions:**<br>
+1. Verify toolkit is imported: `orchestrate toolkit list`<br>
+2. Check agent YAML includes toolkit in `toolkits:` section<br>
+3. Review tool input schema matches what agent sends<br>
 4. Check server logs for errors
 
 ### Issue: Authentication Errors
 
 **Symptoms**: Tools fail when accessing backend APIs
 
-**Solutions:**
-1. Verify connection is created and configured
-2. Check credentials are set correctly
-3. Ensure `app_id` in toolkit YAML matches connection name
+**Solutions:**<br>
+1. Verify connection is created and configured<br>
+2. Check credentials are set correctly<br>
+3. Ensure `app_id` in toolkit YAML matches connection name<br>
 4. Test API credentials independently
 
 ---
