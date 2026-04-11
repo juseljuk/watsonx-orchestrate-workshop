@@ -12,11 +12,11 @@
 
 ## Agent Basics
 
-A watsonx Orchestrate agent is an AI assistant that can:
-- Understand natural language
-- Execute tasks using tools
-- Collaborate with other agents
-- Access knowledge bases
+A watsonx Orchestrate agent is an AI assistant that can:<br>
+- Understand natural language<br>
+- Execute tasks using tools<br>
+- Collaborate with other agents<br>
+- Access knowledge bases<br>
 - Follow specific instructions
 
 ## Step 1: Understanding Agent Structure
@@ -146,9 +146,9 @@ orchestrate chat ask --agent-name <your_agent_name>
 
 This will start an interactive chat session with your agent. This is very useful for testing your agent's responses without needing to login to your watsonx Orchestrate instance UI.
 
-Try these test messages:
-- "Hello!"
-- "What can you do?"
+Try these test messages:<br>
+- "Hello!"<br>
+- "What can you do?"<br>
 - "Tell me about watsonx Orchestrate"
 
 Type `exit` or press Ctrl+C to quit.
@@ -238,12 +238,12 @@ Bob, check this YAML file for syntax errors: [paste YAML]
 
 For hands-on practice building agents, see the [Part 2 Exercises](./exercises.md).
 
-The exercises cover:
-- Creating personality-based agents
-- Building domain expert agents
-- Multi-lingual agent support
-- Structured output formatting
-- Conversational flow patterns
+The exercises cover:<br>
+- Creating personality-based agents<br>
+- Building domain expert agents<br>
+- Multi-lingual agent support<br>
+- Structured output formatting<br>
+- Conversational flow patterns<br>
 - Debugging agent issues
 
 ## Key Takeaways
