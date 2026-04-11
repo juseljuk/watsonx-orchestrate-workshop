@@ -16,17 +16,17 @@ This estimate includes:
 - Short breaks: 15-20 minutes<br>
 - Q&A and discussion: 15-30 minutes<br>
 
-**Alternative Options:**
-- **Core Workshop** (Parts 1-7): 210-240 minutes (3.5-4 hours)
+**Alternative Options:**<br>
+- **Core Workshop** (Parts 1-7): 210-240 minutes (3.5-4 hours)<br>
 - **Advanced Exercise Only** (Part 1 + Part 8): 60-75 minutes (1-1.25 hours) - Setup plus multi-agent orchestration as standalone exercise
 
 **Level:** Beginner to Intermediate (Advanced for Part 8)
 
-**Prerequisites:**
-- Computer with internet access, Windows, macOS, or Linux operating system, at least 8GB RAM and 500 MB of free disk space
-- Basic Python knowledge and Python 3.11-3.13 installed ([https://www.python.org/downloads/](https://www.python.org/downloads/))
-- uv installed ([https://pypi.org/project/uv/](https://pypi.org/project/uv/))
-- watsonx Orchestrate SaaS access (provided by your instructor or you can use your own)
+**Prerequisites:**<br>
+- Computer with internet access, Windows, macOS, or Linux operating system, at least 8GB RAM and 500 MB of free disk space<br>
+- Basic Python knowledge and Python 3.11-3.13 installed ([https://www.python.org/downloads/](https://www.python.org/downloads/))<br>
+- uv installed ([https://pypi.org/project/uv/](https://pypi.org/project/uv/))<br>
+- watsonx Orchestrate SaaS access (provided by your instructor or you can use your own)<br>
 - IBM Bob IDE installed (trial or one provided by your instructor)
 
 ## What You'll Build
