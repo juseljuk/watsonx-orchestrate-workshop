@@ -123,8 +123,8 @@ llm: groq/openai/gpt-oss-120b
 Bob, help me import the hello-agent.yaml file into my active environment. Use the available Python virtual environment (.venv).
 ```
 
->[NOTE!]
->IBM Bob is using its own terminal to run the commands and therefore it might take a while to undestand that it needs to use the existing Python virtual environment (.venv). Therefore it's a good idea to add that info to the prompt. You can also test without it and approve Bob to have access to all the necessary files and the wxO MCP servers. Bob should eventually figure things out by itself and import the agent correctly.
+> [NOTE!]
+> IBM Bob is using its own terminal to run the commands and therefore it might take a while to undestand that it needs to use the existing Python virtual environment (.venv). Therefore it's a good idea to add that info to the prompt. You can also test without it and approve Bob to have access to all the necessary files and the wxO MCP servers. Bob should eventually figure things out by itself and import the agent correctly.
 
 <img src="images/image-1.png" alt="Bob importing the agent" width="60%">
 
