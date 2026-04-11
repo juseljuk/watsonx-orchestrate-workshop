@@ -357,11 +357,11 @@ Red teaming tests your agent against adversarial inputs and potential security v
 
 #### What is Red Teaming?
 
-Red teaming involves testing your agent with:
-- **Prompt Injection**: Attempts to override agent instructions
-- **Jailbreaking**: Attempts to bypass safety guidelines
-- **Data Extraction**: Attempts to extract sensitive information
-- **Malicious Inputs**: Testing with harmful or inappropriate content
+Red teaming involves testing your agent with:<br>
+- **Prompt Injection**: Attempts to override agent instructions<br>
+- **Jailbreaking**: Attempts to bypass safety guidelines<br>
+- **Data Extraction**: Attempts to extract sensitive information<br>
+- **Malicious Inputs**: Testing with harmful or inappropriate content<br>
 - **Edge Cases**: Unusual or unexpected input patterns
 
 #### Run Vulnerability Testing
@@ -745,22 +745,22 @@ orchestrate traces list --agent customer-support-agent --limit 20
 # Look for slow tool calls or knowledge base queries
 ```
 
-**Solutions:**
-- Optimize tool code
-- Reduce knowledge base chunk size
-- Use faster LLM model
+**Solutions:**<br>
+- Optimize tool code<br>
+- Reduce knowledge base chunk size<br>
+- Use faster LLM model<br>
 - Add caching
 
 ### Issue: Agent gives wrong answers
-**Diagnosis:**
-- Review recent conversations
-- Check knowledge base content
+**Diagnosis:**<br>
+- Review recent conversations<br>
+- Check knowledge base content<br>
 - Verify tool outputs
 
-**Solutions:**
-- Update agent instructions
-- Improve knowledge base documents
-- Fix tool logic
+**Solutions:**<br>
+- Update agent instructions<br>
+- Improve knowledge base documents<br>
+- Fix tool logic<br>
 - Add more test scenarios
 
 ### Issue: Tools failing
@@ -770,10 +770,10 @@ orchestrate traces get <trace-id>
 # Check tool error messages
 ```
 
-**Solutions:**
-- Check API credentials
-- Verify network connectivity
-- Review tool error handling
+**Solutions:**<br>
+- Check API credentials<br>
+- Verify network connectivity<br>
+- Review tool error handling<br>
 - Check rate limits
 
 ## Continuous Improvement
