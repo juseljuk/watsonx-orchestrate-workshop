@@ -265,8 +265,8 @@ Before choosing a model, ask:
 
 ### Issue: External model not available
 **Check:**
-- Provider configuration: `orchestrate gateway providers list`
-- API key validity: `orchestrate gateway test-connection`
+- Available models: `orchestrate models list`
+- Connection configuration: `orchestrate connections list`
 - Model name spelling
 
 ### Issue: High costs
