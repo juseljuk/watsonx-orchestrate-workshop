@@ -8,10 +8,10 @@ Complete these exercises to master custom tool creation.
 
 **Task:** Create a calculator tool that can add, subtract, multiply, and divide two numbers.
 
-**Requirements:**
-- Function name: `calculate`
-- Parameters: `operation` (string: "add", "subtract", "multiply", "divide"), `num1` (float), `num2` (float)
-- Should handle division by zero
+**Requirements:**<br>
+- Function name: `calculate`<br>
+- Parameters: `operation` (string: "add", "subtract", "multiply", "divide"), `num1` (float), `num2` (float)<br>
+- Should handle division by zero<br>
 - Should validate the operation parameter
 
 **Ask Bob for help:**
@@ -19,16 +19,16 @@ Complete these exercises to master custom tool creation.
 Bob, create a calculator tool for watsonx Orchestrate that can add, subtract, multiply, and divide two numbers
 ```
 
-**Test cases:**
-- Calculate 10 + 5 = 15
-- Calculate 20 - 8 = 12
-- Calculate 6 * 7 = 42
-- Calculate 100 / 4 = 25
+**Test cases:**<br>
+- Calculate 10 + 5 = 15<br>
+- Calculate 20 - 8 = 12<br>
+- Calculate 6 * 7 = 42<br>
+- Calculate 100 / 4 = 25<br>
 - Calculate 10 / 0 = Error
 
-**Success criteria:**
-- All operations work correctly
-- Division by zero is handled gracefully
+**Success criteria:**<br>
+- All operations work correctly<br>
+- Division by zero is handled gracefully<br>
 - Invalid operations return helpful errors
 
 ---
@@ -39,10 +39,10 @@ Bob, create a calculator tool for watsonx Orchestrate that can add, subtract, mu
 
 **Task:** Build a tool that checks if an email address is valid.
 
-**Requirements:**
-- Function name: `validate_email`
-- Parameter: `email` (string)
-- Should check for @ symbol, domain, and basic format
+**Requirements:**<br>
+- Function name: `validate_email`<br>
+- Parameter: `email` (string)<br>
+- Should check for @ symbol, domain, and basic format<br>
 - Return validation result with explanation
 
 **Ask Bob for help:**
@@ -50,15 +50,15 @@ Bob, create a calculator tool for watsonx Orchestrate that can add, subtract, mu
 Bob, create an email validator tool that checks if an email address is properly formatted
 ```
 
-**Test cases:**
-- user@example.com → Valid
-- invalid.email → Invalid (no @)
-- user@domain → Invalid (no TLD)
+**Test cases:**<br>
+- user@example.com → Valid<br>
+- invalid.email → Invalid (no @)<br>
+- user@domain → Invalid (no TLD)<br>
 - @example.com → Invalid (no username)
 
-**Success criteria:**
-- Correctly identifies valid emails
-- Provides clear error messages for invalid emails
+**Success criteria:**<br>
+- Correctly identifies valid emails<br>
+- Provides clear error messages for invalid emails<br>
 - Handles edge cases
 
 ---
@@ -69,10 +69,10 @@ Bob, create an email validator tool that checks if an email address is properly 
 
 **Task:** Build a tool that converts temperatures between Celsius, Fahrenheit, and Kelvin.
 
-**Requirements:**
-- Function name: `convert_temperature`
-- Parameters: `value` (float), `from_unit` (string), `to_unit` (string)
-- Support: Celsius, Fahrenheit, Kelvin
+**Requirements:**<br>
+- Function name: `convert_temperature`<br>
+- Parameters: `value` (float), `from_unit` (string), `to_unit` (string)<br>
+- Support: Celsius, Fahrenheit, Kelvin<br>
 - Validate that Kelvin values aren't below absolute zero
 
 **Ask Bob for help:**
@@ -80,15 +80,15 @@ Bob, create an email validator tool that checks if an email address is properly 
 Bob, create a temperature converter tool that converts between Celsius, Fahrenheit, and Kelvin
 ```
 
-**Test cases:**
-- 0°C to Fahrenheit = 32°F
-- 100°C to Kelvin = 373.15K
-- 32°F to Celsius = 0°C
+**Test cases:**<br>
+- 0°C to Fahrenheit = 32°F<br>
+- 100°C to Kelvin = 373.15K<br>
+- 32°F to Celsius = 0°C<br>
 - -300K = Error (below absolute zero)
 
-**Success criteria:**
-- All conversions are accurate
-- Validates input ranges
+**Success criteria:**<br>
+- All conversions are accurate<br>
+- Validates input ranges<br>
 - Handles all unit combinations
 
 ---
@@ -99,10 +99,10 @@ Bob, create a temperature converter tool that converts between Celsius, Fahrenhe
 
 **Task:** Build a tool that takes structured data and formats it as JSON, CSV, or a markdown table.
 
-**Requirements:**
-- Function name: `format_data`
-- Parameters: `data` (list of dicts), `format` (string: "json", "csv", "table")
-- Should handle empty data
+**Requirements:**<br>
+- Function name: `format_data`<br>
+- Parameters: `data` (list of dicts), `format` (string: "json", "csv", "table")<br>
+- Should handle empty data<br>
 - Should create proper formatting for each type
 
 **Ask Bob for help:**
@@ -118,10 +118,10 @@ Bob, create a data formatter tool that can output data as JSON, CSV, or markdown
 ]
 ```
 
-**Success criteria:**
-- JSON output is valid JSON
-- CSV output has proper headers and rows
-- Table output is properly formatted markdown
+**Success criteria:**<br>
+- JSON output is valid JSON<br>
+- CSV output has proper headers and rows<br>
+- Table output is properly formatted markdown<br>
 - Handles empty data gracefully
 
 ---
@@ -132,10 +132,10 @@ Bob, create a data formatter tool that can output data as JSON, CSV, or markdown
 
 **Task:** Build a tool that analyzes text and returns word count, character count, sentence count, and reading time.
 
-**Requirements:**
-- Function name: `analyze_text`
-- Parameter: `text` (string)
-- Calculate: word count, character count, sentence count, average word length, estimated reading time
+**Requirements:**<br>
+- Function name: `analyze_text`<br>
+- Parameter: `text` (string)<br>
+- Calculate: word count, character count, sentence count, average word length, estimated reading time<br>
 - Reading time: assume 200 words per minute
 
 **Ask Bob for help:**
@@ -149,16 +149,16 @@ Bob, create a text analyzer tool that provides statistics about a piece of text 
 ```
 
 **Expected output:**
-- Words: 15
-- Characters: 68
-- Sentences: 2
-- Avg word length: ~4.5
+- Words: 15<br>
+- Characters: 68<br>
+- Sentences: 2<br>
+- Avg word length: ~4.5<br>
 - Reading time: ~5 seconds
 
-**Success criteria:**
-- All counts are accurate
-- Reading time calculation is reasonable
-- Handles empty text
+**Success criteria:**<br>
+- All counts are accurate<br>
+- Reading time calculation is reasonable<br>
+- Handles empty text<br>
 - Handles text with no punctuation
 
 ---
@@ -169,11 +169,11 @@ Bob, create a text analyzer tool that provides statistics about a piece of text 
 
 **Task:** Build a tool that searches for products by name, category, or price range.
 
-**Requirements:**
-- Function name: `search_products`
-- Parameters: `query` (string, optional), `category` (string, optional), `min_price` (float, optional), `max_price` (float, optional)
-- Use a mock product database (list of dicts)
-- Support partial name matching
+**Requirements:**<br>
+- Function name: `search_products`<br>
+- Parameters: `query` (string, optional), `category` (string, optional), `min_price` (float, optional), `max_price` (float, optional)<br>
+- Use a mock product database (list of dicts)<br>
+- Support partial name matching<br>
 - Return sorted results
 
 **Ask Bob for help:**
@@ -191,16 +191,16 @@ products = [
 ]
 ```
 
-**Test cases:**
-- Search "Laptop" → Find laptop
-- Category "Electronics" → Find laptop and mouse
-- Price range $100-$500 → Find desk and chair
+**Test cases:**<br>
+- Search "Laptop" → Find laptop<br>
+- Category "Electronics" → Find laptop and mouse<br>
+- Price range $100-$500 → Find desk and chair<br>
 - Combined filters → Multiple criteria
 
-**Success criteria:**
-- All search filters work
-- Partial matching works
-- Results are sorted by relevance
+**Success criteria:**<br>
+- All search filters work<br>
+- Partial matching works<br>
+- Results are sorted by relevance<br>
 - Returns empty list when no matches
 
 ---
@@ -211,11 +211,11 @@ products = [
 
 **Task:** Build a tool that checks if a time slot is available and books appointments.
 
-**Requirements:**
-- Function name: `schedule_appointment`
-- Parameters: `date` (string), `time` (string), `duration_minutes` (int), `customer_name` (string)
-- Maintain a simple in-memory schedule
-- Check for conflicts
+**Requirements:**<br>
+- Function name: `schedule_appointment`<br>
+- Parameters: `date` (string), `time` (string), `duration_minutes` (int), `customer_name` (string)<br>
+- Maintain a simple in-memory schedule<br>
+- Check for conflicts<br>
 - Business hours: 9 AM - 5 PM, Monday-Friday
 
 **Ask Bob for help:**
@@ -223,16 +223,16 @@ products = [
 Bob, create an appointment scheduler tool that checks availability and books time slots
 ```
 
-**Test cases:**
-- Book 2024-03-20 at 10:00 AM for 30 minutes → Success
-- Book same time again → Conflict error
-- Book at 8:00 AM → Outside business hours
+**Test cases:**<br>
+- Book 2024-03-20 at 10:00 AM for 30 minutes → Success<br>
+- Book same time again → Conflict error<br>
+- Book at 8:00 AM → Outside business hours<br>
 - Book on Saturday → Weekend error
 
-**Success criteria:**
-- Detects scheduling conflicts
-- Validates business hours
-- Validates date/time format
+**Success criteria:**<br>
+- Detects scheduling conflicts<br>
+- Validates business hours<br>
+- Validates date/time format<br>
 - Stores appointments correctly
 
 ---
@@ -243,10 +243,10 @@ Bob, create an appointment scheduler tool that checks availability and books tim
 
 **Task:** Create a "Personal Assistant" agent that uses at least 3 of your custom tools.
 
-**Requirements:**
-- Agent should intelligently choose which tool to use
-- Agent should chain tools when needed
-- Agent should handle tool errors gracefully
+**Requirements:**<br>
+- Agent should intelligently choose which tool to use<br>
+- Agent should chain tools when needed<br>
+- Agent should handle tool errors gracefully<br>
 
 **Example workflow:**
 ```
@@ -261,10 +261,10 @@ Agent:
 Bob, create an agent that uses my calculator, formatter, and text analyzer tools together
 ```
 
-**Success criteria:**
-- Agent uses multiple tools appropriately
-- Agent chains tools when logical
-- Agent provides coherent responses
+**Success criteria:**<br>
+- Agent uses multiple tools appropriately<br>
+- Agent chains tools when logical<br>
+- Agent provides coherent responses<br>
 - Agent handles tool failures
 
 ---
@@ -291,13 +291,13 @@ def broken_calculator(num1, num2, operation):
         return num1 / num2
 ```
 
-**Problems to find:**
-1. Missing type hints
-2. No input validation
-3. Division by zero not handled
-4. No return type documentation
-5. Vague docstring
-6. No error handling
+**Problems to find:**<br>
+1. Missing type hints<br>
+2. No input validation<br>
+3. Division by zero not handled<br>
+4. No return type documentation<br>
+5. Vague docstring<br>
+6. No error handling<br>
 7. Doesn't return structured response
 
 **Ask Bob for help:**
