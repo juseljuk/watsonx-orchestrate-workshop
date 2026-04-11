@@ -1,6 +1,6 @@
 # Part 3b: AI Gateway and External Model Providers
 
-**Duration:** 25 minutes
+**Duration:** 25 minutes<br>
 **Objective:** Learn how to configure external AI models through watsonx Orchestrate's AI Gateway and implement model policies
 
 > 📋 **Quick Reference:** Check out the [Model Selection Guide](model-selection-guide.md) for a quick reference on AI Gateway capabilities!
@@ -16,12 +16,12 @@
 
 ## Why AI Gateway Matters
 
-The AI Gateway in watsonx Orchestrate provides:
-- 🔌 **Unified Interface** - Access multiple LLM providers through a single API
-- 🌐 **External Provider Support** - Connect to OpenAI, Anthropic, Google, AWS Bedrock, Azure, and more
-- 🔄 **Model Flexibility** - Switch between models without changing agent code
-- 🛡️ **Governance & Policies** - Centralized control over model access, usage limits, and compliance
-- 💰 **Cost Management** - Track and control model usage and costs
+The AI Gateway in watsonx Orchestrate provides:<br>
+- 🔌 **Unified Interface** - Access multiple LLM providers through a single API<br>
+- 🌐 **External Provider Support** - Connect to OpenAI, Anthropic, Google, AWS Bedrock, Azure, and more<br>
+- 🔄 **Model Flexibility** - Switch between models without changing agent code<br>
+- 🛡️ **Governance & Policies** - Centralized control over model access, usage limits, and compliance<br>
+- 💰 **Cost Management** - Track and control model usage and costs<br>
 - 📊 **Monitoring** - Comprehensive visibility into model performance and usage patterns
 
 ## Available Model Options
