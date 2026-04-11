@@ -788,7 +788,7 @@ Create a comprehensive test suite for your agent's safety measures.
 
 **Ask Bob:**
 ```
-Bob, create test cases that try to bypass my agent's safety guidelines and guardrails, including edge cases and adversarial inputs
+Bob, create test cases that try to bypass my financial services agent's safety guidelines and guardrails, including edge cases and adversarial inputs.
 ```
 
 ## Key Takeaways
