@@ -25,6 +25,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Sync content to docs directory
+        run: |
+          # Sync all workshop parts automatically
+          # This copies any directory starting with 'part' or named 'bob-prompts'
+          for dir in part* bob-prompts; do
+            if [ -d "$dir" ]; then
+              echo "Syncing $dir to docs/$dir"
+              rsync -av --delete "$dir/" "docs/$dir/"
+            fi
+          done
+          
+          # Copy logo
+          if [ -f "Bobchestrate_Workshop_logo_new.png" ]; then
+            cp -f Bobchestrate_Workshop_logo_new.png docs/
+          fi
+          
+          echo "Content sync complete!"
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
