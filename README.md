@@ -11,9 +11,19 @@ Welcome! This workshop will guide you through building AI agents using IBM watso
 
 ## Workshop Overview
 
-**Duration:** 190-220 minutes
+**Duration:** 270-300 minutes (4.5-5 hours) for complete workshop
 
-**Level:** Beginner to Intermediate
+This estimate includes:
+- Core instruction time: 220 minutes
+- Setup and troubleshooting: 20-30 minutes
+- Short breaks: 15-20 minutes
+- Q&A and discussion: 15-30 minutes
+
+**Alternative Options:**
+- **Core Workshop** (Parts 1-7): 210-240 minutes (3.5-4 hours)
+- **Advanced Exercise Only** (Part 1 + Part 8): 60-75 minutes (1-1.25 hours) - Setup plus multi-agent orchestration as standalone exercise
+
+**Level:** Beginner to Intermediate (Advanced for Part 8)
 
 **Prerequisites:** 
 - Computer with internet access, Windows, macOS, or Linux operating system, at least 8GB RAM and 500 MB of free disk space
