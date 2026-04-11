@@ -1,6 +1,6 @@
 # Part 4: Knowledge Bases & Collaborators
 
-**Duration:** 25 minutes
+**Duration:** 25 minutes<br>
 **Objective:** Add knowledge bases for FAQ handling and create specialized collaborator agents
 
 > **Note:** This part builds on the agents you created in [Part 3: Custom Tools](../part3-custom-tools/README.md).
@@ -14,10 +14,10 @@
 
 ## Knowledge Bases Overview
 
-Knowledge bases allow agents to:
-- 📚 Access large amounts of information without including it in instructions
-- 🔍 Retrieve relevant information based on user queries
-- 📝 Answer questions from documents, FAQs, and knowledge articles
+Knowledge bases allow agents to:<br>
+- 📚 Access large amounts of information without including it in instructions<br>
+- 🔍 Retrieve relevant information based on user queries<br>
+- 📝 Answer questions from documents, FAQs, and knowledge articles<br>
 - 🎯 Provide accurate, sourced responses
 
 ## Step 1: Create a Knowledge Base
@@ -141,11 +141,11 @@ Use Bob to create a knowledge base YAML file to import the FAQ PDF.
 
 #### Knowledge Base Naming Guidelines
 
-When naming your knowledge base, follow these best practices:
-- Use lowercase letters, numbers, and hyphens (e.g., `customer-support-faq`)
-- Keep names descriptive and meaningful
-- Avoid spaces (use hyphens instead)
-- Use consistent naming conventions across your project
+When naming your knowledge base, follow these best practices:<br>
+- Use lowercase letters, numbers, and hyphens (e.g., `customer-support-faq`)<br>
+- Keep names descriptive and meaningful<br>
+- Avoid spaces (use hyphens instead)<br>
+- Use consistent naming conventions across your project<br>
 - Example good names: `product-catalog`, `technical-docs`, `company-policies`
 
 ## Step 2: Import the Knowledge Base
@@ -237,10 +237,10 @@ Test the agent with FAQ questions:
 orchestrate chat ask -n customer_support_agent_<your_initials_here>
 ```
 
-Try these questions:
-- "What's your shipping policy?"
-- "What payment methods do you accept?"
-- "How long does standard shipping take?"
+Try these questions:<br>
+- "What's your shipping policy?"<br>
+- "What payment methods do you accept?"<br>
+- "How long does standard shipping take?"<br>
 - "Do you accept returns?"
 
 The agent should retrieve and present information from the knowledge base!
@@ -350,8 +350,8 @@ collaborators:
 
 ```
 
-***The important parts:***
-- Add escalation_agent_<your_initials_here> to collaborators
+***The important parts:***<br>
+- Add escalation_agent_<your_initials_here> to collaborators<br>
 - Add instructions about when to escalate under your customer support agent's instructions
 ```
 When to escalate to escalation_agent_<your_initials_here>:
@@ -474,17 +474,17 @@ knowledge_base:
 ## Common Issues
 
 ### Issue: Knowledge base not returning relevant results
-**Solution:** 
-- Check document titles and content
-- Verify knowledge base is indexed (status: "ready")
-- Try rephrasing the query
+**Solution:**<br>
+- Check document titles and content<br>
+- Verify knowledge base is indexed (status: "ready")<br>
+- Try rephrasing the query<br>
 - Adjust chunk_size and chunk_overlap
 
 ### Issue: Agent not delegating to collaborator
-**Solution:**
-- Check collaborator is listed in agent YAML
-- Review escalation criteria in instructions
-- Verify collaborator agent exists
+**Solution:**<br>
+- Check collaborator is listed in agent YAML<br>
+- Review escalation criteria in instructions<br>
+- Verify collaborator agent exists<br>
 - Test with clear escalation scenarios
 
 ### Issue: Collaborator agent not accessible
