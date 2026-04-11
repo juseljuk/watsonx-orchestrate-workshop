@@ -12,11 +12,11 @@
 
 ## Why Custom Tools?
 
-Tools extend your agent's capabilities beyond conversation. They allow agents to:
-- 🔍 Query databases and APIs
-- 📊 Process and analyze data
-- 📝 Create and modify files
-- 🔧 Perform calculations and transformations
+Tools extend your agent's capabilities beyond conversation. They allow agents to:<br>
+- 🔍 Query databases and APIs<br>
+- 📊 Process and analyze data<br>
+- 📝 Create and modify files<br>
+- 🔧 Perform calculations and transformations<br>
 - 🌐 Integrate with external systems
 
 ## Tool Structure
@@ -67,14 +67,14 @@ def my_tool(param1: str) -> dict:
     }
 ```
 
-**Key Points:**
-- Use the `@tool` decorator to define tools
-- Tool name defaults to the function name (or specify with `@tool(name="custom_name")`)
-- Description can be provided in two ways:
-  - **Via docstring** (recommended): Extracted from the function's docstring
-  - **Via decorator parameter**: Pass directly to the decorator as `@tool(description="Your description here")`
-- Parameter types and descriptions come from type hints and docstring Args section
-- Must use Google-style docstrings for proper parameter documentation when using docstring approach
+**Key Points:**<br>
+- Use the `@tool` decorator to define tools<br>
+- Tool name defaults to the function name (or specify with `@tool(name="custom_name")`)<br>
+- Description can be provided in two ways:<br>
+  - **Via docstring** (recommended): Extracted from the function's docstring<br>
+  - **Via decorator parameter**: Pass directly to the decorator as `@tool(description="Your description here")`<br>
+- Parameter types and descriptions come from type hints and docstring Args section<br>
+- Must use Google-style docstrings for proper parameter documentation when using docstring approach<br>
 - The `@tool` decorator also accepts other optional parameters like `expect_credentials` for tools requiring authentication
 
 > 📖 **Reference:** For complete details on the `@tool` decorator and its parameters, see the [Authoring Python-Based Tools](https://developer.watson-orchestrate.ibm.com/tools/create_tool#authoring-python-based-tools) documentation.
@@ -348,10 +348,10 @@ If your tools aren't working, ask Bob for help:
 Bob, my agent isn't calling the check_order_status tool. Here's the agent YAML and tool code: [paste code]
 ```
 
-Common issues:
-- Tool name mismatch between agent YAML and tool definition
-- Missing or incorrect parameter descriptions
-- Tool not imported successfully
+Common issues:<br>
+- Tool name mismatch between agent YAML and tool definition<br>
+- Missing or incorrect parameter descriptions<br>
+- Tool not imported successfully<br>
 - Agent instructions don't mention when to use the tool
 
 ## Best Practices for Tools
@@ -421,10 +421,10 @@ Ready to practice? We've prepared a comprehensive set of exercises to help you m
 
 📝 **[View All Exercises](exercises.md)** - Complete exercises ranging from easy to advanced
 
-We strongly recommend working through at least a few of these exercises before moving forward with the workshop. They'll help solidify your understanding of:
-- Tool structure and best practices
-- Input validation and error handling
-- Creating tools that agents can effectively use
+We strongly recommend working through at least a few of these exercises before moving forward with the workshop. They'll help solidify your understanding of:<br>
+- Tool structure and best practices<br>
+- Input validation and error handling<br>
+- Creating tools that agents can effectively use<br>
 - Debugging common tool issues
 
 The exercises include detailed requirements, test cases, and success criteria to guide your learning.
