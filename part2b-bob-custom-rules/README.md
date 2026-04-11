@@ -23,6 +23,8 @@ Bob IDE can be configured with custom rules that guide its behavior when working
 
 Bob IDE supports custom rules through `.md` files that define project-specific guidelines. These rules are automatically applied when Bob works in your project directory.
 
+For more information, see the [official Bob documentation on custom rules](https://bob.ibm.com/docs/ide/configuration/rules).
+
 ### Rule File Location
 
 Custom rules should be placed in your project's `.bob/` directory:
