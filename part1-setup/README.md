@@ -83,10 +83,10 @@ Install the watsonx Orchestrate extension for IBM Bob IDE:
 
    <img src="images/image-3.png" alt="IBM Bob IDE File menu showing Open Folder option" width="75px">
 
-The extension provides:
-- Syntax highlighting for agent YAML files
-- IntelliSense for agent configuration
-- Quick access to watsonx Orchestrate commands
+The extension provides:<br>
+- Syntax highlighting for agent YAML files<br>
+- IntelliSense for agent configuration<br>
+- Quick access to watsonx Orchestrate commands<br>
 - Integration with the Orchestrate CLI
 
 ## Step 7: Install watsonx Orchestrate MCP Servers
