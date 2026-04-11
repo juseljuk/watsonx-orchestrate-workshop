@@ -116,17 +116,17 @@ llm: groq/openai/gpt-oss-120b
 ### _IMPORTANT!_ ##
 > Since the workshop participants are working in the same environment, you need to import the agent with a unique name. Please use your initials in the agent name. Edit the agent name in the YAML file before importing by adding your initials to the agent name. For example, change `hello_agent` to `hello_agent_JKJ`.
 
-<img src="images/image.png" alt="Agent renaming" width="60%">
+<img src="images/image.png" alt="Agent renaming" width="450px">
 
 ### Option A: Using Bob
 ```
 Bob, help me import the hello-agent.yaml file into my active environment. Use the available Python virtual environment (.venv).
 ```
 
->[!NOTE]
->IBM Bob is using its own terminal to run the commands and therefore it might take a while to undestand that it needs to use the existing Python virtual environment (.venv). Therefore it's a good idea to add that info to the prompt. You can also test without it and approve Bob to have access to all the necessary files and the wxO MCP servers. Bob should eventually figure things out by itself and import the agent correctly.
+> [!NOTE]
+> IBM Bob is using its own terminal to run the commands and therefore it might take a while to undestand that it needs to use the existing Python virtual environment (.venv). Therefore it's a good idea to add that info to the prompt. You can also test without it and approve Bob to have access to all the necessary files and the wxO MCP servers. Bob should eventually figure things out by itself and import the agent correctly.
 
-<img src="images/image-1.png" alt="Bob importing the agent" width="60%">
+<img src="images/image-1.png" alt="Bob importing the agent" width="400px">
 
 ### Option B: Manually using the watsonx Orchestrate CLI - running _orchestrate_ command in the terminal
 
