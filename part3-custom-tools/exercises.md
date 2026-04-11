@@ -341,4 +341,4 @@ After completing the exercises:
 
 Once you've mastered custom tools, you're ready to add knowledge bases and create agent collaborators!
 
-Continue to [Part 4: Knowledge Bases & Collaborators](../part4-advanced/README.md) →
+Continue to [Part 3b: AI Gateway and external model providers](../part3b-ai-gateway-models/README.md) →

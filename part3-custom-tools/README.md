@@ -43,12 +43,41 @@ def my_tool(param1: str) -> dict:
     }
 ```
 
+**Alternative: Using the decorator's description parameter:**
+
+```python
+from ibm_watsonx_orchestrate.agent_builder.tools import tool
+
+@tool(
+    name="my_custom_tool",
+    description="Tool description that helps the agent understand when to use it"
+)
+def my_tool(param1: str) -> dict:
+    """
+    Args:
+        param1 (str): What this parameter is for
+        
+    Returns:
+        dict: The result of the tool execution
+    """
+    # Your code here
+    return {
+        "result": "success",
+        "data": "your result"
+    }
+```
+
 **Key Points:**
 - Use the `@tool` decorator to define tools
 - Tool name defaults to the function name (or specify with `@tool(name="custom_name")`)
-- Description is extracted from the docstring
+- Description can be provided in two ways:
+  - **Via docstring** (recommended): Extracted from the function's docstring
+  - **Via decorator parameter**: Pass directly to the decorator as `@tool(description="Your description here")`
 - Parameter types and descriptions come from type hints and docstring Args section
-- Must use Google-style docstrings for proper parameter documentation
+- Must use Google-style docstrings for proper parameter documentation when using docstring approach
+- The `@tool` decorator also accepts other optional parameters like `expect_credentials` for tools requiring authentication
+
+> 📖 **Reference:** For complete details on the `@tool` decorator and its parameters, see the [Authoring Python-Based Tools](https://developer.watson-orchestrate.ibm.com/tools/create_tool#authoring-python-based-tools) documentation.
 
 ## Step 1: Create an Order Status Tool
 
@@ -190,7 +219,7 @@ def process_refund(order_id: str, reason: str, amount: float) -> dict:
 
 ## Step 3: Import Your Tools
 
-### IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _tool definitions_ in the tool python files by adding your initials as a postfix. ###
+### IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _tool names_ (function names) inside the tool python files by adding your initials as a postfix. ###
 
 >For example, `def check_order_status` becomes `def check_order_status_JKJ`. Make sure to use the same postfix for all your tools.
 
@@ -205,11 +234,13 @@ Notice that now that Bob is uing the custom wxO development rule, the tools are 
 Import the tools into watsonx Orchestrate:
 
 ```bash
-orchestrate tools import -k python -f tools/order_status_tool_JKJ.py -r requirements.txt
-orchestrate tools import -k python -f tools/refund_tool_JKJ.py -r requirements.txt
+orchestrate tools import -k python -f tools/check_order_status.py -r requirements.txt
+orchestrate tools import -k python -f tools/process_refund.py -r requirements.txt
 ```
 
 >NOTE: The name of the python files - when Bob generates them - might be different what is shown here. Use the file names as Bob created them for you.
+
+If you see [WARNING] messages, it's okay. These are caused by a Langchain bug in doc string parsing.
 
 Verify they were imported:
 ```
