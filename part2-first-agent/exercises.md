@@ -8,9 +8,9 @@ Complete these exercises to reinforce your understanding of agent creation. **Re
 
 **Task:** Create a pirate-themed customer service agent that helps users but speaks like a pirate.
 
-**Steps Needed:**
-1. Create agent yaml file
-2. Define the agent with appropriate instructions
+**Steps Needed:**<br>
+1. Create agent yaml file<br>
+2. Define the agent with appropriate instructions<br>
 3. Import and test the agent
 
 **Ask Bob for help:**
@@ -18,16 +18,16 @@ Complete these exercises to reinforce your understanding of agent creation. **Re
 Bob, create a YAML file for a pirate-themed customer service agent that speaks like a pirate but is still helpful
 ```
 
-**Test prompts:**
-- "Hello, I need help with my order"
-- "What can you do?"
+**Test prompts:**<br>
+- "Hello, I need help with my order"<br>
+- "What can you do?"<br>
 - "Thank you for your help"
 
 >Reminder: Use `orchestrate agents import -f <your_agent_name>.yaml` to import your agent and `orchestrate chat ask --agent-name <your_agent_name>` to test it.
 
-**Success criteria:**
-- Agent responds in pirate speak
-- Agent is still helpful and professional
+**Success criteria:**<br>
+- Agent responds in pirate speak<br>
+- Agent is still helpful and professional<br>
 - Agent stays in character
 
 ---
@@ -38,10 +38,10 @@ Bob, create a YAML file for a pirate-themed customer service agent that speaks l
 
 **Task:** Create a Python programming expert agent that can answer coding questions.
 
-**Requirements:**
-- Agent should introduce itself as a Python expert
-- Should provide code examples when relevant
-- Should explain concepts clearly
+**Requirements:**<br>
+- Agent should introduce itself as a Python expert<br>
+- Should provide code examples when relevant<br>
+- Should explain concepts clearly<br>
 - Should admit when questions are outside Python scope
 
 **Ask Bob for help:**
@@ -49,15 +49,15 @@ Bob, create a YAML file for a pirate-themed customer service agent that speaks l
 Bob, create an agent that's a Python programming expert. It should provide code examples and explain concepts clearly.
 ```
 
-**Test prompts:**
-- "What's the difference between a list and a tuple?"
-- "Show me how to read a CSV file"
-- "Explain decorators in Python"
+**Test prompts:**<br>
+- "What's the difference between a list and a tuple?"<br>
+- "Show me how to read a CSV file"<br>
+- "Explain decorators in Python"<br>
 - "How do I deploy a Java application?" (out of scope)
 
-**Success criteria:**
-- Provides accurate Python information
-- Includes code examples
+**Success criteria:**<br>
+- Provides accurate Python information<br>
+- Includes code examples<br>
 - Handles out-of-scope questions gracefully
 
 ---
@@ -68,9 +68,9 @@ Bob, create an agent that's a Python programming expert. It should provide code 
 
 **Task:** Modify the hello-agent to support English, Spanish, and French.
 
-**Requirements:**
-- Agent should detect the user's language
-- Should respond in the same language
+**Requirements:**<br>
+- Agent should detect the user's language<br>
+- Should respond in the same language<br>
 - Should be able to switch languages mid-conversation
 
 **Ask Bob for help:**
@@ -78,15 +78,15 @@ Bob, create an agent that's a Python programming expert. It should provide code 
 Bob, modify hello-agent.yaml to support English, Spanish, and French. The agent should detect and respond in the user's language.
 ```
 
-**Test prompts:**
-- "Hello, how are you?"
-- "Hola, ¿cómo estás?"
-- "Bonjour, comment allez-vous?"
+**Test prompts:**<br>
+- "Hello, how are you?"<br>
+- "Hola, ¿cómo estás?"<br>
+- "Bonjour, comment allez-vous?"<br>
 - "Can you switch to Spanish?" (then continue in Spanish)
 
-**Success criteria:**
-- Responds correctly in all three languages
-- Maintains context when switching languages
+**Success criteria:**<br>
+- Responds correctly in all three languages<br>
+- Maintains context when switching languages<br>
 - Provides natural translations
 
 ---
@@ -97,8 +97,8 @@ Bob, modify hello-agent.yaml to support English, Spanish, and French. The agent 
 
 **Task:** Create a "Product Recommender" agent that always returns recommendations in a structured format.
 
-**Requirements:**
-- Agent should ask clarifying questions about user preferences
+**Requirements:**<br>
+- Agent should ask clarifying questions about user preferences<br>
 - Should return recommendations in this format:
   ```
   Product: [name]
@@ -113,14 +113,14 @@ Bob, modify hello-agent.yaml to support English, Spanish, and French. The agent 
 Bob, create an agent that recommends products and always formats responses with Product, Price, Rating, and Why fields
 ```
 
-**Test prompts:**
-- "I need a laptop for programming"
-- "Recommend a good book for learning Python"
+**Test prompts:**<br>
+- "I need a laptop for programming"<br>
+- "Recommend a good book for learning Python"<br>
 - "What's a good gift for a tech enthusiast?"
 
-**Success criteria:**
-- Always uses the specified format
-- Provides relevant recommendations
+**Success criteria:**<br>
+- Always uses the specified format<br>
+- Provides relevant recommendations<br>
 - Explains reasoning clearly
 
 ---
@@ -131,16 +131,16 @@ Bob, create an agent that recommends products and always formats responses with 
 
 **Task:** Create a "Survey Agent" that collects user feedback through a series of questions.
 
-**Requirements:**
-- Agent should introduce itself and explain the survey
-- Should ask questions one at a time
-- Should remember previous answers
+**Requirements:**<br>
+- Agent should introduce itself and explain the survey<br>
+- Should ask questions one at a time<br>
+- Should remember previous answers<br>
 - Should thank the user at the end
 
-**Questions to ask:**
-1. "How would you rate your experience? (1-5)"
-2. "What did you like most?"
-3. "What could be improved?"
+**Questions to ask:**<br>
+1. "How would you rate your experience? (1-5)"<br>
+2. "What did you like most?"<br>
+3. "What could be improved?"<br>
 4. "Would you recommend us to others? (Yes/No)"
 
 **Ask Bob for help:**
@@ -148,15 +148,15 @@ Bob, create an agent that recommends products and always formats responses with 
 Bob, create a survey agent that asks users 4 questions one at a time and remembers their answers
 ```
 
-**Test prompts:**
-- Start the conversation and go through all questions
-- Try to skip questions
+**Test prompts:**<br>
+- Start the conversation and go through all questions<br>
+- Try to skip questions<br>
 - Try to go back and change an answer
 
-**Success criteria:**
-- Asks questions in order
-- Remembers all answers
-- Handles edge cases (skipping, changing answers)
+**Success criteria:**<br>
+- Asks questions in order<br>
+- Remembers all answers<br>
+- Handles edge cases (skipping, changing answers)<br>
 - Provides a summary at the end
 
 ---
@@ -179,10 +179,10 @@ config:
   hidden: true
 ```
 
-**Problems to find:**
-1. Instructions are too vague
-2. Invalid model name
-3. Agent is hidden (won't show in UI)
+**Problems to find:**<br>
+1. Instructions are too vague<br>
+2. Invalid model name<br>
+3. Agent is hidden (won't show in UI)<br>
 4. Missing description details
 
 **Ask Bob for help:**
@@ -198,27 +198,27 @@ Bob, review this agent YAML and identify all the problems: [paste YAML]
 
 After completing the exercises, consider:
 
-1. **What makes good agent instructions?**
-   - Specific role definition
-   - Clear capabilities and limitations
-   - Behavior guidelines
+1. **What makes good agent instructions?**<br>
+   - Specific role definition<br>
+   - Clear capabilities and limitations<br>
+   - Behavior guidelines<br>
    - Output format requirements
 
-2. **How do you test agents effectively?**
-   - Use diverse test prompts
-   - Test edge cases
-   - Verify consistency
+2. **How do you test agents effectively?**<br>
+   - Use diverse test prompts<br>
+   - Test edge cases<br>
+   - Verify consistency<br>
    - Check error handling
 
-3. **When should you create a new agent vs. modifying existing ones?**
-   - New domain/purpose → new agent
-   - Refinement/improvement → modify existing
-   - Different personality → could be either
+3. **When should you create a new agent vs. modifying existing ones?**<br>
+   - New domain/purpose → new agent<br>
+   - Refinement/improvement → modify existing<br>
+   - Different personality → could be either<br>
 
-4. **How can Bob help you build better agents?**
-   - Generate initial YAML
-   - Review and improve instructions
-   - Debug issues
+4. **How can Bob help you build better agents?**<br>
+   - Generate initial YAML<br>
+   - Review and improve instructions<br>
+   - Debug issues<br>
    - Suggest test cases
 
 ---
