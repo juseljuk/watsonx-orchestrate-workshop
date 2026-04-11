@@ -37,25 +37,25 @@ Throughout this workshop, you'll build progressively more sophisticated AI agent
 Your first simple agent to understand the basics of agent configuration and behavior.
 
 ### 2. Customer Support System (Parts 3-5)
-A complete customer support solution featuring:
-- **Custom Python tools** for order status checking and refund processing
-- **Knowledge base integration** for FAQ handling
-- **Specialized escalation agent** for complex issues
+A complete customer support solution featuring:<br>
+- **Custom Python tools** for order status checking and refund processing<br>
+- **Knowledge base integration** for FAQ handling<br>
+- **Specialized escalation agent** for complex issues<br>
 - **Safety guidelines and guardrails** for responsible AI
 
 ### 3. Product Catalog System (Part 6)
-An **MCP server-powered agent** that demonstrates backend integration:
-- Product search and details
-- Inventory checking
-- Product recommendations
+An **MCP server-powered agent** that demonstrates backend integration:<br>
+- Product search and details<br>
+- Inventory checking<br>
+- Product recommendations<br>
 - Reusable MCP server architecture
 
 ### 4. Testing & Deployment (Part 7)
-Learn to **test and deploy** your customer support agent:
-- Comprehensive testing strategies
-- Unit and integration testing
-- Deployment best practices
-- Monitoring and observability
+Learn to **test and deploy** your customer support agent:<br>
+- Comprehensive testing strategies<br>
+- Unit and integration testing<br>
+- Deployment best practices<br>
+- Monitoring and observability<br>
 - Production readiness checklist
 
 Each system builds on concepts from previous parts, teaching you to create increasingly sophisticated agentic AI solutions.
@@ -132,27 +132,27 @@ Each system builds on concepts from previous parts, teaching you to create incre
 
 ## How Bob Helps You
 
-Throughout this workshop, you'll use Bob to:
-- **Generate code**: "Bob, create a Python tool that checks order status"
-- **Debug issues**: "Bob, why is my agent not calling the refund tool?"
-- **Explain concepts**: "Bob, explain how agent instructions work"
-- **Refactor code**: "Bob, improve the error handling in my tool"
+Throughout this workshop, you'll use Bob to:<br>
+- **Generate code**: "Bob, create a Python tool that checks order status"<br>
+- **Debug issues**: "Bob, why is my agent not calling the refund tool?"<br>
+- **Explain concepts**: "Bob, explain how agent instructions work"<br>
+- **Refactor code**: "Bob, improve the error handling in my tool"<br>
 - **Create tests**: "Bob, write tests for my order status tool"
 
 ## Learning Objectives
 
-By the end of this workshop, you will:
-- ✅ Understand watsonx Orchestrate agent architecture
-- ✅ Create and configure agents using YAML specifications
-- ✅ Build custom Python tools for specific business logic
-- ✅ Integrate knowledge bases for FAQ handling
-- ✅ Use agent collaborators for complex workflows
-- ✅ Configure and use different AI models through the AI Gateway
-- ✅ Implement safety guidelines and guardrails
-- ✅ Create and use MCP servers for backend integration
-- ✅ Design and orchestrate multi-agent systems
-- ✅ Build responsible AI agents
-- ✅ Leverage Bob as an AI pair programmer
+By the end of this workshop, you will:<br>
+- ✅ Understand watsonx Orchestrate agent architecture<br>
+- ✅ Create and configure agents using YAML specifications<br>
+- ✅ Build custom Python tools for specific business logic<br>
+- ✅ Integrate knowledge bases for FAQ handling<br>
+- ✅ Use agent collaborators for complex workflows<br>
+- ✅ Configure and use different AI models through the AI Gateway<br>
+- ✅ Implement safety guidelines and guardrails<br>
+- ✅ Create and use MCP servers for backend integration<br>
+- ✅ Design and orchestrate multi-agent systems<br>
+- ✅ Build responsible AI agents<br>
+- ✅ Leverage Bob as an AI pair programmer<br>
 - ✅ Test and deploy agents to production
 
 ## Tips for Success
