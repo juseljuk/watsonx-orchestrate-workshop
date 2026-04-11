@@ -486,9 +486,9 @@ orchestrate --version
 
 ## Next Steps
 
-Once your setup is verified:
-1. ✅ You can connect to watsonx Orchestrate
-2. ✅ Bob is responding to your questions
+Once your setup is verified:<br>
+1. ✅ You can connect to watsonx Orchestrate<br>
+2. ✅ Bob is responding to your questions<br>
 3. ✅ You understand the workshop structure
 
 **You're ready to build your first agent!**
