@@ -758,20 +758,22 @@ When building agents for production:
 ## Exercises
 
 ### Exercise 1: Write Guidelines for Healthcare Agent
-Create guidelines in the When-Then format for a healthcare appointment booking agent that must comply with HIPAA.
+Create agent guidelines format for a healthcare appointment booking agent that must comply with HIPAA.
 
 **Ask Bob:**
 ```
-Bob, create guidelines in the When-Then format for a HIPAA-compliant healthcare appointment booking agent. Include conditions for handling PHI, appointment scheduling, and emergency situations.
+Bob, create agent guidelines for a HIPAA-compliant healthcare appointment booking agent. Include conditions for handling PHI, appointment scheduling, and emergency situations.
 ```
+You might notice that Bob creates the agent also with some suggested tools and collaborators. This is a good thing! It means that Bob is thinking about the tools and collaborators that might be needed to make the agent work. But, if you want limit Bob's creativity, you can ask Bob just to create the agent without specific tools and collaborators.
 
 ### Exercise 2: Build a Content Filter
 Create a guardrail that detects and blocks requests for medical diagnoses.
 
 **Ask Bob:**
 ```
-Bob, create a guardrail plugin that blocks requests for medical diagnoses and suggests consulting a doctor
+Bob, create an agent guardrail plugin for the appointment booking agent that blocks requests for medical diagnoses and suggests consulting a doctor.
 ```
+>NOTE: Bob will most likely create also a test script to test the guardrail and asks for a permission to run it. It might iterate it through several times and fixes the issues it might find in the gueardrail. Finally, when all the tests are passed, Bob will generate a new README.md file for the new guardrail plugin. Quite impressive 🤯, right?! Again, if you whish to limit Bob's creativity, you can ask Bob just to create the guardrail without a test script and guardrail documentation.
 
 ### Exercise 3: Combine Guidelines and Guardrails
 Create an agent that uses both guidelines for rule-based responses and guardrails for content filtering.

@@ -424,6 +424,13 @@ Bob is your AI pair programmer for this workshop. Here's how to use Bob effectiv
 - 📚 **Explain**: Bob can explain concepts and best practices
 - 🔧 **Refactor**: Bob can improve your code
 
+### Managing Bob Chat Sessions:
+- ✅ **Continue in same session**: When working on related tasks or the same topic/artifacts, continue in the same Bob chat session to maintain context
+- 🆕 **Start new task**: When switching to a completely different topic or unrelated work, start a new task with Bob for a clean context
+  - Click the "Start New Task" button in Bob's chat panel to start a new task
+  - This helps Bob focus on the new topic without confusion from previous context
+- 💡 **Best practice**: Think of each Bob session as a focused work session - keep related work together, separate unrelated work
+
 ## Troubleshooting
 
 ### Issue: "orchestrate: command not found"
