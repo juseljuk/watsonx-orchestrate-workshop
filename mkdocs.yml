@@ -1,14 +1,14 @@
 site_name: Bobchestrate Workshop
 site_description: Hands-on workshop for building AI agents with IBM watsonx Orchestrate
 site_author: Workshop Team
-site_url: https://yourusername.github.io/bobchestrate-workshop/
+site_url: https://juseljuk.github.io/bobchestrate-workshop/
 
 # Documentation directory
 docs_dir: docs
 
 # Repository
 repo_name: bobchestrate-workshop
-repo_url: https://github.com/yourusername/bobchestrate-workshop
+repo_url: https://github.com/juseljuk/bobchestrate-workshop
 edit_uri: edit/main/
 
 # Theme configuration
