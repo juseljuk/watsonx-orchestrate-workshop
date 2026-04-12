@@ -142,18 +142,18 @@ Throughout this workshop, you'll use Bob to:<br>
 ## Learning Objectives
 
 By the end of this workshop, you will:<br>
-- ✅ Understand watsonx Orchestrate agent architecture<br>
-- ✅ Create and configure agents using YAML specifications<br>
-- ✅ Build custom Python tools for specific business logic<br>
-- ✅ Integrate knowledge bases for FAQ handling<br>
-- ✅ Use agent collaborators for complex workflows<br>
-- ✅ Configure and use different AI models through the AI Gateway<br>
-- ✅ Implement safety guidelines and guardrails<br>
-- ✅ Create and use MCP servers for backend integration<br>
-- ✅ Design and orchestrate multi-agent systems<br>
-- ✅ Build responsible AI agents<br>
-- ✅ Leverage Bob as an AI pair programmer<br>
-- ✅ Test and deploy agents to production
+✅ Understand watsonx Orchestrate agent architecture<br>
+✅ Create and configure agents using YAML specifications<br>
+✅ Build custom Python tools for specific business logic<br>
+✅ Integrate knowledge bases for FAQ handling<br>
+✅ Use agent collaborators for complex workflows<br>
+✅ Configure and use different AI models through the AI Gateway<br>
+✅ Implement safety guidelines and guardrails<br>
+✅ Create and use MCP servers for backend integration<br>
+✅ Design and orchestrate multi-agent systems<br>
+✅ Build responsible AI agents<br>
+✅ Leverage Bob as an AI pair programmer<br>
+✅ Test and deploy agents to production
 
 ## Tips for Success
 
