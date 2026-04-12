@@ -1,6 +1,7 @@
 # Part 3b: AI Gateway and External Model Providers
 
-**Duration:** 25 minutes<br>
+**Duration:** 25 minutes
+
 **Objective:** Learn how to configure external AI models through watsonx Orchestrate's AI Gateway and implement model policies
 
 > 📋 **Quick Reference:** Check out the [Model Selection Guide](model-selection-guide.md) for a quick reference on AI Gateway capabilities!

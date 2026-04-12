@@ -1,6 +1,7 @@
 # Part 2b: Using Custom Rules with Bob IDE
 
 **Duration:** 10 minutes  
+
 **Objective:** Learn how to configure Bob IDE with custom development rules for watsonx Orchestrate projects
 
 ## What You'll Learn

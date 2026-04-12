@@ -1,6 +1,7 @@
 # Part 2: Building Your First Agent
 
 **Duration:** 20 minutes  
+
 **Objective:** Create a simple agent and understand the basics of agent configuration
 
 ## What You'll Learn

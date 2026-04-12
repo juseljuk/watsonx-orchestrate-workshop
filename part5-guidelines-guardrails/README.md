@@ -1,6 +1,7 @@
 # Part 5: Agent Guidelines & Guardrails
 
-**Duration:** 20 minutes  
+**Duration:** 20 minutes
+
 **Objective:** Learn how to implement safety guidelines and guardrails to ensure responsible AI agent behavior
 
 ## What You'll Learn

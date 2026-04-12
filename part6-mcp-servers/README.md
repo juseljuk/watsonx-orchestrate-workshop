@@ -1,6 +1,7 @@
 # Part 6: MCP Servers - Connecting to Backend Services
 
-**Duration**: 25 minutes  
+**Duration**: 25 minutes
+
 **Difficulty**: Intermediate
 
 ## Overview

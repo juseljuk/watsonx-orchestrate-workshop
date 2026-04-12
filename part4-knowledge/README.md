@@ -1,6 +1,7 @@
 # Part 4: Knowledge Bases & Collaborators
 
-**Duration:** 25 minutes<br>
+**Duration:** 25 minutes
+
 **Objective:** Add knowledge bases for FAQ handling and create specialized collaborator agents
 
 > **Note:** This part builds on the agents you created in [Part 3: Custom Tools](../part3-custom-tools/README.md).

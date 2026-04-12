@@ -1,6 +1,7 @@
 # Part 3: Adding Custom Tools
 
 **Duration:** 30 minutes  
+
 **Objective:** Create custom Python tools that your agents can use to perform actions
 
 ## What You'll Learn

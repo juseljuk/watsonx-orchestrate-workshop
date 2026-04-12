@@ -1,6 +1,7 @@
 # Part 1: Setup & Environment
 
-**Duration:** 15 minutes  
+**Duration:** 15 minutes
+
 **Objective:** Get your development environment ready for building watsonx Orchestrate agents
 
 ## Prerequisites Check
