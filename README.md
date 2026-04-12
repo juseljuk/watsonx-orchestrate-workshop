@@ -226,18 +226,19 @@ bobchestrate-workshop/
 ## Learning Objectives
 
 By the end of this workshop, you will:
-- ✅ Understand watsonx Orchestrate agent architecture
-- ✅ Create and configure agents using YAML specifications
-- ✅ Build custom Python tools for specific business logic
-- ✅ Integrate knowledge bases for FAQ handling
-- ✅ Use agent collaborators for complex workflows
-- ✅ Configure and use different AI models through the AI Gateway
-- ✅ Implement safety guidelines and guardrails
-- ✅ Create and use MCP servers for backend integration
-- ✅ Design and orchestrate multi-agent systems
-- ✅ Build responsible AI agents
-- ✅ Leverage Bob as an AI pair programmer
-- ✅ Test and deploy agents to production
+
+✅ Understand watsonx Orchestrate agent architecture
+✅ Create and configure agents using YAML specifications
+✅ Build custom Python tools for specific business logic
+✅ Integrate knowledge bases for FAQ handling
+✅ Use agent collaborators for complex workflows
+✅ Configure and use different AI models through the AI Gateway
+✅ Implement safety guidelines and guardrails
+✅ Create and use MCP servers for backend integration
+✅ Design and orchestrate multi-agent systems
+✅ Build responsible AI agents
+✅ Leverage Bob as an AI pair programmer
+✅ Test and deploy agents to production
 
 ## Tips for Success
 
