@@ -144,6 +144,20 @@ When a user sends a request to an agent with guidelines, here's what happens:
 4. **Tool Integration**: Guidelines can automatically invoke tools or collaborator agents
 5. **Guardrails**: Pre/post-invoke plugins provide an additional safety layer independent of guidelines
 
+### Mermaid Diagram: Guidelines and Guardrail Plugins
+
+```mermaid
+flowchart TD
+    U[User Request] --> P[Pre-invoke Guardrail Plugin<br/>Input safety and security checks]
+    P --> G[Agent Guidelines<br/>Condition-action rules for agent behavior]
+    G --> A[Agent Response Generation]
+    A --> O[Post-invoke Guardrail Plugin<br/>Output filtering and compliance checks]
+    O --> F[Final Response]
+
+    P -. blocks or rewrites unsafe input .-> F
+    G -. guides tool use, escalation, and policy handling .-> A
+```
+
 ### When to Use Guidelines vs Instructions
 
 | Use Guidelines For | Use Instructions For |
