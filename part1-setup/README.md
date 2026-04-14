@@ -19,6 +19,7 @@ python --version
 # or
 python3 --version
 ```
+***IMPORTANT: If you see something else than version 3.11.x, 3.12.x or 3.13.x, you need install one of the supported versions, 3.11.x - 3.13.x, to your computer!***
 
 ## Step 2: Verify uv Installation
 
@@ -26,8 +27,9 @@ Open a terminal and run:
 ```bash
 uv --version
 ```
+***IMPORTANT: You should see a version displayed. The version number does not matter, you just need to have the uv installed.***
 
-## Step 3: Create Workshop Folder
+## Step 3: Create a new folder for the Workshop
 
 Create a dedicated folder for your workshop project - you can place it where ever you want:
 
