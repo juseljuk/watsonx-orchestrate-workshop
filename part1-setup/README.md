@@ -41,7 +41,7 @@ cd bobchestrate-ws
 This folder will contain all your workshop files, agents, and tools.
 ## Step 4: Open IBM Bob IDE and Login with your IBM ID
 
-> **Download IBM Bob IDE:** If you haven't installed IBM Bob IDE yet, download it from [bob.ibm.com/download](https://bob.ibm.com/download)
+> **Download IBM Bob IDE:** If you haven't installed IBM Bob IDE yet, download it from [bob.ibm.com/download](https://bob.ibm.com/download). Download the TRIAL version, if you do not have Bob offered by your workshop instructor.
 
 <img src="images/image-0.png" alt="Getting started" width="700px">
 
