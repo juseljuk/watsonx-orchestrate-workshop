@@ -69,14 +69,15 @@ def my_tool(param1: str) -> dict:
     }
 ```
 
-**Key Points:**<br>
-- Use the `@tool` decorator to define tools<br>
-- Tool name defaults to the function name (or specify with `@tool(name="custom_name")`)<br>
-- Description can be provided in two ways:<br>
+**Key Points:**
+
+- Use the `@tool` decorator to define tools
+- Tool name defaults to the function name (or specify with `@tool(name="custom_name")`)
+- Description can be provided in two ways:
   - **Via docstring** (recommended): Extracted from the function's docstring<br>
-  - **Via decorator parameter**: Pass directly to the decorator as `@tool(description="Your description here")`<br>
-- Parameter types and descriptions come from type hints and docstring Args section<br>
-- Must use Google-style docstrings for proper parameter documentation when using docstring approach<br>
+  - **Via decorator parameter**: Pass directly to the decorator as `@tool(description="Your description here")`
+- Parameter types and descriptions come from type hints and docstring Args section
+- Must use Google-style docstrings for proper parameter documentation when using docstring approach
 - The `@tool` decorator also accepts other optional parameters like `expect_credentials` for tools requiring authentication
 
 > 📖 **Reference:** For complete details on the `@tool` decorator and its parameters, see the [Authoring Python-Based Tools](https://developer.watson-orchestrate.ibm.com/tools/create_tool#authoring-python-based-tools) documentation.
