@@ -13,12 +13,13 @@
 
 ## Why Custom Tools?
 
-Tools extend your agent's capabilities beyond conversation. They allow agents to:<br>
-- 🔍 Query databases and APIs<br>
-- 📊 Process and analyze data<br>
-- 📝 Create and modify files<br>
-- 🔧 Perform calculations and transformations<br>
-- 🌐 Integrate with external systems
+Tools extend your agent's capabilities beyond conversation. They allow agents to:
+
+🔍 Query databases and APIs
+📊 Process and analyze data
+📝 Create and modify files
+🔧 Perform calculations and transformations
+🌐 Integrate with external systems
 
 ## Tool Structure
 
