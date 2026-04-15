@@ -6,10 +6,16 @@
 
 ## Prerequisites Check
 
-Before starting, ensure you have:<br>
-- [ ] Python 3.11-3.13 installed<br>
-- [ ] IBM Bob IDE installed<br>
+Before starting, ensure you have:
+
+- [ ] Python 3.11-3.13 installed
+- [ ] uv installed
+- [ ] IBM Bob IDE installed
 - [ ] watsonx Orchestrate access (SaaS or Developer Edition)
+
+> ### ⚠️ Warning ###
+>
+> **Make sure you have all the prerequisites filled! You will face a lot of issues with wrong Python version for example.** 
 
 ## Step 1: Verify Python Installation
 
