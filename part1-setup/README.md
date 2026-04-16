@@ -73,7 +73,34 @@ Open the workshop folder in IBM Bob IDE:
 
 The empty workspace will open.
 
-## Step 6: Install watsonx Orchestrate ADK VS Code Extension
+## Step 6: Create Python Virtual Environment
+
+### IMPORTANT: ###
+> The Python virtual environment is crucial for the workshop. Please make sure to complete this step before proceeding to install the wxO VS Code extension and the wxO ADK itself.
+
+Create a virtual environment for the workshop to keep dependencies isolated using IBM Bob IDE's built-in commands:
+
+1. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
+2. Start typing "Python: Create Environment" and select it
+3. Choose "Venv" as the environment type
+4. Select your Python interpreter (Python 3.11-3.13)
+5. Wait for the virtual environment to be created
+
+You can now see the .venv folder in your workspace explorer view.
+
+<img src="images/image-6-new.png" alt="IBM Bob IDE File menu showing Open Folder option" width="350px">
+
+IBM Bob IDE will automatically:<br>
+- Create a `.venv` folder in your workspace<br>
+- Activate the virtual environment in new terminals<br>
+- Show `(.venv)` in your terminal prompt
+
+> **_Note:_** The virtual environment will be automatically activated when you open new terminals in IBM Bob IDE.
+
+## Step 7: Install watsonx Orchestrate ADK VS Code Extension
+
+### IMPORTANT: ###
+> If you already have the extension installed, please reload the Bob IDE window! This ensures the extension properly detects your new virtual environment. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux), start typing "**Developer: Reload Window**" and select it. The Bob IDE window reloads and the extension will restart. You can then proceed directly with the Step 8.
 
 Install the watsonx Orchestrate extension for IBM Bob IDE:
 
@@ -81,11 +108,11 @@ Install the watsonx Orchestrate extension for IBM Bob IDE:
 
    <img src="images/image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="50px">
 
-2. Search for "watsonx Orchestrate"
+2. Search for "**watsonx Orchestrate**"
 
     <img src="images/image-4.png" alt="IBM Bob IDE File menu showing Open Folder option" width="350px">
 
-3. Click **Install** on the "IBM watsonx Orchestrate ADK" extension
+3. Click **Install** on the "_**watsonx Orchestrate ADK**_" extension
 4. Wait for the installation to complete
 5. Reload VS Code if prompted
 6. You should now see the extension icon appear in the Activity Bar:
@@ -98,12 +125,12 @@ The extension provides:<br>
 - Quick access to watsonx Orchestrate commands<br>
 - Integration with the Orchestrate CLI
 
-## Step 7: Install watsonx Orchestrate MCP Servers
+## Step 8: Install watsonx Orchestrate MCP Servers
 
 Install the watsonx Orchestrate MCP servers through the ADK extension:
 
 1. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
-2. Type "watsonx Orchestrate: Install MCP Servers" and select it
+2. Start typing "**watsonx Orchestrate: Install MCP Servers**" and select it
 3. Wait for the installation to complete
 4. You should see a confirmation message that the MCP servers have been installed successfully
 
@@ -130,7 +157,7 @@ The MCP servers provide:<br>
 - Tools for listing agents, tools, and other resources<br>
 - Enhanced Bob capabilities for watsonx Orchestrate development
 
-## Step 8: Import WXO Agent Architect Mode
+## Step 9: Import WXO Agent Architect Mode
 
 Import a pre-configured custom mode specialized for building watsonx Orchestrate agents:
 
@@ -170,29 +197,6 @@ The imported "WXO Agent Architect" mode includes:<br>
 4. Select "WXO Agent Architect" mode
 5. Ask Bob: "What can you help me with in this mode?"
 6. Bob should respond with information about building watsonx Orchestrate agents and mention the available MCP servers
-
-## Step 9: Create Python Virtual Environment
-
-Create a virtual environment for the workshop to keep dependencies isolated using IBM Bob IDE's built-in commands:
-
-1. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
-2. Type "Python: Create Environment" and select it
-3. Choose "Venv" as the environment type
-4. Select your Python interpreter (Python 3.11-3.13)
-5. Wait for the virtual environment to be created
-
-You can now see the .venv folder in your workspace explorer view.
-
-<img src="images/image-6.png" alt="IBM Bob IDE File menu showing Open Folder option" width="350px">
-
-IBM Bob IDE will automatically:<br>
-- Create a `.venv` folder in your workspace<br>
-- Activate the virtual environment in new terminals<br>
-- Show `(.venv)` in your terminal prompt
-
-> **_Note:_** The virtual environment will be automatically activated when you open new terminals in IBM Bob IDE.
-
-> **_Note2:_** If you're wondering about the .bob folder, it was created automatically when you installed the MCP Servers for Orchestrate. This folder contains all the IBM Bob IDE configuration files for the MCP Servers for Orchestrate. It's safe to leave it there.
 
 ## Step 10: Install watsonx Orchestrate SDK
 
