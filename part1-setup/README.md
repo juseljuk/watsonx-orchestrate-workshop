@@ -100,7 +100,7 @@ IBM Bob IDE will automatically:<br>
 ## Step 7: Install watsonx Orchestrate ADK VS Code Extension
 
 ### IMPORTANT: ###
-> If you already have the extension installed, please reload the Bob IDE window! This ensures the extension properly detects your new virtual environment. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux), start typing "**Developer: Reload Window**" and select it. The Bob IDE window reloads and the extension will restart. You can then proceed directly with the Step 8.
+> **If you already have the extension installed**, please reload the Bob IDE window! This ensures the extension properly detects your new virtual environment. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux), start typing "**Developer: Reload Window**" and select it. The Bob IDE window reloads and the extension will restart. You can then proceed directly with the Step 8. Do **NOT** use the extension to initialise the workspace!
 
 Install the watsonx Orchestrate extension for IBM Bob IDE:
 
@@ -125,7 +125,26 @@ The extension provides:<br>
 - Quick access to watsonx Orchestrate commands<br>
 - Integration with the Orchestrate CLI
 
-## Step 8: Install watsonx Orchestrate MCP Servers
+### IMPORTANT: ###
+> Do **NOT** open the extension itself, you just need it installed. Using the extension to initialise the workspace can cause issues. So, do NOT do it!
+
+## Step 8: Install watsonx Orchestrate SDK
+
+Since you now have the watsonx Orchestrate ADK extension installed, you will see the ADK informaton in the bottom Status Bar. Since we just created a fresh Python virtual environment to our workspace, you should see just a red cross ❌ stating that you need to install the ADK.
+
+<img src="images/image-7.png" alt="IBM Bob IDE Status Bar showing ADK not installed" width="300px">
+
+Click on the red cross to install the ADK. This will open a couple of commands to the search/command bar. **Select the one to install the ADK**.
+
+<img src="images/image-8.png" alt="IBM Bob IDE Command Palette showing Install ADK command" width="500px">
+
+Wait for the installation to complete. After a while, you should see a notification and a green checkmark in the Status Bar with the latest version number of the ADK.
+
+<img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="300px">
+
+> NOTE: The version number you are seeing in the Status Bar is the version of the ADK that is installed. It might be different from the version shown in the picture above. New ADK versions are released regularly, so the version number will change over time.
+
+## Step 9: Install watsonx Orchestrate MCP Servers
 
 Install the watsonx Orchestrate MCP servers through the ADK extension:
 
@@ -157,7 +176,7 @@ The MCP servers provide:<br>
 - Tools for listing agents, tools, and other resources<br>
 - Enhanced Bob capabilities for watsonx Orchestrate development
 
-## Step 9: Import WXO Agent Architect Mode
+## Step 10: Import WXO Agent Architect Mode
 
 Import a pre-configured custom mode specialized for building watsonx Orchestrate agents:
 
@@ -197,20 +216,6 @@ The imported "WXO Agent Architect" mode includes:<br>
 4. Select "WXO Agent Architect" mode
 5. Ask Bob: "What can you help me with in this mode?"
 6. Bob should respond with information about building watsonx Orchestrate agents and mention the available MCP servers
-
-## Step 10: Install watsonx Orchestrate SDK
-
-Since you have the watsonx Orchestrate ADK extension installed, you will see the ADK informaton in the bottom Status Bar. Since we just created a fresh Python virtual environment to our workspace, you should see just a red cross ❌ stating that you need to install the ADK.
-
-<img src="images/image-7.png" alt="IBM Bob IDE Status Bar showing ADK not installed" width="300px">
-
-Click on the red cross to install the ADK. This will open a couple of commands to the search/command bar. Select the one to install the ADK.
-
-<img src="images/image-8.png" alt="IBM Bob IDE Command Palette showing Install ADK command" width="500px">
-
-Wait for the installation to complete. After a while, you should see a notification and a green checkmark in the Status Bar with the latest version number of the ADK.
-
-<img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="300px">
 
 ## Step 11: Get Your watsonx Orchestrate API key and API URL
 
