@@ -177,7 +177,7 @@ By the end of this workshop, you will:
 - [watsonx Orchestrate Documentation](https://developer.watson-orchestrate.ibm.com/)
 - [Python Tools Guide](https://developer.watson-orchestrate.ibm.com/tools/create_tool)
 - [Agent Builder API Reference](https://developer.watson-orchestrate.ibm.com/apis/agents/)
-- [Community Forum](https://community.ibm.com/community/user/watsonai/communities/community-home?CommunityKey=7a3dc5ba-3018-452d-9a43-a49dc6819633)
+- [Community Forum](https://community.ibm.com/community/user/groups/community-home?CommunityKey=3ad46381-9535-462e-85c9-568b21f4b067)
 
 ## Need Help?
 
