@@ -13,7 +13,7 @@ Welcome! This workshop will guide you through building AI agents using IBM watso
 
 **Duration:** 270-300 minutes (4.5-5 hours) for complete workshop
 
-This estimate includes:
+This estimate includes:<br>
 
 - Core instruction time: 220 minutes
 - Setup and troubleshooting: 20-30 minutes
