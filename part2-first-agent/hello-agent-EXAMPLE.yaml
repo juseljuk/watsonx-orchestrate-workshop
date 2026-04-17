@@ -1,8 +1,10 @@
 # Hello World Agent - Your First watsonx Orchestrate Agent
 # This is a simple agent that demonstrates the basics of agent creation
 
+spec_version: v1
 kind: native
-name: hello-world-agent
+name: hello_world_agent
+style: default
 description: A friendly agent that greets users and introduces watsonx Orchestrate capabilities
 
 instructions: |

@@ -1,6 +1,8 @@
 spec_version: v1
 kind: native
 name: support_router_<your_initials_here>
+style: default
+hide_reasoning: true
 description: Routes customer queries to appropriate support agent based on complexity
 
 instructions: |

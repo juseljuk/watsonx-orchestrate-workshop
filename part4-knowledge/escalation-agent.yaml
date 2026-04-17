@@ -1,6 +1,9 @@
 # Escalation Agent for Complex Customer Issues
+spec_version: v1
 kind: native
-name: escalation-agent
+name: escalation_agent
+style: default
+hide_reasoning: true
 description: Handles complex customer issues that require manager approval or special handling
 
 instructions: |
@@ -50,9 +53,6 @@ tools:
 knowledge_base:
   - customer-support-faq
 
-# Agent configuration
-config:
-  hidden: false          # Show this agent in the UI
-  enable_cot: true       # Enable chain-of-thought for complex reasoning
+hidden: false
 
 # Made with Bob

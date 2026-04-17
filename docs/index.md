@@ -186,6 +186,10 @@ By the end of this workshop, you will:
 - Review the bob-prompts guide for helpful prompts
 - Consult the watsonx Orchestrate documentation
 
+## Reporting issues and asking for enhancements
+
+If you have any issues or suggestions for improvement, please open an issue in the [Bobchestrate repository](https://github.com/juseljuk/bobchestrate-workshop/issues) - you'll need a GitHub account to do this. Cheers 🍻
+
 ## Getting Started
 
-Let's get started! Head to [Part 1: Setup](part1-setup/README.md) →
+Let's get started! 🚀  Head to [Part 1: Setup](part1-setup/README.md) →

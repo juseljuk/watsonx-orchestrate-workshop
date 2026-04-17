@@ -167,6 +167,8 @@ Reference the model in your agent configuration:
 spec_version: v1
 kind: native
 name: my_agent
+style: default
+hide_reasoning: true
 description: Agent using external model
 
 llm: virtual-model/openai/gpt-5-2025-08-07   # Reference your external model as it shows when listing models from your orchestrate instance
@@ -288,6 +290,8 @@ Once created, reference the policy name in your agent's `llm` field:
 spec_version: v1
 kind: native
 name: resilient_support_agent
+style: default
+hide_reasoning: true
 description: Support agent with automatic fallback
 
 instructions: |

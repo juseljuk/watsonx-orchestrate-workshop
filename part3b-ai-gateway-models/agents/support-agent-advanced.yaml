@@ -1,6 +1,8 @@
 spec_version: v1
 kind: native
 name: support_agent_external_<your_initials_here>
+style: default
+hide_reasoning: true
 description: Customer support agent using external model provider (example)
 
 instructions: |
@@ -19,9 +21,6 @@ instructions: |
 # Example: Using external OpenAI model (requires AI Gateway configuration)
 # Replace with actual external model once configured
 llm: openai/gpt-4-turbo
-
-# Apply governance policy
-policy: production_policy
 
 tools:
   - check_order_status_<your_initials_here>

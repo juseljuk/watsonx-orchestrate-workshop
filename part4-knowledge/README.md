@@ -188,6 +188,8 @@ Update your _**customer support agent**_ to use the knowledge base. **Add the "k
 spec_version: v1
 kind: native
 name: customer_support_agent_<your_initials_here>
+style: default
+hide_reasoning: true
 description: A customer support agent that can check orders, process refunds, and answer FAQs
 
 instructions: |
@@ -257,6 +259,8 @@ Now let's create a specialized agent for handling complex issues. Use the exampl
 spec_version: v1
 kind: native
 name: escalation_agent_<your_initials_here>
+style: default
+hide_reasoning: true
 description: Handles complex customer issues that require manager approval or special handling
 
 instructions: |
@@ -311,6 +315,8 @@ Update the main customer support agent to collaborate with the escalation agent:
 spec_version: v1
 kind: native
 name: customer_support_agent_<your_initials_here>
+style: default
+hide_reasoning: true
 description: A customer support agent that can check orders, process refunds, and answer FAQs
 
 instructions: |
