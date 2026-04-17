@@ -60,7 +60,7 @@ Bob, add error handling guidance to these agent instructions: [paste instruction
 
 ### Agent Configuration
 ```
-Bob, explain what the 'enable_cot' configuration option does
+Bob, explain what the 'hide_reasoning' configuration option does
 ```
 
 ```
