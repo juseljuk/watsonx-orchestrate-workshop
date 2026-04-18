@@ -23,11 +23,12 @@ This part introduces a complete **travel planning system** as an advanced exampl
 
 ### What You'll Build
 
-**Travel Planning System** with multiple specialized agents:<br>
-- **Travel Concierge** (parent) - Routes requests to specialists<br>
-- **Flight Specialist** - Handles flight bookings<br>
-- **Hotel Specialist** - Manages accommodation<br>
-- **Activity Planner** - Suggests local activities<br>
+**Travel Planning System** with multiple specialized agents:
+
+- **Travel Concierge** (parent) - Routes requests to specialists
+- **Flight Specialist** - Handles flight bookings
+- **Hotel Specialist** - Manages accommodation
+- **Activity Planner** - Suggests local activities
 - **Budget Advisor** - Provides cost analysis
 
 ---
@@ -46,6 +47,7 @@ Customer Support Agent
 ```
 
 **Problems:**
+
 - ❌ Overwhelming complexity
 - ❌ Difficult to maintain
 - ❌ Poor performance on specialized tasks
@@ -60,11 +62,12 @@ Orchestrator Agent
 └── Escalation Handler (2 tools, focused instructions)
 ```
 
-**Benefits:**<br>
-- ✅ Clear separation of concerns<br>
-- ✅ Easier to maintain and update<br>
-- ✅ Better performance on specialized tasks<br>
-- ✅ Simpler testing and debugging<br>
+**Benefits:**
+
+- ✅ Clear separation of concerns
+- ✅ Easier to maintain and update
+- ✅ Better performance on specialized tasks
+- ✅ Simpler testing and debugging
 - ✅ Reusable specialists across systems
 
 ### When to Use Multi-Agent Systems
@@ -83,16 +86,18 @@ Orchestrator Agent
 
 ### Agent Roles
 
-**1. Orchestrator (Parent) Agent**<br>
-- Routes requests to appropriate specialists<br>
-- Manages overall conversation flow<br>
-- Synthesizes responses from multiple agents<br>
+**1. Orchestrator (Parent) Agent**
+
+- Routes requests to appropriate specialists
+- Manages overall conversation flow
+- Synthesizes responses from multiple agents
 - Handles general queries
 
-**2. Specialist (Child) Agents**<br>
-- Deep expertise in specific domain<br>
-- Focused tools and knowledge<br>
-- Clear, specific instructions<br>
+**2. Specialist (Child) Agents**
+
+- Deep expertise in specific domain
+- Focused tools and knowledge
+- Clear, specific instructions
 - Return to orchestrator when done
 
 ### Routing Strategies
