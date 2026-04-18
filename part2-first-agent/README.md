@@ -77,6 +77,103 @@ These fields define your agent's behavior and capabilities:
 - **`context_access_enabled`** (boolean): Enable access to context variables from upstream systems (default: false)
 - **`context_variables`** (list<string>): List of context variables the agent can access (e.g., wxo_email_id, wxo_user_name, wxo_tenant_id)
 
+
+### Example: Complete Agent Configuration
+
+
+
+Here's a comprehensive example showing all mandatory and optional fields:
+
+```yaml
+# complete-agent-example.yaml
+# This example demonstrates all available agent configuration options
+
+# === MANDATORY FIELDS ===
+spec_version: v1
+kind: native
+name: complete-example-agent
+llm: watsonx/ibm/granite-3-8b-instruct
+
+# === CORE OPTIONAL FIELDS ===
+description: A comprehensive example agent demonstrating all configuration options available in watsonx Orchestrate
+instructions: |
+  You are a demonstration agent showcasing the full range of configuration options.
+  
+  Your role is to:
+  1. Demonstrate proper agent structure and configuration
+  2. Show how different fields affect agent behavior
+  3. Serve as a reference for building production agents
+  
+  Always be helpful, clear, and educational in your responses.
+
+style: default
+hide_reasoning: false
+
+# === EXTENDING AGENT CAPABILITIES ===
+tools:
+  - example-tool-1
+  - example-tool-2
+
+collaborators:
+  - helper-agent
+  - specialist-agent
+
+knowledge_base:
+  - company-docs
+  - product-catalog
+
+# === ADVANCED CONFIGURATION ===
+guidelines:
+  - condition: "user asks about pricing"
+    action: "provide pricing information from knowledge base"
+    tool: "pricing-lookup-tool"
+  - condition: "user needs technical support"
+    action: "delegate to technical support agent"
+
+restrictions: editable
+
+icon: |
+  <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="32" cy="32" r="30" fill="#0f62fe"/>
+    <text x="32" y="40" font-size="24" fill="white" text-anchor="middle">AI</text>
+  </svg>
+
+# === WEB CHAT FEATURES ===
+welcome_content:
+  welcome_message: "Welcome! I'm your complete example agent."
+  description: "I demonstrate all available configuration options for watsonx Orchestrate agents."
+
+starter_prompts:
+  prompts:
+    - title: "Learn About Configuration"
+      subtitle: "Understand agent setup"
+      prompt: "Tell me about agent configuration options"
+    - title: "See My Capabilities"
+      subtitle: "What can I do?"
+      prompt: "What are your capabilities and features?"
+    - title: "Get Started"
+      subtitle: "Begin exploring"
+      prompt: "How can you help me today?"
+
+chat_with_docs:
+  enabled: true
+  citations:
+    enabled: true
+    display_format: inline
+  generation:
+    max_tokens: 2000
+    temperature: 0.7
+
+# === CONTEXT VARIABLES ===
+context_access_enabled: true
+context_variables:
+  - wxo_email_id
+  - wxo_user_name
+  - wxo_tenant_id
+  - wxo_user_role
+```
+
+
 ### Key Insight
 
 The `instructions` field is the most critical part of your agent configuration. It defines the agent's personality, capabilities, and behavior patterns. Well-written instructions lead to predictable, helpful agent responses.
