@@ -87,11 +87,9 @@ Create a virtual environment for the workshop to keep dependencies isolated usin
 1. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
 2. Start typing "Python: Create Environment" and select it
 3. Choose "Venv" as the environment type
-4. Select your Python interpreter (Python 3.11-3.13)
+4. Select your Python interpreter (Python 3.11-3.13) and wait for the virtual environment to be created
 
    **IMPORTANT:** _Make sure to select the supported Python interpreter version (3.11-3.13). If you do not see the correct version, you may need to install it first. If you have installed the correct version and still don't see it, restart IBM Bob IDE._
-
-5. Wait for the virtual environment to be created
 
 You can now see the .venv folder in your workspace explorer view.
 
