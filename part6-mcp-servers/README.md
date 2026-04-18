@@ -836,17 +836,19 @@ For remote servers, only `key_value` connections are supported for authenticatio
 
 ### 1. Tool Design
 
-✅ **DO:**<br>
-- Keep tools focused and single-purpose<br>
-- Provide clear, descriptive tool names<br>
-- Include detailed descriptions<br>
-- Use proper JSON schema for parameters<br>
+✅ **DO:**
+
+- Keep tools focused and single-purpose
+- Provide clear, descriptive tool names
+- Include detailed descriptions
+- Use proper JSON schema for parameters
 - Return structured JSON responses
 
-❌ **DON'T:**<br>
-- Create overly complex tools<br>
-- Use vague tool names<br>
-- Skip parameter descriptions<br>
+❌ **DON'T:**
+
+- Create overly complex tools
+- Use vague tool names
+- Skip parameter descriptions
 - Return unstructured text
 
 ### 2. Error Handling
@@ -873,10 +875,11 @@ async def call_tool(name: str, arguments: dict):
         )]
 ```
 
-**Best practices:**<br>
-- Wrap the entire function body in a try-except block<br>
-- Return errors as JSON with an "error" key for consistency<br>
-- Handle unknown tool names explicitly<br>
+**Best practices:**
+
+- Wrap the entire function body in a try-except block
+- Return errors as JSON with an "error" key for consistency
+- Handle unknown tool names explicitly
 - Use a catch-all Exception handler to prevent server crashes
 
 ### 3. Performance
@@ -955,30 +958,33 @@ Then create an agent that uses both `product-catalog` and `shopping-cart` toolki
 
 **Symptoms**: Import fails or tools don't appear
 
-**Solutions:**<br>
-1. Check Python version (3.9+)<br>
-2. Verify `mcp` package is installed<br>
-3. Test server locally first<br>
+**Solutions:**
+
+1. Check Python version (3.11+)
+2. Verify `mcp` package is installed
+3. Test server locally first
 4. Check for syntax errors in server code
 
 ### Issue: Tools Not Working
 
 **Symptoms**: Agent can't call tools or gets errors
 
-**Solutions:**<br>
-1. Verify toolkit is imported: `orchestrate toolkit list`<br>
-2. Check agent YAML includes toolkit in `toolkits:` section<br>
-3. Review tool input schema matches what agent sends<br>
+**Solutions:**
+
+1. Verify toolkit is imported: `orchestrate toolkit list`
+2. Check agent YAML includes toolkit in `toolkits:` section
+3. Review tool input schema matches what agent sends
 4. Check server logs for errors
 
 ### Issue: Authentication Errors
 
 **Symptoms**: Tools fail when accessing backend APIs
 
-**Solutions:**<br>
-1. Verify connection is created and configured<br>
-2. Check credentials are set correctly<br>
-3. Ensure `app_id` in toolkit YAML matches connection name<br>
+**Solutions:**
+
+1. Verify connection is created and configured
+2. Check credentials are set correctly
+3. Ensure `app_id` in toolkit YAML matches connection name
 4. Test API credentials independently
 
 ---
