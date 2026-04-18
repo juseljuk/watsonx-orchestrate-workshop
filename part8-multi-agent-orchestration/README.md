@@ -1575,10 +1575,11 @@ instructions: |
 
 Add a "Car Rental Specialist" to the travel system.
 
-**Requirements:**<br>
-- Create car-rental-specialist-agent.yaml<br>
-- Create car_rental_tools.py with search and book functions<br>
-- Update travel_concierge to include new specialist<br>
+**Requirements:**
+
+- Create car-rental-specialist-agent.yaml
+- Create car_rental_tools.py with search and book functions
+- Update travel_concierge to include new specialist
 - Test routing to car rental specialist
 
 **💡 Ask Bob:**
@@ -1592,25 +1593,28 @@ car rental queries appropriately.
 
 Modify the orchestrator to always check budget first for trip planning requests.
 
-**Requirements:**<br>
-- Update travel_concierge instructions<br>
-- Route to budget_advisor before other specialists<br>
-- Use budget constraints when routing to other specialists<br>
+**Requirements:**
+
+- Update travel_concierge instructions
+- Route to budget_advisor before other specialists
+- Use budget constraints when routing to other specialists
 - Test with budget-constrained requests
 
 ### Exercise 3: Create a Different Domain (Advanced)
 
 Build a multi-agent system for a different domain (e.g., e-commerce, healthcare, education).
 
-**Requirements:**<br>
-- Design 3-4 specialist agents<br>
-- Create orchestrator with routing logic<br>
-- Implement mock tools<br>
+**Requirements:**
+
+- Design 3-4 specialist agents
+- Create orchestrator with routing logic
+- Implement mock tools
 - Test complete workflows
 
-**Example Domains:**<br>
-- **E-commerce**: Product Search, Inventory, Checkout, Support<br>
-- **Healthcare**: Appointment, Prescription, Billing, Records<br>
+**Example Domains:**
+
+- **E-commerce**: Product Search, Inventory, Checkout, Support
+- **Healthcare**: Appointment, Prescription, Billing, Records
 - **Education**: Course Search, Enrollment, Assignments, Grading
 
 ---
@@ -1621,29 +1625,32 @@ Build a multi-agent system for a different domain (e.g., e-commerce, healthcare,
 
 **Symptoms**: Orchestrator tries to answer directly instead of routing
 
-**Solutions:**<br>
-1. Make specialist descriptions more specific<br>
-2. Add explicit routing rules in orchestrator instructions<br>
-3. Ensure collaborators are properly listed<br>
+**Solutions:**
+
+1. Make specialist descriptions more specific
+2. Add explicit routing rules in orchestrator instructions
+3. Ensure collaborators are properly listed
 4. Check that specialist agents exist and are imported
 
 ### Issue: Context Lost Between Agents
 
 **Symptoms**: Specialist doesn't have information from previous conversation
 
-**Solutions:**<br>
-1. Update orchestrator to pass context explicitly<br>
-2. Include relevant details when routing<br>
+**Solutions:**
+
+1. Update orchestrator to pass context explicitly
+2. Include relevant details when routing
 3. Have orchestrator summarize previous interactions
 
 ### Issue: Circular Routing
 
 **Symptoms**: Agents keep routing back and forth
 
-**Solutions:**<br>
-1. Add clear termination conditions<br>
-2. Limit routing depth<br>
-3. Have specialists indicate when they're done<br>
+**Solutions:**
+
+1. Add clear termination conditions
+2. Limit routing depth
+3. Have specialists indicate when they're done
 4. Orchestrator should synthesize, not re-route
 
 ---
