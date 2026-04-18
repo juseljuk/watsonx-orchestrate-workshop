@@ -222,7 +222,7 @@ def process_refund(order_id: str, reason: str, amount: float) -> dict:
 
 ## Step 3: Import Your Tools
 
-### IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _tool names_ (function names) inside the tool python files by adding your initials as a postfix. ###
+## IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _tool names_ (function names) inside the tool python files by adding your initials as a postfix. ###
 
 >For example, `def check_order_status` becomes `def check_order_status_JKJ`. Make sure to use the same postfix for all your tools.
 
@@ -262,7 +262,7 @@ Now create an agent that uses these tools. You can use the definition below - it
 
 You can also create your own agent definition if you prefer.
 
-### IMPORTANT: Make sure to change the tool names in the agent definition to match the names of the tools you imported! ALSO the postfix the name of the agent with your initials! ###
+## IMPORTANT: Make sure to change the tool names in the agent definition to match the names of the tools you imported! ALSO the postfix the name of the agent with your initials! ###
 
 ```yaml
 # customer-support-agent.yaml
