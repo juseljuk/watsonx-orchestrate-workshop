@@ -313,11 +313,11 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
 5. After Bob has saved the documentation, it will ask you to permission to make the script executable. Click on the **Run** to execute the command.
 
-6. Finally Bob will summarize the task for you.
+6. Finally Bob will summarize the task for you
 
     <img src="images/image-18.png" alt="Task summary" width="350px">
 
-7. Open a terminal window within Bob IDE:
+7. Open a terminal window within Bob IDE
 
    - From the Bob main menu bar, select **Terminal** > **New Terminal**
 
