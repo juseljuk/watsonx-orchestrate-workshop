@@ -121,7 +121,7 @@ Install the watsonx Orchestrate extension for IBM Bob IDE:
 4. Wait for the installation to complete
 5. Reload VS Code if prompted
 6. You should now see the extension icon appear in the Activity Bar - You do NOT need to open it. If you do, do **NOT** initalize the workspace using it. This might cause some issues with the setup procedure we're using right now:
-
+   
    <img src="images/image-3.png" alt="IBM Bob IDE File menu showing Open Folder option" width="75px">
 
 The IBM watsonx Orchestrate ADK VS Code extension provides:
