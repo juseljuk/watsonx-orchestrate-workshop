@@ -935,17 +935,19 @@ that takes a product_id and returns just the price.
 
 ### Exercise 2: Enhance Search (Medium)
 
-Improve the `search_products` tool to support:<br>
-- Price range filtering<br>
-- Category filtering<br>
+Improve the `search_products` tool to support:
+
+- Price range filtering
+- Category filtering
 - Sorting by price or name
 
 ### Exercise 3: Add Shopping Cart (Advanced)
 
-Create a new MCP server called `shopping-cart` with tools for:<br>
-- Adding items to cart<br>
-- Removing items from cart<br>
-- Viewing cart contents<br>
+Create a new MCP server called `shopping-cart` with tools for:
+
+- Adding items to cart
+- Removing items from cart
+- Viewing cart contents
 - Calculating cart total
 
 Then create an agent that uses both `product-catalog` and `shopping-cart` toolkits.
