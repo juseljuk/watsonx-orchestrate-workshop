@@ -65,8 +65,8 @@ This folder will contain all your workshop files, agents, and tools.
 1. When Bob IDE opened:
 2. Click **File** → **Open Folder**
    
-   <img src="images/image.png" alt="IBM Bob IDE File menu showing Open Folder option" width="250px">
-   
+      <img src="images/image.png" alt="IBM Bob IDE File menu showing Open Folder option" width="250px">
+
 3. Navigate to and select the `bobchestrate-ws` folder
 4. Click **Open**
 5. Click **Yes, I trust the author** to trust the workspace
