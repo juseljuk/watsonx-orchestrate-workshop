@@ -240,9 +240,10 @@ orchestrate chat ask --agent-name <your_agent_name>
 
 This will start an interactive chat session with your agent. This is very useful for testing your agent's responses without needing to login to your watsonx Orchestrate instance UI.
 
-Try these test messages:<br>
-- "Hello!"<br>
-- "What can you do?"<br>
+Try these test messages:
+
+- "Hello!"
+- "What can you do?"
 - "Tell me about watsonx Orchestrate"
 
 Type `exit` or press Ctrl+C to quit.
@@ -332,12 +333,13 @@ Bob, check this YAML file for syntax errors: [paste YAML]
 
 For hands-on practice building agents, see the [Part 2 Exercises](./exercises.md).
 
-The exercises cover:<br>
-- Creating personality-based agents<br>
-- Building domain expert agents<br>
-- Multi-lingual agent support<br>
-- Structured output formatting<br>
-- Conversational flow patterns<br>
+The exercises cover:
+
+- Creating personality-based agents
+- Building domain expert agents
+- Multi-lingual agent support
+- Structured output formatting
+- Conversational flow patterns
 - Debugging agent issues
 
 ## Key Takeaways
