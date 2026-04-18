@@ -13,11 +13,12 @@
 
 ## Agent Basics
 
-A watsonx Orchestrate agent is an AI assistant that can:<br>
-- Understand natural language<br>
-- Execute tasks using tools<br>
-- Collaborate with other agents<br>
-- Access knowledge bases<br>
+A watsonx Orchestrate agent is an AI assistant that can:
+
+- Understand natural language
+- Execute tasks using tools
+- Collaborate with other agents
+- Access knowledge bases
 - Follow specific instructions
 
 ## Step 1: Understanding Agent Structure
@@ -79,8 +80,6 @@ These fields define your agent's behavior and capabilities:
 
 
 ### Example: Complete Agent Configuration
-
-
 
 Here's a comprehensive example showing all mandatory and optional fields:
 
@@ -172,8 +171,6 @@ context_variables:
   - wxo_tenant_id
   - wxo_user_role
 ```
-
-
 ### Key Insight
 
 The `instructions` field is the most critical part of your agent configuration. It defines the agent's personality, capabilities, and behavior patterns. Well-written instructions lead to predictable, helpful agent responses.
@@ -191,8 +188,10 @@ Or create the yaml-file manually (see [hello-agent-EXAMPLE.yaml](./hello-agent-E
 
 ```yaml
 # hello-agent.yaml
+spec_version: v1
 kind: native
 name: hello-world-agent
+llm: groq/openai/gpt-oss-120b
 description: A friendly agent that greets users and introduces itself
 instructions: |
   You are a friendly AI assistant named HelloBot. Your role is to:
@@ -204,9 +203,6 @@ instructions: |
   
   When greeting users, mention that you're a demo agent created in a workshop.
   Keep your responses brief and engaging.
-
-# Optional: Specify the LLM model to use
-llm: groq/openai/gpt-oss-120b
 ```
 
 ## Step 3: Import Your Agent
