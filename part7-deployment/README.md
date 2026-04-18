@@ -844,3 +844,12 @@ You've completed the workshop and built a production-ready customer support agen
 **💡 Pro Tip:** Keep using Bob for your ongoing development. Bob can help you maintain, improve, and extend your agents!
 
 **🚀 Ready to build something amazing? Go for it!**
+
+
+---
+
+### Ready for More? Advanced Exercise Available!
+
+Want to take your skills to the next level? Continue with **Part 8: Multi-agent Orchestration and workflows**
+
+**[Continue to Part 8 →](../part8-multi-agent-orchestration/README.md)**
