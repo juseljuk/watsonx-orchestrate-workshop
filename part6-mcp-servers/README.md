@@ -516,7 +516,7 @@ orchestrate chat ask --agent-name product_catalog_agent_<your_initials> "Show me
 "What accessories do you recommend?"
 ```
 
->NOTE: You might not have all the products in the dummy database, so your agent might come back saying it doesn't have that specific product. You can check the dummy data looking at your `product-catalog-server.py` file in the toolkits folder.
+>**NOTE**: You might not have all the products in the dummy database, so your agent might come back saying it doesn't have that specific product. You can check the dummy data looking at your `product-catalog-server.py` file in the toolkits folder.
 
 ---
 
@@ -526,15 +526,17 @@ In real-world scenarios, you'll often want to connect to **existing MCP servers*
 
 ### Why Use Existing MCP Servers?
 
-**Benefits:**<br>
-- ⚡ **Faster integration** - No need to build from scratch<br>
-- 🔧 **Maintained by community** - Regular updates and bug fixes<br>
-- 📚 **Well-documented** - Established patterns and examples<br>
+**Benefits:**
+
+- ⚡ **Faster integration** - No need to build from scratch
+- 🔧 **Maintained by community** - Regular updates and bug fixes
+- 📚 **Well-documented** - Established patterns and examples
 - 🌐 **Wide coverage** - Servers for many popular services
 
 ### Finding MCP Servers
 
 **Popular sources:**
+
 - [MCP Servers Repository](https://github.com/modelcontextprotocol/servers) - Official collection
 - [NPM Registry](https://www.npmjs.com/search?q=keywords:mcp-server) - Node.js MCP servers
 - [PyPI](https://pypi.org/search/?q=mcp+server) - Python MCP servers
@@ -560,6 +562,7 @@ orchestrate toolkits add \
 ```
 
 **Key parameters:**
+
 - `--url`: The remote server endpoint
 - `--transport`: Protocol (`sse` or `streamable_http`)
 - `--tools`: Which tools to import (`"*"` for all, or comma-separated list)
@@ -699,6 +702,7 @@ llm: groq/openai/gpt-oss-120b
 ### Best Practices for External MCP Servers
 
 ✅ **DO:**
+
 - Test the server locally before importing (if possible)
 - Review the server's documentation for required credentials
 - Use specific tool names instead of `"*"` for better control
@@ -706,6 +710,7 @@ llm: groq/openai/gpt-oss-120b
 - Monitor server availability and response times
 
 ❌ **DON'T:**
+
 - Import untrusted MCP servers without review
 - Hardcode credentials in YAML files
 - Import all tools if you only need a few
@@ -726,16 +731,19 @@ Here are some popular MCP servers you might want to use:
 ### Troubleshooting External MCP Servers
 
 **Issue: Connection timeout**
+
 - Check if the server URL is correct and accessible
 - Verify network connectivity
 - Check if authentication is required
 
 **Issue: Tools not appearing**
+
 - Verify the server is running and responding
 - Check if specific tools need to be listed instead of `"*"`
 - Review server logs for errors
 
 **Issue: Authentication failures**
+
 - Verify credentials are set correctly
 - Check if the connection name matches in toolkit YAML
 - Ensure the connection type is `key_value` for remote servers
@@ -815,7 +823,8 @@ connections:
   - api-auth  # For authentication to remote server
 ```
 
-**Note:** Remote MCP servers support two transport protocols:
+**NOTE:** Remote MCP servers support two transport protocols:
+
 - `sse` - Server-Sent Events
 - `streamable_http` - Streamable HTTP
 
