@@ -18,10 +18,11 @@ In this lesson, you'll learn how to create and use **MCP (Model Context Protocol
 
 ### What You'll Build
 
-A **Product Catalog MCP Server** that provides tools for:<br>
-- Searching products<br>
-- Getting product details<br>
-- Checking inventory<br>
+A **Product Catalog MCP Server** that provides tools for:
+
+- Searching products
+- Getting product details
+- Checking inventory
 - Getting product recommendations
 
 Then you'll connect this MCP server to an agent that can help customers browse and find products.
@@ -34,11 +35,12 @@ Then you'll connect this MCP server to an agent that can help customers browse a
 
 ### Why Use MCP Servers?
 
-**Benefits:**<br>
-- 📦 **Package related tools together** - Group tools by domain (e.g., all product-related tools)<br>
-- 🔄 **Reusable across agents** - One MCP server can serve multiple agents<br>
-- 🔌 **Easy integration** - Standard protocol makes connection simple<br>
-- 🛡️ **Centralized logic** - Backend logic stays in one place<br>
+**Benefits:**
+
+- 📦 **Package related tools together** - Group tools by domain (e.g., all product-related tools)
+- 🔄 **Reusable across agents** - One MCP server can serve multiple agents
+- 🔌 **Easy integration** - Standard protocol makes connection simple
+- 🛡️ **Centralized logic** - Backend logic stays in one place
 - 🚀 **Scalable** - Can run locally or remotely
 
 **When to Use MCP Servers vs Individual Tools:**
@@ -100,7 +102,7 @@ if __name__ == "__main__":
 
 Let's build a complete MCP server for product catalog operations.
 
->Note: You can switch your Bob chat to **Code** mode for this.
+>**NOTE***: You can switch your Bob chat to **Code** mode for this.
 
 **💡 Ask Bob to help:**
 ```
