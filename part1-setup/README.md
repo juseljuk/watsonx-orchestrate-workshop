@@ -198,7 +198,7 @@ Download the mode configuration file:
 
 3. Save the file to your Downloads folder or a location you can easily access
 4. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
-5. Type "Modes" and select it
+5. Type "**Modes**" and select it
 6. Click on **Import** icon in the modes panel
 
       <img src="images/image-11.png" alt="Import custom mode" width="400px">
@@ -206,10 +206,11 @@ Download the mode configuration file:
 7. Select the `wxo-agent-architect-export.yaml` file you downloaded and click **Open**
 8. You should see a confirmation message that the mode was imported successfully and see the mode appear in the modes panel
 
-The imported "WXO Agent Architect" mode includes:<br>
-- **Role Definition**: Specialized for building watsonx Orchestrate agents<br>
-- **Custom Instructions**: Guidance on using MCP servers for agent development<br>
-- **MCP Server Integration**: Automatically uses both `watsonx-orchestrate-adk` and `watsonx-orchestrate-adk-docs` servers<br>
+The imported "WXO Agent Architect" mode includes:
+
+- **Role Definition**: Specialized for building watsonx Orchestrate agents
+- **Custom Instructions**: Guidance on using MCP servers for agent development
+- **MCP Server Integration**: Automatically uses both `watsonx-orchestrate-adk` and `watsonx-orchestrate-adk-docs` servers
 - **Tool Groups**: Access to read, edit, browser, command, and MCP tools
 
 **Verify the mode:**
@@ -217,7 +218,7 @@ The imported "WXO Agent Architect" mode includes:<br>
 1. Open Bob's chat panel if not already open
 2. Click on the mode selector (usually shows the current mode like "Code" or "Ask")
 3. You should see "WXO Agent Architect" in the list of available modes
-4. Select "WXO Agent Architect" mode
+4. Select "**WXO Agent Architect**" mode
 5. Ask Bob: "What can you help me with in this mode?"
 6. Bob should respond with information about building watsonx Orchestrate agents and mention the available MCP servers
 
@@ -236,7 +237,7 @@ For the workshop, we will use the watsonx Orchestrate ADK to interact with a wat
 3. Navigate to the **API details** tab
 4. Click **Generate API key** button
 
-   <img src="images/image-12.png" alt="Generate API key button highlighted" width="350px">
+      <img src="images/image-12.png" alt="Generate API key button highlighted" width="350px">
 
 5. When the key is generated, click **Copy** to save it to your clipboard
 6. **Important**: Copy the API key immediately and _store_ it securely
@@ -292,19 +293,19 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
 1. Make sure that you have the **WXO Agent Architect** mode selected for your Bob chat. Then ask Bob to create a script to add and activate new watsonx Orchestarte environment for the ADK:
 
-   ```
-   Create a simple shell script to add and activate new watsonx Orchestrate SaaS environment for the ADK. I have the environment URL and API key ready.
-   ```
+      ```
+      Create a simple shell script to add and activate new watsonx Orchestrate SaaS environment for the ADK. I have the environment URL and API key ready.
+      ```
 
-   <img src="images/image-16.png" alt="Create a script to add and activate new watsonx Orchestarte environment for the ADK" width="400px">
+      <img src="images/image-16.png" alt="Create a script to add and activate new watsonx Orchestarte environment for the ADK" width="400px">
 
 2. When Bob starts working, it will be asking for a permissionm to access watsonx-orchestarte-adk-docs MCP server. Click on the **Aprove** button to allow Bob to access the documentation.
 
-   >**NOTE**: You can also check the **Always allow** checkbox to always allow Bob to access the MCP server. One option is to enable **Auto-approval**. If you do this, you can specify the different options that you want to allow.
+      >**NOTE**: You can also check the **Always allow** checkbox to always allow Bob to access the MCP server. One option is to enable **Auto-approval**. If you do this, you can specify the different options that you want to allow.
 
       <img src="images/image-17.png" alt="Approve access to MCP server" width="350px">
 
-   >**NOTE**: Bob might ask you to approve the MCP server access multiple times. This is because Bob is trying to access the MCP server to get the more detailed information after first learning about the environment setup. Recommendation is to enable **Auto-approval** for the MCP servers to avoid granting the permission manually each time.
+      >**NOTE**: Bob might ask you to approve the MCP server access multiple times. This is because Bob is trying to access the MCP server to get the more detailed information after first learning about the environment setup. Recommendation is to enable **Auto-approval** for the MCP servers to avoid granting the permission manually each time.
 
 3. After Bob has created the script (e.g. _add_wxo_env.sh_, name could be something else for you), it will ask you to permission to save the script. Click on the **Save** button to save the script.
 
