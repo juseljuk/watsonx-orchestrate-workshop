@@ -406,7 +406,8 @@ orchestrate env activate <name>
 ```
 
 ### Issue: Bob isn't responding
-**Solution:** 
+**Solution:**
+
 1. Restart Bob IDE
 2. Check the Bob output panel for errors
 
@@ -435,6 +436,7 @@ orchestrate --help
 # Check version
 orchestrate --version
 ```
+**Remember that you can always ask Bob for help at any time!**
 
 ## Next Steps
 
