@@ -62,7 +62,6 @@ This folder will contain all your workshop files, agents, and tools.
 
 ## Step 5: Open Folder in IBM Bob IDE
 
-Open the workshop folder you just created (Step 3) in IBM Bob IDE:
 1. When Bob IDE opened:
 2. Click **File** → **Open Folder**
 
