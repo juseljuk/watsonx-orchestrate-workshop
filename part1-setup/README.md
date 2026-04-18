@@ -110,7 +110,7 @@ IBM Bob IDE will automatically:<br>
 Install the watsonx Orchestrate extension for IBM Bob IDE:
 
 1. Open the Extensions view in IBM Bob IDE (Click the Extensions icon in the Activity Bar or press `Cmd+Shift+X` on Mac / `Ctrl+Shift+X` on Windows/Linux)
-
+   
    <img src="images/image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="50px">
 
 2. Search for "**watsonx Orchestrate**"
