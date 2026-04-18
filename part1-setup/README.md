@@ -71,7 +71,7 @@ This folder will contain all your workshop files, agents, and tools.
 4. Click **Open**
 5. Click **Yes, I trust the author** to trust the workspace
 
-   <img src="images/image-1.png" alt="IBM Bob IDE File menu showing Open Folder option" width="400px">
+      <img src="images/image-1.png" alt="IBM Bob IDE File menu showing Open Folder option" width="400px">
 
 The empty workspace will open.
 
@@ -109,18 +109,18 @@ Install the watsonx Orchestrate extension for IBM Bob IDE:
 
 1. Open the Extensions view in IBM Bob IDE (Click the Extensions icon in the Activity Bar or press `Cmd+Shift+X` on Mac / `Ctrl+Shift+X` on Windows/Linux)
    
-   <img src="images/image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="50px">
+      <img src="images/image-2.png" alt="IBM Bob IDE File menu showing Open Folder option" width="50px">
 
 2. Search for "**watsonx Orchestrate**"
 
-    <img src="images/image-4.png" alt="IBM Bob IDE File menu showing Open Folder option" width="350px">
+      <img src="images/image-4.png" alt="IBM Bob IDE File menu showing Open Folder option" width="350px">
 
 3. Click **Install** on the "_**watsonx Orchestrate ADK**_" extension
 4. Wait for the installation to complete
 5. Reload VS Code if prompted
 6. You should now see the extension icon appear in the Activity Bar - You do NOT need to open it. If you do, do **NOT** initalize the workspace using it. This might cause some issues with the setup procedure we're using right now:
    
-   <img src="images/image-3.png" alt="IBM Bob IDE File menu showing Open Folder option" width="75px">
+      <img src="images/image-3.png" alt="IBM Bob IDE File menu showing Open Folder option" width="75px">
 
 The IBM watsonx Orchestrate ADK VS Code extension provides:
 
