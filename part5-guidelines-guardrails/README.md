@@ -797,12 +797,12 @@ Guidelines introduce additional computational overhead that impacts agent perfor
 
 4. **Optimization Strategies**
 
-   - **Minimize Guidelines**: Only include essential rule-based conditions
-   - **Prioritize Effectively**: Place most common conditions first to reduce evaluation time
-   - **Use Guardrails for Simple Checks**: Pattern matching in guardrails is faster than LLM evaluation
-   - **Combine Related Conditions**: Merge similar guidelines to reduce evaluation overhead
-   - **Monitor Performance**: Track response times and adjust guideline complexity accordingly
-   - **Cache When Possible**: Consider caching guideline evaluations for similar requests
+       - **Minimize Guidelines**: Only include essential rule-based conditions
+       - **Prioritize Effectively**: Place most common conditions first to reduce evaluation time
+       - **Use Guardrails for Simple Checks**: Pattern matching in guardrails is faster than LLM evaluation
+       - **Combine Related Conditions**: Merge similar guidelines to reduce evaluation overhead
+       - **Monitor Performance**: Track response times and adjust guideline complexity accordingly
+       - **Cache When Possible**: Consider caching guideline evaluations for similar requests
 
 5. **When to Use Guidelines vs Alternatives**
 
