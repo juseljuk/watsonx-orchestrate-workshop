@@ -15,10 +15,11 @@
 
 ## Knowledge Bases Overview
 
-Knowledge bases allow agents to:<br>
-- 📚 Access large amounts of information without including it in instructions<br>
-- 🔍 Retrieve relevant information based on user queries<br>
-- 📝 Answer questions from documents, FAQs, and knowledge articles<br>
+Knowledge bases allow agents to:
+
+- 📚 Access large amounts of information without including it in instructions
+- 🔍 Retrieve relevant information based on user queries
+- 📝 Answer questions from documents, FAQs, and knowledge articles
 - 🎯 Provide accurate, sourced responses
 
 ## Step 1: Create a Knowledge Base
@@ -142,18 +143,19 @@ Use Bob to create a knowledge base YAML file to import the FAQ PDF.
 
 #### Knowledge Base Naming Guidelines
 
-When naming your knowledge base, follow these best practices:<br>
-- Use lowercase letters, numbers, and hyphens (e.g., `customer-support-faq`)<br>
-- Keep names descriptive and meaningful<br>
-- Avoid spaces (use hyphens instead)<br>
-- Use consistent naming conventions across your project<br>
+When naming your knowledge base, follow these best practices:
+
+- Use lowercase letters, numbers, and hyphens (e.g., `customer-support-faq`)
+- Keep names descriptive and meaningful
+- Avoid spaces (use hyphens instead)
+- Use consistent naming conventions across your project
 - Example good names: `product-catalog`, `technical-docs`, `company-policies`
 
 ## Step 2: Import the Knowledge Base
 
-### IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _knowledge-base_ in the yaml-file by adding your initials as a postfix. ###
+## IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _knowledge-base_ in the yaml-file by adding your initials as a postfix. ###
 
->For example, `name: customer-support-faq` becomes `name: customer-support-faq-JKJ`.
+For example, `name: customer-support-faq` becomes `name: customer-support-faq-JKJ`.
 
 <img src="images/image-2.png" alt="" width="350px">
 
@@ -181,7 +183,7 @@ Wait for the knowledge base to be indexed (status: "ready").
 
 Update your _**customer support agent**_ to use the knowledge base. **Add the "knowledge_base" field to your agent configuration.**
 
->NOTE: The example below might be a bit different what you have as your customer support agent, but the main things is to add the "knowledge_base" field to your agent configuration.
+>**NOTE**: The example below might be a bit different what you have as your customer support agent, but the main things is to add the "knowledge_base" field to your agent configuration.
 
 ```yaml
 # customer-support-agent.yaml
@@ -240,10 +242,11 @@ Test the agent with FAQ questions:
 orchestrate chat ask -n customer_support_agent_<your_initials_here>
 ```
 
-Try these questions:<br>
-- "What's your shipping policy?"<br>
-- "What payment methods do you accept?"<br>
-- "How long does standard shipping take?"<br>
+Try these questions:
+
+- "What's your shipping policy?"
+- "What payment methods do you accept?"
+- "How long does standard shipping take?"
 - "Do you accept returns?"
 
 The agent should retrieve and present information from the knowledge base!
@@ -357,9 +360,11 @@ collaborators:
 
 ```
 
-***The important parts:***<br>
-- Add escalation_agent_<your_initials_here> to collaborators<br>
+***The important parts:***
+
+- Add escalation_agent_<your_initials_here> to collaborators
 - Add instructions about when to escalate under your customer support agent's instructions
+
 ```
 When to escalate to escalation_agent_<your_initials_here>:
   - Refund requests over $10,000
