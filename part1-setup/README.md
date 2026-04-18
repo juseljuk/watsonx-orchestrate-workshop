@@ -189,26 +189,22 @@ Import a pre-configured custom mode specialized for building watsonx Orchestrate
 
 >**NOTE**: IBM Bob Marketplace has a lot of pre-configured modes for IBM Bob IDE, including a mode for building watsonx Orchestrate agents. Unfortuntately, the marketplace is currently not available for non-IBMers but will be in the near future. This step will guide you on how to import a custom mode manually.
 
-1. Download the mode configuration file:
-   - The file is located at: [wxo-agent-architect-export.yaml](files/wxo-agent-architect-export.yaml)
+Download the mode configuration file:
 
-   - Click the **Download raw file** button
+1. The file is located at: [wxo-agent-architect-export.yaml](files/wxo-agent-architect-export.yaml)
+2. Click the **Download raw file** button
 
       <img src="images/image-10.png" alt="Download the raw file" width="300px">
 
-   - Save the file to your Downloads folder or a location you can easily access
+3. Save the file to your Downloads folder or a location you can easily access
+4. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
+5. Type "Modes" and select it
+6. Click on **Import** icon in the modes panel
 
-2. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux)
+      <img src="images/image-11.png" alt="Import custom mode" width="400px">
 
-3. Type "Modes" and select it
-
-4. Click on **Import** icon in the modes panel
-
-   <img src="images/image-11.png" alt="Import custom mode" width="400px">
-   
-5. Select the `wxo-agent-architect-export.yaml` file you downloaded and click **Open**
-
-6. You should see a confirmation message that the mode was imported successfully and see the mode appear in the modes panel
+7. Select the `wxo-agent-architect-export.yaml` file you downloaded and click **Open**
+8. You should see a confirmation message that the mode was imported successfully and see the mode appear in the modes panel
 
 The imported "WXO Agent Architect" mode includes:<br>
 - **Role Definition**: Specialized for building watsonx Orchestrate agents<br>
