@@ -106,16 +106,17 @@ When working with IBM watsonx Orchestrate or watsonx Orchestrate ADK projects:
 
 ### What's in the Enhanced Rule File?
 
-The enhanced rule file includes comprehensive guidance on:<br>
-- **Project Structure** - Complete directory organization<br>
-- **Development Patterns** - Error handling, logging, connections<br>
-- **Testing & QA** - Evaluation strategies and metrics<br>
-- **Security & Guardrails** - Pre/post-invoke plugins, credential management<br>
-- **Deployment & Channels** - Multi-channel deployment patterns<br>
-- **MCP Integration** - Local and remote MCP server patterns<br>
-- **Documentation Standards** - README templates, YAML documentation<br>
-- **Troubleshooting** - Common errors and debugging strategies<br>
-- **Performance Optimization** - Token usage, caching, model selection<br>
+The enhanced rule file includes comprehensive guidance on:
+
+- **Project Structure** - Complete directory organization
+- **Development Patterns** - Error handling, logging, connections
+- **Testing & QA** - Evaluation strategies and metrics
+- **Security & Guardrails** - Pre/post-invoke plugins, credential management
+- **Deployment & Channels** - Multi-channel deployment patterns
+- **MCP Integration** - Local and remote MCP server patterns
+- **Documentation Standards** - README templates, YAML documentation
+- **Troubleshooting** - Common errors and debugging strategies
+- **Performance Optimization** - Token usage, caching, model selection
 - **Quick Reference** - All CLI commands with correct syntax
 
 ## Step 3: Verify Bob Recognizes Your Rules
