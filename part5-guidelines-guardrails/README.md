@@ -839,7 +839,7 @@ Create a guardrail that detects and blocks requests for medical diagnoses.
 ```
 Bob, create an agent guardrail plugin for the appointment booking agent that blocks requests for medical diagnoses and suggests consulting a doctor.
 ```
->NOTE: Bob will most likely create also a test script to test the guardrail and asks for a permission to run it. It might iterate it through several times and fixes the issues it might find in the gueardrail. Finally, when all the tests are passed, Bob will generate a new README.md file for the new guardrail plugin. Quite impressive 🤯, right?! Again, if you whish to limit Bob's creativity, you can ask Bob just to create the guardrail without a test script and guardrail documentation.
+>**NOTE**: Bob will most likely create also a test script to test the guardrail and asks for a permission to run it. It might iterate it through several times and fixes the issues it might find in the gueardrail. Finally, when all the tests are passed, Bob will generate a new README.md file for the new guardrail plugin. Quite impressive 🤯, right?! Again, if you whish to limit Bob's creativity, you can ask Bob just to create the guardrail without a test script and guardrail documentation.
 
 ### Exercise 3: Combine Guidelines and Guardrails
 Create an agent that uses both guidelines for rule-based responses and guardrails for content filtering.
