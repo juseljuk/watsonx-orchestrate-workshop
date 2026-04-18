@@ -102,7 +102,7 @@ if __name__ == "__main__":
 
 Let's build a complete MCP server for product catalog operations.
 
->**NOTE***: You can switch your Bob chat to **Code** mode for this.
+>**NOTE**: You can switch your Bob chat to **Code** mode for this.
 
 **💡 Ask Bob to help:**
 ```
