@@ -776,24 +776,24 @@ Guidelines introduce additional computational overhead that impacts agent perfor
 
 1. **Guideline Evaluation Process**
 
-   - Each request triggers LLM evaluation of ALL guideline conditions
-   - The LLM must analyze the user input against every guideline to determine relevance
-   - This evaluation happens before the main agent processing begins
-   - More guidelines = longer evaluation time
+       - Each request triggers LLM evaluation of ALL guideline conditions
+       - The LLM must analyze the user input against every guideline to determine relevance
+       - This evaluation happens before the main agent processing begins
+       - More guidelines = longer evaluation time
 
 2. **Impact on Response Time**
 
-   - **Guideline Evaluation**: Additional LLM call to match conditions (~100-500ms per evaluation)
-   - **Prompt Size**: Relevant guidelines are added to the agent prompt, increasing token count
-   - **Processing Overhead**: LLM must reason about guideline actions and tool invocations
-   - **Cumulative Effect**: Multiple matching guidelines compound the latency
+       - **Guideline Evaluation**: Additional LLM call to match conditions (~100-500ms per evaluation)
+       - **Prompt Size**: Relevant guidelines are added to the agent prompt, increasing token count
+       - **Processing Overhead**: LLM must reason about guideline actions and tool invocations
+       - **Cumulative Effect**: Multiple matching guidelines compound the latency
 
 3. **Cost Implications**
 
-   - Each guideline evaluation consumes LLM tokens
-   - Larger guideline sets increase per-request token usage
-   - Token costs scale with the number of guidelines and their complexity
-   - Consider the trade-off between safety/control and operational costs
+       - Each guideline evaluation consumes LLM tokens
+       - Larger guideline sets increase per-request token usage
+       - Token costs scale with the number of guidelines and their complexity
+       - Consider the trade-off between safety/control and operational costs
 
 4. **Optimization Strategies**
 
@@ -806,10 +806,10 @@ Guidelines introduce additional computational overhead that impacts agent perfor
 
 5. **When to Use Guidelines vs Alternatives**
 
-   - **Use Guidelines**: For complex, context-dependent business logic that requires LLM reasoning
-   - **Use Guardrails**: For deterministic pattern matching (faster, no LLM call needed)
-   - **Use Instructions**: For general behavior that doesn't need condition-based triggering
-   - **Use Tools**: For computational logic that doesn't require LLM interpretation
+       - **Use Guidelines**: For complex, context-dependent business logic that requires LLM reasoning
+       - **Use Guardrails**: For deterministic pattern matching (faster, no LLM call needed)
+       - **Use Instructions**: For general behavior that doesn't need condition-based triggering
+       - **Use Tools**: For computational logic that doesn't require LLM interpretation
 
 **Performance Benchmark Example:**
 ```
