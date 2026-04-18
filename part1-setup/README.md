@@ -329,11 +329,11 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
 8. Run the created script in your terminal to **add** your environment
 
-   `./<name_of_your_created_script>, e.g. ./add_wxo_env.sh`
+      `./<name_of_your_created_script>, e.g. ./add_wxo_env.sh`
 
 9. When asked, provide name for your environment, e.g. `my-wxo-cloud`
 
-   <img src="images/image-19.png" alt="Env name" width="450px">
+      <img src="images/image-19.png" alt="Env name" width="450px">
 
 10. When asked, provide the URL of your Orchestrate instance that you got earlier
 
