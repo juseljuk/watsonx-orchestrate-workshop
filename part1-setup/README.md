@@ -13,9 +13,9 @@ Before starting, ensure you have:
 - [ ] IBM Bob IDE installed
 - [ ] watsonx Orchestrate access (SaaS or Developer Edition)
 
-> ### ⚠️ Warning ###
->
-> **Make sure you have all the prerequisites filled! You will face a lot of issues with wrong Python version for example.** 
+### ⚠️ Warning ###
+
+> **Make sure you have all the prerequisites filled! You will face a lot of issues with wrong Python version for example. Follow the steps in correct order to assure the setup procedure works as designed!** 
 
 ## Step 1: Verify Python Installation
 
@@ -27,6 +27,8 @@ python3 --version
 ```
 ***IMPORTANT: If you see something else than version 3.11.x, 3.12.x or 3.13.x, you need install one of the supported versions, 3.11.x - 3.13.x, to your computer!***
 
+Download supported Python version: ([https://www.python.org/downloads/](https://www.python.org/downloads/))
+
 ## Step 2: Verify uv Installation
 
 Open a terminal and run:
@@ -34,6 +36,8 @@ Open a terminal and run:
 uv --version
 ```
 ***IMPORTANT: You should see a version displayed. The version number does not matter, you just need to have the uv installed.***
+
+Download uv: ([https://pypi.org/project/uv/](https://pypi.org/project/uv/))
 
 ## Step 3: Create a new folder for the Workshop
 
@@ -58,7 +62,7 @@ This folder will contain all your workshop files, agents, and tools.
 
 ## Step 5: Open Folder in IBM Bob IDE
 
-Open the workshop folder in IBM Bob IDE:
+Open the workshop folder you just created (Step 3) in IBM Bob IDE:
 1. When Bob IDE opened:
 2. Click **File** → **Open Folder**
 
@@ -84,6 +88,9 @@ Create a virtual environment for the workshop to keep dependencies isolated usin
 2. Start typing "Python: Create Environment" and select it
 3. Choose "Venv" as the environment type
 4. Select your Python interpreter (Python 3.11-3.13)
+
+   **IMPORTANT:** _Make sure to select the supported Python interpreter version (3.11-3.13). If you do not see the correct version, you may need to install it first. If you have installed the correct version and still don't see it, restart IBM Bob IDE._
+
 5. Wait for the virtual environment to be created
 
 You can now see the .venv folder in your workspace explorer view.
@@ -95,7 +102,7 @@ IBM Bob IDE will automatically:<br>
 - Activate the virtual environment in new terminals<br>
 - Show `(.venv)` in your terminal prompt
 
-> **_Note:_** The virtual environment will be automatically activated when you open new terminals in IBM Bob IDE.
+> **NOTE:** The virtual environment will be automatically activated when you open new terminals in IBM Bob IDE.
 
 ## Step 7: Install watsonx Orchestrate ADK VS Code Extension
 
@@ -115,18 +122,20 @@ Install the watsonx Orchestrate extension for IBM Bob IDE:
 3. Click **Install** on the "_**watsonx Orchestrate ADK**_" extension
 4. Wait for the installation to complete
 5. Reload VS Code if prompted
-6. You should now see the extension icon appear in the Activity Bar:
+6. You should now see the extension icon appear in the Activity Bar - You do NOT need to open it. If you do, do **NOT** initalize the workspace using it. This might cause some issues with the setup procedure we're using right now:
 
    <img src="images/image-3.png" alt="IBM Bob IDE File menu showing Open Folder option" width="75px">
 
-The extension provides:<br>
-- Syntax highlighting for agent YAML files<br>
-- IntelliSense for agent configuration<br>
-- Quick access to watsonx Orchestrate commands<br>
-- Integration with the Orchestrate CLI
+The IBM watsonx Orchestrate ADK VS Code extension provides:
+
+- Workspace Management: Automatically creates and initializes folder structures for agent development
+- ADK Version Management: Install and update the watsonx Orchestrate ADK directly from VS Code
+- Agent & Tool File Creation: Assists with creating agent and tool files
+- Developer Edition Server Control: Start/stop the watsonx Orchestrate Developer Edition server directly from the UI
+- Orchestrate AI Builder Assistant: Interactive AI assistant that guides you through building and refining agents using prompts
 
 ### IMPORTANT: ###
-> Do **NOT** open the extension itself, you just need it installed. Using the extension to initialise the workspace can cause issues. So, do NOT do it!
+> Do **NOT** open the extension itself, you just need it installed. Using the extension to initialise the workspace can cause issues!
 
 ## Step 8: Install watsonx Orchestrate SDK
 
@@ -142,7 +151,7 @@ Wait for the installation to complete. After a while, you should see a notificat
 
 <img src="images/image-9.png" alt="IBM Bob IDE Status Bar showing ADK installed" width="300px">
 
-> NOTE: The version number you are seeing in the Status Bar is the version of the ADK that is installed. It might be different from the version shown in the picture above. New ADK versions are released regularly, so the version number will change over time.
+>**NOTE**: The version number you are seeing in the Status Bar is the version of the ADK that is installed. It might be different from the version shown in the picture above. New ADK versions are released regularly, so the version number will change over time.
 
 ## Step 9: Install watsonx Orchestrate MCP Servers
 
@@ -170,6 +179,8 @@ Alternatively, you can check the MCP servers configuration:
 
    <img src="images/image-5.png" alt="IBM Bob IDE File menu showing Open Folder option" width="650px">
 
+>**NOTE**: It might take a couple of seconds after the installation is run for both of the MCP servers to appear in the list.
+
 The MCP servers provide:<br>
 - Access to watsonx Orchestrate documentation<br>
 - Integration with the watsonx Orchestrate ADK<br>
@@ -180,6 +191,7 @@ The MCP servers provide:<br>
 
 Import a pre-configured custom mode specialized for building watsonx Orchestrate agents:
 
+>**NOTE**: IBM Bob Marketplace has a lot of pre-configured modes for IBM Bob IDE, including a mode for building watsonx Orchestrate agents. Unfortuntately, the marketplace is currently not available for non-IBMers but will be in the near future. This step will guide you on how to import a custom mode manually.
 
 1. Download the mode configuration file:
    - The file is located at: [wxo-agent-architect-export.yaml](files/wxo-agent-architect-export.yaml)
@@ -247,7 +259,7 @@ Copy the **Service instance URL** from the API details information. This is the 
 
    <img src="images/image-13.png" alt="Get the service URL" width="600px">
 
-### Configure the ADK Environment
+## Step 12: Configure the ADK Environment
 
 #### Option A: Using the ADK CLI - check out the Option B before deciding which option to use 😉
 
@@ -280,7 +292,7 @@ Copy the **Service instance URL** from the API details information. This is the 
    After running the command, you should see a message: `[INFO] Environment '<your-env-name>' is now active`. This means your environment is now active and ready to use with the ADK. You can ignore the warning regarding the Auth Type.
 
 ### IMPORTANT: ###
-> Authentication against a remote environment expires every two hours. After expiration, you need to run orchestrate env activate again. So, keep your API key avaiable and ready to use.
+> Authentication against a remote environment expires every two hours. After expiration, you need to run orchestrate env activate again. So, keep your API key available and ready to use.
 
 #### Option B: Using Bob to help you 😃
 
@@ -296,11 +308,11 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
 2. When Bob starts working, it will be asking for a permissionm to access watsonx-orchestarte-adk-docs MCP server. Click on the **Aprove** button to allow Bob to access the documentation.
 
-   >Note: You can also check the **Always allow** checkbox to always allow Bob to access the MCP server. One option is to enable **Auto-approval**. If you do this, you can specify the different options that you want to allow.
+   >**NOTE**: You can also check the **Always allow** checkbox to always allow Bob to access the MCP server. One option is to enable **Auto-approval**. If you do this, you can specify the different options that you want to allow.
 
       <img src="images/image-17.png" alt="Approve access to MCP server" width="350px">
 
-   >Note: Bob might ask you to approve the MCP server access multiple times. This is because Bob is trying to access the MCP server to get the more detailed information after first learning about the environment setup. Recommendation is to enable **Auto-approval** for the MCP servers to avoid granting the permission manually each time.
+   >**NOTE**: Bob might ask you to approve the MCP server access multiple times. This is because Bob is trying to access the MCP server to get the more detailed information after first learning about the environment setup. Recommendation is to enable **Auto-approval** for the MCP servers to avoid granting the permission manually each time.
 
 3. After Bob has created the script (e.g. _add_wxo_env.sh_, name could be something else for you), it will ask you to permission to save the script. Click on the **Save** button to save the script.
 
@@ -346,79 +358,8 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
       If configured correctly, this command will list any agents in your environment (or show an empty list if you haven't created any agents yet).
 
-## Step 12: Understand the Workshop Structure
-
-Your workshop folder should look like this:
-
-```
-bobchestrate-workshop/
-├── README.md                           # Main workshop guide
-├── .gitignore                          # Git ignore file
-├── .bob/                               # Bob IDE configuration
-├── bob-prompts/                        # Helpful Bob prompts
-│   └── helpful-prompts.md
-├── part1-setup/                        # You are here!
-│   ├── README.md
-│   ├── verify-setup.py
-│   ├── files/
-│   │   └── wxo-agent-architect-export.yaml
-│   └── images/                         # Screenshots for setup guide
-├── part2-first-agent/                  # Next: Build your first agent
-│   ├── README.md
-│   ├── exercises.md
-│   ├── hello-agent-EXAMPLE.yaml
-│   └── images/
-├── part2b-bob-custom-rules/            # Bob custom rules
-│   ├── README.md
-│   ├── wxo-dev-rule.md
-│   └── wxo-dev-rule-enhanced.md
-├── part3-custom-tools/                 # Create custom tools
-│   ├── README.md
-│   ├── exercises.md
-│   ├── order_status_tool.py
-│   ├── refund_tool.py
-│   └── images/
-├── part3b-ai-gateway-models/           # AI Gateway models
-│   ├── README.md
-│   ├── model-selection-guide.md
-│   └── agents/
-│       ├── support-agent-standard.yaml
-│       ├── support-agent-advanced.yaml
-│       ├── support-agent-expert.yaml
-│       └── support-router-agent.yaml
-├── part4-knowledge/                    # Knowledge bases
-│   ├── README.md
-│   ├── customer-support-agent.yaml
-│   ├── escalation-agent.yaml
-│   ├── faq-knowledge-base.yaml
-│   ├── FAQ.pdf
-│   └── images/
-├── part5-guidelines-guardrails/        # Guidelines and guardrails
-│   ├── README.md
-│   ├── customer-support-with-guidelines.yaml
-│   └── content_safety_plugin.py
-├── part6-mcp-servers/                  # MCP server integration
-│   ├── README.md
-│   ├── product-assistant-agent.yaml
-│   ├── product-catalog-toolkit.yaml
-│   ├── product_catalog_server.py
-│   ├── simple_test.py
-│   ├── requirements.txt
-│   └── images/
-├── part7-deployment/                   # Testing & Deployment
-│   └── README.md
-└── part8-multi-agent-orchestration/    # Multi-agent systems
-    ├── README.md
-    ├── travel-concierge-agent.yaml
-    ├── flight-specialist-agent.yaml
-    ├── hotel-specialist-agent.yaml
-    ├── activity-planner-agent.yaml
-    ├── budget-advisor-agent.yaml
-    ├── flight_tools.py
-    ├── hotel_tools.py
-    ├── activity_tools.py
-    └── budget_tools.py
-```
+### IMPORTANT: ###
+> Authentication against a remote environment expires every two hours. After expiration, you need to run orchestrate env activate again. So, keep your API key available and ready to use.
 
 ## Using Bob Throughout the Workshop
 
@@ -504,10 +445,11 @@ orchestrate --version
 
 ## Next Steps
 
-Once your setup is verified:<br>
-1. ✅ You can connect to watsonx Orchestrate<br>
-2. ✅ Bob is responding to your questions<br>
-3. ✅ You understand the workshop structure
+Once your setup is verified:
+
+1. ✅ You can connect to watsonx Orchestrate
+2. ✅ Bob is responding to your questions
+3. ✅ Your workspace is ready for development
 
 **You're ready to build your first agent!**
 
