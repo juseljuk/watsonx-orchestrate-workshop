@@ -182,7 +182,6 @@ By the end of this workshop, you will:
 ## Need Help?
 
 - Ask Bob: "Bob, I'm stuck on [specific issue]"
-- Check the solutions folder for reference implementations
 - Review the bob-prompts guide for helpful prompts
 - Consult the watsonx Orchestrate documentation
 
