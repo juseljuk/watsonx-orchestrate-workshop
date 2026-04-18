@@ -232,10 +232,10 @@ When working with [technology/framework]:
 
 ### Bob Isn't Following My Rules
 
-**Check:**<br>
-1. Rule file is in `.bob/rules/` directory<br>
-2. File has `.md` extension<br>
-3. Rule syntax is valid markdown<br>
+**Check:**
+
+1. Rule file is in `.bob/rules/` directory
+3. Rule syntax is valid markdown
 4. Bob has been restarted or refreshed
 
 **Solution:**
@@ -245,18 +245,20 @@ Bob, please reload your custom rules and confirm you can see the watsonx Orchest
 
 ### Rules Conflict with Each Other
 
-**Solution:**<br>
-- Review all rule files in `.bob/rules/`<br>
-- Consolidate overlapping rules<br>
-- Establish clear priority order<br>
+**Solution:**
+
+- Review all rule files in `.bob/rules/`
+- Consolidate overlapping rules
+- Establish clear priority order
 - Remove or update conflicting guidelines
 
 ### Bob Misinterprets a Rule
 
-**Solution:**<br>
-- Make the rule more specific<br>
-- Add examples to clarify intent<br>
-- Break complex rules into simpler steps<br>
+**Solution:**
+
+- Make the rule more specific<
+- Add examples to clarify intent
+- Break complex rules into simpler steps
 - Test with Bob and iterate
 
 ## Key Takeaways
