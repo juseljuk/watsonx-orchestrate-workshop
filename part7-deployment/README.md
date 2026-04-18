@@ -202,7 +202,7 @@ Bob, create comprehensive test scenarios for my customer support agent including
 
 ## Agent Evaluations
 
-Agent evaluation is a critical component of the Agent Development Lifecycle (ADLC). Before deploying to production, you should systematically evaluate your agent's performance, accuracy, and security using watsonx Orchestrate's built-in evaluation framework.
+### Agent evaluation is a critical component of the Agent Development Lifecycle (ADLC). Before deploying to production, you should systematically evaluate your agent's performance, accuracy, and security using watsonx Orchestrate's built-in evaluation framework.
 
 ### Why Evaluate?
 
@@ -357,11 +357,12 @@ Red teaming tests your agent against adversarial inputs and potential security v
 
 #### What is Red Teaming?
 
-Red teaming involves testing your agent with:<br>
-- **Prompt Injection**: Attempts to override agent instructions<br>
-- **Jailbreaking**: Attempts to bypass safety guidelines<br>
-- **Data Extraction**: Attempts to extract sensitive information<br>
-- **Malicious Inputs**: Testing with harmful or inappropriate content<br>
+Red teaming involves testing your agent with:
+
+- **Prompt Injection**: Attempts to override agent instructions
+- **Jailbreaking**: Attempts to bypass safety guidelines
+- **Data Extraction**: Attempts to extract sensitive information
+- **Malicious Inputs**: Testing with harmful or inappropriate content
 - **Edge Cases**: Unusual or unexpected input patterns
 
 #### Run Vulnerability Testing
@@ -745,22 +746,25 @@ orchestrate traces list --agent customer-support-agent --limit 20
 # Look for slow tool calls or knowledge base queries
 ```
 
-**Solutions:**<br>
-- Optimize tool code<br>
-- Reduce knowledge base chunk size<br>
-- Use faster LLM model<br>
+**Solutions:**
+
+- Optimize tool code
+- Reduce knowledge base chunk size
+- Use faster LLM model
 - Add caching
 
 ### Issue: Agent gives wrong answers
-**Diagnosis:**<br>
-- Review recent conversations<br>
-- Check knowledge base content<br>
+**Diagnosis:**
+
+- Review recent conversations
+- Check knowledge base content
 - Verify tool outputs
 
-**Solutions:**<br>
-- Update agent instructions<br>
-- Improve knowledge base documents<br>
-- Fix tool logic<br>
+**Solutions:**
+
+- Update agent instructions
+- Improve knowledge base documents
+- Fix tool logic
 - Add more test scenarios
 
 ### Issue: Tools failing
@@ -770,10 +774,11 @@ orchestrate traces get <trace-id>
 # Check tool error messages
 ```
 
-**Solutions:**<br>
-- Check API credentials<br>
-- Verify network connectivity<br>
-- Review tool error handling<br>
+**Solutions:**
+
+- Check API credentials
+- Verify network connectivity
+- Review tool error handling
 - Check rate limits
 
 ## Continuous Improvement
