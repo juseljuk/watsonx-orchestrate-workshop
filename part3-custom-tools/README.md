@@ -424,10 +424,11 @@ Ready to practice? We've prepared a comprehensive set of exercises to help you m
 
 📝 **[View All Exercises](exercises.md)** - Complete exercises ranging from easy to advanced
 
-We strongly recommend working through at least a few of these exercises before moving forward with the workshop. They'll help solidify your understanding of:<br>
-- Tool structure and best practices<br>
-- Input validation and error handling<br>
-- Creating tools that agents can effectively use<br>
+We strongly recommend working through at least a few of these exercises before moving forward with the workshop. They'll help solidify your understanding of:
+
+- Tool structure and best practices
+- Input validation and error handling
+- Creating tools that agents can effectively use
 - Debugging common tool issues
 
 The exercises include detailed requirements, test cases, and success criteria to guide your learning.
