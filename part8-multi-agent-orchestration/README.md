@@ -147,10 +147,11 @@ The orchestrator acts as a supervisor without domain-specific tools, delegating 
 # - Handles all hotel-related operations
 ```
 
-**Why this works:**<br>
-- Orchestrator recognizes it lacks the tools needed for the task<br>
-- It must delegate to a specialist agent that has those tools<br>
-- This creates natural routing based on capability boundaries<br>
+**Why this works:**
+
+- Orchestrator recognizes it lacks the tools needed for the task
+- It must delegate to a specialist agent that has those tools
+- This creates natural routing based on capability boundaries
 - Prevents the orchestrator from trying to handle domain-specific tasks directly
 
 ---
@@ -159,8 +160,7 @@ The orchestrator acts as a supervisor without domain-specific tools, delegating 
 
 ### Step 1: Create Flight Specialist
 
-
-[Download](./flight-specialist-agent.yaml) example `flight-specialist-agent.yaml` or ask Bob for it (look example prompt below the example yaml). HINT: you should ask Bob. It will create a better than the simple example 🤓 And it's only around 0.3 bobcoins 🪙
+[Download](./flight-specialist-agent.yaml) example `flight-specialist-agent.yaml` or ask Bob for it (look example prompt below the example yaml). **HINT**: you should ask Bob. It will create a better than the simple example 🤓 And it's only around 0.3 bobcoins 🪙
 
 ```yaml
 spec_version: v1
