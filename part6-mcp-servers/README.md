@@ -381,9 +381,9 @@ tools:
 
 **💡 Ask Bob:**
 
->NOTE: Before consulting Bob, check your toolkit folder and ensure that Bob has not already created any yaml-files to it. If is has, please remove it to avoid any confusion.
+>**NOTE**: Before consulting Bob, check your toolkit folder and ensure that Bob has not already created any yaml-files to it. If is has, please remove it to avoid any confusion.
 
->NOTE2: Switch your Bob chat mode back to **WXO Agent Architect**.
+>**NOTE2**: Switch your Bob chat mode back to **WXO Agent Architect**.
 
 ```
 Bob, create a YAML file called product-catalog-toolkit.yaml that 
