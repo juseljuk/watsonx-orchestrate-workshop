@@ -848,10 +848,11 @@ Create `activity_tools.py` with tools for the activity planner:
 Bob, create activity_tools.py with mock implementations of search_activities, get_activity_details, search_restaurants, and create_itinerary tools.
 ```
 
-The file should include:<br>
-- `search_activities`: Search for activities based on location and interests<br>
-- `get_activity_details`: Get detailed information about specific activities<br>
-- `search_restaurants`: Find restaurants by cuisine and price range<br>
+The file should include:
+
+- `search_activities`: Search for activities based on location and interests
+- `get_activity_details`: Get detailed information about specific activities
+- `search_restaurants`: Find restaurants by cuisine and price range
 - `create_itinerary`: Generate day-by-day itineraries
 
 ### Create Budget Tools
@@ -864,10 +865,11 @@ Bob, create budget_tools.py with mock implementations of calculate_trip_cost,
 compare_options, find_deals, and budget_optimizer tools.
 ```
 
-The file should include:<br>
-- `calculate_trip_cost`: Calculate total trip costs with detailed breakdown<br>
-- `compare_options`: Compare two travel options and provide recommendations<br>
-- `find_deals`: Find current deals and discounts<br>
+The file should include:
+
+- `calculate_trip_cost`: Calculate total trip costs with detailed breakdown
+- `compare_options`: Compare two travel options and provide recommendations
+- `find_deals`: Find current deals and discounts
 - `budget_optimizer`: Optimize budget allocation across categories
 
 ---
@@ -880,6 +882,7 @@ Since all workshop participants are using a shared watsonx Orchestrate environme
 ### Naming Pattern
 
 Use this pattern for all your tools and agents:
+
 - **Tools**: `tool_name_XX` (where XX are your initials)
 - **Agent YAML filenames**: `agent-name-XX.yaml` (dashes allowed in filename)
 - **Agent name field**: `agent_name_XX` (must use underscores, not dashes)
