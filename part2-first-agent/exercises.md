@@ -1,5 +1,9 @@
 # Part 2 Exercises: Practice Building Agents
 
+<p align="center">
+  <img src="bobchestrate_exercises.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 Complete these exercises to reinforce your understanding of agent creation. **Remember to use the `WXO Agent Architect` mode to create your agents.**
 
 ## Exercise 1: Personality Agent (Easy)
