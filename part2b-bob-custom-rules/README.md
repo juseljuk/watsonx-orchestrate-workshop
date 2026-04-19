@@ -1,5 +1,9 @@
 # Part 2b: Using Custom Rules with Bob IDE
 
+<p align="center">
+  <img src="bobchestrate_part2b.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration:** 10 minutes  
 
 **Objective:** Learn how to configure Bob IDE with custom development rules for watsonx Orchestrate projects
