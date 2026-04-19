@@ -1,5 +1,7 @@
 # Quick AI Gateway and Model Selection Guide
 
+![Bobchestrate - Which Model](bobchestrate_gateway_which_one.png)
+
 A quick reference for understanding AI Gateway capabilities and choosing models for your watsonx Orchestrate agents.
 
 ## AI Gateway Overview
