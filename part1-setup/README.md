@@ -1,5 +1,9 @@
 # Part 1: Setup & Environment
 
+<p align="center">
+  <img src="bobchestrate_part1.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration:** 15 minutes
 
 **Objective:** Get your development environment ready for building watsonx Orchestrate agents
