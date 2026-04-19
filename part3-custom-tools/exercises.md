@@ -1,8 +1,6 @@
 # Part 3 Exercises: Practice Building Tools
 
-<p align="center">
-  <img src="bobchestrate_part3_exercises.png" alt="Bobchestrate - Setup" width="700">
-</p>
+![Bobchestrate - Exercises](bobchestrate_part3_exercises.png)
 
 Complete these exercises to master custom tool creation.
 
