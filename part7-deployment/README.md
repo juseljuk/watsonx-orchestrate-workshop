@@ -4,7 +4,8 @@
   <img src="bobchestrate_part7.png" alt="Bobchestrate - Setup" width="700">
 </p>
 
-**Duration:** 20 minutes  
+**Duration:** 20 minutes
+
 **Objective:** Test your agent thoroughly and deploy it to production
 
 ## What You'll Learn
