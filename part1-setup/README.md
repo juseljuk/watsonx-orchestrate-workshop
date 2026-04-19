@@ -181,15 +181,16 @@ Alternatively, you can check the MCP servers configuration:
 
 >**NOTE**: It might take a couple of seconds after the installation is run for both of the MCP servers to appear in the list.
 
-The MCP servers provide:<br>
-- Access to watsonx Orchestrate documentation<br>
-- Integration with the watsonx Orchestrate ADK<br>
-- Tools for listing agents, tools, and other resources<br>
+The MCP servers provide:
+
+- Access to watsonx Orchestrate documentation
+- Integration with the watsonx Orchestrate ADK
+- Tools for listing agents, tools, and other resources
 - Enhanced Bob capabilities for watsonx Orchestrate development
 
 ## Step 10: Import WXO Agent Architect Mode
 
-Import a pre-configured custom mode specialized for building watsonx Orchestrate agents:
+Import a pre-configured custom mode specialized for building watsonx Orchestrate agents.
 
 >**NOTE**: IBM Bob Marketplace has a lot of pre-configured modes for IBM Bob IDE, including a mode for building watsonx Orchestrate agents. Unfortuntately, the marketplace is currently not available for non-IBMers but will be in the near future. This step will guide you on how to import a custom mode manually.
 
