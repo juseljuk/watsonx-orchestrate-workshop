@@ -1,5 +1,9 @@
 # Part 2: Building Your First Agent
 
+<p align="center">
+  <img src="bobchestrate_part2.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration:** 20 minutes  
 
 **Objective:** Create a simple agent and understand the basics of agent configuration
