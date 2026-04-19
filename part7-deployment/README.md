@@ -1,5 +1,9 @@
 # Part 7: Testing & Deployment
 
+<p align="center">
+  <img src="bobchestrate_part7.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration:** 20 minutes  
 **Objective:** Test your agent thoroughly and deploy it to production
 
