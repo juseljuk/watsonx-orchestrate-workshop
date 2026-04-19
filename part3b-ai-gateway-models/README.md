@@ -1,5 +1,9 @@
 # Part 3b: AI Gateway and External Model Providers
 
+<p align="center">
+  <img src="bobchestrate_part3b.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration:** 25 minutes
 
 **Objective:** Learn how to configure external AI models through watsonx Orchestrate's AI Gateway and implement model policies
