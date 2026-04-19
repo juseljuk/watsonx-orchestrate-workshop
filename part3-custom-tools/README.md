@@ -1,5 +1,9 @@
 # Part 3: Adding Custom Tools
 
+<p align="center">
+  <img src="bobchestrate_part3.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration:** 30 minutes  
 
 **Objective:** Create custom Python tools that your agents can use to perform actions
