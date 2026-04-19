@@ -1,5 +1,9 @@
 # Part 8: Multi-Agent Orchestration & Workflows
 
+<p align="center">
+  <img src="bobchestrate_part8.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration**: 30 minutes
 
 **Difficulty**: Advanced
