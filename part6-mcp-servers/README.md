@@ -1,5 +1,9 @@
 # Part 6: MCP Servers - Connecting to Backend Services
 
+<p align="center">
+  <img src="bobchestrate_part6.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration**: 25 minutes
 
 **Difficulty**: Intermediate
