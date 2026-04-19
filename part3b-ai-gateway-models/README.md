@@ -1,7 +1,7 @@
 # Part 3b: AI Gateway and External Model Providers
 
 <p align="center">
-  <img src="bobchestrate_part3b.png" alt="Bobchestrate - Setup" width="700">
+  <img src="bobchestrate_part3b.png" alt="Bobchestrate - AI Gateway" width="700">
 </p>
 
 **Duration:** 25 minutes
