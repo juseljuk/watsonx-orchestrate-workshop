@@ -1,5 +1,9 @@
 # Part 4: Knowledge Bases & Collaborators
 
+<p align="center">
+  <img src="bobchestrate_part4.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration:** 25 minutes
 
 **Objective:** Add knowledge bases for FAQ handling and create specialized collaborator agents
