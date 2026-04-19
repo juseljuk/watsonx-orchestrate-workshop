@@ -1,5 +1,9 @@
 # Part 5: Agent Guidelines & Guardrails
 
+<p align="center">
+  <img src="bobchestrate_part5.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration:** 20 minutes
 
 **Objective:** Learn how to implement safety guidelines and guardrails to ensure responsible AI agent behavior
