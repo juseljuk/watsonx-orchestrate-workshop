@@ -1,6 +1,8 @@
 # Part 2: Building Your First Agent
 
-![Bobchestrate - Setup](bobchestrate_part2.png)
+<p align="center">
+  <img src="bobchestrate_part2.png" alt="Bobchestrate - Build Your First Agent" width="700">
+</p>
 
 **Duration:** 20 minutes
 
