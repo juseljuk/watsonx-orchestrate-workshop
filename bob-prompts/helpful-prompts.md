@@ -1,7 +1,7 @@
 # Helpful Bob Prompts for watsonx Orchestrate Development
 
 <p align="center">
-  <img src="bobchestrate_helpful_prompts.png" alt="Bobchestrate - Helpful Prompts" width="700">
+  <img src="../bobchestrate_helpful_prompts.png" alt="Bobchestrate - Helpful Prompts" width="700">
 </p>
 
 This guide contains useful prompts to help you work with Bob throughout the workshop and beyond.
