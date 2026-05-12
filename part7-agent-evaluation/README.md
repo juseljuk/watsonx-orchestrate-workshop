@@ -78,12 +78,14 @@ Before deploying agents to production, you need to ensure they:
 watsonx Orchestrate provides two types of evaluation metrics:
 
 **Quick Evaluation Metrics** (Reference-less):
+
 - **Tool Calls** - Number of tool invocations
 - **Successful Tool Calls** - Tool calls that completed successfully
 - **Schema Mismatch** - Tool calls with incorrect parameter schemas
 - **Hallucination** - Responses containing fabricated information
 
 **Full Evaluation Metrics** (Reference-based):
+
 - **Response Confidence** - Model's confidence in its responses
 - **Retrieval Confidence** - Confidence in retrieved information
 - **Faithfulness** - Accuracy relative to source material
