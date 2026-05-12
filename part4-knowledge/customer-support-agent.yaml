@@ -1,6 +1,9 @@
 # Complete Customer Support Agent with Tools, Knowledge Base, and Collaborators
+spec_version: v1
 kind: native
-name: customer-support-agent
+name: customer_support_agent
+style: default
+hide_reasoning: true
 description: A comprehensive customer support agent that can check orders, process refunds, answer FAQs, and escalate complex issues
 
 instructions: |
@@ -61,9 +64,6 @@ knowledge_base:
 collaborators:
   - escalation-agent
 
-# Agent configuration
-config:
-  hidden: false          # Show this agent in the UI
-  enable_cot: false      # Don't show chain-of-thought reasoning
+hidden: false
 
 # Made with Bob

@@ -1,6 +1,8 @@
 spec_version: v1
 kind: native
 name: support_agent_anthropic_<your_initials_here>
+style: default
+hide_reasoning: true
 description: Customer support agent using Anthropic Claude (example)
 
 instructions: |
@@ -20,9 +22,6 @@ instructions: |
 # Example: Using external Anthropic Claude model (requires AI Gateway configuration)
 # Replace with actual external model once configured
 llm: anthropic/claude-3-sonnet-20240229
-
-# Apply governance policy
-policy: premium_policy
 
 tools:
   - check_order_status_<your_initials_here>

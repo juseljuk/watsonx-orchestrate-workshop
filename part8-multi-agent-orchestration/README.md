@@ -1,5 +1,9 @@
 # Part 8: Multi-Agent Orchestration & Workflows
 
+<p align="center">
+  <img src="bobchestrate_part8.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration**: 30 minutes
 
 **Difficulty**: Advanced
@@ -23,11 +27,12 @@ This part introduces a complete **travel planning system** as an advanced exampl
 
 ### What You'll Build
 
-**Travel Planning System** with multiple specialized agents:<br>
-- **Travel Concierge** (parent) - Routes requests to specialists<br>
-- **Flight Specialist** - Handles flight bookings<br>
-- **Hotel Specialist** - Manages accommodation<br>
-- **Activity Planner** - Suggests local activities<br>
+**Travel Planning System** with multiple specialized agents:
+
+- **Travel Concierge** (parent) - Routes requests to specialists
+- **Flight Specialist** - Handles flight bookings
+- **Hotel Specialist** - Manages accommodation
+- **Activity Planner** - Suggests local activities
 - **Budget Advisor** - Provides cost analysis
 
 ---
@@ -46,6 +51,7 @@ Customer Support Agent
 ```
 
 **Problems:**
+
 - ❌ Overwhelming complexity
 - ❌ Difficult to maintain
 - ❌ Poor performance on specialized tasks
@@ -60,11 +66,12 @@ Orchestrator Agent
 └── Escalation Handler (2 tools, focused instructions)
 ```
 
-**Benefits:**<br>
-- ✅ Clear separation of concerns<br>
-- ✅ Easier to maintain and update<br>
-- ✅ Better performance on specialized tasks<br>
-- ✅ Simpler testing and debugging<br>
+**Benefits:**
+
+- ✅ Clear separation of concerns
+- ✅ Easier to maintain and update
+- ✅ Better performance on specialized tasks
+- ✅ Simpler testing and debugging
 - ✅ Reusable specialists across systems
 
 ### When to Use Multi-Agent Systems
@@ -83,16 +90,18 @@ Orchestrator Agent
 
 ### Agent Roles
 
-**1. Orchestrator (Parent) Agent**<br>
-- Routes requests to appropriate specialists<br>
-- Manages overall conversation flow<br>
-- Synthesizes responses from multiple agents<br>
+**1. Orchestrator (Parent) Agent**
+
+- Routes requests to appropriate specialists
+- Manages overall conversation flow
+- Synthesizes responses from multiple agents
 - Handles general queries
 
-**2. Specialist (Child) Agents**<br>
-- Deep expertise in specific domain<br>
-- Focused tools and knowledge<br>
-- Clear, specific instructions<br>
+**2. Specialist (Child) Agents**
+
+- Deep expertise in specific domain
+- Focused tools and knowledge
+- Clear, specific instructions
 - Return to orchestrator when done
 
 ### Routing Strategies
@@ -142,10 +151,11 @@ The orchestrator acts as a supervisor without domain-specific tools, delegating 
 # - Handles all hotel-related operations
 ```
 
-**Why this works:**<br>
-- Orchestrator recognizes it lacks the tools needed for the task<br>
-- It must delegate to a specialist agent that has those tools<br>
-- This creates natural routing based on capability boundaries<br>
+**Why this works:**
+
+- Orchestrator recognizes it lacks the tools needed for the task
+- It must delegate to a specialist agent that has those tools
+- This creates natural routing based on capability boundaries
 - Prevents the orchestrator from trying to handle domain-specific tasks directly
 
 ---
@@ -154,8 +164,7 @@ The orchestrator acts as a supervisor without domain-specific tools, delegating 
 
 ### Step 1: Create Flight Specialist
 
-
-[Download](./flight-specialist-agent.yaml) example `flight-specialist-agent.yaml` or ask Bob for it (look example prompt below the example yaml). HINT: you should ask Bob. It will create a better than the simple example 🤓 And it's only around 0.3 bobcoins 🪙
+[Download](./flight-specialist-agent.yaml) example `flight-specialist-agent.yaml` or ask Bob for it (look example prompt below the example yaml). **HINT**: you should ask Bob. It will create a better than the simple example 🤓 And it's only around 0.3 bobcoins 🪙
 
 ```yaml
 spec_version: v1
@@ -843,10 +852,11 @@ Create `activity_tools.py` with tools for the activity planner:
 Bob, create activity_tools.py with mock implementations of search_activities, get_activity_details, search_restaurants, and create_itinerary tools.
 ```
 
-The file should include:<br>
-- `search_activities`: Search for activities based on location and interests<br>
-- `get_activity_details`: Get detailed information about specific activities<br>
-- `search_restaurants`: Find restaurants by cuisine and price range<br>
+The file should include:
+
+- `search_activities`: Search for activities based on location and interests
+- `get_activity_details`: Get detailed information about specific activities
+- `search_restaurants`: Find restaurants by cuisine and price range
 - `create_itinerary`: Generate day-by-day itineraries
 
 ### Create Budget Tools
@@ -859,10 +869,11 @@ Bob, create budget_tools.py with mock implementations of calculate_trip_cost,
 compare_options, find_deals, and budget_optimizer tools.
 ```
 
-The file should include:<br>
-- `calculate_trip_cost`: Calculate total trip costs with detailed breakdown<br>
-- `compare_options`: Compare two travel options and provide recommendations<br>
-- `find_deals`: Find current deals and discounts<br>
+The file should include:
+
+- `calculate_trip_cost`: Calculate total trip costs with detailed breakdown
+- `compare_options`: Compare two travel options and provide recommendations
+- `find_deals`: Find current deals and discounts
 - `budget_optimizer`: Optimize budget allocation across categories
 
 ---
@@ -875,6 +886,7 @@ Since all workshop participants are using a shared watsonx Orchestrate environme
 ### Naming Pattern
 
 Use this pattern for all your tools and agents:
+
 - **Tools**: `tool_name_XX` (where XX are your initials)
 - **Agent YAML filenames**: `agent-name-XX.yaml` (dashes allowed in filename)
 - **Agent name field**: `agent_name_XX` (must use underscores, not dashes)
@@ -911,51 +923,56 @@ tools:
   - cancel_flight_JS
 ```
 
-**⚠️ Critical Naming Rule:**<br>
-- YAML **filename** can use dashes: `flight-specialist-agent-JS.yaml`<br>
-- Agent **name field** must use underscores: `name: flight_specialist_JS`<br>
+**⚠️ Critical Naming Rule:**
+
+- YAML **filename** can use dashes: `flight-specialist-agent-JS.yaml`
+- Agent **name field** must use underscores: `name: flight_specialist_JS`
 - This is a watsonx Orchestrate requirement for proper agent registration
 
 ### Complete Naming Checklist
 
 Before importing, ensure you've renamed:
 
-**✅ Tool Files:**<br>
-- [ ] All `@tool` function names in `flight_tools.py`<br>
-- [ ] All `@tool` function names in `hotel_tools.py`<br>
-- [ ] All `@tool` function names in `activity_tools.py`<br>
+**✅ Tool Files:**
+
+- [ ] All `@tool` function names in `flight_tools.py`
+- [ ] All `@tool` function names in `hotel_tools.py`
+- [ ] All `@tool` function names in `activity_tools.py`
 - [ ] All `@tool` function names in `budget_tools.py`
 
-**✅ Agent Files:**<br>
-- [ ] Agent `name` field in `flight-specialist-agent.yaml`<br>
-- [ ] Tool references in `tools` section<br>
-- [ ] Agent `name` field in `hotel-specialist-agent.yaml`<br>
-- [ ] Tool references in `tools` section<br>
-- [ ] Agent `name` field in `activity-planner-agent.yaml`<br>
-- [ ] Tool references in `tools` section<br>
-- [ ] Agent `name` field in `budget-advisor-agent.yaml`<br>
-- [ ] Tool references in `tools` section<br>
-- [ ] Agent `name` field in `travel-concierge-agent.yaml`<br>
+**✅ Agent Files:**
+
+- [ ] Agent `name` field in `flight-specialist-agent.yaml`
+- [ ] Tool references in `tools` section
+- [ ] Agent `name` field in `hotel-specialist-agent.yaml`
+- [ ] Tool references in `tools` section
+- [ ] Agent `name` field in `activity-planner-agent.yaml`
+- [ ] Tool references in `tools` section
+- [ ] Agent `name` field in `budget-advisor-agent.yaml`
+- [ ] Tool references in `tools` section
+- [ ] Agent `name` field in `travel-concierge-agent.yaml`
 - [ ] Collaborator agent names in `collaborators` section
 
 **💡 Ask Bob:**
 ```
 Bob, add a postfix "_<your_initials>" to all tool function names in flight_tools.py, hotel_tools.py, activity_tools.py, and budget_tools.py. Then update all agent YAML files to use the renamed tools (activity planner to use activity tools, flifgt specialist to use flight tools, etc.) and add "_<your_initials>" postfix to agent name fields within their yaml-files.
 ```
->NOTE: Needless to say, but update your initials to their placeholders in the prompt before sending it to Bob 😉
+>**NOTE**: Needless to say, but update your initials to their placeholders in the prompt before sending it to Bob 😉
 
 ### Why This Matters
 
-Without unique names:<br>
-- ❌ Your tools will overwrite other participants' tools<br>
-- ❌ Your agents will conflict with others' agents<br>
-- ❌ Testing will produce unpredictable results<br>
+Without unique names:
+
+- ❌ Your tools will overwrite other participants' tools
+- ❌ Your agents will conflict with others' agents
+- ❌ Testing will produce unpredictable results
 - ❌ You may accidentally use someone else's implementation
 
-With unique names:<br>
-- ✅ Your tools and agents are isolated<br>
-- ✅ You can test independently<br>
-- ✅ No conflicts with other participants<br>
+With unique names:
+
+- ✅ Your tools and agents are isolated
+- ✅ You can test independently
+- ✅ No conflicts with other participants
 - ✅ Clear ownership of your implementations
 
 ---
@@ -984,7 +1001,7 @@ orchestrate agents import -f travel-concierge-agent.yaml
 ```
 Bob, create a shell script that imports all agents (flight specialist, hotel specialist, activty planner, budget advisor and finally tra) and their tools in the correct order. Make sure each agent is imported after its collaborators.
 ```
->NOTE: Check the tools and agents importing syntax that Bob uses in the script that it generates. Even the information regrading the correct syntax is available in the custom development rule that we're using, sometimes Bob might fail to consult it before creating stuff.
+>**NOTE**: Check the tools and agents importing syntax that Bob uses in the script that it generates. Even the information regrading the correct syntax is available in the custom development rule that we're using, sometimes Bob might fail to consult it before creating stuff.
 
 ### Test Simple Routing
 
@@ -994,10 +1011,11 @@ orchestrate chat ask --agent-name travel_concierge_agent_<your_initials> \
   "Find me flights from New York to London for next week"
 ```
 
-Expected flow:<br>
-1. Concierge receives request<br>
-2. Routes to flight_specialist<br>
-3. Flight specialist searches flights<br>
+Expected flow:
+
+1. Concierge receives request
+2. Routes to flight_specialist
+3. Flight specialist searches flights
 4. Returns results to user
 
 **Test 2: Multiple Specialists**
@@ -1006,11 +1024,12 @@ orchestrate chat ask --agent-name travel_concierge_agent_<your_initials> \
   "Plan a 5-day trip to Paris including flights and hotels"
 ```
 
-Expected flow:<br>
-1. Concierge receives request<br>
-2. Routes to flight_specialist for flights<br>
-3. Routes to hotel_specialist for hotels<br>
-4. Synthesizes complete plan<br>
+Expected flow:
+
+1. Concierge receives request
+2. Routes to flight_specialist for flights
+3. Routes to hotel_specialist for hotels
+4. Synthesizes complete plan
 5. Returns to user
 
 ### Test Complex Workflows
@@ -1021,13 +1040,14 @@ orchestrate chat ask --agent-name travel_concierge_agent_<your_initials> \
   "I want to visit Tokyo for a week. I have a budget of $3000. Help me plan everything including flights, hotel, and activities."
 ```
 
-Expected flow:<br>
-1. Concierge breaks down request<br>
-2. Routes to flight_specialist<br>
-3. Routes to hotel_specialist<br>
-4. Routes to activity_planner<br>
-5. Routes to budget_advisor<br>
-6. Synthesizes complete itinerary<br>
+Expected flow:
+
+1. Concierge breaks down request
+2. Routes to flight_specialist
+3. Routes to hotel_specialist
+4. Routes to activity_planner
+5. Routes to budget_advisor
+6. Synthesizes complete itinerary
 7. Returns comprehensive plan
 
 ---
@@ -1067,7 +1087,7 @@ description: Expert in flight searches, bookings, changes, and cancellations.
 description: Helps with travel stuff
 ```
 
-**Note:** Include mentions of collaborator agents in descriptions to help the orchestrator understand agent relationships and routing options.
+**NOTE:** Include mentions of collaborator agents in descriptions to help the orchestrator understand agent relationships and routing options.
 
 ### 2. Routing Logic
 
@@ -1299,10 +1319,11 @@ assert "flight" in response.lower()  # ✅ Pass if response mentions flights
                                      # ❌ Fail if response doesn't mention flights
 ```
 
-**Why use `assert`?**<br>
-- Automatically checks if your agent works correctly<br>
-- Fails immediately when something is wrong<br>
-- Makes it easy to run hundreds of tests automatically<br>
+**Why use `assert`?**
+
+- Automatically checks if your agent works correctly
+- Fails immediately when something is wrong
+- Makes it easy to run hundreds of tests automatically
 - Helps catch bugs before users see them
 
 Now let's see how we use `assert` to test our multi-agent system:
@@ -1360,11 +1381,12 @@ def test_flight_specialist_with_mock_tools():
     assert "350" in response or "$350" in response
 ```
 
-**Why Unit Test Specialists?**<br>
-- Verify each specialist's tools work correctly<br>
-- Test specialist's response formatting<br>
-- Ensure specialist handles errors gracefully<br>
-- Faster than testing through orchestrator<br>
+**Why Unit Test Specialists?**
+
+- Verify each specialist's tools work correctly
+- Test specialist's response formatting
+- Ensure specialist handles errors gracefully
+- Faster than testing through orchestrator
 - Easier to debug when issues occur
 
 **Level 2: Integration Testing Routing**
@@ -1413,10 +1435,11 @@ def test_orchestrator_handles_ambiguous_query():
     assert any(word in response.lower() for word in ["flight", "hotel", "help"])
 ```
 
-**Why Integration Test Routing?**<br>
-- Verify orchestrator's descriptions and instructions work<br>
-- Ensure LLM routes to correct specialists<br>
-- Test edge cases and ambiguous queries<br>
+**Why Integration Test Routing?**
+
+- Verify orchestrator's descriptions and instructions work
+- Ensure LLM routes to correct specialists
+- Test edge cases and ambiguous queries
 - Validate multi-specialist workflows
 
 **Level 3: End-to-End Workflow Testing**
@@ -1464,10 +1487,11 @@ def test_error_recovery_workflow():
     assert "error" not in response.lower() or "invalid" in response.lower()
 ```
 
-**Why End-to-End Test?**<br>
-- Verify complete user journeys work<br>
-- Test context retention across turns<br>
-- Ensure specialists work together correctly<br>
+**Why End-to-End Test?**
+
+- Verify complete user journeys work
+- Test context retention across turns
+- Ensure specialists work together correctly
 - Validate real-world usage patterns
 
 **Testing Best Practices:**
@@ -1555,10 +1579,11 @@ instructions: |
 
 Add a "Car Rental Specialist" to the travel system.
 
-**Requirements:**<br>
-- Create car-rental-specialist-agent.yaml<br>
-- Create car_rental_tools.py with search and book functions<br>
-- Update travel_concierge to include new specialist<br>
+**Requirements:**
+
+- Create car-rental-specialist-agent.yaml
+- Create car_rental_tools.py with search and book functions
+- Update travel_concierge to include new specialist
 - Test routing to car rental specialist
 
 **💡 Ask Bob:**
@@ -1572,25 +1597,28 @@ car rental queries appropriately.
 
 Modify the orchestrator to always check budget first for trip planning requests.
 
-**Requirements:**<br>
-- Update travel_concierge instructions<br>
-- Route to budget_advisor before other specialists<br>
-- Use budget constraints when routing to other specialists<br>
+**Requirements:**
+
+- Update travel_concierge instructions
+- Route to budget_advisor before other specialists
+- Use budget constraints when routing to other specialists
 - Test with budget-constrained requests
 
 ### Exercise 3: Create a Different Domain (Advanced)
 
 Build a multi-agent system for a different domain (e.g., e-commerce, healthcare, education).
 
-**Requirements:**<br>
-- Design 3-4 specialist agents<br>
-- Create orchestrator with routing logic<br>
-- Implement mock tools<br>
+**Requirements:**
+
+- Design 3-4 specialist agents
+- Create orchestrator with routing logic
+- Implement mock tools
 - Test complete workflows
 
-**Example Domains:**<br>
-- **E-commerce**: Product Search, Inventory, Checkout, Support<br>
-- **Healthcare**: Appointment, Prescription, Billing, Records<br>
+**Example Domains:**
+
+- **E-commerce**: Product Search, Inventory, Checkout, Support
+- **Healthcare**: Appointment, Prescription, Billing, Records
 - **Education**: Course Search, Enrollment, Assignments, Grading
 
 ---
@@ -1601,29 +1629,32 @@ Build a multi-agent system for a different domain (e.g., e-commerce, healthcare,
 
 **Symptoms**: Orchestrator tries to answer directly instead of routing
 
-**Solutions:**<br>
-1. Make specialist descriptions more specific<br>
-2. Add explicit routing rules in orchestrator instructions<br>
-3. Ensure collaborators are properly listed<br>
+**Solutions:**
+
+1. Make specialist descriptions more specific
+2. Add explicit routing rules in orchestrator instructions
+3. Ensure collaborators are properly listed
 4. Check that specialist agents exist and are imported
 
 ### Issue: Context Lost Between Agents
 
 **Symptoms**: Specialist doesn't have information from previous conversation
 
-**Solutions:**<br>
-1. Update orchestrator to pass context explicitly<br>
-2. Include relevant details when routing<br>
+**Solutions:**
+
+1. Update orchestrator to pass context explicitly
+2. Include relevant details when routing
 3. Have orchestrator summarize previous interactions
 
 ### Issue: Circular Routing
 
 **Symptoms**: Agents keep routing back and forth
 
-**Solutions:**<br>
-1. Add clear termination conditions<br>
-2. Limit routing depth<br>
-3. Have specialists indicate when they're done<br>
+**Solutions:**
+
+1. Add clear termination conditions
+2. Limit routing depth
+3. Have specialists indicate when they're done
 4. Orchestrator should synthesize, not re-route
 
 ---

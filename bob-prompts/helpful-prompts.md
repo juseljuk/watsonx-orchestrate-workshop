@@ -1,5 +1,9 @@
 # Helpful Bob Prompts for watsonx Orchestrate Development
 
+<p align="center">
+  <img src="../bobchestrate_helpful_prompts.png" alt="Bobchestrate - Helpful Prompts" width="700">
+</p>
+
 This guide contains useful prompts to help you work with Bob throughout the workshop and beyond.
 
 ## General Agent Development
@@ -60,7 +64,7 @@ Bob, add error handling guidance to these agent instructions: [paste instruction
 
 ### Agent Configuration
 ```
-Bob, explain what the 'enable_cot' configuration option does
+Bob, explain what the 'hide_reasoning' configuration option does
 ```
 
 ```

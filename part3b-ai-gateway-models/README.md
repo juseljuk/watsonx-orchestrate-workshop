@@ -1,5 +1,9 @@
 # Part 3b: AI Gateway and External Model Providers
 
+<p align="center">
+  <img src="bobchestrate_part3b.png" alt="Bobchestrate - AI Gateway" width="700">
+</p>
+
 **Duration:** 25 minutes
 
 **Objective:** Learn how to configure external AI models through watsonx Orchestrate's AI Gateway and implement model policies
@@ -17,17 +21,18 @@
 
 ## Why AI Gateway Matters
 
-The AI Gateway in watsonx Orchestrate provides:<br>
-- 🔌 **Unified Interface** - Access multiple LLM providers through a single API<br>
-- 🌐 **External Provider Support** - Connect to OpenAI, Anthropic, Google, AWS Bedrock, Azure, and more<br>
-- 🔄 **Model Flexibility** - Switch between models without changing agent code<br>
-- 🛡️ **Governance & Policies** - Centralized control over model access, usage limits, and compliance<br>
-- 💰 **Cost Management** - Track and control model usage and costs<br>
+The AI Gateway in watsonx Orchestrate provides:
+
+- 🔌 **Unified Interface** - Access multiple LLM providers through a single API
+- 🌐 **External Provider Support** - Connect to OpenAI, Anthropic, Google, AWS Bedrock, Azure, and more
+- 🔄 **Model Flexibility** - Switch between models without changing agent code
+- 🛡️ **Governance & Policies** - Centralized control over model access, usage limits, and compliance
+- 💰 **Cost Management** - Track and control model usage and costs
 - 📊 **Monitoring** - Comprehensive visibility into model performance and usage patterns
 
 ## Available Model Options
 
-watsonx Orchestrate supports models through two main approaches:
+watsonx Orchestrate supports models through two main approaches.
 
 ### Default Platform Models
 
@@ -102,7 +107,7 @@ First, establish a connection to your external provider by configuring the neces
 - **Endpoint configuration** - Base URL and region settings for the provider - needed for custom providers
 - **Authentication method** - How the gateway will authenticate with the provider - if something else than API key
 
-> If you want to test this with OpenAI for example, you can get your api key from here: https://platform.openai.com/api-keys, you need to login / create your developer account first though. You can see the available OpenAI models here: https://developers.openai.com/api/docs/models/all
+>**NOTE**: If you want to test this with OpenAI for example, you can get your api key from here: https://platform.openai.com/api-keys, you need to login / create your developer account first though. You can see the available OpenAI models here: https://developers.openai.com/api/docs/models/all
 
 Example API Key connection configuration:
 ```bash
@@ -110,7 +115,7 @@ orchestrate connections add -a openai
 orchestrate connections configure -a openai --env draft -k key_value -t team
 orchestrate connections set-credentials -a openai --env draft -e "api_key=<your_openai_api_key>"
 ```
->NOTE: The `--env draft` flag indicates that the configuration is for draft environment. If you want to use it with agents deployed also to production, you need to create the connection with `--env live` as well.
+>**NOTE**: The `--env draft` flag indicates that the configuration is for draft environment. If you want to use it with agents deployed also to production, you need to create the connection with `--env live` as well.
 
 > **Security Note:** Always use environment variables or secure credential management systems for API keys. Never commit credentials to version control.
 
@@ -167,6 +172,8 @@ Reference the model in your agent configuration:
 spec_version: v1
 kind: native
 name: my_agent
+style: default
+hide_reasoning: true
 description: Agent using external model
 
 llm: virtual-model/openai/gpt-5-2025-08-07   # Reference your external model as it shows when listing models from your orchestrate instance
@@ -288,6 +295,8 @@ Once created, reference the policy name in your agent's `llm` field:
 spec_version: v1
 kind: native
 name: resilient_support_agent
+style: default
+hide_reasoning: true
 description: Support agent with automatic fallback
 
 instructions: |

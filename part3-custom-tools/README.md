@@ -1,5 +1,9 @@
 # Part 3: Adding Custom Tools
 
+<p align="center">
+  <img src="bobchestrate_part3.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration:** 30 minutes  
 
 **Objective:** Create custom Python tools that your agents can use to perform actions
@@ -222,7 +226,7 @@ def process_refund(order_id: str, reason: str, amount: float) -> dict:
 
 ## Step 3: Import Your Tools
 
-### IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _tool names_ (function names) inside the tool python files by adding your initials as a postfix. ###
+## IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _tool names_ (function names) inside the tool python files by adding your initials as a postfix. ###
 
 >For example, `def check_order_status` becomes `def check_order_status_JKJ`. Make sure to use the same postfix for all your tools.
 
@@ -262,7 +266,7 @@ Now create an agent that uses these tools. You can use the definition below - it
 
 You can also create your own agent definition if you prefer.
 
-### IMPORTANT: Make sure to change the tool names in the agent definition to match the names of the tools you imported! ALSO the postfix the name of the agent with your initials! ###
+## IMPORTANT: Make sure to change the tool names in the agent definition to match the names of the tools you imported! ALSO the postfix the name of the agent with your initials! ###
 
 ```yaml
 # customer-support-agent.yaml
@@ -424,10 +428,11 @@ Ready to practice? We've prepared a comprehensive set of exercises to help you m
 
 📝 **[View All Exercises](exercises.md)** - Complete exercises ranging from easy to advanced
 
-We strongly recommend working through at least a few of these exercises before moving forward with the workshop. They'll help solidify your understanding of:<br>
-- Tool structure and best practices<br>
-- Input validation and error handling<br>
-- Creating tools that agents can effectively use<br>
+We strongly recommend working through at least a few of these exercises before moving forward with the workshop. They'll help solidify your understanding of:
+
+- Tool structure and best practices
+- Input validation and error handling
+- Creating tools that agents can effectively use
 - Debugging common tool issues
 
 The exercises include detailed requirements, test cases, and success criteria to guide your learning.

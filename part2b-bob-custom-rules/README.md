@@ -1,5 +1,9 @@
 # Part 2b: Using Custom Rules with Bob IDE
 
+<p align="center">
+  <img src="bobchestrate_part2b.png" alt="Bobchestrate - Setup" width="700">
+</p>
+
 **Duration:** 10 minutes  
 
 **Objective:** Learn how to configure Bob IDE with custom development rules for watsonx Orchestrate projects
@@ -94,9 +98,9 @@ When working with IBM watsonx Orchestrate or watsonx Orchestrate ADK projects:
 
 2. **Download the enhanced rule file:**
    
-   Download more comprehensive <a href="https://github.com/juseljuk/bobchestrate-workshop/blob/main/part2b-bob-custom-rules/wxo-dev-rule-enhanced.md" target="_blank">wxo-dev-rule-enhanced.md</a> file from the workshop repository.
-   
-   Click the link above to view the file, then click the "Download raw file" button in GitHub to download it and save it to your local machine.
+      Download more comprehensive <a href="https://github.com/juseljuk/bobchestrate-workshop/blob/main/part2b-bob-custom-rules/wxo-dev-rule-enhanced.md" target="_blank">wxo-dev-rule-enhanced.md</a> file from the workshop repository.
+
+      Click the link above to view the file, then click the "Download raw file" button in GitHub to download it and save it to your local machine.
 
 3. **Place the file in your rules directory:**
    ```bash
@@ -106,16 +110,17 @@ When working with IBM watsonx Orchestrate or watsonx Orchestrate ADK projects:
 
 ### What's in the Enhanced Rule File?
 
-The enhanced rule file includes comprehensive guidance on:<br>
-- **Project Structure** - Complete directory organization<br>
-- **Development Patterns** - Error handling, logging, connections<br>
-- **Testing & QA** - Evaluation strategies and metrics<br>
-- **Security & Guardrails** - Pre/post-invoke plugins, credential management<br>
-- **Deployment & Channels** - Multi-channel deployment patterns<br>
-- **MCP Integration** - Local and remote MCP server patterns<br>
-- **Documentation Standards** - README templates, YAML documentation<br>
-- **Troubleshooting** - Common errors and debugging strategies<br>
-- **Performance Optimization** - Token usage, caching, model selection<br>
+The enhanced rule file includes comprehensive guidance on:
+
+- **Project Structure** - Complete directory organization
+- **Development Patterns** - Error handling, logging, connections
+- **Testing & QA** - Evaluation strategies and metrics
+- **Security & Guardrails** - Pre/post-invoke plugins, credential management
+- **Deployment & Channels** - Multi-channel deployment patterns
+- **MCP Integration** - Local and remote MCP server patterns
+- **Documentation Standards** - README templates, YAML documentation
+- **Troubleshooting** - Common errors and debugging strategies
+- **Performance Optimization** - Token usage, caching, model selection
 - **Quick Reference** - All CLI commands with correct syntax
 
 ## Step 3: Verify Bob Recognizes Your Rules
@@ -231,10 +236,10 @@ When working with [technology/framework]:
 
 ### Bob Isn't Following My Rules
 
-**Check:**<br>
-1. Rule file is in `.bob/rules/` directory<br>
-2. File has `.md` extension<br>
-3. Rule syntax is valid markdown<br>
+**Check:**
+
+1. Rule file is in `.bob/rules/` directory
+3. Rule syntax is valid markdown
 4. Bob has been restarted or refreshed
 
 **Solution:**
@@ -244,18 +249,20 @@ Bob, please reload your custom rules and confirm you can see the watsonx Orchest
 
 ### Rules Conflict with Each Other
 
-**Solution:**<br>
-- Review all rule files in `.bob/rules/`<br>
-- Consolidate overlapping rules<br>
-- Establish clear priority order<br>
+**Solution:**
+
+- Review all rule files in `.bob/rules/`
+- Consolidate overlapping rules
+- Establish clear priority order
 - Remove or update conflicting guidelines
 
 ### Bob Misinterprets a Rule
 
-**Solution:**<br>
-- Make the rule more specific<br>
-- Add examples to clarify intent<br>
-- Break complex rules into simpler steps<br>
+**Solution:**
+
+- Make the rule more specific<
+- Add examples to clarify intent
+- Break complex rules into simpler steps
 - Test with Bob and iterate
 
 ## Key Takeaways
