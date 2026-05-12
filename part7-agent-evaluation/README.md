@@ -306,6 +306,7 @@ Recommendations:
 ### What is Red-Teaming?
 
 **Red-teaming** is a security practice where you simulate real-world attacks to identify weaknesses before malicious actors can exploit them. In watsonx Orchestrate, red-teaming involves:
+
 - Testing agent resilience against manipulation
 - Identifying vulnerabilities in agent policies
 - Validating security and ethical guidelines
@@ -316,6 +317,7 @@ Recommendations:
 watsonx Orchestrate supports **15 attack types** aligned with OWASP Top 10 for LLM Applications:
 
 **On-Policy Attacks** (based on agent instructions):
+
 - **instruction_override** - Override built-in guardrails with "higher-priority" directives
 - **crescendo_attack** - Gradually escalate from harmless to prohibited requests
 - **emotional_appeal** - Use emotional language or threats to bypass safety rules
@@ -327,6 +329,7 @@ watsonx Orchestrate supports **15 attack types** aligned with OWASP Top 10 for L
 - **foreign_languages** - Deliver unsafe instructions in other languages
 
 **Off-Policy Attacks** (independent of agent instructions):
+
 - **crescendo_prompt_leakage** - Gradually ask model to reveal system prompt
 - **functionality_based_attacks** - Exploit tools to retrieve hidden context
 - **undermine_model** - Get model to critique or expose internal policies
