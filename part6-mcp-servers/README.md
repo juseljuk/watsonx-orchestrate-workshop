@@ -1032,4 +1032,4 @@ In this lesson, you learned:
 
 ---
 
-**Ready for the next lesson?** Head to [Part 7: Testing & Deployment](../part7-deployment/README.md) to learn how to test and deploy your agents! 🚀
+**Ready for the next lesson?** Head to [Part 7: Agent Evaluations & Red-Teaming](../part7-agent-evaluation/README.md) to learn how to evaluate and secure your agents! 🚀

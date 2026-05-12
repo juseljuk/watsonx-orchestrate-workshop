@@ -21,10 +21,10 @@ This estimate includes:<br>
 - Q&A and discussion: 15-30 minutes
 
 **Alternative Options:**
-- **Core Workshop** (Parts 1-7): 210-240 minutes (3.5-4 hours)
-- **Advanced Exercise Only** (Part 1 + Part 8): 60-75 minutes (1-1.25 hours) - Setup plus multi-agent orchestration as standalone exercise
+- **Core Workshop** (Parts 1-8): 240-270 minutes (4-4.5 hours)
+- **Advanced Exercise Only** (Part 1 + Part 9): 60-75 minutes (1-1.25 hours) - Setup plus multi-agent orchestration as standalone exercise
 
-**Level:** Beginner to Intermediate (Advanced for Part 8)
+**Level:** Beginner to Intermediate (Advanced for Part 9)
 
 **Prerequisites:** 
 - Computer with internet access, Windows, macOS, or Linux operating system, at least 8GB RAM and 500 MB of free disk space
@@ -54,7 +54,15 @@ An **MCP server-powered agent** that demonstrates backend integration:
 - Product recommendations
 - Reusable MCP server architecture
 
-### 4. Testing & Deployment (Part 7)
+### 4. Agent Evaluations & Red-Teaming (Part 7)
+Learn to **evaluate and secure** your agents:
+- Creating comprehensive evaluation datasets
+- Running automated evaluations
+- Red-teaming techniques for security testing
+- Identifying and fixing vulnerabilities
+- Measuring agent performance metrics
+
+### 5. Testing & Deployment (Part 8)
 Learn to **test and deploy** your customer support agent:
 - Comprehensive testing strategies
 - Unit and integration testing
@@ -119,13 +127,21 @@ Each system builds on concepts from previous parts, teaching you to create incre
 - Use MCP server tools in your agents
 - Learn MCP best practices and patterns
 
-### [Part 7: Testing & Deployment](./part7-deployment/README.md) (20 min)
+### [Part 7: Agent Evaluations & Red-Teaming](./part7-agent-evaluation/README.md) (30-35 min)
+- Create comprehensive evaluation datasets
+- Run automated evaluations with watsonx Orchestrate CLI
+- Perform red-teaming exercises to test agent security
+- Identify and fix agent vulnerabilities
+- Measure agent performance metrics
+- Implement fixes based on evaluation results
+
+### [Part 8: Testing & Deployment](./part8-deployment/README.md) (20 min)
 - Test your agent thoroughly
 - Deploy to different environments
 - Generate webchat embed code
 - Monitor agent performance
 
-### [Part 8: Multi-Agent Orchestration & Workflows](./part8-multi-agent-orchestration/README.md) (30 min)
+### [Part 9: Multi-Agent Orchestration & Workflows](./part9-multi-agent-orchestration/README.md) (30 min)
 - Understand when and why to use multi-agent systems
 - Design focused specialist agents for specific domains
 - Create orchestrator agents with intelligent routing
@@ -201,12 +217,23 @@ bobchestrate-workshop/
 │   ├── product-assistant-agent.yaml         # Agent using MCP tools
 │   └── requirements.txt
 │
-├── part7-deployment/                        # Testing & Deployment (20 min)
+├── part7-agent-evaluation/                  # Agent Evaluations & Red-Teaming (30-35 min)
+│   ├── README.md
+│   ├── exercises.md
+│   ├── evaluation/
+│   │   ├── test-cases.jsonl                 # Functional test cases
+│   │   ├── red-team-prompts.jsonl           # Security test cases
+│   │   └── config.yaml                      # Evaluation configuration
+│   ├── agents/
+│   │   └── product-assistant-improved.yaml  # Enhanced agent after fixes
+│   └── images/
+│
+├── part8-deployment/                        # Testing & Deployment (20 min)
 │   ├── README.md
 │   ├── test-scenarios.md
 │   └── deployment-checklist.md
 │
-└── part8-multi-agent-orchestration/         # Multi-Agent Orchestration (30 min)
+└── part9-multi-agent-orchestration/         # Multi-Agent Orchestration (30 min)
     ├── README.md
     ├── travel-concierge-agent.yaml          # Orchestrator agent
     ├── flight-specialist-agent.yaml         # Specialist agents

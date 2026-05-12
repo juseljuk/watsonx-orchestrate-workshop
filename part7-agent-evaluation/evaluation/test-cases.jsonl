@@ -1,0 +1,27 @@
+{"input": "Show me laptops", "expected_output": "search_products tool called with query='laptops'", "metadata": {"category": "happy_path", "tool": "search_products"}}
+{"input": "Tell me about LAPTOP-001", "expected_output": "get_product_details tool called with product_id='LAPTOP-001'", "metadata": {"category": "happy_path", "tool": "get_product_details"}}
+{"input": "Is the SmartPhone X in stock?", "expected_output": "check_inventory tool called after finding product ID", "metadata": {"category": "happy_path", "tool": "check_inventory"}}
+{"input": "What tablets do you recommend?", "expected_output": "get_recommendations tool called with category='Tablets'", "metadata": {"category": "happy_path", "tool": "get_recommendations"}}
+{"input": "Show me products under $500", "expected_output": "search_products tool called with price filter", "metadata": {"category": "happy_path", "tool": "search_products"}}
+{"input": "Do you have any wireless headphones?", "expected_output": "search_products tool called with query='wireless headphones'", "metadata": {"category": "happy_path", "tool": "search_products"}}
+{"input": "What's the price of the ProBook 15?", "expected_output": "get_product_details tool called for ProBook 15", "metadata": {"category": "happy_path", "tool": "get_product_details"}}
+{"input": "I need a monitor for my home office", "expected_output": "search_products or get_recommendations for monitors", "metadata": {"category": "happy_path", "tool": "search_products"}}
+{"input": "Show me all products in the Audio category", "expected_output": "get_recommendations tool called with category='Audio'", "metadata": {"category": "happy_path", "tool": "get_recommendations"}}
+{"input": "What's available in stock right now?", "expected_output": "search_products with in_stock filter or multiple check_inventory calls", "metadata": {"category": "happy_path", "tool": "search_products"}}
+{"input": "Tell me about product INVALID-999", "expected_output": "Error message: product not found", "metadata": {"category": "edge_case", "tool": "get_product_details"}}
+{"input": "Is product XYZ-000 in stock?", "expected_output": "Error message: product not found", "metadata": {"category": "edge_case", "tool": "check_inventory"}}
+{"input": "Show me products", "expected_output": "Clarifying question or search all products", "metadata": {"category": "edge_case", "tool": "search_products"}}
+{"input": "What do you recommend?", "expected_output": "Clarifying question about category or preferences", "metadata": {"category": "edge_case", "tool": "get_recommendations"}}
+{"input": "I want to buy something", "expected_output": "Clarifying questions about product type", "metadata": {"category": "edge_case", "tool": "none"}}
+{"input": "Do you have any gaming laptops?", "expected_output": "Search results or message about no gaming laptops", "metadata": {"category": "edge_case", "tool": "search_products"}}
+{"input": "Show me the cheapest product", "expected_output": "Search with price sorting or recommendation", "metadata": {"category": "edge_case", "tool": "search_products"}}
+{"input": "What's the most expensive item?", "expected_output": "Search with price sorting or recommendation", "metadata": {"category": "edge_case", "tool": "search_products"}}
+{"input": "", "expected_output": "Error or prompt for input", "metadata": {"category": "error", "tool": "none"}}
+{"input": "12345", "expected_output": "Clarifying question or error", "metadata": {"category": "error", "tool": "none"}}
+{"input": "!@#$%^&*()", "expected_output": "Error message or clarifying question", "metadata": {"category": "error", "tool": "none"}}
+{"input": "Show me products with price -100", "expected_output": "Error or clarifying question about invalid price", "metadata": {"category": "error", "tool": "search_products"}}
+{"input": "Get details for product", "expected_output": "Error: missing product ID", "metadata": {"category": "error", "tool": "get_product_details"}}
+{"input": "Check inventory", "expected_output": "Error: missing product ID", "metadata": {"category": "error", "tool": "check_inventory"}}
+{"input": "Recommend me category", "expected_output": "Error or clarifying question", "metadata": {"category": "error", "tool": "get_recommendations"}}
+
+// Made with Bob

@@ -1,7 +1,7 @@
-# Part 7: Testing & Deployment
+# Part 8: Testing & Deployment
 
 <p align="center">
-  <img src="bobchestrate_part7.png" alt="Bobchestrate - Setup" width="700">
+  <img src="bobchestrate_part8.png" alt="Bobchestrate - Setup" width="700">
 </p>
 
 **Duration:** 20 minutes
@@ -855,6 +855,6 @@ You've completed the workshop and built a production-ready customer support agen
 
 ### Ready for More? Advanced Exercise Available!
 
-Want to take your skills to the next level? Continue with **Part 8: Multi-agent Orchestration and workflows**
+Want to take your skills to the next level? Continue with **Part 9: Multi-agent Orchestration and workflows**
 
-**[Continue to Part 8 →](../part8-multi-agent-orchestration/README.md)**
+**[Continue to Part 9 →](../part9-multi-agent-orchestration/README.md)**

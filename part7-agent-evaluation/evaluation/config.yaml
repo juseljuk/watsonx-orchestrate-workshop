@@ -1,0 +1,55 @@
+# Evaluation Configuration File
+# Based on official watsonx Orchestrate ADK documentation
+# Reference: https://developer.watson-orchestrate.ibm.com/evaluate/evaluate
+
+# Test dataset paths (can be files or directories)
+test_paths:
+  - evaluation/test-cases.jsonl
+
+# Authentication configuration
+# For Developer Edition (local):
+auth_config:
+  url: http://localhost:4321
+  tenant_name: local
+
+# For SaaS:
+# auth_config:
+#   url: https://api.<region>.watson-orchestrate.ibm.com/instances/<instance-id>
+#   tenant_name: saas
+
+# For On-premises:
+# auth_config:
+#   url: https://<api-url>:<port>/orchestrate/instances/<instance-id>
+#   tenant_name: onprem
+
+# Output directory for evaluation results
+output_dir: evaluation/results/
+
+# Enable detailed logging
+enable_verbose_logging: true
+
+# LLM user configuration (optional)
+llm_user_config:
+  user_response_style:
+    - "Be concise in messages and confirmations"
+
+# Number of evaluation runs (for robustness testing)
+# Default is 1 if not specified
+n_runs: 1
+
+# watsonx Orchestrate version (for SaaS/On-premises)
+# wxo_lite_version: 1.12.0
+
+# Notes:
+# - Metrics are automatically computed and cannot be configured
+# - Quick-eval metrics: Tool Calls, Successful Tool Calls, Schema Mismatch, Hallucination
+# - Full evaluation metrics: Response Confidence, Retrieval Confidence, Faithfulness,
+#   Answer Relevancy, Tool Call Precision, Tool Call Recall, Agent Routing Accuracy,
+#   Text Match, Journey Success, Average Response Time
+#
+# Usage:
+# - For full evaluation: orchestrate evaluations evaluate -c evaluation/config.yaml
+# - For quick evaluation: orchestrate evaluations quick-eval -c evaluation/config.yaml
+#   (or use CLI flags: -p <prompts> -o <output> -t <tools>)
+
+# Made with Bob
