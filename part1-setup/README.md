@@ -314,7 +314,7 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
 3. After Bob has created the script (e.g. _add_wxo_env.sh_, name could be something else for you), it will ask you to permission to save the script. Click on the **Save** button to save the script.
 
-4. Next, Bob will create a documentation - an MD-file - for the script. Click on the **Save** button to save the documentation.
+4. Next, Bob will (or not, depends on the day 😅) create a documentation - an MD-file - for the script. Click on the **Save** button to save the documentation.
 
 5. After Bob has saved the documentation, it will ask you to permission to make the script executable. Click on the **Run** to execute the command.
 
