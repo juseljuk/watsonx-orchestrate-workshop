@@ -245,13 +245,14 @@ orchestrate tools import -k python -f tools/check_order_status.py
 orchestrate tools import -k python -f tools/process_refund.py
 ```
 
-OR ask Bob to do that for you:
+>NOTE: The name of the python files - when Bob generates them - might be different what is shown here. Use the file names as Bob created them for you.
+
+💡 OR ask Bob to do that for you:
 
 ```bash
 Import the created tools to my active wxO environment
 ```
 
->NOTE: The name of the python files - when Bob generates them - might be different what is shown here. Use the file names as Bob created them for you.
 
 If you see [WARNING] messages, it's okay. These are caused by a Langchain bug in doc string parsing.
 
