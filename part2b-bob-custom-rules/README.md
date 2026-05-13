@@ -143,9 +143,10 @@ Bob, create a new agent called "test-rules-agent" that demonstrates you're follo
 ```
 >NOTE: Bob might work for a while. Be patient 😇 and let it create the agent and all the other files. Keep your eye on the chat as well, since Bob might ask you to confirm some of the actions.
 
-**What to observe:**<br>
-- ✅ Bob should save the agent YAML in the `agents/` directory<br>
-- ✅ Bob should use proper ADK conventions in the agent specification<br>
+**What to observe:**
+
+- ✅ Bob should save the agent YAML in the `agents/` directory
+- ✅ Bob should use proper ADK conventions in the agent specification (like the agent naming convention)
 - ✅ Bob should reference the MCP server documentation when needed
 
 ## Step 5: Creating Your Own Custom Rules
