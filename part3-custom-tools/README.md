@@ -241,8 +241,14 @@ Notice that now that Bob is uing the custom wxO development rule, the tools are 
 Import the tools into watsonx Orchestrate:
 
 ```bash
-orchestrate tools import -k python -f tools/check_order_status.py -r requirements.txt
-orchestrate tools import -k python -f tools/process_refund.py -r requirements.txt
+orchestrate tools import -k python -f tools/check_order_status.py
+orchestrate tools import -k python -f tools/process_refund.py
+```
+
+OR ask Bob to do that for you:
+
+```bash
+Import the created tools to my active wxO environment
 ```
 
 >NOTE: The name of the python files - when Bob generates them - might be different what is shown here. Use the file names as Bob created them for you.
