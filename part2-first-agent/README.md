@@ -209,6 +209,9 @@ instructions: |
   Keep your responses brief and engaging.
 ```
 
+🚨### _IMPORTANT!_ ##🚨
+> Since we have not yet provided Bob with any specific wxO agent development rules (we'll do that in next part 2b) - just the MCP servers to look the current documentation - Bob can make mistakes in the YAML file. One of the things is the name of the agent in the yaml file. WxO does not support dashes in the name of the agent. So if you see a dash in the name, please remove it and replace it with an underscore - e.g. `hello-agent` becomes `hello_agent`.
+
 ## Step 3: Import Your Agent
 
 ### _IMPORTANT!_ ##
