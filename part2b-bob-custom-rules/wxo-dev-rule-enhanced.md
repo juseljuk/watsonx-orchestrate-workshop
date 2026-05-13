@@ -362,6 +362,122 @@ orchestrate evaluations quick-eval -p tests/ -o results/ -t tools/
 # Evaluate specific test cases with config file
 orchestrate evaluations quick-eval -c evaluation/config.yaml
 ```
+### Evaluation Configuration Files
+
+**CRITICAL**: Evaluation config files must follow the official watsonx Orchestrate format. Metrics are NOT configurable - they are automatically computed by the evaluation framework.
+
+**Documentation**: https://developer.watson-orchestrate.ibm.com/evaluate/evaluate
+
+#### Official Config File Format
+
+**For Developer Edition (Local):**
+```yaml
+# test_paths - array of dataset file/directory paths
+test_paths:
+  - evaluation/test-cases.jsonl
+
+# auth_config - authentication settings
+auth_config:
+  url: http://localhost:4321
+  tenant_name: local
+
+# output_dir - where results are saved
+output_dir: evaluation/results/
+
+# enable_verbose_logging - detailed output
+enable_verbose_logging: true
+
+# llm_user_config - optional user response style
+llm_user_config:
+  user_response_style:
+    - "Be concise in messages and confirmations"
+
+# n_runs - number of evaluation runs (default: 1)
+n_runs: 1
+```
+
+**For SaaS:**
+```yaml
+test_paths:
+  - evaluation/test-cases.jsonl
+
+auth_config:
+  url: https://api.<region>.watson-orchestrate.ibm.com/instances/<instance-id>
+  tenant_name: saas
+
+output_dir: evaluation/results/
+enable_verbose_logging: true
+wxo_lite_version: 1.12.0
+n_runs: 1
+```
+
+**For On-Premises:**
+```yaml
+test_paths:
+  - evaluation/test-cases.jsonl
+
+auth_config:
+  url: https://<api-url>:<port>/orchestrate/instances/<instance-id>
+  tenant_name: onprem
+
+output_dir: evaluation/results/
+enable_verbose_logging: true
+wxo_lite_version: 1.12.0
+n_runs: 1
+```
+
+#### Available Metrics (Auto-Computed)
+
+**Quick Evaluation Metrics** (reference-less):
+- Tool Calls - Total number of tool invocations
+- Successful Tool Calls - Tool calls that completed successfully
+- Schema Mismatch - Tool calls with incorrect parameter schemas
+- Hallucination - Responses containing fabricated information
+
+**Full Evaluation Metrics** (reference-based, requires expected outputs):
+- Response Confidence - Model's confidence in responses
+- Retrieval Confidence - Confidence in retrieved information
+- Faithfulness - Accuracy relative to source material
+- Answer Relevancy - How well responses address queries
+- Tool Call Precision - Accuracy of tool selection
+- Tool Call Recall - Coverage of necessary tool calls
+- Agent Routing Accuracy - Correct routing to collaborator agents
+- Text Match - Similarity to expected outputs
+- Journey Success - End-to-end task completion rate
+- Average Response Time - Latency metrics
+
+#### Common Mistakes
+
+❌ **Wrong - Trying to configure metrics:**
+```yaml
+metrics:
+  - response_confidence
+  - faithfulness
+```
+
+✅ **Correct - Metrics are auto-computed:**
+```yaml
+# Metrics are automatically computed by the framework
+# No metrics configuration needed
+```
+
+❌ **Wrong - Using dataset_path:**
+```yaml
+dataset_path: evaluation/test-cases.jsonl
+```
+
+✅ **Correct - Using test_paths:**
+```yaml
+test_paths:
+  - evaluation/test-cases.jsonl
+```
+
+**Important Notes:**
+- Metrics are automatically computed and CANNOT be configured in the YAML file
+- Use `test_paths` (not `dataset_path`)
+- Do NOT include `tools_path` in config (use `-t` CLI flag for quick-eval)
+- The `tenant_name` must match the environment name from `orchestrate env add`
+
 
 ### Evaluation Datasets
 - Create comprehensive test cases covering:
@@ -373,10 +489,33 @@ orchestrate evaluations quick-eval -c evaluation/config.yaml
 - Version control your test datasets
 
 ### LLM Vulnerability Testing
-- Test for prompt injection attacks
-- Validate input sanitization
-- Check for sensitive data leakage
-- Test guardrail effectiveness
+
+Use the official red-teaming commands to test agent security:
+
+```bash
+# List all supported attack types
+orchestrate evaluations red-teaming list
+
+# Plan attack scenarios
+orchestrate evaluations red-teaming plan \
+  -a "instruction_override,crescendo_attack,jailbreaking" \
+  -d evaluation/test-cases.jsonl \
+  -g . \
+  -t agent_name \
+  -o evaluation/red-team-attacks/ \
+  -n 3
+
+# Run attacks
+orchestrate evaluations red-teaming run \
+  -a evaluation/red-team-attacks/ \
+  -o evaluation/red-team-results/
+```
+
+**Supported Attack Types** (OWASP-aligned):
+- **On-Policy**: instruction_override, crescendo_attack, emotional_appeal, imperative_emphasis, role_playing, random_prefix, random_postfix, encoded_input, foreign_languages
+- **Off-Policy**: crescendo_prompt_leakage, functionality_based_attacks, undermine_model, unsafe_topics, jailbreaking, topic_derailment
+
+**Documentation**: https://developer.watson-orchestrate.ibm.com/evaluate/red_teaming
 
 ### Performance Metrics
 - Monitor token usage and costs
