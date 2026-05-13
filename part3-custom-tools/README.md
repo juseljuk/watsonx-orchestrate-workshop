@@ -226,7 +226,7 @@ def process_refund(order_id: str, reason: str, amount: float) -> dict:
 
 ## Step 3: Import Your Tools
 
-## IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _tool names_ (function names) inside the tool python files by adding your initials as a postfix. ###
+### IMPORTANT: Since the workshop participants will be using the same watsonx Orchestrate environment, RENAME your _tool names_ (function names) inside the tool python files by adding your initials as a postfix. ###
 
 >For example, `def check_order_status` becomes `def check_order_status_JKJ`. Make sure to use the same postfix for all your tools.
 
