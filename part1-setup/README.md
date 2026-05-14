@@ -17,7 +17,7 @@ Before starting, ensure you have:
 - [ ] IBM Bob IDE installed
 - [ ] watsonx Orchestrate access (SaaS or Developer Edition)
 
-### ⚠️ Warning ###
+### ⚠️ Warning ⚠️ ###
 
 > **Make sure you have all the prerequisites filled! You will face a lot of issues with wrong Python version for example. Follow the steps in correct order to assure the setup procedure works as designed!** 
 
@@ -61,7 +61,7 @@ This folder will contain all your workshop files, agents, and tools.
 
 > **Detailed Installation Instructions:** For complete installation guidance, visit [bob.ibm.com/docs/ide/getting-started/install](https://bob.ibm.com/docs/ide/getting-started/install)
 
-### IMPORTANT: ###
+### ❗️ IMPORTANT ❗️ ###
 > You must be logged in to use Bob's AI capabilities throughout the workshop. If you encounter any login issues, contact your instructor.
 
 ## Step 5: Open Folder in IBM Bob IDE
@@ -81,7 +81,7 @@ The empty workspace will open.
 
 ## Step 6: Create Python Virtual Environment
 
-### IMPORTANT: ###
+### ❗️ IMPORTANT ❗️ ###
 > The Python virtual environment is crucial for the workshop. Please make sure to complete this step before proceeding to install the wxO VS Code extension and the wxO ADK itself.
 
 Create a virtual environment for the workshop to keep dependencies isolated using IBM Bob IDE's built-in commands:
@@ -106,7 +106,7 @@ IBM Bob IDE will automatically:<br>
 
 ## Step 7: Install watsonx Orchestrate ADK VS Code Extension
 
-### IMPORTANT: ###
+### ❗️ IMPORTANT ❗️ ###
 > **If you already have the extension installed**, please reload the Bob IDE window! This ensures the extension properly detects your new virtual environment. Open the Command Palette in IBM Bob IDE (press `Cmd+Shift+P` on Mac / `Ctrl+Shift+P` on Windows/Linux), start typing "**Developer: Reload Window**" and select it. The Bob IDE window reloads and the extension will restart. You can then proceed directly with the Step 8. Do **NOT** use the extension to initialise the workspace!
 
 Install the watsonx Orchestrate extension for IBM Bob IDE:
@@ -134,7 +134,7 @@ The IBM watsonx Orchestrate ADK VS Code extension provides:
 - Developer Edition Server Control: Start/stop the watsonx Orchestrate Developer Edition server directly from the UI
 - Orchestrate AI Builder Assistant: Interactive AI assistant that guides you through building and refining agents using prompts
 
-### IMPORTANT: ###
+### ❗️ IMPORTANT ❗️ ###
 > Do **NOT** open the extension itself, you just need it installed. Using the extension to initialise the workspace can cause issues!
 
 ## Step 8: Install watsonx Orchestrate SDK
@@ -289,7 +289,7 @@ Copy the **Service instance URL** from the API details information. This is the 
    
    After running the command, you should see a message: `[INFO] Environment '<your-env-name>' is now active`. This means your environment is now active and ready to use with the ADK. You can ignore the warning regarding the Auth Type.
 
-### IMPORTANT: ###
+### ❗️ IMPORTANT ❗️ ###
 > Authentication against a remote environment expires every two hours. After expiration, you need to run orchestrate env activate again. So, keep your API key available and ready to use.
 
 #### Option B: Using Bob to help you 😃
@@ -356,7 +356,7 @@ Now that you have watsonx Orchestrate MCP servers and the WXO Agent Architect mo
 
       If configured correctly, this command will list any agents in your environment (or show an empty list if you haven't created any agents yet).
 
-### IMPORTANT: ###
+### ❗️ IMPORTANT ❗️ ###
 > Authentication against a remote environment expires every two hours. After expiration, you need to run orchestrate env activate again. So, keep your API key available and ready to use.
 
 ## Using Bob Throughout the Workshop
