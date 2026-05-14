@@ -385,9 +385,17 @@ bobchestrate-workshop/
 │   ├── simple_test.py
 │   ├── requirements.txt
 │   └── images/
-├── part7-deployment/                   # Testing & Deployment
-│   └── README.md
-└── part8-multi-agent-orchestration/    # Multi-agent systems
+├── part7-agent-evaluation/             # Agent evaluations & red-teaming
+│   ├── README.md
+│   ├── exercises.md
+│   ├── evaluation/
+│   ├── agents/
+│   └── images/
+├── part8-deployment/                   # Testing & Deployment
+│   ├── README.md
+│   ├── test-scenarios.md
+│   └── deployment-checklist.md
+└── part9-multi-agent-orchestration/    # Multi-agent systems
     ├── README.md
     ├── travel-concierge-agent.yaml
     ├── flight-specialist-agent.yaml
